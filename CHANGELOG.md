@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- **`/implement --next` flag**: Intelligently determine and execute the next uncompleted phase
+  - **Auto-detect task**: Use just `--next` to detect current task from git branch or recent work
+  - **Explicit task**: Use `TASK-001 --next` to find next phase for specific task
+  - **Smart phase detection**: Finds first uncompleted checkbox in PLAN.md
+  - **User confirmation**: Shows next phase and asks for confirmation before executing
+  - **Flexible options**: User can approve, decline, or specify a different phase
+  - **Completion detection**: Detects when all phases complete and offers task validation
+  - **Workflow integration**: Continues with standard execution flow after phase determination
+
 ### Changed
 
 - **`/plan` command template enforcement**: Command now explicitly follows `pm/templates/plan.md` for concise plan format

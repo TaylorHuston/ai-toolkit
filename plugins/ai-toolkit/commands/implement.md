@@ -1,7 +1,7 @@
 ---
 tags: ["workflow", "development", "execution"]
 description: "Execute specific implementation phases from task plans with test-first enforcement"
-argument-hint: "TASK-### PHASE | BUG-### PHASE | PROJ-### PHASE"
+argument-hint: "TASK-### PHASE | TASK-### --next | --next"
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
@@ -19,9 +19,21 @@ Execute specific phases of implementation plans with full context awareness and 
 /implement TASK-001 1.1    # Execute phase 1.1 of TASK-001
 /implement BUG-003 2.2     # Execute phase 2.2 of BUG-003
 /implement PROJ-123 1.1    # Execute phase 1.1 of Jira issue
+/implement TASK-001 --next # Intelligently determine and execute next phase
+/implement --next          # Auto-detect current task and execute next phase
 ```
 
-**IMPORTANT**: Both parameters are mandatory (Issue ID + Phase). Command will show available phases if parameters are missing or invalid.
+**Parameters**:
+- **Standard**: Issue ID + Phase number (e.g., `TASK-001 1.1`)
+- **Smart next**: Issue ID + `--next` flag (e.g., `TASK-001 --next`)
+- **Auto next**: Just `--next` flag (detects current task from branch or recent work)
+
+**Next Phase Intelligence**:
+When using `--next` flag, the command:
+1. Finds the first uncompleted phase in PLAN.md
+2. Shows what phase will be executed
+3. Asks for confirmation before proceeding
+4. Executes the phase using standard workflow
 
 ## Agent Coordination
 
@@ -47,10 +59,28 @@ Execute specific phases of implementation plans with full context awareness and 
 ### Execution Flow
 
 **1. Parameter Validation**
+
+**Standard mode** (`TASK-001 1.1`):
 - Detect ID type: TASK-###/BUG-### (local) vs PROJ-### (Jira)
 - Find issue directory or fetch from Jira
 - Locate PLAN.md and validate phase exists
 - If invalid: Show available phases
+
+**Next mode** (`TASK-001 --next` or `--next`):
+- **Auto-detect task** (if only `--next` provided):
+  - Check current git branch (feature/TASK-001 → TASK-001)
+  - If no match: Check recent WORKLOG.md files for last worked task
+  - If still unclear: List recent tasks and ask user to specify
+- **Find next phase**:
+  - Read PLAN.md for the task
+  - Find first uncompleted checkbox: `- [ ] X.Y Phase Name`
+  - Skip completed phases: `- [x] X.Y Phase Name`
+- **Confirm with user**:
+  - Show: "Next phase: 1.2 - Implement authentication logic"
+  - Ask: "Proceed with this phase? (yes/no/specify different)"
+  - If no: Exit without executing
+  - If specify: Switch to standard mode with user-provided phase
+- **Execute**: Continue with standard workflow using detected phase
 
 **2. Branch Verification**
 - Read `git-workflow.md` for branch configuration
@@ -162,6 +192,74 @@ AI: Fetching PROJ-123 from Jira...
     ✓ Updated WORKLOG.md
 
     Next: /implement PROJ-123 1.2
+```
+
+### --next Flag Examples
+
+**Example 1: Explicit task with --next**
+```
+User: /implement TASK-001 --next
+
+AI: Checking TASK-001 plan...
+
+    Next uncompleted phase: 1.2 - Implement authentication logic
+    (Phase 1.1 completed previously)
+
+    Proceed with Phase 1.2? (yes/no/specify)
+
+User: yes
+
+AI: Executing phase 1.2...
+    [Standard workflow continues]
+```
+
+**Example 2: Auto-detect from branch**
+```
+User: /implement --next
+
+AI: Detecting current task...
+    ✓ Found from branch: feature/TASK-001
+
+    Checking TASK-001 plan...
+    Next uncompleted phase: 2.1 - Create database schema
+
+    Proceed with Phase 2.1? (yes/no/specify)
+
+User: yes
+
+AI: Executing phase 2.1...
+    [Standard workflow continues]
+```
+
+**Example 3: All phases complete**
+```
+User: /implement TASK-001 --next
+
+AI: Checking TASK-001 plan...
+
+    ✓ All phases completed!
+
+    Task completion checklist:
+    - [x] All PLAN.md phases complete
+    - [ ] All acceptance criteria satisfied
+    - [ ] Full test suite passing
+
+    Would you like to run task completion validation?
+```
+
+**Example 4: User specifies different phase**
+```
+User: /implement TASK-001 --next
+
+AI: Next uncompleted phase: 2.1 - Create database schema
+
+    Proceed with Phase 2.1? (yes/no/specify)
+
+User: specify 1.3
+
+AI: Switching to Phase 1.3 - Write integration tests
+    Executing phase 1.3...
+    [Standard workflow continues]
 ```
 
 ### Error Handling
