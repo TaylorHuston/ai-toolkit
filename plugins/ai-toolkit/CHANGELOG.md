@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.13.0] - 2025-11-03
+
 ### Added
 
 - **Versioning and Releases Guideline**: New `versioning-and-releases.md` guideline for semantic versioning, release process, and CHANGELOG maintenance
