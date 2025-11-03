@@ -19,6 +19,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- **`/plan` command mandatory context review**: Enforces reading all project context before creating plans
+  - **CRITICAL step 0**: MUST read CLAUDE.md, all guidelines, architecture-overview.md, design-overview.md BEFORE planning
+  - **Project configuration**: Read CLAUDE.md for tech stack, APIs, deployment, team conventions
+  - **All guidelines**: Read ALL files in docs/development/guidelines/ (not just development-loop.md)
+  - **Architecture overview**: Read approved architectural decisions to align plans with existing ADRs
+  - **Design overview**: Read approved UI/UX patterns to reference in plans
+  - **"Why this is CRITICAL" section**: Explains consequences of skipping context (contradicting ADRs, ignoring design patterns, wrong thresholds)
+  - **Failure consequences listed**: Plans contradict architecture, miss ADRs, use wrong complexity rules, ignore approved designs, incompatible with tech stack
+  - **Prevents**: Plans that contradict existing decisions, ignore established patterns, use generic instead of project-specific approaches
+
+- **`/implement` command guideline enforcement**: Significantly strengthened enforcement of `development-loop.md` guideline
+  - **CRITICAL step 0**: MUST read `development-loop.md` completely before ANY other steps
+  - **Mandatory re-reads**: Each execution step requires re-reading relevant guideline sections
+  - **Specific violations listed**: Documents common violations at each step (missing WORKLOG entries, wrong formats, skipped quality gates)
+  - **"Why this matters" section**: Explains consequences of skipping guideline (incomplete implementations, workflow violations)
+  - **No assumptions allowed**: Command explicitly states "do NOT assume defaults - read the actual file"
+  - **Project-specific emphasis**: Reinforces that every project customizes the guideline
+  - **Quality threshold enforcement**: Must check guideline for actual thresholds (not assume ≥ 90)
+  - **WORKLOG format enforcement**: Must follow exact format from guideline (timestamps, handoffs, completion entries)
+  - **Security detection enforcement**: Must use guideline criteria for security-relevant phase detection
+  - **Prevents**: Skipped quality gates, missing WORKLOG entries, wrong formats, incomplete implementations
+
 - **`/plan` command template enforcement**: Command now explicitly follows `pm/templates/plan.md` for concise plan format
   - **Reads template**: Explicitly reads `pm/templates/plan.md` before generating plan
   - **Concise format**: Plans are simple checklists (numbered items), not verbose documentation

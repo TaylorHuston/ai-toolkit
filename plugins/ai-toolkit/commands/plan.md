@@ -39,7 +39,46 @@ references_guidelines:
 
 ## How It Works
 
+### 0. MANDATORY Context Review (FIRST STEP)
+
+**BEFORE doing ANYTHING else, you MUST read these files to refresh your context:**
+
+**Project Configuration & Standards:**
+1. **`CLAUDE.md`** (root) - Project configuration, tech stack, team standards, workflow customization
+2. **`docs/development/guidelines/`** - ALL guideline files in this directory:
+   - `development-loop.md` - Complexity scoring, plan structure, test-first patterns, quality gates
+   - `git-workflow.md` - Branch naming, commit conventions (if referenced in plans)
+   - `testing-strategy.md` - Test patterns, coverage requirements (if exists)
+   - `architecture-guidelines.md` - Architectural standards (if exists)
+   - ANY other guideline files present - all provide project-specific context
+
+**Project Knowledge Base:**
+3. **`docs/project/architecture-overview.md`** - Approved architectural decisions, system design, technical patterns
+4. **`docs/project/design-overview.md`** - Approved UI/UX designs, design patterns, component specifications
+
+**Why this is CRITICAL:**
+- **CLAUDE.md** defines your tech stack, APIs, deployment setup, testing approach, team conventions
+- **Guidelines** contain project-specific rules that override any defaults you might assume
+- **Architecture overview** shows existing decisions you must align with (don't contradict approved ADRs)
+- **Design overview** shows approved UI patterns you should reference and follow
+- **Without this context**, you'll create plans that:
+  - Contradict existing architecture decisions
+  - Ignore established design patterns
+  - Use wrong complexity scoring rules
+  - Miss project-specific test requirements
+  - Violate team workflow conventions
+
+**Failure to read these files will result in:**
+- Plans that contradict architecture-overview.md decisions
+- Missing references to relevant ADRs
+- Wrong complexity thresholds (each project customizes this)
+- Ignoring approved design patterns from design-overview.md
+- Plans incompatible with the actual tech stack in CLAUDE.md
+- Using generic patterns instead of project-specific guidelines
+
 ### 1. Read Configuration
+
+**After completing the mandatory context review above**, read task-specific configuration:
 
 **All planning rules are defined in** `docs/development/guidelines/development-loop.md`:
 - **Complexity Scoring**: Point values, decomposition thresholds (customizable)
@@ -49,7 +88,7 @@ references_guidelines:
 
 **The command reads this configuration and adapts behavior to your project's settings.**
 
-### 2. Load Context
+### 2. Load Task Context
 
 **For Local Issues (TASK-###, BUG-###)**:
 - Find directory: `pm/issues/TASK-###-*/` or `pm/issues/BUG-###-*/`
@@ -236,13 +275,25 @@ pm/issues/TASK-001-user-registration/
 
 When implementing `/plan ISSUE-ID`:
 
+**0. MANDATORY CONTEXT REVIEW (DO THIS FIRST)**:
+   - **Read CLAUDE.md** (root) - Tech stack, APIs, team conventions, workflow config
+   - **Read ALL guideline files** in `docs/development/guidelines/`:
+     - `development-loop.md` - REQUIRED (complexity, plan structure, test patterns)
+     - `git-workflow.md` - Branch naming, commit conventions
+     - `testing-strategy.md` - Test patterns (if exists)
+     - `architecture-guidelines.md` - Architectural standards (if exists)
+     - Any other guideline files present
+   - **Read `docs/project/architecture-overview.md`** - Approved architectural decisions, must align with these
+   - **Read `docs/project/design-overview.md`** - Approved UI/UX patterns, reference these in plans
+   - **DO NOT SKIP THIS STEP** - Without this context, your plan will be wrong
+
 1. **Detect ID type**: Local (TASK-###/BUG-###) vs Jira ([A-Z]+-###)
 
-2. **Load context**: Read TASK.md/BUG.md or fetch from Jira
+2. **Load task context**: Read TASK.md/BUG.md or fetch from Jira
 
 3. **Read template**: Read `pm/templates/plan.md` to understand the expected format and structure
 
-4. **Analyze complexity**: Following `development-loop.md` scoring rules
+4. **Analyze complexity**: Following `development-loop.md` scoring rules (that you just read in step 0)
 
 5. **Generate plan**: Following `pm/templates/plan.md` structure (CONCISE format)
    - **Keep it simple**: Phases with numbered checklist items only

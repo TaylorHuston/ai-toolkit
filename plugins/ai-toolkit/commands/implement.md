@@ -44,19 +44,56 @@ When using `--next` flag, the command:
 
 ## How It Works
 
-### All Workflow Rules are in Guidelines
+### CRITICAL: Read development-loop.md First
 
-**This command orchestrates the development loop defined in** `docs/development/guidelines/development-loop.md`:
-- **Test-First Guidance**: Pragmatic test-first prompting protocol
-- **Progress Tracking**: Checkbox management for PLAN.md and TASK.md
-- **WORKLOG Format**: Entry structure, timestamp requirements, completeness criteria
-- **Quality Gates**: Per-phase validation requirements
+**BEFORE doing ANYTHING else, you MUST:**
+1. **Read** `docs/development/guidelines/development-loop.md` in its entirety
+2. **Understand** the complete workflow protocol defined in the guideline
+3. **Follow** every step exactly as documented
+
+**This is NOT optional.** The guideline contains:
+- **Test-First Protocol**: When and how to write tests first (pragmatic, not dogmatic)
+- **Progress Tracking**: How to update PLAN.md and TASK.md checkboxes
+- **WORKLOG Format**: Required structure, timestamps, completeness criteria, handoff entries
+- **Quality Gates**: Per-phase validation requirements (code review score ≥ 90, security approval)
 - **Task Completion**: Comprehensive completion checklist
 - **Agent Context Briefing**: Domain-specific context filtering patterns
+- **Security Detection**: Criteria for when security-auditor review is required
+- **Code Review Process**: Handoff protocol, iteration requirements, approval criteria
 
-**The command reads these configurations and enforces the workflow your team has defined.**
+**Why this matters:**
+- The guideline is THE authoritative source for how work is done
+- Skipping it leads to incomplete implementations, missing WORKLOG entries, and workflow violations
+- Every project customizes this guideline - you must read the actual file, not assume defaults
+- The guideline defines quality thresholds, test patterns, and completion criteria specific to this project
+
+### All Workflow Rules are in Guidelines
+
+**After reading development-loop.md**, this command orchestrates the workflow by:
+- Following the test-first guidance protocol from the guideline
+- Enforcing progress tracking rules from the guideline
+- Using WORKLOG format specifications from the guideline
+- Applying quality gates defined in the guideline
+- Executing task completion checklist from the guideline
+- Briefing agents with context patterns from the guideline
+
+**The guideline is the source of truth. This command is the executor.**
 
 ### Execution Flow
+
+**0. Read Guideline (MANDATORY FIRST STEP)**
+
+**CRITICAL**: Before proceeding with ANY of the steps below:
+- **Read** `docs/development/guidelines/development-loop.md` completely
+- **Parse** the workflow protocol, quality gates, WORKLOG format, test-first guidance
+- **Internalize** project-specific thresholds and patterns
+- **Only then** proceed to step 1
+
+**Failure to read the guideline will result in:**
+- Incorrect WORKLOG entries (wrong format, missing handoffs, incomplete entries)
+- Skipped quality gates (missing code review, no security check)
+- Improper progress tracking (checkboxes not updated, criteria not marked)
+- Workflow violations (no test-first consideration, agent context dump)
 
 **1. Parameter Validation**
 
@@ -94,56 +131,82 @@ When using `--next` flag, the command:
 - Read RESEARCH.md for technical decisions
 
 **4. Test-First Check**
-- **Following** `development-loop.md` **test-first guidance protocol**
+- **MANDATORY**: Re-read `development-loop.md` test-first guidance section
+- **Follow the exact protocol** defined in the guideline (pragmatic, not dogmatic)
 - Check for preceding test phases
 - Prompt user if tests should come first (never blocking)
 - Offer auto-generation of comprehensive test suites
+- **Do NOT assume defaults** - the guideline may define project-specific patterns (TDD, BDD, Test Pyramid, Pragmatic)
 
 **5. Agent Selection and Context Briefing**
 - Select specialist based on phase domain
-- **Following** `development-loop.md` **agent context briefing patterns**
-- Provide filtered, domain-specific context (not full epic dump)
+- **MANDATORY**: Re-read `development-loop.md` agent context briefing section
+- **Follow the exact briefing patterns** defined in the guideline
+- Provide filtered, domain-specific context (NOT full epic dump - guideline defines what to include)
 - Include relevant WORKLOG insights and ADR decisions
+- **Common violation**: Dumping entire epic/ADR content instead of filtering to domain-relevant parts
 
 **6. Phase Execution**
 - Agent follows development loop: test → code → review iteration
-- **Following** `development-loop.md` **quality gates**
-- Iterate until code review score ≥ 90 (or configured threshold)
-- **Agent writes WORKLOG HANDOFF entry before invoking code-reviewer**
+- **MANDATORY**: Re-read `development-loop.md` quality gates section
+- **Follow the exact quality thresholds** defined in the guideline
+- Iterate until code review score meets threshold (default ≥ 90, but CHECK the guideline)
+- **Agent MUST write WORKLOG HANDOFF entry BEFORE invoking code-reviewer**
+- **Common violation**: Skipping WORKLOG handoff entry before code review
 
 **7. Code Review Handoff**
+- **MANDATORY**: Re-read `development-loop.md` WORKLOG format section for handoff entries
 - **BEFORE invoking code-reviewer**: Implementing agent MUST write WORKLOG entry
-- Entry format: `YYYY-MM-DD HH:MM - agent-name → code-reviewer`
+- **Follow exact format from guideline**: Typically `YYYY-MM-DD HH:MM - agent-name → code-reviewer`
 - Brief summary (5-10 lines): what was done, files changed, gotchas
 - Include handoff note: `→ Passing to code-reviewer for {reason}`
 - Code-reviewer executes review and returns result
 - **IF changes required**: Code-reviewer writes WORKLOG entry with issues found
 - **IF approved**: Continue to security review (if needed) or post-phase updates
+- **Common violations**:
+  - Missing handoff entry entirely
+  - Wrong timestamp format (guideline defines the format)
+  - Incomplete summary (not listing files changed or gotchas)
 
 **8. Security Review (CONDITIONAL)**
-- **Following** `development-loop.md` **security-relevant phase detection**
-- Auto-detect if phase is security-relevant (keywords, file patterns)
+- **MANDATORY**: Re-read `development-loop.md` security detection criteria
+- **Follow the exact detection rules** from the guideline (keywords, file patterns, phase types)
+- Auto-detect if phase is security-relevant using guideline criteria
 - If security-relevant: Invoke security-auditor before phase completion
-- **Agent writes WORKLOG HANDOFF entry before invoking security-auditor**
+- **Agent MUST write WORKLOG HANDOFF entry before invoking security-auditor**
 - Security-auditor reviews implementation for vulnerabilities
 - **BLOCKS phase completion if critical security issues found**
 - Iterate on security fixes until approved (with WORKLOG entries at each handoff)
+- **Common violation**: Not checking security detection criteria, missing security review entirely
 
 **9. Post-Phase Updates**
-- **Following** `development-loop.md` **progress tracking protocol**
+- **MANDATORY**: Re-read `development-loop.md` progress tracking and WORKLOG completion sections
 - Verify completion thoroughly (tests pass, code works, requirements met, security approved if applicable)
 - Update PLAN.md checkbox: `- [ ] 1.1` → `- [x] 1.1`
-- Update TASK.md acceptance criteria if satisfied
-- **Write WORKLOG COMPLETE entry** (format: `agent-name (Phase X.Y COMPLETE)`)
+- Update TASK.md acceptance criteria if satisfied (check guideline for criteria format)
+- **Write WORKLOG COMPLETE entry** following exact format from guideline
+- **Follow exact timestamp and format** from guideline (typically: `YYYY-MM-DD HH:MM - agent-name (Phase X.Y COMPLETE)`)
 - Consider RESEARCH.md for complex decisions
+- **Common violations**:
+  - Marking phase complete before tests pass or code review approved
+  - Missing WORKLOG completion entry
+  - Wrong WORKLOG format (guideline defines the structure)
+  - Not updating TASK.md acceptance criteria when satisfied
 
 **10. Task Completion Check**
 - If all PLAN.md phases complete:
-- **Following** `development-loop.md` **task completion validation**
-- Verify ALL acceptance criteria checked off
-- Run full test suite
-- Write final WORKLOG entry
+- **MANDATORY**: Re-read `development-loop.md` task completion validation checklist
+- **Execute EVERY item** from the completion checklist in the guideline
+- Verify ALL acceptance criteria checked off (don't skip any)
+- Run full test suite (guideline may define specific test commands)
+- Write final WORKLOG entry following guideline format
 - Update epic if applicable
+- **Do NOT skip the checklist** - the guideline defines comprehensive validation steps
+- **Common violations**:
+  - Marking task complete without running full test suite
+  - Missing final WORKLOG entry
+  - Not verifying all acceptance criteria
+  - Skipping epic update when task was part of an epic
 
 ## Jira Integration
 
