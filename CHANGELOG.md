@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **WORKLOG format clarity improvement**: Added explicit `[AUTHOR: ]` and `[NEXT: ]` labels to agent handoff entries
+  - Makes it crystal clear who is writing each entry and who receives work next
+  - Updated all examples throughout `development-loop.md`
+  - Prevents confusion in agent handoff tracking when reviewing project history
+
 ## [0.14.0] - 2025-11-03
 
 ### Added

@@ -335,7 +335,7 @@ Every issue directory (`pm/issues/TASK-###-name/` or `BUG-###-name/`) can contai
 
 **HANDOFF Entry** (passing work to another agent):
 ```markdown
-## YYYY-MM-DD HH:MM - agent-name → next-agent
+## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] → [NEXT: next-agent]
 
 Brief summary of what was done (5-10 lines max).
 
@@ -348,7 +348,7 @@ Files: [key/files/changed.js]
 
 **COMPLETE Entry** (phase fully done, no more handoffs):
 ```markdown
-## YYYY-MM-DD HH:MM - agent-name (Phase X.Y COMPLETE)
+## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] (Phase X.Y COMPLETE)
 
 Phase complete summary (5-10 lines).
 
@@ -380,7 +380,7 @@ Files: [key/files/changed.js]
 **Good WORKLOG examples:**
 
 ```markdown
-## 2025-01-15 14:30 - backend-specialist → code-reviewer
+## 2025-01-15 14:30 - [AUTHOR: backend-specialist] → [NEXT: code-reviewer]
 
 Implemented JWT auth endpoint with bcrypt hashing (12 rounds) and Redis token storage.
 
@@ -391,7 +391,7 @@ Files: src/auth/login.ts, src/middleware/jwt.ts, tests/auth.test.ts
 
 ---
 
-## 2025-01-15 14:55 - code-reviewer → backend-specialist
+## 2025-01-15 14:55 - [AUTHOR: code-reviewer] → [NEXT: backend-specialist]
 
 Review score: 82/100 - Changes required
 
@@ -403,7 +403,7 @@ Issues:
 
 ---
 
-## 2025-01-15 15:20 - backend-specialist → code-reviewer
+## 2025-01-15 15:20 - [AUTHOR: backend-specialist] → [NEXT: code-reviewer]
 
 Applied code review fixes: moved secret to env, added rate limiting (5 req/min).
 
@@ -413,7 +413,7 @@ Files: src/auth/login.ts, .env.example
 
 ---
 
-## 2025-01-15 15:35 - code-reviewer (Phase 2.3 COMPLETE)
+## 2025-01-15 15:35 - [AUTHOR: code-reviewer] (Phase 2.3 COMPLETE)
 
 Re-review approved (score: 94/100). All security issues resolved.
 
