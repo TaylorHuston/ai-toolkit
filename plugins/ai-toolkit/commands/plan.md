@@ -77,11 +77,45 @@ references_guidelines:
 
 ### 4. Generate Plan
 
+**CRITICAL**: **Use `pm/templates/plan.md` as the structure template**:
+- Read `pm/templates/plan.md` to understand the expected format
+- Keep plan CONCISE - phases should be simple checklist format, not verbose documentation
+- Avoid excessive detail - phases are suggestions that can be modified during implementation
+- **BAD**: Long paragraphs, detailed explanations, code examples, extensive documentation within phases
+- **GOOD**: Clear phase headers with numbered checklist items (1.1, 1.2, etc.)
+
 **Following** `development-loop.md` **plan structure templates**:
 - Select phase structure based on task type (frontend, backend, bug fix, database, security)
-- Create logical phases with checkboxed items
+- Create logical phases with checkboxed items (concise format)
 - Include test-first patterns from guideline configuration
 - Add complexity score to PLAN.md frontmatter
+
+**Template structure (from pm/templates/plan.md)**:
+```markdown
+# Implementation Plan: TASK-001 Task Name
+
+Brief overview (1-2 sentences)
+
+## Phases
+
+### Phase 1 - Phase Name
+- [ ] 1.1 Step description
+  - [ ] 1.1.1 Sub-step if needed
+- [ ] 1.2 Step description
+
+### Phase 2 - Phase Name
+- [ ] 2.1 Step description
+- [ ] 2.2 Step description
+
+---
+
+**Alternative Patterns**: TDD, BDD, Test Pyramid, Pragmatic
+
+## Complexity Analysis
+Score: X/10
+Indicators: ...
+Recommendation: ...
+```
 
 ### 5. Code-Architect Review (MANDATORY)
 
@@ -167,11 +201,16 @@ Options:
 ## Outputs
 
 **pm/issues/ISSUE-ID-name/PLAN.md**:
+- **Format**: Follows `pm/templates/plan.md` structure (CONCISE)
 - YAML frontmatter (metadata, complexity score, Jira info if applicable)
-- Phase headers with logical grouping
-- Checkboxed implementation steps
-- Test-first patterns embedded (per guideline configuration)
+- Brief overview (1-2 sentences)
+- Phase headers with numbered checklist items (1.1, 1.2, etc.)
+- **No verbose documentation** - phases are simple checklists, not detailed guides
+- Test-first patterns noted at bottom (Alternative Patterns section)
+- Complexity analysis at end
 - Code-architect approved
+
+**Key point**: PLAN.md is a concise roadmap, not comprehensive documentation. Details are worked out during `/implement`.
 
 **File structure**:
 ```
@@ -201,25 +240,46 @@ When implementing `/plan ISSUE-ID`:
 
 2. **Load context**: Read TASK.md/BUG.md or fetch from Jira
 
-3. **Analyze complexity**: Following `development-loop.md` scoring rules
+3. **Read template**: Read `pm/templates/plan.md` to understand the expected format and structure
 
-4. **Generate plan**: Following `development-loop.md` phase templates
+4. **Analyze complexity**: Following `development-loop.md` scoring rules
 
-5. **Code-architect review (MANDATORY)**:
+5. **Generate plan**: Following `pm/templates/plan.md` structure (CONCISE format)
+   - **Keep it simple**: Phases with numbered checklist items only
+   - **No verbose documentation**: Avoid long paragraphs, code examples, or extensive explanations
+   - **Phases are suggestions**: They can be modified during implementation
+   - **Example good phase**:
+     ```markdown
+     ### Phase 1 - Setup
+     - [ ] 1.1 Initialize project structure
+     - [ ] 1.2 Configure dependencies
+     - [ ] 1.3 Write setup tests
+     ```
+   - **Example bad phase** (too verbose):
+     ```markdown
+     ### Phase 1 - Setup
+     - [ ] Initialize project structure
+       - Create the following directories: src/, test/, config/
+       - Set up package.json with these exact dependencies: ...
+       - Configure webpack with the following options: ...
+       (Pages of detailed explanations and code examples)
+     ```
+
+6. **Code-architect review (MANDATORY)**:
    - Use Task tool to invoke code-architect
    - Provide requirements + generated plan
    - Incorporate feedback
    - Get approval
 
-6. **Security-auditor review (CONDITIONAL)**:
+7. **Security-auditor review (CONDITIONAL)**:
    - Auto-detect if security-relevant (keywords, file patterns)
    - If yes: Use Task tool to invoke security-auditor
    - Provide requirements + plan + security concerns
    - Incorporate feedback
    - Get approval
 
-7. **Present to user**: Show plan after all required reviews
+8. **Present to user**: Show plan after all required reviews
 
-8. **STOP**: Do not implement without explicit `/implement` command
+9. **STOP**: Do not implement without explicit `/implement` command
 
 **Key Principle**: Commands orchestrate, guidelines configure. All planning rules live in `development-loop.md` for easy customization.

@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **`/plan` command template enforcement**: Command now explicitly follows `pm/templates/plan.md` for concise plan format
+  - **Reads template**: Explicitly reads `pm/templates/plan.md` before generating plan
+  - **Concise format**: Plans are simple checklists (numbered items), not verbose documentation
+  - **Clear examples**: Shows good vs bad phase formatting to prevent over-documentation
+  - **Key principle**: PLAN.md is a roadmap, details worked out during `/implement`
+  - **Prevents issue**: Stops generation of overly verbose plans with excessive detail, code examples, and lengthy explanations
+
 ## [0.13.0] - 2025-11-03
 
 ### Added
