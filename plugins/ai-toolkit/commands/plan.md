@@ -35,7 +35,7 @@ references_guidelines:
 
 **Primary**: project-manager (task analysis and planning), test-engineer (testing strategy)
 **Supporting**: Domain specialists (frontend-specialist, backend-specialist, database-specialist) for complexity assessment
-**Mandatory Review**: code-architect (architectural signoff before presenting plan)
+**Mandatory Review**: code-architect (architectural signoff), security-auditor (conditional - if security-relevant)
 
 ## How It Works
 
@@ -90,13 +90,24 @@ references_guidelines:
 - Provide full context: requirements, generated plan, complexity analysis
 - Code-architect reviews: architectural soundness, ADR consistency, phase structure, cross-cutting concerns
 - Incorporate feedback and get explicit approval
-- **Only after approval**: Present plan to user
 
-### 6. Present to User
+### 6. Security-Auditor Review (CONDITIONAL)
 
-**After code-architect signoff**:
+**Following** `development-loop.md` **security detection criteria**:
+- **Auto-detect** if task is security-relevant (keywords, file patterns)
+- **If security-relevant**: Use Task tool to invoke security-auditor agent
+- Provide context: requirements, plan, security concerns
+- Security-auditor reviews: threat modeling, input validation, crypto usage, authorization logic, OWASP compliance
+- Incorporate feedback and get explicit approval
+- **May require**: Additional security phases (threat modeling, penetration testing)
+- **Only after BOTH reviews** (code-architect + security-auditor if needed): Present plan to user
+
+### 7. Present to User
+
+**After all required reviews** (code-architect + security-auditor if applicable):
 - Show generated PLAN.md
 - Explain complexity score and decomposition recommendation (if applicable)
+- Note if security-auditor reviewed and approved (for security-relevant tasks)
 - Ask for modifications or approval
 
 **STOP HERE**: Do not proceed to implementation without explicit user instruction.
@@ -120,11 +131,15 @@ AI: Fetching PROJ-123 from Jira...
 
     Analyzing complexity...
     Score: 3 (Medium - multi-domain integration)
+    Security-relevant: Yes (detected keywords: auth, login)
 
     Generating implementation plan...
     Invoking code-architect for review...
-
     ✓ Code-architect approved plan
+
+    Invoking security-auditor for security review...
+    ✓ Security-auditor approved (recommended adding threat modeling phase)
+
     ✓ Created pm/issues/PROJ-123-user-registration/PLAN.md
 
     [Shows plan to user]
@@ -196,8 +211,15 @@ When implementing `/plan ISSUE-ID`:
    - Incorporate feedback
    - Get approval
 
-6. **Present to user**: Show plan after code-architect approval
+6. **Security-auditor review (CONDITIONAL)**:
+   - Auto-detect if security-relevant (keywords, file patterns)
+   - If yes: Use Task tool to invoke security-auditor
+   - Provide requirements + plan + security concerns
+   - Incorporate feedback
+   - Get approval
 
-7. **STOP**: Do not implement without explicit `/implement` command
+7. **Present to user**: Show plan after all required reviews
+
+8. **STOP**: Do not implement without explicit `/implement` command
 
 **Key Principle**: Commands orchestrate, guidelines configure. All planning rules live in `development-loop.md` for easy customization.

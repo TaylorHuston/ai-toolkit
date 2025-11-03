@@ -4,6 +4,8 @@ description: "Enhanced project status dashboard with intelligent context analysi
 argument-hint: "[--format FORMAT] [--scope SCOPE] [--ai-format] [--detailed]"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
+references_guidelines:
+  - pm/README.md  # PM structure for parsing epics and issues
 ---
 
 # /project-status Command

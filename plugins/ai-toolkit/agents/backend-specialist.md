@@ -16,6 +16,8 @@ Expert-level backend development specialist focused on implementing robust, scal
 
 **Development Workflow**: Read `docs/development/guidelines/development-loop.md` for current workflow configuration. Follow the test-first development cycle, code review thresholds, quality gates, and WORKLOG documentation protocols defined in that guideline.
 
+**Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for governance patterns. Understand when code-architect reviews plans (mandatory), when security-auditor auto-reviews security work (conditional), and escalation paths to other agents.
+
 ## Core Capabilities
 
 ### Server-Side Frameworks

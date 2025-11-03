@@ -687,8 +687,26 @@ complexity_scoring:
 1. **Functional**: All acceptance criteria met
 2. **Tests**: All tests pass, coverage ≥ 95%
 3. **Quality**: Code review score ≥ 90
-4. **Security**: No critical vulnerabilities (if security-relevant)
+4. **Security**: Security-auditor review passes (if security-relevant phase)
 5. **Documentation**: Inline docs for public APIs
+
+**Security-Relevant Phase Detection** (same criteria as task-level detection):
+
+A phase is security-relevant if it involves ANY of:
+- **Keywords in phase description**: `auth`, `login`, `password`, `token`, `encrypt`, `decrypt`, `hash`, `crypto`, `permission`, `role`, `admin`, `validate input`, `sanitize`, `API key`, `secret`, `credential`, `OAuth`, `PII`, `sensitive data`
+- **File patterns being modified**: `**/auth/**`, `**/security/**`, `**/crypto/**`, `**/*Auth*`, `**/*Security*`, `**/*Validation*`, `**/middleware/auth*`, `**/guards/**`, `**/policies/**`
+- **Security-specific phases**: Threat modeling, security testing, penetration testing, security audit
+
+**Security-Auditor Phase Review** (automatic for security-relevant phases):
+- Reviews implementation for vulnerabilities (injection, XSS, CSRF, etc.)
+- Validates cryptographic usage (proper algorithms, key management)
+- Checks input validation and sanitization
+- Verifies authorization logic and permission checks
+- Confirms secure data handling (PII, credentials, sensitive info)
+- Ensures OWASP compliance
+- **BLOCKS phase completion if critical vulnerabilities found**
+
+**When invoked**: Automatically by `/implement` command before marking security-relevant phase complete
 
 ### Per-Task Gates
 
@@ -775,7 +793,43 @@ Teams can choose different testing approaches based on context:
 - Recommend creating ADR for significant architectural decisions
 - Identify potential architectural risks or anti-patterns
 
-**Only after code-architect approval should the plan be presented to the user.**
+### Conditional Security-Auditor Review
+
+**AFTER code-architect approval**, the `/plan` command must detect if the task is security-relevant and invoke security-auditor for review.
+
+**Auto-Detection Criteria** (task is security-relevant if ANY match):
+
+**Keywords in task description or acceptance criteria:**
+- Authentication/authorization: `auth`, `login`, `password`, `token`, `session`, `permission`, `role`, `access control`
+- Data security: `encrypt`, `decrypt`, `hash`, `salt`, `crypto`, `PII`, `sensitive data`, `personal information`
+- Security features: `security`, `vulnerability`, `threat`, `OWASP`, `XSS`, `CSRF`, `SQL injection`, `sanitize`, `validate input`
+- Admin features: `admin`, `privilege`, `elevation`, `sudo`, `root`
+- External integrations: `API key`, `secret`, `credential`, `OAuth`, `SAML`, `SSO`, `third-party`
+
+**File patterns in affected files:**
+- `**/auth/**`, `**/authentication/**`, `**/authorization/**`
+- `**/security/**`, `**/crypto/**`, `**/encryption/**`
+- `**/*Auth*`, `**/*Security*`, `**/*Crypto*`, `**/*Validation*`
+- `**/middleware/auth*`, `**/guards/**`, `**/policies/**`
+
+**Security-Auditor Reviews:**
+- Threat modeling for authentication/authorization flows
+- Input validation and sanitization approach
+- Cryptographic implementation (algorithms, key management)
+- Data protection for sensitive information (PII, credentials)
+- Authorization logic and permission models
+- Security best practices (OWASP compliance)
+- Vulnerability risks (injection, XSS, CSRF, etc.)
+
+**Security-Auditor May:**
+- Approve security approach as-is
+- Suggest security-specific phases (threat modeling, penetration testing)
+- Request additional security controls or validation
+- Recommend creating security-focused ADR
+- Identify potential security vulnerabilities in plan
+- Require security testing phases before implementation
+
+**Only after BOTH code-architect AND security-auditor approval (if security-relevant) should the plan be presented to the user.**
 
 ## Progress Tracking Protocol
 

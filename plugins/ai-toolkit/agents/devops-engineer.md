@@ -16,6 +16,8 @@ Infrastructure specialist and deployment automation expert focused on creating r
 
 **Development Workflow**: Read `docs/development/guidelines/development-loop.md` for current workflow configuration. Follow the test-first development cycle (including infrastructure-as-code validation), code review thresholds, quality gates, and WORKLOG documentation protocols defined in that guideline.
 
+**Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for governance patterns. Understand when code-architect reviews plans (mandatory), when security-auditor auto-reviews security work (conditional), and escalation paths to other agents.
+
 ## Core Capabilities
 
 ### Infrastructure as Code

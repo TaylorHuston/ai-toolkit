@@ -26,7 +26,8 @@ Execute specific phases of implementation plans with full context awareness and 
 ## Agent Coordination
 
 **Primary**: Domain specialists (backend-specialist, frontend-specialist, database-specialist, etc.) based on phase type
-**Supporting**: test-engineer (test-first approach), code-reviewer (quality validation), security-auditor (security-sensitive tasks)
+**Supporting**: test-engineer (test-first approach), code-reviewer (quality validation)
+**Security**: security-auditor (automatic for security-relevant phases per `development-loop.md` detection criteria)
 **Coordination**: WORKLOG.md for narrative work history and context preservation
 
 ## How It Works
@@ -79,15 +80,23 @@ Execute specific phases of implementation plans with full context awareness and 
 - **Following** `development-loop.md` **quality gates**
 - Iterate until code review score ≥ 90 (or configured threshold)
 
-**7. Post-Phase Updates**
+**7. Security Review (CONDITIONAL)**
+- **Following** `development-loop.md` **security-relevant phase detection**
+- Auto-detect if phase is security-relevant (keywords, file patterns)
+- If security-relevant: Invoke security-auditor before phase completion
+- Security-auditor reviews implementation for vulnerabilities
+- **BLOCKS phase completion if critical security issues found**
+- Iterate on security fixes until approved
+
+**8. Post-Phase Updates**
 - **Following** `development-loop.md` **progress tracking protocol**
-- Verify completion thoroughly (tests pass, code works, requirements met)
+- Verify completion thoroughly (tests pass, code works, requirements met, security approved if applicable)
 - Update PLAN.md checkbox: `- [ ] 1.1` → `- [x] 1.1`
 - Update TASK.md acceptance criteria if satisfied
-- Write WORKLOG entry with timestamp
+- Write WORKLOG entry with timestamp (note if security review occurred)
 - Consider RESEARCH.md for complex decisions
 
-**8. Task Completion Check**
+**9. Task Completion Check**
 - If all PLAN.md phases complete:
 - **Following** `development-loop.md` **task completion validation**
 - Verify ALL acceptance criteria checked off

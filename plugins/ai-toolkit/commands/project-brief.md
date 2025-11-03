@@ -4,6 +4,8 @@ description: "Fill and improve project brief through gap-driven conversation"
 argument-hint: "[--review] [--force]"
 allowed-tools: ["Read", "Write", "Edit", "Task", "TodoWrite"]
 model: claude-opus-4-1
+references_guidelines:
+  - docs/project-brief.md  # Project brief template structure and required sections
 ---
 
 # /project-brief Command

@@ -344,6 +344,6 @@ MIT License - see `LICENSE` for details.
 
 ## Version
 
-Current version: 0.11.0
+Current version: 0.11.1
 
 See `CHANGELOG.md` for release history and `STATUS.md` for current development status.

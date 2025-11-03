@@ -4,6 +4,8 @@ description: "Unified documentation management - generate, validate, sync, updat
 argument-hint: "[\"natural language instruction\"]"
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
+references_guidelines:
+  - docs/development/README.md  # Documentation structure and organization
 ---
 
 # /docs Command
@@ -83,6 +85,7 @@ The AI analyzes your natural language instruction and determines the appropriate
 **Primary**: technical-writer (documentation creation and maintenance)
 **Supporting**: context-analyzer (documentation health analysis), code-reviewer (accuracy validation)
 **Domain Specialists**: Frontend/backend specialists for technical accuracy
+**Security**: security-auditor (validates accuracy of security documentation, threat models, auth flows)
 
 ## Output Locations
 

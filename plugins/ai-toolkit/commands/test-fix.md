@@ -75,6 +75,7 @@ references_guidelines:
 **Primary**: test-engineer (for test analysis and failure resolution)
 **Supporting**: Domain specialists (frontend-specialist, backend-specialist, database-specialist) for implementing fixes
 **Quality**: code-reviewer (for fix validation)
+**Security**: security-auditor (validates security test coverage and security-related test fixes)
 
 ## Examples
 

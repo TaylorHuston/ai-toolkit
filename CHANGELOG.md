@@ -6,6 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.11.1] - 2025-11-02
+
+### Added
+
+- **Automatic Security Reviews**: Security-auditor agent now provides mandatory sign-off on security-relevant code
+  - **Plan-level review**: Security-auditor reviews implementation plans for tasks involving authentication, authorization, encryption, PII handling, or API integrations
+  - **Phase-level review**: Automatic security review before completing phases that modify security-sensitive code
+  - **Auto-detection**: Keywords (`auth`, `login`, `password`, `token`, `encrypt`, `crypto`, `PII`, `OAuth`, etc.) and file patterns (`**/auth/**`, `**/security/**`, `**/*Auth*`, etc.) trigger security reviews
+  - **Quality gates**: Security review blocks phase/plan completion if critical vulnerabilities found
+  - **OWASP compliance**: Reviews check for injection vulnerabilities, XSS, CSRF, proper cryptographic usage, input validation, and authorization logic
+  - **Zero overhead**: Non-security tasks skip security review automatically
+  - Commands affected: `/plan` (conditional review after code-architect), `/implement` (conditional review before phase completion)
+  - **Extended coverage**: Added security-auditor references to `/epic` (flags security-relevant work types), `/test-fix` (validates security test coverage), `/docs` (validates security documentation accuracy)
+
+- **PM Guidelines**: New `pm-guidelines.md` guideline for epic and issue management patterns
+  - **Machine-readable configuration**: YAML frontmatter with epic/issue structure, numbering patterns, Jira integration rules
+  - **Comprehensive patterns**: Epic creation, task breakdown, naming conventions, Jira field discovery, promotion workflows
+  - **Single source of truth**: All PM patterns extracted from `/epic` command to guideline (following command simplification pattern)
+  - **Customizable**: Teams can adjust epic sizes, issue types, Jira mappings in one location
+
+- **Agent Coordination Guidelines**: New `agent-coordination.md` guideline for agent governance and collaboration
+  - **Architectural governance**: Documents code-architect mandatory review authority and workflow
+  - **Security governance**: Documents security-auditor auto-invocation patterns, detection criteria, blocking authority
+  - **Quality gates**: Documents code-reviewer thresholds, test-engineer coverage requirements
+  - **Escalation paths**: Clear rules for when agents escalate to other agents (architectural questions, security concerns, performance issues)
+  - **Collaboration patterns**: Documents parallel work, sequential handoff, and continuous collaboration patterns
+  - **Responsibility boundaries**: Clarifies overlapping domains (performance optimization, code improvement, analytics)
+  - **Customizable**: Teams can adjust quality thresholds, security detection keywords, escalation rules
+  - **Agent updates**: 5 domain specialists (frontend, backend, database, api-designer, devops) now reference coordination guideline
+
+### Changed
+
+- **Command Cohesion Improvements**: Extended "orchestrate, don't prescribe" pattern across all commands
+  - **`/epic` command**: 457 → 266 lines (42% reduction) - extracted patterns to `pm-guidelines.md`
+  - **Guideline references**: Added `references_guidelines` frontmatter to `/epic`, `/project-brief`, `/docs`, `/project-status` for better dependency tracking
+  - **Consistent pattern**: All workflow commands now reference guidelines instead of duplicating rules
+
 ## [0.11.0] - 2025-10-31
 
 ### Added
