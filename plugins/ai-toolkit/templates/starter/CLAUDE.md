@@ -25,6 +25,14 @@ Welcome to your AI-assisted project! This file provides essential context to Cla
 - **CI/CD**: [GitHub Actions/Jenkins/CircleCI]
 - **Monitoring**: [Datadog/New Relic/Sentry]
 
+## AI Toolkit Configuration
+
+**Toolkit Version Information:**
+
+- **Plugin Version**: {toolkit-version}
+- **Last Updated**: {last-updated}
+- **Template Customizations**: None (update this list when you customize guideline files)
+
 ## Jira Integration
 
 **Optional**: Enable Jira integration for teams using Jira as their project management system.

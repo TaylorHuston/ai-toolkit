@@ -85,12 +85,90 @@ Expert-level frontend development specialist focused on creating exceptional use
 - "accessibility", "mobile", "desktop", "browser"
 - "performance", "optimization", "bundle", "loading"
 
+## Component Library Integration
+
+### shadcn/ui Integration (React + Tailwind)
+
+When project uses React + Tailwind CSS + shadcn/ui:
+
+**Detection:** Check for:
+- `package.json` dependencies: `react`, `tailwindcss`, shadcn components in `components/ui/`
+- `components.json` file presence
+- Tailwind config with CSS variables
+
+**Implementation Workflow:**
+1. **Read approved UI mockup** from `docs/project/ui-designs/`
+2. **If tech-specific mockup** (e.g., `*-shadcn.html`):
+   - Extract implementation code from HTML comments
+   - Copy-paste React component code
+   - Adapt to project structure and conventions
+3. **If vanilla mockup**:
+   - Use shadcn MCP to find appropriate components
+   - Map HTML patterns to shadcn components (see mapping below)
+   - Implement using shadcn + custom styling as needed
+
+**Component Mapping (HTML → shadcn):**
+```
+HTML Pattern          → shadcn Component
+<button>             → <Button variant="default|outline|ghost">
+<input type="text">  → <Input />
+<select>             → <Select><SelectTrigger><SelectContent>
+<dialog>             → <Dialog><DialogTrigger><DialogContent>
+<form>               → <Form> (with react-hook-form)
+Card structure       → <Card><CardHeader><CardContent>
+Table                → <Table><TableHeader><TableBody>
+Tabs                 → <Tabs><TabsList><TabsTrigger><TabsContent>
+```
+
+**Design Token Consistency:**
+- HTML mockups use CSS variables: `var(--primary)`, `var(--radius)`
+- shadcn components use SAME CSS variables
+- Visual output matches mockup automatically
+- No manual color/spacing translation needed
+
+**MCP Usage:**
+When shadcn MCP is available, query for:
+- Component props and variants
+- Composition patterns (how to combine components)
+- Accessibility patterns (ARIA labels, keyboard nav)
+- Setup instructions (if initializing shadcn)
+
+**Example Implementation:**
+```tsx
+// From HTML mockup:
+// <button class="btn-primary">Submit</button>
+
+// shadcn implementation:
+import { Button } from "@/components/ui/button"
+
+<Button variant="default">Submit</Button>
+// Styling matches mockup via shared --primary CSS variable
+```
+
+### Other Component Libraries
+
+**Chakra UI:**
+- Similar pattern: map HTML → Chakra components
+- Use Chakra's design tokens
+- Extract implementation code from `-chakra.html` mockups
+
+**Material UI:**
+- Map to MUI components
+- Use MUI theme system
+- Extract from `-mui.html` mockups
+
+**No Component Library:**
+- Implement custom components from vanilla HTML mockup
+- Use project's chosen styling approach
+- Maintain design token consistency
+
 ## Framework-Specific Expertise
 
 ### React Ecosystem
 - **Core**: Hooks, Context, Suspense, Error Boundaries
+- **Component Libraries**: shadcn/ui, Chakra UI, Material UI, Radix UI
 - **Routing**: React Router, Next.js App Router
-- **Styling**: styled-components, emotion, CSS modules
+- **Styling**: Tailwind CSS, styled-components, emotion, CSS modules
 - **Testing**: React Testing Library, Jest, Storybook
 - **Performance**: React.memo, useMemo, useCallback, lazy loading
 

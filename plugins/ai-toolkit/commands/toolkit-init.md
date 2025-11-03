@@ -211,16 +211,23 @@ rsync -av "$TEMPLATE_DIR"/ . --exclude='.git'
 *Living document - run `/project-brief` to fill in details*
 ```
 
-**CLAUDE.md** (Project Context section):
+**CLAUDE.md** (Multiple sections):
 ```markdown
-## Project Context
+## Project Information
 
 - **Project Name**: {app-name}
 - **Description**: {description}
 - **Tech Stack**: [Update as you decide on technologies]
-- **External Links**:
-  - Project Management: [Add URL when available]
-  - Wiki: [Add URL when available]
+
+## External Links
+- **Project Management**: [Add URL when available]
+- **Wiki**: [Add URL when available]
+
+## AI Toolkit Configuration
+
+- **Plugin Version**: {toolkit-version}  # Current plugin version
+- **Last Updated**: {last-updated}       # Init date
+- **Template Customizations**: None
 ```
 
 **README.md**:
@@ -286,7 +293,82 @@ Happy building! 🚀
 
 When run in an already-initialized project, `/toolkit-init` enters **Update/Sync Mode**.
 
-### 1. Scan and Compare
+### 1. Version Detection and CHANGELOG Analysis
+
+**Read Project's Toolkit Version**:
+```bash
+# Extract toolkit version from project's CLAUDE.md
+PROJECT_VERSION=$(grep "Plugin Version:" CLAUDE.md | sed 's/.*Plugin Version\*\*: //' | sed 's/ .*//')
+
+# Example: "0.11.0"
+```
+
+**Get Current Plugin Version**:
+```bash
+# Read version from plugin.json
+PLUGIN_VERSION=$(cat "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json" | grep "version" | sed 's/.*"version": "//' | sed 's/".*//')
+
+# Example: "0.11.2"
+```
+
+**Parse Relevant CHANGELOG Sections**:
+```bash
+# If versions differ, extract CHANGELOG sections between them
+if [ "$PROJECT_VERSION" != "$PLUGIN_VERSION" ]; then
+    # Parse CHANGELOG.md to extract versions between PROJECT_VERSION and PLUGIN_VERSION
+    # Example: Extract [0.11.1] and [0.11.2] sections if project is on 0.11.0
+
+    # Extract version sections using markdown parsing:
+    # - Find "## [0.11.1]" through "## [0.11.0]" (exclusive)
+    # - Categorize changes: Added, Changed, Removed, Fixed, Breaking
+    # - Identify affected template files mentioned in changelog
+fi
+```
+
+**Display Version and Changes Summary**:
+```
+Your project uses ai-toolkit v0.11.0
+Current plugin version: v0.11.2
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Changes in v0.11.1:
+
+Added:
+  • Automatic Security Reviews - security-auditor sign-off
+  • PM Guidelines - New pm-guidelines.md guideline file
+  • Agent Coordination Guidelines - agent-coordination.md
+
+Changed:
+  • Command Simplification - /epic reduced 42% (see below)
+  • Guideline references added to /epic, /project-brief, /docs
+
+Affected template files:
+  • docs/development/guidelines/pm-guidelines.md (NEW)
+  • docs/development/guidelines/agent-coordination.md (NEW)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Changes in v0.11.2:
+
+Changed:
+  • WORKLOG Stream Pattern - Changed to handoff-based entries
+  • development-loop.md guideline updated with stream pattern
+
+Affected template files:
+  • docs/development/guidelines/development-loop.md (UPDATED)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  Breaking Changes: None
+```
+
+**Benefits of CHANGELOG Integration**:
+- **Context-aware updates**: Users see exactly what changed and why
+- **Informed decisions**: Understand impact before choosing keep/update/merge
+- **Breaking change warnings**: Highlighted before updates proceed
+- **File correlation**: Know which template files were affected by changes
+- **Version history**: Full context from project version to current
+
+### 2. Scan and Compare
 
 **Get Template File List**:
 ```bash
@@ -442,7 +524,38 @@ Next steps:
 - Run /project-brief if brief structure changed
 ```
 
-### 6. Dry Run Mode
+### 6. Update Toolkit Version in CLAUDE.md
+
+**After successful update, automatically update project's toolkit version**:
+
+```bash
+# Get current date
+CURRENT_DATE=$(date '+%Y-%m-%d')
+
+# Update CLAUDE.md with new plugin version and timestamp
+# Replace the toolkit version section
+sed -i "s/Plugin Version\*\*: .*/Plugin Version**: $PLUGIN_VERSION/" CLAUDE.md
+sed -i "s/Last Updated\*\*: .*/Last Updated**: $CURRENT_DATE/" CLAUDE.md
+```
+
+**Result in CLAUDE.md**:
+```markdown
+## AI Toolkit Configuration
+
+**Toolkit Version Information:**
+
+- **Plugin Version**: 0.11.2
+- **Last Updated**: 2025-11-03
+- **Template Customizations**: None (update this list when you customize guideline files)
+```
+
+**Why auto-update**:
+- Tracks when project was last synced with plugin
+- Enables accurate version comparison on next update
+- Prevents re-showing same changelog entries
+- Documents project's toolkit evolution
+
+### 7. Dry Run Mode
 
 With `--dry-run` flag:
 ```bash
@@ -460,13 +573,26 @@ With `--dry-run` flag:
 **Placeholders in starter template files**:
 - `{app-name}` - App name from Question 1
 - `{description}` - Description from Question 2
+- `{toolkit-version}` - Current plugin version from plugin.json
+- `{last-updated}` - Current date (YYYY-MM-DD format)
 
 **Replacement logic**:
 ```bash
+# Get plugin version and current date
+PLUGIN_VERSION=$(cat "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json" | grep "version" | sed 's/.*"version": "//' | sed 's/".*//')
+CURRENT_DATE=$(date '+%Y-%m-%d')
+
 # For each copied file containing placeholders
 sed -i "s/{app-name}/$app_name/g" filename
 sed -i "s/{description}/$description/g" filename
+sed -i "s/{toolkit-version}/$PLUGIN_VERSION/g" filename
+sed -i "s/{last-updated}/$CURRENT_DATE/g" filename
 ```
+
+**Files with placeholders**:
+- `CLAUDE.md` - All four placeholders
+- `README.md` - app-name, description
+- `docs/project-brief.md` - app-name, description
 
 ### File Comparison and Diff Detection
 
@@ -624,9 +750,37 @@ Next: Run /project-brief to complete your brief
 /toolkit-init
 
 Detected existing ai-toolkit structure.
-Checking for template updates...
+Checking for updates...
 
-Comparing against ai-toolkit v0.10.0 templates...
+Your project uses ai-toolkit v0.11.0
+Current plugin version: v0.11.2
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Changes in v0.11.1:
+
+Added:
+  • PM Guidelines - pm-guidelines.md for epic/issue management
+  • Agent Coordination Guidelines - agent-coordination.md
+
+Changed:
+  • Command Simplification - /epic reduced 42%
+
+Affected template files:
+  • docs/development/guidelines/pm-guidelines.md (NEW)
+  • docs/development/guidelines/agent-coordination.md (NEW)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Changes in v0.11.2:
+
+Changed:
+  • WORKLOG Stream Pattern - handoff-based entries
+
+Affected template files:
+  • docs/development/guidelines/development-loop.md (UPDATED)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Comparing project files against latest templates...
 
 ✅ Identical (8 files)
    - .gitignore, pm/templates/epic.md, pm/templates/task.md, ...

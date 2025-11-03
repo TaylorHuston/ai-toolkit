@@ -1,7 +1,7 @@
 ---
-version: "0.9.2"
+version: "0.12.0"
 created: "2025-08-21"
-last_updated: "2025-10-22"
+last_updated: "2025-11-03"
 status: "active"
 target_audience: ["ai-assistants"]
 document_type: "specification"
@@ -82,6 +82,11 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
 ### Files to Maintain
 
 - **CHANGELOG.md**: All changes (Added, Changed, Removed, Breaking)
+  - **CRITICAL**: Must maintain TWO copies in sync:
+    - Root: `CHANGELOG.md` (repository changelog)
+    - Plugin: `plugins/ai-toolkit/CHANGELOG.md` (used by `/toolkit-init` update process)
+  - **Process**: Update root CHANGELOG.md first, then copy to plugin directory
+  - **Command**: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
 - **README.md**: Marketplace overview, accurate counts (commands, agents, files)
 - **plugins/ai-toolkit/README.md**: Plugin documentation and usage
 - **plugins/ai-toolkit/docs/COMMANDS.md**: Command reference
@@ -119,24 +124,27 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
 1. Create `.md` file in `plugins/ai-toolkit/commands/`
 2. Update command count in README.md, plugin.json
 3. Update `plugins/ai-toolkit/docs/COMMANDS.md`
-4. Update CHANGELOG.md
-5. Test locally
+4. Update root CHANGELOG.md
+5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
+6. Test locally
 
 ### Adding a New Agent
 
 1. Create `.md` file in `plugins/ai-toolkit/agents/`
 2. Update agent count in README.md
 3. Update `plugins/ai-toolkit/docs/AGENTS.md`
-4. Update CHANGELOG.md
-5. Test agent invocation
+4. Update root CHANGELOG.md
+5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
+6. Test agent invocation
 
 ### Updating Templates
 
 1. Modify files in `plugins/ai-toolkit/templates/starter/`
 2. Update file count if adding/removing files
 3. Test with `/toolkit-init` in a test project
-4. Update CHANGELOG.md
-5. Update documentation if structure changed
+4. Update root CHANGELOG.md
+5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
+6. Update documentation if structure changed
 
 ### Making Breaking Changes
 
@@ -144,7 +152,8 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
 2. Document migration path for users
 3. Update version (increment MAJOR)
 4. Update all affected documentation
-5. Test thoroughly before release
+5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
+6. Test thoroughly before release
 
 ## Priority When Uncertain
 
