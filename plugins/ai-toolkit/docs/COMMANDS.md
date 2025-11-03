@@ -11,7 +11,7 @@ tags: ["claude-code", "commands", "workflow", "reference"]
 
 # Claude Code Command Reference
 
-Streamlined catalog of 14 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
+Streamlined catalog of 16 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
 
 ## How Commands Work Together
 
@@ -138,7 +138,7 @@ Commands use different parameter paradigms because **different workflows need di
 
 - _Purpose_: Initialize new or existing projects with ai-toolkit structure and templates
 - _Usage_: `/toolkit-init`
-- _Features_: Interactive customization (2 questions), smart conflict resolution, organized templates (34 files)
+- _Features_: Interactive customization (2 questions), smart conflict resolution, organized templates (37 files)
 
 ### 💡 **/project-brief** - Interactive Project Vision
 
@@ -197,6 +197,11 @@ Commands use different parameter paradigms because **different workflows need di
 - **[/project-status](../commands/project-status.md)** - Project status dashboard with intelligent context analysis
 - **[/docs](./docs.md)** - Unified documentation management (generate, validate, sync, update, health)
 
+### **Versioning & Releases**
+
+- **[/changelog](../commands/changelog.md)** - Check and update CHANGELOG.md with undocumented changes
+- **[/release](../commands/release.md)** - Release new version following semantic versioning guidelines
+
 ---
 
 ## 📚 Complete Command Index
@@ -217,6 +222,8 @@ Commands use different parameter paradigms because **different workflows need di
 | `/comment` | Work log entries | `"your comment text"` |
 | `/project-status` | Project dashboard | `[--format] [--scope] [--detailed]` |
 | `/docs` | Documentation management | Natural language instructions |
+| `/changelog` | CHANGELOG maintenance | No arguments (interactive) |
+| `/release` | Version releases | `[version] \| patch \| minor \| major` |
 
 ## Command Creation Best Practices
 

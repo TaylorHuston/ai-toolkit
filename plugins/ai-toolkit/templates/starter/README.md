@@ -39,7 +39,7 @@
 
 ### Initial Structure (After /toolkit-init)
 
-The starter template provides **34 files** organized for clarity:
+The starter template provides **37 files** organized for clarity:
 
 ```
 your-project/
@@ -61,7 +61,7 @@ your-project/
 │   │
 │   └── development/               # Development guidelines (customize as needed)
 │       ├── README.md              # Guidelines system overview
-│       └── guidelines/            # 7 customizable guideline templates
+│       └── guidelines/            # 8 customizable guideline templates
 │           ├── development-loop.md          # AI-assisted workflow (quality gates, TDD)
 │           ├── api-guidelines.md            # API patterns (TBD by default)
 │           ├── testing-standards.md         # Testing approach (TBD by default)
@@ -88,9 +88,9 @@ your-project/
             └── .gitkeep
 ```
 
-**34 files breakdown:**
+**37 files breakdown:**
 - **9 core files**: CLAUDE.md, README.md, GETTING-STARTED.md, CHANGELOG.md, .gitignore, 5 top-level README files
-- **25 structure files**: 7 guidelines, 5 templates (epic, task, bug, plan, adr), 7 documentation READMEs, 6 .gitkeep placeholders
+- **28 structure files**: 8 guidelines, 5 templates (epic, task, bug, plan, adr), 9 documentation READMEs, 6 .gitkeep placeholders
 
 ### Active Project Structure (After Development)
 

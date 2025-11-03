@@ -53,18 +53,27 @@ Unlike traditional design tools, these are:
 - All agents share base requirements + design tokens
 - Each receives variant-specific exploration prompt
 
-**4. Present Options**
+**4. Review Mockups with Playwright**
+- **CRITICAL**: Before presenting to user, ALWAYS use Playwright to load and review each generated HTML mockup
+- Check for broken layouts, missing styles, JavaScript errors, console warnings
+- Verify responsive behavior at key breakpoints (320px, 768px, 1280px)
+- Validate that all interactive elements work (buttons, forms, dropdowns)
+- Capture any errors or visual issues to fix before presentation
+- This ensures user only sees working, polished mockups
+
+**5. Present Options**
 - Show all generated files with brief descriptions
 - Provide view instructions (open in browser)
 - Ask conversational question: "Which do you prefer?" or "What changes?"
 
-**5. Conversational Iteration**
+**6. Conversational Iteration**
 - User selects variant: "I like option B" or "v2b works"
 - User requests changes: "move OAuth below, increase spacing"
 - User requests more: "show me 2 completely different approaches"
 - User approves: "approve v2b" or "that's the one"
+- **After each iteration**: Run Playwright review again before presenting updated mockups
 
-**6. Approval & Synthesis**
+**7. Approval & Synthesis**
 - Mark approved design in HTML metadata
 - Update `design-overview.md` with approved design reference
 - Extract patterns (colors, spacing, components) to design-overview
@@ -582,10 +591,11 @@ Current: v2b (approved 2025-11-02)
 
 1. **Start with exploration** (3-4 variants) to see options
 2. **Iterate based on choice** (2-3 variants for refinement)
-3. **Approve when confident** (don't over-iterate)
-4. **Update design-overview.md** (synthesis is key)
-5. **Reference in tasks** (link approved designs to implementation)
-6. **Components for reusability** (extract common patterns)
+3. **Always review with Playwright** (catch broken layouts/errors before user sees)
+4. **Approve when confident** (don't over-iterate)
+5. **Update design-overview.md** (synthesis is key)
+6. **Reference in tasks** (link approved designs to implementation)
+7. **Components for reusability** (extract common patterns)
 
 ## Notes
 

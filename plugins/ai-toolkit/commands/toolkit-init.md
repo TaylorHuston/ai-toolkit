@@ -60,7 +60,7 @@ model: claude-sonnet-4-5
 
 ### CRITICAL: Complete File Copy Required
 
-**The starter template contains 34 files across multiple nested directories. ALL files must be copied, including:**
+**The starter template contains 37 files across multiple nested directories. ALL files must be copied, including:**
 - Hidden files (.gitignore)
 - Empty directory markers (.gitkeep files)
 - All nested subdirectories (guidelines/, adrs/, design/)
@@ -71,7 +71,7 @@ model: claude-sonnet-4-5
 - May need to create nested directories before copying files
 - .gitkeep files are essential for preserving empty directory structure
 
-**Verification is MANDATORY** - Count files after copy to ensure 34 files were created.
+**Verification is MANDATORY** - Count files after copy to ensure 37 files were created.
 
 ### 1. Pre-Flight Check
 
@@ -245,10 +245,10 @@ See [GETTING-STARTED.md](./GETTING-STARTED.md) for AI Toolkit usage.
 
 ### 5. Verify Copy Completion
 
-**After copying, verify all 34 files were created:**
+**After copying, verify all 37 files were created:**
 
 ```bash
-# Count files (should be 34)
+# Count files (should be 37)
 find . -type f -o -name ".gitkeep" | grep -v ".git" | wc -l
 
 # Verify critical directories exist

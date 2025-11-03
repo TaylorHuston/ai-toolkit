@@ -12,16 +12,16 @@ your-project/
 ├── docs/
 │   ├── project-brief.md    # Your vision (start here!)
 │   ├── project/            # Architecture, ADRs, design assets
-│   └── development/        # Guidelines (7 customizable templates)
+│   └── development/        # Guidelines (8 customizable templates)
 └── pm/
     ├── epics/              # Feature planning
     ├── issues/             # Tasks and bugs
     └── templates/          # Issue templates
 ```
 
-**34 files organized for clarity:**
+**37 files organized for clarity:**
 - **9 core files**: Project essentials (CLAUDE.md, README.md, CHANGELOG.md, etc.)
-- **25 structure files**: Guidelines (7), templates (5), documentation (7), placeholders (6)
+- **28 structure files**: Guidelines (8), templates (5), documentation (9), placeholders (6)
 
 **Why this approach?** Guidelines and templates provide structure without overwhelming you. The AI Toolkit builds content as you work - no stale examples, just living documentation.
 
@@ -154,11 +154,12 @@ As you work, the AI creates documentation automatically:
 - **Test plans** integrated throughout
 
 ### Guidelines Adapt
-Your project includes 7 customizable guideline templates in `docs/development/guidelines/`:
+Your project includes 8 customizable guideline templates in `docs/development/guidelines/`:
 - `development-loop.md` - AI-assisted workflow and quality gates
 - `api-guidelines.md` - API patterns and structure
 - `testing-standards.md` - Testing approach
 - `git-workflow.md` - Branching and commits
+- `versioning-and-releases.md` - Semantic versioning, releases, and CHANGELOG maintenance
 - `coding-standards.md` - Code style
 - `security-guidelines.md` - Security practices
 - `architectural-principles.md` - Design philosophy

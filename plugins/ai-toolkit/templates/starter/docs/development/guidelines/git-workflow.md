@@ -515,6 +515,12 @@ refactor: simplify database connection logic
 /branch delete feature/TASK-001
 ```
 
+## Related Documentation
+
+- [Versioning and Releases](./versioning-and-releases.md) - Semantic versioning, git tagging, and release process
+- [Development Loop](./development-loop.md) - AI-assisted development workflow
+- Project [CHANGELOG.md](../../../CHANGELOG.md) - Version history
+
 ## General Git Knowledge
 
 For Git best practices, Claude has extensive knowledge of:

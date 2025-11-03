@@ -6,6 +6,62 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- **Versioning and Releases Guideline**: New `versioning-and-releases.md` guideline for semantic versioning, release process, and CHANGELOG maintenance
+  - **Comprehensive semver guide**: Covers MAJOR.MINOR.PATCH rules, pre-1.0.0 phase strategy, version increment examples
+  - **Release workflows**: Documents development releases (0.x.y on develop) and production releases (1.0.0+ on main)
+  - **Git tagging strategy**: Annotated tags, naming conventions, when/where to tag
+  - **CHANGELOG best practices**: Keep a Changelog format, category guidelines, writing style, unreleased section maintenance
+  - **Version decision tree**: Quick reference for determining version increments
+  - **Template count update**: Starter template now has 37 files (was 34), 8 guidelines (was 7)
+  - **Cross-references added**: Updated CLAUDE.md, git-workflow.md, development-loop.md to reference new guideline
+  - **Repository versioning**: Updated root CLAUDE.md to follow these versioning guidelines for plugin development
+
+- **`/changelog` Command**: Automatically check and update CHANGELOG.md with undocumented changes
+  - **Git analysis**: Analyzes commits since last release to detect undocumented changes
+  - **Change detection**: Identifies new features, bug fixes, breaking changes from git history
+  - **Smart categorization**: Suggests properly formatted CHANGELOG entries (Added, Changed, Fixed, Removed)
+  - **User-focused writing**: Focuses on user impact rather than implementation details
+  - **Keep a Changelog format**: Follows standard format with [Unreleased] section updates
+  - **Proactive use**: Run before PRs, after features, or when preparing releases
+  - **References guidelines**: Uses `versioning-and-releases.md` for CHANGELOG format and style
+
+- **`/release` Command**: Release new versions following semantic versioning guidelines
+  - **Interactive version suggestion**: Analyzes [Unreleased] changes and suggests version (MAJOR.MINOR.PATCH)
+  - **Pre-1.0.0 awareness**: Handles pre-1.0.0 rules (MINOR for features/breaking, PATCH for bugs)
+  - **Multiple formats**: `/release` (interactive), `/release 0.13.0` (explicit), `/release minor` (keyword)
+  - **CHANGELOG release**: Moves [Unreleased] to versioned section with release date
+  - **Version file updates**: Updates all version references (marketplace.json, plugin.json, README.md, CLAUDE.md)
+  - **Annotated git tags**: Creates tags with release notes extracted from CHANGELOG
+  - **Pre-flight checks**: Validates clean git status, correct branch, non-empty [Unreleased]
+  - **References guidelines**: Uses `versioning-and-releases.md` for semver rules and release process
+
+- **Epic bulk import in `/import-issue`**: Import Jira epics with all child issues in one command
+  - **Epic detection**: When importing an epic, fetches all child issues from Jira
+  - **Bulk import prompt**: Asks "Import all N child issues?" after displaying epic details
+  - **Progress tracking**: Shows import progress for each child issue
+  - **Smart skipping**: Skips already-imported issues, shows summary at end
+  - **Epic directory**: Creates `pm/epics/PROJ-###-name/` instead of `pm/issues/` for epics
+  - **Child issue list**: Displays all child issues with types and statuses
+
+### Changed
+
+- **`/ui-design` Playwright review requirement**: Command now requires browser testing before presenting mockups to users
+  - **Step 4 added**: "Review Mockups with Playwright" - load each HTML mockup in browser
+  - **Validation checks**: Broken layouts, missing styles, JavaScript errors, console warnings
+  - **Responsive testing**: Verify behavior at key breakpoints (320px, 768px, 1280px)
+  - **Interactive validation**: Test buttons, forms, dropdowns work correctly
+  - **Iteration reviews**: Run Playwright review again after each design iteration
+  - **Best practice added**: "Always review with Playwright" in command best practices
+
+- **`/epic` Jira detection improvements**: More explicit Jira configuration checking to prevent local file creation when Jira is enabled
+  - **Critical first step**: ALWAYS read CLAUDE.md to check Jira configuration before doing anything
+  - **Mode confirmation**: Display to user whether creating in Jira or locally after detection
+  - **Explicit reminders**: Multiple reminders that Jira-enabled means epics go to Jira ONLY, no local files
+  - **Updated pm-guidelines.md**: New "Detecting Jira Mode" section with step-by-step detection process
+  - **Prevents confusion**: User sees confirmation of mode before epic creation begins
+
 ## [0.12.0] - 2025-11-03
 
 ### Added

@@ -419,7 +419,28 @@ created: YYYY-MM-DD
 
 ## Jira Integration Patterns
 
-**When Jira is Enabled** (`CLAUDE.md`: `jira.enabled: true`)
+**CRITICAL: Always check CLAUDE.md for Jira configuration before creating epics/issues**
+
+### Detecting Jira Mode
+
+**Commands MUST read CLAUDE.md and look for:**
+
+```markdown
+## Jira Integration
+...
+- **Enabled**: true  # or false
+- **Project Key**: PROJ
+```
+
+**Configuration Detection:**
+1. Read CLAUDE.md
+2. Find "## Jira Integration" section
+3. Parse the configuration for `Enabled: true` or `Enabled: false`
+4. Extract Project Key if enabled
+5. **If Enabled: true** → Use Jira mode
+6. **If Enabled: false or missing** → Use local mode
+
+**Reminder:** When Jira is enabled, epics MUST be created in Jira (not in pm/epics/)
 
 ### Dual Mode Behavior
 

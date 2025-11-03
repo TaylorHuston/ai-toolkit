@@ -126,34 +126,44 @@ Invokes during issue creation:
 
 When this command is invoked:
 
-1. **Check Jira Mode**
-   - Read CLAUDE.md `jira.enabled` setting
-   - **If true**: Follow Jira creation flow (epics in Jira only)
-   - **If false**: Follow local creation flow (epics in pm/epics/)
+1. **Check Jira Mode - CRITICAL FIRST STEP**
+   - **ALWAYS** read CLAUDE.md to check Jira configuration BEFORE doing anything else
+   - Look for "## Jira Integration" section
+   - Parse the configuration block for `Enabled: true` or `Enabled: false`
+   - **If Enabled: true**: Follow Jira creation flow (epics in Jira ONLY, no local pm/epics/ files)
+   - **If Enabled: false** or section missing: Follow local creation flow (epics in pm/epics/)
+   - **Reminder**: When Jira is enabled, epics MUST be created in Jira, not locally
 
-2. **Determine Intent**
+2. **Display Mode Confirmation**
+   - After reading Jira configuration, explicitly confirm to user:
+   - If Jira enabled: "Creating epic in Jira (PROJ project)..."
+   - If local mode: "Creating local epic (pm/epics/)..."
+   - This prevents confusion about where epic will be created
+
+3. **Determine Intent**
    - No arguments: Ask "Create new or work on existing?"
    - EPIC-### or PROJ-### provided: Load and enter refinement mode
 
-3. **Load Context**
+4. **Load Context**
    - **Following** `pm-guidelines.md` **patterns**
-   - Read pm/templates/epic.md for required sections
-   - Scan for existing epics (determine next number)
-   - If Jira enabled: Check field cache, load Jira metadata
+   - Read pm/templates/epic.md for required sections (local mode only)
+   - Scan for existing epics (determine next number - local mode only)
+   - If Jira enabled: Check field cache, load Jira metadata, skip local file scanning
 
-4. **Creation Flow**
+5. **Creation Flow**
    - **Following** `pm-guidelines.md` **epic structure**
    - Conversational Q&A for epic details
-   - Create epic (local file or Jira issue)
+   - **If Jira mode**: Create epic in Jira via MCP, get PROJ-### ID, display Jira URL
+   - **If local mode**: Create epic file in pm/epics/EPIC-###-name.md
    - Optionally suggest and create initial tasks
    - **Following** `pm-guidelines.md` **task suggestion strategy**
 
-5. **Refinement Flow**
+6. **Refinement Flow**
    - Read epic and related issues
    - Conversational interaction: add tasks, update scope, check status
-   - Update epic file as needed
+   - Update epic file as needed (local) or Jira issue (Jira mode)
 
-6. **Issue Creation** (when adding tasks)
+7. **Issue Creation** (when adding tasks)
    - **Following** `pm-guidelines.md` **issue patterns**
    - Determine next issue number (global scan)
    - Read appropriate template

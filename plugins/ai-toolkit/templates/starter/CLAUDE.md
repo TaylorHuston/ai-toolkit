@@ -170,7 +170,7 @@ main (production)         # Live environment - ONLY from develop
 
 **Emergency Hotfixes:** Document in ADR, use hotfix/* prefix, backport to develop
 
-See `docs/development/guidelines/git-workflow.md` for complete workflow rules
+See `docs/development/guidelines/git-workflow.md` for complete workflow rules and `docs/development/guidelines/versioning-and-releases.md` for semantic versioning, release process, and git tagging strategy.
 
 ### CHANGELOG Maintenance
 
@@ -202,14 +202,17 @@ See `docs/development/guidelines/git-workflow.md` for complete workflow rules
 - Bug fix description with issue reference
 ```
 
+**See** `docs/development/guidelines/versioning-and-releases.md` for complete semantic versioning strategy, release process, and detailed CHANGELOG guidelines.
+
 ## Development Guidelines
 
-Your project includes **7 customizable guideline templates** in `docs/development/guidelines/`:
+Your project includes **8 customizable guideline templates** in `docs/development/guidelines/`:
 
 - `development-loop.md` - AI-assisted development workflow and quality gates
 - `api-guidelines.md` - API patterns and structure
 - `testing-standards.md` - Testing approach
 - `git-workflow.md` - Branching and commits
+- `versioning-and-releases.md` - Semantic versioning, release process, and CHANGELOG maintenance
 - `coding-standards.md` - Code style and conventions
 - `security-guidelines.md` - Security practices
 - `architectural-principles.md` - Design philosophy

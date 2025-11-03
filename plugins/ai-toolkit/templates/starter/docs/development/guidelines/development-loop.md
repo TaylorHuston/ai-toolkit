@@ -1168,6 +1168,22 @@ Bug: BUG-003 - Cart total calculation incorrect for discounted items
 7. Bug marked resolved, create PR
 ```
 
+## CHANGELOG Updates
+
+**After completing work, always update CHANGELOG.md:**
+
+- Features: Add to `[Unreleased] > Added`
+- Bug fixes: Add to `[Unreleased] > Fixed`
+- Breaking changes: Add to `[Unreleased] > Changed` with BREAKING note
+
+See [Versioning and Releases](./versioning-and-releases.md) for complete CHANGELOG guidelines and semantic versioning strategy.
+
+## Related Documentation
+
+- [Versioning and Releases](./versioning-and-releases.md) - Semantic versioning, release process, CHANGELOG maintenance
+- [Git Workflow](./git-workflow.md) - Branching and merge requirements
+- [Testing Standards](./testing-standards.md) - Test coverage and quality thresholds
+
 ## General Development Loop Knowledge
 
 For development workflow best practices, Claude has extensive knowledge of:

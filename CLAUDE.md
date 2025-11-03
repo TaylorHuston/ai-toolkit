@@ -69,13 +69,27 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
 
 ### Version Management
 
-- **Format**: Semantic versioning (MAJOR.MINOR.PATCH)
+**Currently in pre-1.0.0 phase** - Breaking changes allowed, increment MINOR for features/breaking changes, PATCH for bug fixes only.
+
+- **Format**: Semantic versioning (MAJOR.MINOR.PATCH) following [Semver 2.0.0](https://semver.org/)
+- **Pre-1.0.0 Rules**:
+  - `0.x.0` - New features, enhancements, or breaking changes
+  - `0.0.x` - Bug fixes only (no new features)
+  - Breaking changes document clearly in CHANGELOG under `### Changed` or `### Breaking`
+- **Version Increment Examples**:
+  - New command added → `0.12.0` → `0.13.0` (MINOR)
+  - Bug fix in command → `0.12.0` → `0.12.1` (PATCH)
+  - Breaking template change → `0.12.0` → `0.13.0` (MINOR, note as breaking)
 - **Update In**:
   - `.claude-plugin/marketplace.json` (marketplace version and plugin version)
   - `plugins/ai-toolkit/.claude-plugin/plugin.json` (plugin version)
   - Root `README.md` (version reference)
-- **Document**: Always update CHANGELOG.md following Keep a Changelog format
-- **Tag**: Create git tags for releases (e.g., `v0.9.2`)
+  - Root `CLAUDE.md` (version and last_updated in frontmatter)
+- **Document**: Always update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/) format
+- **Git Tagging**:
+  - Create annotated tags for all releases: `git tag -a v0.13.0 -m "Release v0.13.0: [description]"`
+  - Push tags: `git push origin --tags`
+  - Tag format: `v0.x.y` (lowercase v prefix)
 
 ## Documentation Standards
 
@@ -124,36 +138,47 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
 1. Create `.md` file in `plugins/ai-toolkit/commands/`
 2. Update command count in README.md, plugin.json
 3. Update `plugins/ai-toolkit/docs/COMMANDS.md`
-4. Update root CHANGELOG.md
+4. Update root CHANGELOG.md (add to `[Unreleased] > Added`)
 5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
 6. Test locally
+7. **When releasing**: Increment MINOR version (0.12.0 → 0.13.0)
 
 ### Adding a New Agent
 
 1. Create `.md` file in `plugins/ai-toolkit/agents/`
 2. Update agent count in README.md
 3. Update `plugins/ai-toolkit/docs/AGENTS.md`
-4. Update root CHANGELOG.md
+4. Update root CHANGELOG.md (add to `[Unreleased] > Added`)
 5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
 6. Test agent invocation
+7. **When releasing**: Increment MINOR version (0.12.0 → 0.13.0)
 
 ### Updating Templates
 
 1. Modify files in `plugins/ai-toolkit/templates/starter/`
 2. Update file count if adding/removing files
 3. Test with `/toolkit-init` in a test project
-4. Update root CHANGELOG.md
+4. Update root CHANGELOG.md (add to `[Unreleased] > Changed` or `Added`)
 5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
 6. Update documentation if structure changed
+7. **When releasing**: Increment MINOR version (0.12.0 → 0.13.0)
+
+### Bug Fixes Only
+
+1. Fix the bug in command/agent/template
+2. Update root CHANGELOG.md (add to `[Unreleased] > Fixed`)
+3. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
+4. Test thoroughly
+5. **When releasing**: Increment PATCH version (0.12.0 → 0.12.1)
 
 ### Making Breaking Changes
 
-1. Mark clearly in CHANGELOG.md as **BREAKING**
+1. Mark clearly in CHANGELOG.md as **BREAKING** under `### Changed`
 2. Document migration path for users
-3. Update version (increment MAJOR)
-4. Update all affected documentation
-5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
-6. Test thoroughly before release
+3. Update all affected documentation
+4. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
+5. Test thoroughly before release
+6. **When releasing**: Increment MINOR version in pre-1.0.0 (0.12.0 → 0.13.0)
 
 ## Priority When Uncertain
 

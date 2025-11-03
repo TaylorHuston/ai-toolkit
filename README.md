@@ -9,9 +9,9 @@ This is very much an alpha/experiment at this point. Look at the commit history 
 
 This marketplace contains:
 
-- **AI Toolkit Plugin** - Complete workflow system with 15 commands, 19 specialized agents, and intelligent automation
-- **Starter Template** - 34 essential files for clean project initialization via `/toolkit-init`
-- **Guideline Templates** - 7 customizable guideline templates (project configuration files, not plugin docs)
+- **AI Toolkit Plugin** - Complete workflow system with 16 commands, 19 specialized agents, and intelligent automation
+- **Starter Template** - 37 essential files for clean project initialization via `/toolkit-init`
+- **Guideline Templates** - 8 customizable guideline templates (project configuration files, not plugin docs)
 
 ## Quick Start
 
@@ -34,7 +34,7 @@ cd your-project
 
 The `/toolkit-init` command scaffolds your project with:
 - Customized CLAUDE.md (your tech stack and links)
-- Structured template (34 files: docs/, pm/, guidelines, templates)
+- Structured template (37 files: docs/, pm/, guidelines, templates)
 - GETTING-STARTED.md guide
 - Documentation framework (AI creates content as you work)
 - Interactive setup with smart conflict resolution
@@ -72,6 +72,11 @@ The AI Toolkit plugin provides a complete development workflow system:
 
 - `/docs` - Unified documentation management (generate, validate, sync, update)
 - `/project-status` - Intelligent project status dashboard
+
+### Versioning & Releases Commands
+
+- `/changelog` - Check and update CHANGELOG.md with undocumented changes
+- `/release` - Release new version following semantic versioning guidelines
 
 ## Key Features
 
@@ -310,7 +315,7 @@ ai-toolkit/
     └── ai-toolkit/                # AI Toolkit plugin
         ├── .claude-plugin/
         │   └── plugin.json
-        ├── commands/              # 15 slash commands
+        ├── commands/              # 16 slash commands
         ├── agents/                # 19 specialized agents
         ├── templates/             # Bundled project templates
         │   └── starter/           # 33 template files

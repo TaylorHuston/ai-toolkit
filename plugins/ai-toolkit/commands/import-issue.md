@@ -41,21 +41,32 @@ Pull a Jira issue (created by PM or stakeholders) into the local repository to:
    - Acceptance criteria (if present)
    - Issue type, status, epic link
    - Reporter, assignee
+   - **If Epic**: Fetches all child issues in the epic
 
 2. **Creates local directory**:
    - `pm/issues/PROJ-123-{kebab-case-summary}/`
    - No TASK.md created (Jira is source of truth)
+   - **If Epic**: Creates `pm/epics/PROJ-123-{kebab-case-name}/` instead
 
 3. **Displays issue details**:
    - Shows all fetched information
    - Provides Jira URL
+   - **If Epic**: Lists all child issues in the epic
    - Suggests next steps
 
-4. **Ready for work**:
+4. **Bulk import (Epics only)**:
+   - Asks: "Import all issues in this epic?"
+   - If yes: Imports each child issue (creates directories, displays summary)
+   - Skips already-imported issues
+   - Shows completion summary
+
+5. **Ready for work**:
    - `/plan PROJ-123` - Create implementation plan
    - `/implement PROJ-123 1.1` - Start work
 
-## Workflow Example
+## Workflow Examples
+
+### Example 1: Import Single Issue
 
 ```bash
 # PM creates PROJ-456 in Jira
@@ -91,6 +102,61 @@ AI: Fetching PROJ-456 from Jira...
     - View in Jira: https://company.atlassian.net/browse/PROJ-456
 ```
 
+### Example 2: Import Epic with Bulk Child Import
+
+```bash
+/import-issue PROJ-400
+
+AI: Fetching PROJ-400 from Jira...
+
+    ✓ Found: API Infrastructure
+
+    Type: Epic
+    Status: In Progress
+    Reporter: Tech Lead
+
+    Description:
+    Build robust API infrastructure with rate limiting, caching,
+    and monitoring capabilities.
+
+    Child Issues (5):
+    - PROJ-456: API Rate Limiting Implementation (Story, To Do)
+    - PROJ-457: Redis Caching Layer (Story, To Do)
+    - PROJ-458: API Request Logging (Task, To Do)
+    - PROJ-459: Performance Monitoring (Story, In Progress)
+    - PROJ-460: API Documentation Generator (Task, To Do)
+
+    ✓ Created pm/epics/PROJ-400-api-infrastructure/
+
+    Import all 5 child issues? (yes/no)
+
+User: yes
+
+AI: Importing child issues...
+
+    ✓ PROJ-456: API Rate Limiting Implementation
+      → pm/issues/PROJ-456-api-rate-limiting/
+
+    ✓ PROJ-457: Redis Caching Layer
+      → pm/issues/PROJ-457-redis-caching-layer/
+
+    ✓ PROJ-458: API Request Logging
+      → pm/issues/PROJ-458-api-request-logging/
+
+    ⊘ PROJ-459: Performance Monitoring (already imported)
+
+    ✓ PROJ-460: API Documentation Generator
+      → pm/issues/PROJ-460-api-documentation-generator/
+
+    Summary:
+    - Epic: PROJ-400 imported
+    - Child issues: 4 new, 1 skipped (already imported), 5 total
+
+    Next steps:
+    - Plan any issue: /plan PROJ-456
+    - View epic in Jira: https://company.atlassian.net/browse/PROJ-400
+```
+
 ## Command Behavior
 
 ### Prerequisites Check
@@ -116,13 +182,20 @@ AI: Fetching PROJ-456 from Jira...
 - Epic link (if part of epic)
 - Reporter, assignee, created/updated dates
 - Any custom fields visible to user
+- **If type is Epic**: Fetch all child issues (stories, tasks, bugs in this epic)
 
 ### Create Local Directory
 
-**Directory structure:**
+**For regular issues (Story, Task, Bug):**
 ```
 pm/issues/PROJ-456-api-rate-limiting/
 └── (empty - ready for PLAN.md, WORKLOG.md, RESEARCH.md)
+```
+
+**For epics:**
+```
+pm/epics/PROJ-400-api-infrastructure/
+└── (empty - epic metadata, no local files needed since Jira is source)
 ```
 
 **Naming:**
@@ -132,7 +205,7 @@ pm/issues/PROJ-456-api-rate-limiting/
 
 ### Display Information
 
-**Show user:**
+**For regular issues:**
 ```
 Issue: PROJ-456
 Summary: API Rate Limiting Implementation
@@ -152,6 +225,49 @@ Next steps:
 - Create plan: /plan PROJ-456
 - View in Jira: [URL]
 ```
+
+**For epics:**
+```
+Epic: PROJ-400
+Summary: API Infrastructure
+Type: Epic
+Status: In Progress
+
+Description:
+[Full description from Jira]
+
+Child Issues (5):
+- PROJ-456: API Rate Limiting Implementation (Story, To Do)
+- PROJ-457: Redis Caching Layer (Story, To Do)
+- PROJ-458: API Request Logging (Task, To Do)
+- PROJ-459: Performance Monitoring (Story, In Progress)
+- PROJ-460: API Documentation Generator (Task, To Do)
+
+Local directory: pm/epics/PROJ-400-api-infrastructure/
+
+Import all 5 child issues? (yes/no)
+```
+
+### Bulk Import Child Issues (Epics Only)
+
+**When user confirms bulk import:**
+
+1. **For each child issue**:
+   - Fetch issue details from Jira
+   - Check if already imported (directory exists)
+   - Create local directory if new
+   - Display progress
+
+2. **Show summary**:
+   - Count of new imports
+   - Count of skipped (already imported)
+   - Total child issues
+   - Next step suggestions
+
+3. **Error handling**:
+   - Skip issues user can't access
+   - Continue on individual failures
+   - Report any issues at end
 
 ## Error Handling
 
@@ -243,20 +359,30 @@ When implementing `/import-issue PROJ-###`:
    - Use Atlassian MCP to get issue details
    - Parse description for acceptance criteria
    - Get epic link if exists
+   - **If issue type is Epic**: Fetch all child issues in the epic
    - Handle "not found" gracefully
 
 3. **Create directory**:
    - Convert summary to kebab-case
-   - Create `pm/issues/PROJ-###-{name}/`
+   - **If regular issue**: Create `pm/issues/PROJ-###-{name}/`
+   - **If epic**: Create `pm/epics/PROJ-###-{name}/`
    - If exists: Show warning, display contents
 
 4. **Display information**:
    - Show issue details clearly
    - Include Jira URL
+   - **If epic**: List all child issues with types and statuses
    - Suggest next steps
    - Note: No TASK.md created (Jira is source)
 
-5. **Return success**:
+5. **Bulk import prompt (epics only)**:
+   - Ask: "Import all N child issues? (yes/no)"
+   - If yes: Import each child issue sequentially
+   - Show progress for each import
+   - Skip already-imported issues
+   - Display summary at end
+
+6. **Return success**:
    - Confirm directory created
    - Ready for `/plan` or `/implement`
 
