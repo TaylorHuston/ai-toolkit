@@ -323,49 +323,104 @@ Every issue directory (`pm/issues/TASK-###-name/` or `BUG-###-name/`) can contai
 
 ### WORKLOG Entry Format
 
-**Structure** (reverse chronological - newest entries first):
+**Philosophy**: Stream, don't summarize. Write entries as work happens (cross-agent handoffs), not retrospective summaries after phases complete.
 
+**When to write entries:**
+- ✅ When **completing work** and **handing off** to another agent (e.g., backend-specialist → code-reviewer)
+- ✅ When **receiving work back** from another agent with changes needed (e.g., code-reviewer → backend-specialist)
+- ❌ Don't write "STARTED" entries (waste - just do the work)
+- ❌ Don't write summary entries after entire phase (defeats stream pattern)
+
+**Entry Types:**
+
+**HANDOFF Entry** (passing work to another agent):
 ```markdown
-## YYYY-MM-DD HH:MM - agent-name
+## YYYY-MM-DD HH:MM - agent-name → next-agent
 
-Summary of what was implemented (~500 chars max for scannable entries).
+Brief summary of what was done (5-10 lines max).
 
-Gotcha: [Any unexpected issues, edge cases, or important discoveries]
-Lesson: [What worked well, what to avoid, better approaches found]
-Files: [key/files/changed.js, other/modified/file.ts]
+Gotcha: [critical issues encountered, if any]
+Lesson: [key insights, if any]
+Files: [key/files/changed.js]
 
-See RESEARCH.md #section-name  # Optional: reference deep analysis if created
+→ Passing to {next-agent} for {reason}
+```
+
+**COMPLETE Entry** (phase fully done, no more handoffs):
+```markdown
+## YYYY-MM-DD HH:MM - agent-name (Phase X.Y COMPLETE)
+
+Phase complete summary (5-10 lines).
+
+Status:
+- ✅ Tests passing
+- ✅ Quality gates met
+- ✅ PLAN.md updated
+
+Files: [key/files/changed.js]
 ```
 
 **Required Elements:**
 - **Timestamp**: Always run `date '+%Y-%m-%d %H:%M'` - never estimate
-- **Agent identifier**: Name of the agent that did the work (or @username for humans via `/comment`)
-- **Summary**: What was done, implementation approach (~500 chars ideal)
-- **Gotchas**: Unexpected issues, edge cases found, important discoveries
-- **Lessons**: What worked, what to avoid, alternative approaches
-- **Files**: Key files modified (helps locate code changes)
-- **RESEARCH reference**: Optional link to detailed analysis if created
+- **Agent identifier**: Name of the agent (or @username for humans via `/comment`)
+- **Arrow notation**: Use `→` for handoffs to show work flow
+- **Brief summary**: What YOU did (not entire phase history) - keep scannable
+- **Gotchas/Lessons**: Only if significant (don't force it)
+- **Files**: Key files modified (helps locate changes via diff)
+- **Handoff note**: Who receives work and why (for handoffs only)
 
 ### WORKLOG Best Practices
 
-1. **Keep entries scannable**: ~500 chars is ideal, can be longer for critical gotchas
-2. **Focus on insights**: Document WHY things were done certain ways, not just WHAT
-3. **Capture alternatives**: "Tried X but Y worked better because..." helps future work
-4. **Reference deep dives**: "See RESEARCH.md #caching-strategy for full rationale"
-5. **Write for the future**: Developers reading weeks/months later need context
+1. **Keep entries short**: 5-10 lines ideal - details are in git diffs, not WORKLOG
+2. **Write at handoffs**: Document when passing between agents, not after everything done
+3. **Focus on insights**: "Tried X, failed. Switched to Y because..." not "Implemented X"
+4. **Show the flow**: Entries should read like a conversation between agents
+5. **Skip obvious details**: Don't document standard practices, focus on deviations
 
-**Good WORKLOG entry example:**
+**Good WORKLOG examples:**
+
 ```markdown
-## 2025-01-15 14:30 - backend-specialist
+## 2025-01-15 14:30 - backend-specialist → code-reviewer
 
-Implemented user authentication endpoint with JWT tokens. Used bcrypt for password
-hashing (12 rounds) and Redis for token storage (24hr expiry).
+Implemented JWT auth endpoint with bcrypt hashing (12 rounds) and Redis token storage.
 
-Gotcha: Redis connection pooling required - single connection caused bottleneck under load
-Lesson: JWT secret rotation strategy needed - added to TASK-002
+Gotcha: Redis connection pooling required - single connection bottleneck
 Files: src/auth/login.ts, src/middleware/jwt.ts, tests/auth.test.ts
 
-See RESEARCH.md #jwt-vs-session for storage decision rationale
+→ Passing to code-reviewer for security validation
+
+---
+
+## 2025-01-15 14:55 - code-reviewer → backend-specialist
+
+Review score: 82/100 - Changes required
+
+Issues:
+- C1: JWT secret in code (should be env var)
+- M1: Missing rate limiting on auth endpoint
+
+→ Returning to backend-specialist for fixes
+
+---
+
+## 2025-01-15 15:20 - backend-specialist → code-reviewer
+
+Applied code review fixes: moved secret to env, added rate limiting (5 req/min).
+
+Files: src/auth/login.ts, .env.example
+
+→ Passing back to code-reviewer for re-review
+
+---
+
+## 2025-01-15 15:35 - code-reviewer (Phase 2.3 COMPLETE)
+
+Re-review approved (score: 94/100). All security issues resolved.
+
+Status:
+- ✅ Tests passing (48/48)
+- ✅ Security validated
+- ✅ PLAN.md checkbox updated
 ```
 
 ### When to Create RESEARCH.md
@@ -866,12 +921,14 @@ Teams can choose different testing approaches based on context:
      - Note satisfied criteria in WORKLOG entry (Jira is source of truth)
      - Example: "✓ Satisfies Jira AC: User can log in with email/password"
 
-**4. Write WORKLOG Entry**
+**4. Write WORKLOG Entry (at agent handoffs only)**
+   - **When**: Only when handing off to another agent OR when phase fully complete
+   - **Type**: HANDOFF entry (if passing to another agent) or COMPLETE entry (if phase done)
    - Get timestamp: Run `date '+%Y-%m-%d %H:%M'` (never estimate)
-   - Document what was done, lessons learned
-   - Include which PLAN steps and TASK criteria were completed
+   - Document what YOU did in this step (not entire phase summary - keep it 5-10 lines)
+   - Note which agent receives work next (if handoff)
    - Prepend to top (reverse chronological order)
-   - See "WORKLOG Entry Format" section above for complete structure
+   - See "WORKLOG Entry Format" section above for patterns
 
 **5. Consider RESEARCH.md**
    - If complex technical decisions were made, create RESEARCH.md section

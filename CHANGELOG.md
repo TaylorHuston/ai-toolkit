@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.11.2] - 2025-11-02
+
+### Changed
+
+- **WORKLOG Stream Pattern**: Changed WORKLOG documentation from summary-style to stream-style entries
+  - **Write at handoffs**: Agents write entries when passing work between agents (not post-phase summaries)
+  - **Cross-agent handoffs only**: Entries for backend→code-reviewer, code-reviewer→backend, etc.
+  - **Brief entries**: 5-10 lines per entry (details in git diffs, not WORKLOG)
+  - **Entry types**: HANDOFF entries (`agent-name → next-agent`) and COMPLETE entries (`agent-name (Phase X.Y COMPLETE)`)
+  - **Shows work flow**: WORKLOG reads like conversation between agents, not retrospective reports
+  - **Enforced in /implement**: Command explicitly prompts for WORKLOG entries before agent handoffs
+  - Commands affected: `/implement` (added explicit WORKLOG handoff steps)
+  - Guidelines affected: `development-loop.md` (rewrote WORKLOG Entry Format section with stream pattern)
+
 ## [0.11.1] - 2025-11-02
 
 ### Added

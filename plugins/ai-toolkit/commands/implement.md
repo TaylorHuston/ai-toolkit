@@ -79,24 +79,35 @@ Execute specific phases of implementation plans with full context awareness and 
 - Agent follows development loop: test → code → review iteration
 - **Following** `development-loop.md` **quality gates**
 - Iterate until code review score ≥ 90 (or configured threshold)
+- **Agent writes WORKLOG HANDOFF entry before invoking code-reviewer**
 
-**7. Security Review (CONDITIONAL)**
+**7. Code Review Handoff**
+- **BEFORE invoking code-reviewer**: Implementing agent MUST write WORKLOG entry
+- Entry format: `YYYY-MM-DD HH:MM - agent-name → code-reviewer`
+- Brief summary (5-10 lines): what was done, files changed, gotchas
+- Include handoff note: `→ Passing to code-reviewer for {reason}`
+- Code-reviewer executes review and returns result
+- **IF changes required**: Code-reviewer writes WORKLOG entry with issues found
+- **IF approved**: Continue to security review (if needed) or post-phase updates
+
+**8. Security Review (CONDITIONAL)**
 - **Following** `development-loop.md` **security-relevant phase detection**
 - Auto-detect if phase is security-relevant (keywords, file patterns)
 - If security-relevant: Invoke security-auditor before phase completion
+- **Agent writes WORKLOG HANDOFF entry before invoking security-auditor**
 - Security-auditor reviews implementation for vulnerabilities
 - **BLOCKS phase completion if critical security issues found**
-- Iterate on security fixes until approved
+- Iterate on security fixes until approved (with WORKLOG entries at each handoff)
 
-**8. Post-Phase Updates**
+**9. Post-Phase Updates**
 - **Following** `development-loop.md` **progress tracking protocol**
 - Verify completion thoroughly (tests pass, code works, requirements met, security approved if applicable)
 - Update PLAN.md checkbox: `- [ ] 1.1` → `- [x] 1.1`
 - Update TASK.md acceptance criteria if satisfied
-- Write WORKLOG entry with timestamp (note if security review occurred)
+- **Write WORKLOG COMPLETE entry** (format: `agent-name (Phase X.Y COMPLETE)`)
 - Consider RESEARCH.md for complex decisions
 
-**9. Task Completion Check**
+**10. Task Completion Check**
 - If all PLAN.md phases complete:
 - **Following** `development-loop.md` **task completion validation**
 - Verify ALL acceptance criteria checked off
@@ -204,9 +215,11 @@ Available phases:
 - ✓ Update task status when ALL criteria complete
 
 **pm/issues/ISSUE-ID-*/WORKLOG.md** (REQUIRED):
-- ✓ Timestamped narrative entry (get timestamp via `date` command)
-- ✓ What was done, lessons learned, gotchas, files changed
-- ✓ See `development-loop.md` for complete format
+- ✓ Write HANDOFF entries when passing work between agents
+- ✓ Write COMPLETE entry when phase fully done
+- ✓ Timestamped entries (get timestamp via `date` command)
+- ✓ Brief summaries (5-10 lines): what YOU did, not entire phase history
+- ✓ See `development-loop.md` for stream-style format and patterns
 - ✓ Prepend to top (reverse chronological)
 
 **pm/issues/ISSUE-ID-*/RESEARCH.md** (if needed):
