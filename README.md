@@ -5,11 +5,23 @@ A comprehensive AI-assisted development workflow system for Claude Code, providi
 ## IMPORTANT
 This is very much an alpha/experiment at this point. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and massively changing things as I go.
 
+## What's New in v0.17.0+
+
+**Recent additions:**
+- ✨ `/plan` enhancement - Deep thinking + library research + best practices (3-5 min thorough planning)
+- 🆕 `/sanity-check` - Mid-work validation with deep reflection to catch drift early
+- 🆕 `/refresh` - Silent AI context refresh (CLAUDE.md + guidelines + recent commits)
+- 🆕 `/comment-issue` - AI-suggested comments for Jira issues based on work context
+- ✨ `/implement --next` - Auto-detect and execute next uncompleted phase
+- 🔧 WORKLOG format improvements with `[AUTHOR:]` and `[NEXT:]` labels for clarity
+
+See [CHANGELOG.md](CHANGELOG.md) for complete release history.
+
 ## What's Included
 
 This marketplace contains:
 
-- **AI Toolkit Plugin** - Complete workflow system with 22 commands, 20 specialized agents, and intelligent automation
+- **AI Toolkit Plugin** - Complete workflow system with 23 commands, 20 specialized agents, and intelligent automation
 - **Starter Template** - 37 essential files for clean project initialization via `/toolkit-init`
 - **Guideline Templates** - 8 customizable guideline templates (project configuration files, not plugin docs)
 
@@ -41,56 +53,76 @@ The `/toolkit-init` command scaffolds your project with:
 
 ## AI Toolkit Plugin
 
-The AI Toolkit plugin provides a complete development workflow system:
+The AI Toolkit plugin provides a complete development workflow system with **23 commands** organized around a 3-phase development cycle:
 
-### Setup & Planning Commands
+### 🚀 Setup & Initialization
 
-- `/toolkit-init` - Initialize project structure with templates (can also be used to bring in changes and improvements when the plugin is updated intelligently)
-- `/project-brief` - Create and refine project brief through conversation
-- `/epic` - Create and manage epics through natural language
-- `/adr` - Make technical architecture decisions (ADRs)
-- `/ui-design` - Create HTML UI mockups with parallel design exploration
-- `/plan` - Break down tasks into implementation phases
+- `/toolkit-init` - Initialize project structure with templates and smart conflict resolution
+- `/project-brief` - Create and refine project brief through conversational Q&A
+- `/epic` - Create and manage epics (local or Jira) through natural language
 
-### Implementation Commands
+### 🌟 Core 3-Phase Workflow
 
-- `/implement` - Execute specific task phases with test-first approach
+**Phase 1: Architecture**
+- `/adr` - Make technical architecture decisions with Quick Mode (5-10 min) or Deep Mode (20+ min)
 
-### Quality & Testing Commands
+**Phase 2: Planning**
+- `/plan` - Break down tasks into test-first implementation phases with deep analysis and research
+  - Uses deep thinking, Context7 library docs, and web research for best practices
+  - Takes 3-5 minutes for thorough planning with mandatory context review
 
-- `/quality` - Multi-dimensional quality assessment
-- `/security-audit` - OWASP-compliant security assessment
-- `/test-fix` - Automated test failure resolution
+**Phase 3: Execution**
+- `/implement` - Execute specific phases with test-first enforcement and agent coordination
+  - Supports `--next` flag to auto-detect and execute the next uncompleted phase
 
-### Development Workflow Commands
+### 🔍 Quality & Validation
 
-- `/commit` - Quality-checked git commits
-- `/branch` - Unified branch operations (create, merge, delete, switch, status)
-- `/comment` - Add timestamped work log entries
+- `/quality` - Multi-dimensional quality assessment using specialized agents
+- `/security-audit` - OWASP-compliant security assessment with vulnerability remediation
+- `/test-fix` - Automated test failure detection, analysis, and resolution
+- `/sanity-check` - Mid-work validation with deep reflection to catch drift early
 
-### Documentation & Status Commands
+### 🛠️ Development Support
 
-- `/docs` - Unified documentation management (generate, validate, sync, update)
-- `/project-status` - Intelligent project status dashboard
+- `/branch` - Unified branch operations (create, merge, delete, switch, status) with git-workflow enforcement
+- `/commit` - Branch-aware git commits with automatic issue references and quality checks
+- `/comment` - Add timestamped work log entries for human-AI collaboration
+- `/refresh` - Silently refresh AI context by reading project configuration and guidelines
 
-### Versioning & Releases Commands
+### 🔗 Jira Integration
+
+- `/import-issue` - Import Jira issues for local work with automatic PLAN.md creation
+- `/promote` - Promote local exploration issues to Jira for team visibility
+- `/comment-issue` - Add AI-suggested comments to Jira issues based on work context
+- `/refresh-schema` - Refresh Jira field schema cache when requirements change
+
+### 📚 Documentation & Project Management
+
+- `/docs` - Unified documentation management (generate, validate, sync, update, health checks)
+- `/project-status` - Intelligent project status dashboard with context analysis
+- `/ui-design` - Create and iterate on HTML UI mockups with parallel design exploration
+
+### 🏷️ Versioning & Releases
 
 - `/changelog` - Check and update CHANGELOG.md with undocumented changes
 - `/release` - Release new version following semantic versioning guidelines
 
 ## Key Features
 
-### 19 Specialized Agents
+### 20 Specialized Agents
 
 Domain experts that auto-activate based on task context:
 
-- **Strategy & Design**: brief-strategist, code-architect, ui-ux-designer
+- **Strategy & Planning**: brief-strategist, code-architect, project-manager, context-analyzer
+- **Design**: ui-ux-designer, api-designer
 - **Implementation**: frontend-specialist, backend-specialist, database-specialist
 - **Quality**: test-engineer, code-reviewer, security-auditor, performance-optimizer
 - **Operations**: devops-engineer, technical-writer
-- **Analysis**: context-analyzer, project-manager, api-designer
-- **Maintenance**: refactoring-specialist, migration-specialist, data-analyst
+- **Maintenance**: refactoring-specialist, migration-specialist
+- **Analytics**: data-analyst
 - **AI Expertise**: ai-llm-expert
+
+Each agent has specialized tools, domain knowledge, and triggers for automatic invocation based on task requirements.
 
 ### Local Project Management
 
@@ -202,7 +234,8 @@ This integration is currently minimal. It has only been tested with one Jira pro
 **What Syncs:**
 - ✅ **Read from Jira**: Description, acceptance criteria, status (display only)
 - ✅ **Create in Jira**: Epics, stories, tasks via AI conversation
-- ❌ **Not synced**: Status updates, comments, field changes
+- ✅ **Add comments**: AI-suggested comments based on local work context
+- ❌ **Not synced**: Status updates, field changes, automatic comment sync
 
 **Local Storage:**
 - `PLAN.md` - AI implementation phases (local only)
@@ -218,6 +251,7 @@ This integration is currently minimal. It has only been tested with one Jira pro
 /plan PROJ-123                 # Create implementation plan
 /implement PROJ-123 1.1        # Execute phase
 /commit                        # Commit changes
+/comment-issue PROJ-123        # AI suggests progress comment for Jira
 # Update Jira status manually in UI
 ```
 
@@ -240,9 +274,9 @@ This integration is currently minimal. It has only been tested with one Jira pro
 #### Limitations
 
 - **Status updates**: Not automated. Update Jira status manually in UI.
-- **Comments**: Local WORKLOG.md not synced to Jira comments.
+- **Comment sync**: Use `/comment-issue` to manually add comments. Local WORKLOG.md is not automatically synced.
 - **Custom workflows**: AI doesn't trigger Jira workflow transitions.
-- **Offline work**: Can work on existing issues with cached data, but can't create new Jira issues offline.
+- **Offline work**: Can work on existing issues with cached data, but can't create new Jira issues or add comments offline.
 - **One project**: Currently supports one Jira project key per repository.
 
 #### Troubleshooting
@@ -315,7 +349,7 @@ ai-toolkit/
     └── ai-toolkit/                # AI Toolkit plugin
         ├── .claude-plugin/
         │   └── plugin.json
-        ├── commands/              # 22 slash commands
+        ├── commands/              # 23 slash commands
         ├── agents/                # 19 specialized agents
         ├── templates/             # Bundled project templates
         │   └── starter/           # 33 template files
@@ -350,6 +384,6 @@ MIT License - see `LICENSE` for details.
 
 ## Version
 
-Current version: 0.16.0
+Current version: 0.17.0
 
 See `CHANGELOG.md` for release history and `STATUS.md` for current development status.
