@@ -11,7 +11,7 @@ tags: ["claude-code", "commands", "workflow", "reference"]
 
 # Claude Code Command Reference
 
-Streamlined catalog of 22 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
+Streamlined catalog of 23 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
 
 ## How Commands Work Together
 
@@ -185,6 +185,7 @@ Commands use different parameter paradigms because **different workflows need di
 - **[/quality](./quality.md)** - Multi-dimensional quality analysis using specialized agents
 - **[/security-audit](./security-audit.md)** - OWASP-compliant security assessment with vulnerability remediation
 - **[/test-fix](./test-fix.md)** - Automated test failure detection, analysis, and resolution
+- **[/sanity-check](../commands/sanity-check.md)** - Mid-work validation with deep reflection to catch drift before it becomes expensive
 
 ### **Development Support**
 
@@ -225,6 +226,7 @@ Commands use different parameter paradigms because **different workflows need di
 | `/quality` | Quality assessment | Subcommands (assess/validate/audit/fix) |
 | `/security-audit` | Security assessment | OWASP compliance analysis |
 | `/test-fix` | Test failure resolution | Automated detection and fixes |
+| `/sanity-check` | Mid-work validation | No arguments (deep reflection) |
 | `/branch` | Branch operations | `create \| merge \| delete \| switch \| status` |
 | `/commit` | Branch-aware git commits | Natural language instructions |
 | `/comment` | Work log entries | `"your comment text"` |

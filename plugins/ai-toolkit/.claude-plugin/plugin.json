@@ -1,6 +1,6 @@
 {
   "name": "ai-toolkit",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "Comprehensive AI-assisted development workflow system with specialized agents, orchestrated commands, and file-based state management",
   "author": {
     "name": "Taylor Huston",

@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.17.0] - 2025-11-03
+
+### Added
+
+- **`/sanity-check` command**: Mid-work validation to catch drift before it becomes expensive
+  - **Deep reflection**: Uses sequential thinking tool to analyze current direction
+  - **Context validation**: Reads PLAN.md, WORKLOG.md, guidelines, ADRs, design patterns
+  - **Alignment analysis**: Compares work against plan, standards, architecture, design
+  - **Concern flagging**: ✅ Green (continue), ⚠️ Yellow (minor fix), 🚩 Red (course correction)
+  - **Clear recommendations**: Continue, adjust, correct, or update plan with specific next steps
+  - **Use case**: Mid-work pause when complexity increases or something feels off
+
 ## [0.16.0] - 2025-11-03
 
 ### Added
