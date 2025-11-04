@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- **All 20 agents refactored** following research-based best practices for optimal AI agent design
+  - **Action-oriented descriptions**: All agents now have clear "AUTOMATICALLY INVOKED when..." or "Use PROACTIVELY when..." triggers
+  - **Streamlined content**: Reduced from 11,064 lines to 5,203 lines (53% average reduction) while maintaining all essential functionality
+  - **Context7 integration**: Removed verbose framework catalogs, replaced with Context7 references for latest documentation
+  - **Consistent structure**: Unified pattern across all agents (Purpose, Core Responsibilities, Workflow, Output Format, Escalation, Metrics)
+  - **Focused workflows**: High-level coordination and essential processes, delegating framework-specific details to Context7
+  - **Target achieved**: 19/20 agents now 100-300 lines (average 260 lines), down from average 553 lines
+  - **Improved maintainability**: Easier to update, clearer responsibilities, better automatic delegation
+  - Based on deep research: "Claude Code Command Best Practices" and "Subagent Best Practices Guide"
+
 - **`/plan` command enhancement**: Made planning more thorough with deep thinking and comprehensive research
   - **Deep thinking phase**: Uses sequential thinking tool to systematically analyze problem, technical approach, and research needs before planning
   - **Library research**: Automatically searches Context7 for latest official documentation of all libraries/frameworks mentioned in task
