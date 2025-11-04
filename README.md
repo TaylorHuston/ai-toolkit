@@ -9,7 +9,7 @@ This is very much an alpha/experiment at this point. Look at the commit history 
 
 This marketplace contains:
 
-- **AI Toolkit Plugin** - Complete workflow system with 16 commands, 19 specialized agents, and intelligent automation
+- **AI Toolkit Plugin** - Complete workflow system with 21 commands, 20 specialized agents, and intelligent automation
 - **Starter Template** - 37 essential files for clean project initialization via `/toolkit-init`
 - **Guideline Templates** - 8 customizable guideline templates (project configuration files, not plugin docs)
 
@@ -315,7 +315,7 @@ ai-toolkit/
     └── ai-toolkit/                # AI Toolkit plugin
         ├── .claude-plugin/
         │   └── plugin.json
-        ├── commands/              # 16 slash commands
+        ├── commands/              # 21 slash commands
         ├── agents/                # 19 specialized agents
         ├── templates/             # Bundled project templates
         │   └── starter/           # 33 template files
@@ -350,6 +350,6 @@ MIT License - see `LICENSE` for details.
 
 ## Version
 
-Current version: 0.14.0
+Current version: 0.15.0
 
 See `CHANGELOG.md` for release history and `STATUS.md` for current development status.

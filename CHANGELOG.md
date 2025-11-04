@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.15.0] - 2025-11-03
+
+### Added
+
+- **`/comment-issue` command**: Add AI-suggested comments to external Jira issues based on work context
+  - **Interactive mode**: AI analyzes WORKLOG entries, git commits, and existing Jira comments to suggest contextual updates
+  - **Direct mode**: User provides comment text, AI shows preview and asks for approval before posting
+  - **Context-aware**: Synthesizes recent work into concise, professional updates for stakeholders
+  - **External only**: Works with PROJ-### issues, not local TASK-### or BUG-### (use `/comment` for those)
+  - **Always requires approval**: Never auto-posts to Jira, user confirms before any comment is added
+
 ### Changed
 
 - **WORKLOG format clarity improvement**: Added explicit `[AUTHOR: ]` and `[NEXT: ]` labels to agent handoff entries

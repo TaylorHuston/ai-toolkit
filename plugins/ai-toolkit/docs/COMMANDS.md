@@ -11,7 +11,7 @@ tags: ["claude-code", "commands", "workflow", "reference"]
 
 # Claude Code Command Reference
 
-Streamlined catalog of 16 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
+Streamlined catalog of 21 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
 
 ## How Commands Work Together
 
@@ -192,6 +192,13 @@ Commands use different parameter paradigms because **different workflows need di
 - **[/commit](../commands/commit.md)** - Branch-aware git commits with automatic issue references
 - **[/comment](../commands/comment.md)** - Add timestamped work log entries for human-AI collaboration
 
+### **Jira Integration**
+
+- **[/import-issue](../commands/import-issue.md)** - Import Jira issue for local work with PLAN.md creation
+- **[/promote](../commands/promote.md)** - Promote local exploration issue to Jira for team visibility
+- **[/comment-issue](../commands/comment-issue.md)** - Add AI-suggested comments to external Jira issues based on work context
+- **[/refresh-schema](../commands/refresh-schema.md)** - Refresh Jira field schema cache when requirements change
+
 ### **Project Management & Documentation**
 
 - **[/project-status](../commands/project-status.md)** - Project status dashboard with intelligent context analysis
@@ -220,6 +227,10 @@ Commands use different parameter paradigms because **different workflows need di
 | `/branch` | Branch operations | `create \| merge \| delete \| switch \| status` |
 | `/commit` | Branch-aware git commits | Natural language instructions |
 | `/comment` | Work log entries | `"your comment text"` |
+| `/import-issue` | Import Jira issue | `PROJ-###` |
+| `/promote` | Promote local to Jira | `TASK-### \| BUG-###` |
+| `/comment-issue` | Add Jira comment | `PROJ-### ["text"]` |
+| `/refresh-schema` | Refresh Jira schema | No arguments |
 | `/project-status` | Project dashboard | `[--format] [--scope] [--detailed]` |
 | `/docs` | Documentation management | Natural language instructions |
 | `/changelog` | CHANGELOG maintenance | No arguments (interactive) |
