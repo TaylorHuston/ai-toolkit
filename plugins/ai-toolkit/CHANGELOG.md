@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.16.0] - 2025-11-03
+
+### Added
+
+- **`/refresh` command**: Silently refresh AI context by reading critical project files
+  - **Silent operation**: Only outputs `✓ Context refreshed`, no summaries or explanations
+  - **Reads**: CLAUDE.md, all guidelines, architecture-overview.md, design-overview.md, last 3 git commits
+  - **Use case**: Start of new conversation, after context loss, before planning/implementing
+  - **Performance**: Focused on critical files only, completes in under 30 seconds
+  - **Read-only**: Never modifies files, purely context loading
+
 ## [0.15.0] - 2025-11-03
 
 ### Added
