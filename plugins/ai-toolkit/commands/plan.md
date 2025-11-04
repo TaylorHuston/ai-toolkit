@@ -2,7 +2,7 @@
 tags: ["workflow", "planning", "implementation"]
 description: "Create PLAN.md file with phase-based breakdown for individual tasks and bugs"
 argument-hint: "TASK-### | BUG-### | PROJ-###"
-allowed-tools: ["Read", "Write", "Edit", "Grep", "Glob", "TodoWrite", "Task"]
+allowed-tools: ["Read", "Write", "Edit", "Grep", "Glob", "TodoWrite", "Task", "mcp__plugin_ai-toolkit_sequential-thinking__sequentialthinking", "mcp__plugin_ai-toolkit_context7__resolve-library-id", "mcp__plugin_ai-toolkit_context7__get-library-docs", "WebSearch", "WebFetch"]
 model: claude-sonnet-4-5
 references_guidelines:
   - docs/development/guidelines/development-loop.md  # Complexity scoring, plan structure, code-architect review
@@ -10,11 +10,17 @@ references_guidelines:
 
 # /plan Command
 
-**Purpose**: Create `PLAN.md` file with phase-based breakdown in task/bug directory.
+**Purpose**: Create comprehensive `PLAN.md` file with phase-based breakdown through deep analysis and research.
 
-**IMPORTANT**: This command ONLY creates the PLAN.md file. It does NOT start implementation. Use `/implement` command separately when ready to begin work.
+**IMPORTANT**:
+- This command is **thorough and takes time** - expect 3-5 minutes for research and planning
+- Uses **deep thinking**, **library research** (Context7), and **web research** for best practices
+- Creates the PLAN.md file but does NOT start implementation
+- Use `/implement` command separately when ready to begin work
 
 **Why separate file?** Keeps TASK.md clean for syncing with external PM tools (Jira, Linear, etc.) while AI manages implementation details in PLAN.md.
+
+**Why thorough?** Planning is critical - spending extra time upfront prevents costly mistakes during implementation.
 
 ## Usage
 
@@ -27,9 +33,14 @@ references_guidelines:
 **Simple invocation**: Just pass the issue ID. Command automatically:
 - Locates directory in `pm/issues/` or creates if Jira issue
 - Reads requirements (from TASK.md/BUG.md or Jira)
+- **Uses deep thinking** to analyze problem and identify research needs
+- **Researches libraries** via Context7 for latest documentation
+- **Searches web** for best practices, guides, and examples
 - Loads epic context and ADRs
-- Creates `PLAN.md` with phase-based breakdown
-- **Invokes code-architect for mandatory review before presenting to user**
+- Synthesizes research findings with project context
+- Creates comprehensive `PLAN.md` with phase-based breakdown
+- **Invokes code-architect for mandatory review** before presenting to user
+- **Invokes security-auditor if security-relevant** (auto-detected)
 
 ## Agent Coordination
 
@@ -106,7 +117,93 @@ references_guidelines:
 - Read relevant ADRs from `docs/project/adrs/`
 - Check for existing PLAN.md (update workflow)
 
-### 3. Analyze Complexity
+### 3. Deep Thinking Phase (MANDATORY)
+
+**CRITICAL**: Use sequential thinking tool to deeply analyze the task BEFORE planning.
+
+**Think through systematically**:
+
+1. **Understanding the Problem**:
+   - What is the core problem we're solving?
+   - Who are the users and what do they need?
+   - What's the business value?
+   - What constraints exist (technical, timeline, scope)?
+
+2. **Technical Analysis**:
+   - What technologies/libraries are needed?
+   - What architectural patterns should we use?
+   - What are the integration points?
+   - What could go wrong?
+
+3. **Approach Exploration**:
+   - What are different ways to solve this?
+   - What are the tradeoffs of each approach?
+   - Which approach aligns best with our architecture?
+   - What prior art exists?
+
+4. **Research Questions**:
+   - What documentation do we need to consult?
+   - What libraries/frameworks are involved?
+   - What best practices should we follow?
+   - What examples can guide us?
+
+**Output**: Clear understanding of the problem, potential approaches, and research needed.
+
+### 4. Research Phase - Context7 (Library Documentation)
+
+**For each library/framework mentioned in the task**:
+
+1. **Identify libraries**: Extract library names from requirements, tech stack, or task description
+2. **Resolve library IDs**: Use Context7 to find official documentation
+3. **Get latest docs**: Fetch up-to-date documentation focusing on:
+   - Installation and setup
+   - Core concepts and patterns
+   - API reference for needed features
+   - Best practices and examples
+   - Common pitfalls
+
+**Example**:
+```
+Task mentions "Add Next.js middleware for rate limiting"
+→ Search Context7 for: Next.js (middleware patterns)
+→ Search Context7 for: Rate limiting libraries (if using one)
+→ Get latest docs on middleware, request/response handling
+```
+
+### 5. Research Phase - WebSearch (Best Practices & Examples)
+
+**Search for recent guides, articles, and examples**:
+
+1. **Best practices**: Search for "[technology] best practices 2025"
+2. **Implementation guides**: Search for "[specific feature] implementation guide"
+3. **Real-world examples**: Search for "[feature] examples" or "how to build [feature]"
+4. **Common patterns**: Search for architectural patterns, design patterns
+5. **Gotchas**: Search for "[technology] common mistakes" or "pitfalls"
+
+**Focus on**:
+- Recent content (prefer 2024-2025)
+- Official guides and documentation
+- Well-regarded tutorials and articles
+- Stack Overflow discussions for common issues
+- GitHub examples and reference implementations
+
+**Time investment**: Spend 2-3 minutes per major technology/concept researching thoroughly.
+
+### 6. Synthesize Research
+
+**Combine findings**:
+- Official docs from Context7
+- Best practices from web search
+- Examples and patterns discovered
+- Project-specific context (ADRs, guidelines)
+
+**Validate approach**:
+- Does this align with architecture-overview.md?
+- Does this follow design-overview.md patterns?
+- Does this match development-loop.md standards?
+- Are we using current best practices?
+
+### 7. Analyze Complexity
 
 **Following** `development-loop.md` **complexity scoring configuration**:
 - Calculate complexity score from indicators (multi-domain, security, database, etc.)
@@ -114,7 +211,7 @@ references_guidelines:
 - Recommend decomposition if high complexity
 - Teams can customize scoring rules in guideline
 
-### 4. Generate Plan
+### 8. Generate Plan
 
 **CRITICAL**: **Use `pm/templates/plan.md` as the structure template**:
 - Read `pm/templates/plan.md` to understand the expected format
@@ -154,33 +251,39 @@ Brief overview (1-2 sentences)
 Score: X/10
 Indicators: ...
 Recommendation: ...
+
+## Research Summary
+Libraries researched: [list]
+Key findings: [bullet points]
+Best practices applied: [bullet points]
 ```
 
-### 5. Code-Architect Review (MANDATORY)
+### 9. Code-Architect Review (MANDATORY)
 
 **Following** `development-loop.md` **plan review requirements**:
 - **Use Task tool** to invoke code-architect agent
-- Provide full context: requirements, generated plan, complexity analysis
+- Provide full context: requirements, generated plan, complexity analysis, research findings
 - Code-architect reviews: architectural soundness, ADR consistency, phase structure, cross-cutting concerns
 - Incorporate feedback and get explicit approval
 
-### 6. Security-Auditor Review (CONDITIONAL)
+### 10. Security-Auditor Review (CONDITIONAL)
 
 **Following** `development-loop.md` **security detection criteria**:
 - **Auto-detect** if task is security-relevant (keywords, file patterns)
 - **If security-relevant**: Use Task tool to invoke security-auditor agent
-- Provide context: requirements, plan, security concerns
+- Provide context: requirements, plan, security concerns, research findings
 - Security-auditor reviews: threat modeling, input validation, crypto usage, authorization logic, OWASP compliance
 - Incorporate feedback and get explicit approval
 - **May require**: Additional security phases (threat modeling, penetration testing)
 - **Only after BOTH reviews** (code-architect + security-auditor if needed): Present plan to user
 
-### 7. Present to User
+### 11. Present to User
 
 **After all required reviews** (code-architect + security-auditor if applicable):
-- Show generated PLAN.md
+- Show generated PLAN.md with research summary
 - Explain complexity score and decomposition recommendation (if applicable)
 - Note if security-auditor reviewed and approved (for security-relevant tasks)
+- Highlight key research findings that influenced the plan
 - Ask for modifications or approval
 
 **STOP HERE**: Do not proceed to implementation without explicit user instruction.
@@ -202,9 +305,25 @@ AI: Fetching PROJ-123 from Jira...
     Type: Story
     Status: To Do
 
+    Using deep thinking to analyze task...
+    [Sequential thinking output visible to user]
+    ✓ Problem understood, research questions identified
+
+    Researching libraries and documentation...
+    → Context7: Next.js (form handling, validation)
+    → Context7: React Hook Form (latest patterns)
+    → Web: "Next.js form validation best practices 2025"
+    → Web: "React authentication form examples"
+    ✓ Research complete (4 sources)
+
+    Synthesizing findings...
+    - Using React Hook Form with Zod validation (current best practice)
+    - Server actions for form submission (Next.js 14 pattern)
+    - Secure password hashing with bcrypt (12 rounds minimum)
+
     Analyzing complexity...
-    Score: 3 (Medium - multi-domain integration)
-    Security-relevant: Yes (detected keywords: auth, login)
+    Score: 4 (Medium - multi-domain, security, validation)
+    Security-relevant: Yes (detected keywords: auth, password, registration)
 
     Generating implementation plan...
     Invoking code-architect for review...
@@ -215,7 +334,7 @@ AI: Fetching PROJ-123 from Jira...
 
     ✓ Created pm/issues/PROJ-123-user-registration/PLAN.md
 
-    [Shows plan to user]
+    [Shows plan to user with research summary]
 
     Ready for: /implement PROJ-123 1.1
 ```
@@ -247,7 +366,8 @@ Options:
 - **No verbose documentation** - phases are simple checklists, not detailed guides
 - Test-first patterns noted at bottom (Alternative Patterns section)
 - Complexity analysis at end
-- Code-architect approved
+- **Research summary** - libraries researched, key findings, best practices applied
+- Code-architect approved (with security-auditor if applicable)
 
 **Key point**: PLAN.md is a concise roadmap, not comprehensive documentation. Details are worked out during `/implement`.
 
@@ -291,11 +411,35 @@ When implementing `/plan ISSUE-ID`:
 
 2. **Load task context**: Read TASK.md/BUG.md or fetch from Jira
 
-3. **Read template**: Read `pm/templates/plan.md` to understand the expected format and structure
+3. **Deep thinking phase (MANDATORY)**:
+   - Use sequential thinking tool to analyze the problem
+   - Understand user needs, technical constraints, approach options
+   - Identify research questions and libraries needed
+   - **Do not skip** - this is critical for thorough planning
 
-4. **Analyze complexity**: Following `development-loop.md` scoring rules (that you just read in step 0)
+4. **Research phase - Context7 (Library Documentation)**:
+   - Identify all libraries/frameworks mentioned in task or tech stack
+   - Use Context7 MCP to fetch latest official documentation
+   - Focus on: setup, patterns, API reference, best practices
+   - **Time investment**: Spend 1-2 minutes per major library
 
-5. **Generate plan**: Following `pm/templates/plan.md` structure (CONCISE format)
+5. **Research phase - WebSearch (Best Practices & Examples)**:
+   - Search for "[technology] best practices 2025"
+   - Search for "[feature] implementation guide"
+   - Search for real-world examples and patterns
+   - **Time investment**: 2-3 minutes total for web research
+   - **Prefer recent**: 2024-2025 content over older articles
+
+6. **Synthesize research**:
+   - Combine Context7 docs + web research + project guidelines
+   - Validate approach against architecture-overview.md and ADRs
+   - Ensure alignment with design-overview.md patterns
+
+7. **Read template**: Read `pm/templates/plan.md` to understand the expected format and structure
+
+8. **Analyze complexity**: Following `development-loop.md` scoring rules (that you just read in step 0)
+
+9. **Generate plan**: Following `pm/templates/plan.md` structure (CONCISE format)
    - **Keep it simple**: Phases with numbered checklist items only
    - **No verbose documentation**: Avoid long paragraphs, code examples, or extensive explanations
    - **Phases are suggestions**: They can be modified during implementation
@@ -316,21 +460,21 @@ When implementing `/plan ISSUE-ID`:
        (Pages of detailed explanations and code examples)
      ```
 
-6. **Code-architect review (MANDATORY)**:
+10. **Code-architect review (MANDATORY)**:
    - Use Task tool to invoke code-architect
    - Provide requirements + generated plan
    - Incorporate feedback
    - Get approval
 
-7. **Security-auditor review (CONDITIONAL)**:
+11. **Security-auditor review (CONDITIONAL)**:
    - Auto-detect if security-relevant (keywords, file patterns)
    - If yes: Use Task tool to invoke security-auditor
    - Provide requirements + plan + security concerns
    - Incorporate feedback
    - Get approval
 
-8. **Present to user**: Show plan after all required reviews
+12. **Present to user**: Show plan after all required reviews
 
-9. **STOP**: Do not implement without explicit `/implement` command
+13. **STOP**: Do not implement without explicit `/implement` command
 
 **Key Principle**: Commands orchestrate, guidelines configure. All planning rules live in `development-loop.md` for easy customization.

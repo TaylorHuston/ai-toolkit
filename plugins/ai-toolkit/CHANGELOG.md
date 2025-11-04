@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **`/plan` command enhancement**: Made planning more thorough with deep thinking and comprehensive research
+  - **Deep thinking phase**: Uses sequential thinking tool to systematically analyze problem, technical approach, and research needs before planning
+  - **Library research**: Automatically searches Context7 for latest official documentation of all libraries/frameworks mentioned in task
+  - **Best practices research**: Searches web for recent guides, examples, patterns, and common pitfalls (2024-2025 content)
+  - **Research synthesis**: Combines official docs, web findings, and project-specific context (ADRs, guidelines) before generating plan
+  - **Research summary**: Includes libraries researched, key findings, and best practices applied in plan output
+  - **Time expectation**: Now takes 3-5 minutes for thorough analysis and research vs. quick planning
+  - **Higher quality**: Plans are more informed, aligned with current best practices, and reference latest documentation
+
 ## [0.17.0] - 2025-11-03
 
 ### Added

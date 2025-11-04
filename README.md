@@ -5,9 +5,10 @@ A comprehensive AI-assisted development workflow system for Claude Code, providi
 ## IMPORTANT
 This is very much an alpha/experiment at this point. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and massively changing things as I go.
 
-## What's New in v0.16.0+
+## What's New in v0.17.0+
 
 **Recent additions:**
+- ✨ `/plan` enhancement - Deep thinking + library research + best practices (3-5 min thorough planning)
 - 🆕 `/sanity-check` - Mid-work validation with deep reflection to catch drift early
 - 🆕 `/refresh` - Silent AI context refresh (CLAUDE.md + guidelines + recent commits)
 - 🆕 `/comment-issue` - AI-suggested comments for Jira issues based on work context
@@ -66,7 +67,9 @@ The AI Toolkit plugin provides a complete development workflow system with **23 
 - `/adr` - Make technical architecture decisions with Quick Mode (5-10 min) or Deep Mode (20+ min)
 
 **Phase 2: Planning**
-- `/plan` - Break down tasks into test-first implementation phases with mandatory context review
+- `/plan` - Break down tasks into test-first implementation phases with deep analysis and research
+  - Uses deep thinking, Context7 library docs, and web research for best practices
+  - Takes 3-5 minutes for thorough planning with mandatory context review
 
 **Phase 3: Execution**
 - `/implement` - Execute specific phases with test-first enforcement and agent coordination
