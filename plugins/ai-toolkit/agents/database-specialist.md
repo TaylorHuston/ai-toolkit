@@ -6,7 +6,7 @@ model: claude-sonnet-4-5
 color: cyan
 coordination:
   hands_off_to: [backend-specialist, test-engineer, code-reviewer, performance-optimizer, migration-specialist]
-  receives_from: [project-manager, code-architect, backend-specialist, data-analyst]
+  receives_from: [project-manager, code-architect, backend-specialist]
   parallel_with: [api-designer, security-auditor, devops-engineer]
 ---
 

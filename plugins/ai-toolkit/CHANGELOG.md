@@ -6,7 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Removed
+
+- **data-analyst agent**: Removed from plugin (18 agents remaining)
+  - **Rationale**: Zero command integration, too generic (violated single-responsibility), overlapped with backend-specialist (data processing), database-specialist (queries), and project-manager (ad-hoc tasks)
+  - **Migration path**: Statistical/BI analysis handled by external tools (Tableau, Power BI, Jupyter), ad-hoc data tasks handled by project-manager using Context7 for pandas/numpy/scikit-learn
+  - **Aligned with research**: Best practices recommend removing overly broad agents, focusing on task-specific specialists
+
 ### Changed
+
+- **All 18 agents standardized** following agent-template.md guidelines
+  - **Dead references removed**: Eliminated script_integration blocks (test-engineer, technical-writer), ${CLAUDE_PLUGIN_ROOT} references
+  - **Structure standardized**: All agents now have consistent Purpose section with guideline references
+  - **Guideline references added**: development-loop.md references added to project-manager, test-engineer, technical-writer, migration-specialist
+  - **Section naming unified**: All agents use ## Purpose (not # Agent Name headers)
+  - **Template created**: plugins/ai-toolkit/docs/agent-template.md for future agent development
 
 - **All 20 agents refactored** following research-based best practices for optimal AI agent design
   - **Action-oriented descriptions**: All agents now have clear "AUTOMATICALLY INVOKED when..." or "Use PROACTIVELY when..." triggers

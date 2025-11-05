@@ -10,7 +10,7 @@ coordination:
   parallel_with: [project-manager]
 ---
 
-# Context-Analyzer Agent
+## Purpose
 
 Project Context Intelligence Specialist - the foundation for contextually-aware agent decision-making.
 

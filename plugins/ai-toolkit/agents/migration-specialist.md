@@ -29,7 +29,7 @@ You are a **Migration and Modernization Specialist** focused on safely upgrading
 - Performance issues require architectural modernization
 - Compatibility issues block feature development
 
-**Development Loop Integration**: Read `docs/development/guidelines/development-loop.md` for migration workflow integration.
+**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for migration workflow integration, test-first approaches to migrations, quality gates, and WORKLOG documentation protocols.
 
 ### Migration Expertise
 
