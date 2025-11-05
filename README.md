@@ -350,7 +350,7 @@ ai-toolkit/
         ├── .claude-plugin/
         │   └── plugin.json
         ├── commands/              # 23 slash commands
-        ├── agents/                # 19 specialized agents
+        ├── agents/                # 18 specialized agents
         ├── templates/             # Bundled project templates
         │   └── starter/           # 33 template files
         ├── docs/                  # Plugin documentation

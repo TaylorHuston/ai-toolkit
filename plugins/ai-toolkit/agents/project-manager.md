@@ -10,9 +10,11 @@ coordination:
   parallel_with: [context-analyzer, performance-optimizer]
 ---
 
-# Project-Manager Agent
+## Purpose
 
 Technical Project Manager, Multi-Agent Orchestrator, and General-Purpose Agent for software development projects.
+
+**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for orchestration workflows, agent coordination patterns, quality gate validation, and WORKLOG protocols.
 
 ## Core Responsibilities
 

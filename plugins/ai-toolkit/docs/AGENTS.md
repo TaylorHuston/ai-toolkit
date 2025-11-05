@@ -1,6 +1,6 @@
 # AI Agent Index and Directory
 
-**Created**: 2025-08-21 **Last Updated**: 2025-11-04 **Status**: Active - Refactored for Best Practices **Target Audience**: AI Assistants, Development Teams **Total Agents**: 20 | **Coverage**: Complete development workflow
+**Created**: 2025-08-21 **Last Updated**: 2025-11-05 **Status**: Active - Refactored for Best Practices **Target Audience**: AI Assistants, Development Teams **Total Agents**: 18 | **Coverage**: Complete development workflow
 
 Comprehensive catalog of specialized AI agents optimized for modern development workflows.
 
@@ -91,11 +91,6 @@ AI agents are specialized experts that automatically activate based on your work
   - _Best For_: API architecture, endpoint design, service contracts
   - _Model_: sonnet | _Color_: orange | _Auto-Invoked_: API development tasks
 
-- **[data-analyst](./data-analyst.md)** - Data processing, analysis, and reporting
-  - _Capabilities_: Data transformation, statistical analysis, visualization, business intelligence
-  - _Best For_: Data insights, reporting systems, analytics workflows
-  - _Model_: sonnet | _Color_: cyan | _Auto-Invoked_: On-demand
-
 #### **Quality & Testing**
 
 - **[test-engineer](./test-engineer.md)** - Comprehensive test creation and strategy
@@ -162,7 +157,7 @@ These agents activate automatically based on context and task requirements:
 7. **code-reviewer** - Post-implementation quality reviews
 8. **technical-writer** - After code changes affecting documentation
 
-### **On-Demand Specialists** (11 agents)
+### **On-Demand Specialists** (10 agents)
 
 These are invoked for specific domains or specialized work:
 
@@ -176,7 +171,6 @@ These are invoked for specific domains or specialized work:
 8. **performance-optimizer** - Performance analysis and optimization
 9. **refactoring-specialist** - Code improvement and technical debt reduction
 10. **migration-specialist** - Version upgrades and framework migrations
-11. **data-analyst** - Data processing, analysis, and reporting
 
 ### By Task Complexity
 
@@ -202,7 +196,6 @@ These are invoked for specific domains or specialized work:
 - **performance-optimizer** - Performance analysis and optimization
 - **refactoring-specialist** - Code improvement and technical debt reduction
 - **migration-specialist** - Version upgrades and framework migrations
-- **data-analyst** - Data processing, analysis, and reporting
 
 #### **Low Complexity (Haiku Model)**
 
@@ -234,7 +227,6 @@ These are invoked for specific domains or specialized work:
 5. **test-engineer** - Test strategy and comprehensive testing
 6. **refactoring-specialist** - Code quality improvement and technical debt
 7. **migration-specialist** - Framework upgrades and system modernization
-8. **data-analyst** - Data processing and business intelligence
 
 ## Agent Selection Guidelines
 
@@ -498,7 +490,6 @@ performance_metrics:
 | **technical-writer** | ❌ | ❌ | ❌ | ❌ | ✅ Primary | ❌ | ❌ | ⚠️ Docs |
 | **refactoring-specialist** | ✅ Refactor | ✅ Refactor | ⚠️ Schema | ⚠️ Config | ❌ | ⚠️ Test Refactor | ❌ | ❌ |
 | **migration-specialist** | ✅ Migrations | ✅ Migrations | ✅ Migrations | ✅ Migrations | ⚠️ Migration | ⚠️ Migration | ✅ Migrations | ❌ |
-| **data-analyst** | ⚠️ Analytics | ✅ Analytics | ✅ Queries | ⚠️ Analytics | ⚠️ Reports | ❌ | ❌ | ❌ |
 
 **Legend**: ✅ Primary expertise | ⚠️ Secondary/Supporting | ❌ Not applicable
 
@@ -516,7 +507,6 @@ performance_metrics:
 | **Documentation** | technical-writer | All domain specialists | technical-writer → domain-specialist |
 | **Code Quality** | refactoring-specialist, code-reviewer | performance-optimizer, security-auditor | code-reviewer → refactoring → performance → security |
 | **System Migration** | migration-specialist | code-architect, devops-engineer, database-specialist | migration → architect → devops → database |
-| **Data & Analytics** | data-analyst | database-specialist, backend-specialist | data-analyst → database → backend |
 
 ### Tool Usage Patterns
 
@@ -535,7 +525,7 @@ performance_metrics:
 | Model | Agents | Justification |
 |-------|--------|---------------|
 | **Opus 4.1** | project-manager, security-auditor, brief-strategist, ai-llm-expert | Extended reasoning (64K thinking tokens), strategic orchestration, safety-critical decisions, meta-reasoning |
-| **Sonnet 4.5** | code-architect, technical-writer, ui-ux-designer, frontend-specialist, backend-specialist, database-specialist, api-designer, test-engineer, code-reviewer, devops-engineer, performance-optimizer, refactoring-specialist, migration-specialist, data-analyst | Best coding model (77.2% SWE-bench), superior documentation, cost-effective execution |
+| **Sonnet 4.5** | code-architect, technical-writer, ui-ux-designer, frontend-specialist, backend-specialist, database-specialist, api-designer, test-engineer, code-reviewer, devops-engineer, performance-optimizer, refactoring-specialist, migration-specialist | Best coding model (77.2% SWE-bench), superior documentation, cost-effective execution |
 | **Haiku** | context-analyzer | Fast analysis and investigation, optimized for speed |
 
 ## Best Practices for Agent Management

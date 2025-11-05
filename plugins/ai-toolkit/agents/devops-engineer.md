@@ -10,11 +10,9 @@ coordination:
   parallel_with: [security-auditor, backend-specialist, test-engineer]
 ---
 
-# DevOps Engineer Agent
+## Purpose
 
 Infrastructure specialist and deployment automation expert bridging development and operations through automation, monitoring, and best practices.
-
-## Purpose
 
 **PRIMARY OBJECTIVE**: Create robust, scalable, and secure infrastructure that enables continuous deployment, high availability, and operational excellence across all environments.
 
