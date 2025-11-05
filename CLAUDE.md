@@ -1,7 +1,7 @@
 ---
-version: "0.17.0"
+version: "0.18.0"
 created: "2025-08-21"
-last_updated: "2025-11-03"
+last_updated: "2025-11-05"
 status: "active"
 target_audience: ["ai-assistants"]
 document_type: "specification"
@@ -16,14 +16,14 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
 ## Project Context
 
 - **Repository Type**: Claude Code plugin marketplace
-- **Main Plugin**: AI Toolkit (13 commands, 20 agents, starter templates)
+- **Main Plugin**: AI Toolkit (13 commands, 18 agents, starter templates)
 - **Purpose**: Develop and maintain plugin code, documentation, and templates
 - **Repository Structure**:
   - `.claude-plugin/marketplace.json` - Marketplace metadata
   - `plugins/ai-toolkit/` - Plugin source code
   - `plugins/ai-toolkit/.claude-plugin/plugin.json` - Plugin metadata
   - `plugins/ai-toolkit/commands/` - 13 command files (.md)
-  - `plugins/ai-toolkit/agents/` - 20 agent files (.md)
+  - `plugins/ai-toolkit/agents/` - 18 agent files (.md)
   - `plugins/ai-toolkit/templates/starter/` - Project templates (29 files)
   - `plugins/ai-toolkit/docs/` - Plugin documentation
 
