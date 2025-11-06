@@ -19,6 +19,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - **Benefits**: Zero overhead, atomic files, git-friendly, flexible via conversation
   - **Template count**: Increased from 37 → 39 files (added pm/notes/.gitkeep and pm/templates/note.md)
 
+### Changed
+
+- **Phase granularity guidance** - strengthened principles for atomic, testable, committable phases
+  - **New section in plan-structure.md**: "Phase Granularity - Atomic, Testable, Committable"
+  - **Core principle**: Each phase should end at a natural commit point (stable, working state)
+  - **Good characteristics**: Atomic (one concept), testable (can verify), committable (rollback point), scoped (1-4 hours)
+  - **Examples**: Good vs bad phase granularity with clear patterns
+  - **Guidance**: When to split phases (>4 hours, multiple concepts) and when to merge (trivial, interdependent)
+  - **Integration**: Links to phase commit tracking workflow
+  - **Benefits**: Meaningful rollback points, clear progress checkpoints, better agent handoffs
+
 ## [0.20.0] - 2025-11-06
 
 ### Changed

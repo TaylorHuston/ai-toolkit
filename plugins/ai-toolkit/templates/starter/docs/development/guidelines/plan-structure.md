@@ -66,6 +66,65 @@ Teams can choose different testing approaches based on context:
 
 **Note**: Phases are suggestions. Modify to fit your workflow and team preferences.
 
+### Phase Granularity - Atomic, Testable, Committable
+
+**Core Principle**: Each phase should represent a logical, atomic, testable, and committable piece of work that ends at a natural commit point.
+
+**Good phase characteristics**:
+- ✅ **Atomic** - Complete one logical unit of work
+- ✅ **Testable** - Can verify it works before moving on
+- ✅ **Committable** - Ends at a stable, working state
+- ✅ **Rollback-friendly** - Can revert to this point if needed
+- ✅ **Scoped** - 1-4 hours of work (not multi-day phases)
+
+**Why this matters**:
+- Each phase gets its own commit with rollback point (see "After Each Phase Completion")
+- Easier to review progress (checkpoint at each phase)
+- Clearer handoffs between agents (phase = complete unit of work)
+- Better parallelization opportunities (phases can run concurrently if independent)
+
+**Examples - Good Phase Granularity**:
+```markdown
+## Phase 1: Authentication Foundation
+- [ ] 1.1 Design JWT token structure and expiration strategy
+- [ ] 1.2 Implement user model with password hashing
+- [ ] 1.3 Create login endpoint with JWT generation
+- [ ] 1.4 Add token validation middleware
+- [ ] 1.5 Write authentication integration tests
+```
+
+Each phase is atomic (one concept), testable (can verify), and committable (works in isolation).
+
+**Examples - Poor Phase Granularity**:
+```markdown
+❌ BAD - Too large, multiple concepts
+- [ ] 1.1 Implement entire authentication system (3+ days, many commits)
+
+❌ BAD - Too small, not useful checkpoint
+- [ ] 1.1 Import bcrypt library
+- [ ] 1.2 Add bcrypt to package.json
+- [ ] 1.3 Create hash function
+
+❌ BAD - Ends in broken state
+- [ ] 1.1 Create user model (no tests, can't verify it works)
+- [ ] 1.2 Write all tests (can't run, no implementation)
+```
+
+**When to split a phase** (if any of these apply):
+- Phase takes more than 4 hours
+- Phase touches multiple unrelated concepts
+- Phase can't be easily tested in isolation
+- Phase ends with broken/incomplete functionality
+- Phase requires multiple commits to feel "done"
+
+**When to merge phases** (if all of these apply):
+- Individual phases are trivial (< 15 minutes)
+- Phases must be done together (interdependent)
+- Splitting creates broken intermediate states
+- Combined phase is still testable and committable
+
+**Integration with phase commits**: Since each phase gets committed with a rollback point, proper granularity ensures you have meaningful checkpoints throughout the work. See "After Each Phase Completion" for commit workflow.
+
 ### Phase Numbering
 
 **Format**: `Major.Minor` (e.g., 1.1, 1.2, 2.1)
