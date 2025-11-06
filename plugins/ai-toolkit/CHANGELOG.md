@@ -6,6 +6,104 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- **Resources section in CLAUDE.md template** for curated link tracking
+  - **Purpose**: Living documentation of valuable external resources discovered during development
+  - **Categories**: Documentation, Community Resources, Example Implementations, Similar Projects, Performance & Optimization, Security & Best Practices
+  - **Usage**: Add resources as discovered with WHY each is valuable (helps AI know when to use)
+  - **Integration**: context-analyzer checks Resources section first before broad web searches
+  - **Format**: `[URL] - [Author] - [Why valuable and when to reference]`
+  - **Benefits**: Reduces duplicate research, team-curated quality, faster than starting from scratch
+
+- **Investigation Results WORKLOG format** for research documentation (worklog-format.md)
+  - **Purpose**: Document external research findings separate from implementation work
+  - **Use cases**: context-analyzer research, documentation lookup, resource discovery
+  - **Format**: Query → Sources analyzed → Key findings → Top solutions → Curated resources → Suggested for CLAUDE.md
+  - **Integration**: Used by context-analyzer agent, `/troubleshoot` Research phase
+  - **Variants**: "Investigation Complete" and "Investigation Incomplete" (when no clear solution found)
+  - **Benefits**: Audit trail of research, knowledge handoffs documented, supports mixed format WORKLOGs (investigation + troubleshooting + implementation in same file)
+
+- **Review WORKLOG formats** for code and security review documentation (worklog-format.md)
+  - **Purpose**: Standardized documentation of code-reviewer and security-auditor findings
+  - **Entry types**: "Review Approved" (passes) and "Review Requires Changes" (issues found with handoff)
+  - **Structure**: Reviewed → Scope → Verdict → Strengths/Issues → Files
+  - **Code reviews**: Quality, performance, testing, best practices issues with severity levels (Critical/Major/Minor)
+  - **Security reviews**: OWASP-classified vulnerabilities with file:line references and remediation steps
+  - **Integration**: code-reviewer and security-auditor agents create review entries in WORKLOG.md
+  - **Benefits**: Review audit trail, clear issue tracking, structured handoffs when fixes needed
+
+- **WORKLOG format decision tree** to help choose correct entry format (worklog-format.md)
+  - **Purpose**: Clear guidance on which WORKLOG format to use in different scenarios
+  - **Coverage**: Standard (HANDOFF/COMPLETE/REVIEW), Troubleshooting, Investigation formats
+  - **Visual tree**: Shows decision flow based on what's being documented
+  - **Quick examples**: Agent handoff → HANDOFF, Phase done → COMPLETE, Code review → REVIEW, Debugging → Troubleshooting, Research → Investigation
+  - **Benefits**: Reduces format confusion, ensures consistent WORKLOG documentation
+
+- **Coding standards proactive enforcement** - transformed from passive documentation to active quality gate
+  - **Status change**: "Optional" → "Active" with automated enforcement
+  - **Getting Started checklist**: 40-minute progressive disclosure (5 phases) makes template completion achievable
+  - **Common Violations section**: Clear ❌/✅ examples eliminate ambiguity (file naming, identifiers, imports, line length, parameters)
+  - **Auto-detection from config files**: Extract standards from .prettierrc, .eslintrc, tsconfig.json, pyproject.toml
+  - **Automated Quality Checks section**: File-level, code-level, and style checks with enforcement protocol
+  - **Integration with /implement**: Implementation agents read standards BEFORE writing code (prevention vs detection)
+  - **Per-Phase quality gate**: Coding standards validation added to development-loop.md (blocks phase completion)
+  - **Implementation Agent Protocol**: Detailed before/during/after checklist in implement.md
+  - **Benefits**: Consistent code style from day 1, fewer review violations, proactive compliance, clear enforcement
+
+### Changed
+
+- **context-analyzer agent refocused** as external research specialist (prevents context pollution)
+  - **OLD role**: Pre-load local project context for all agents (caused context dilution)
+  - **NEW role**: External research specialist that curates signal from noise
+  - **How it works**: Reads 10-20 external sources (docs, blogs, SO), returns 2-5 page curated summary
+  - **Research workflow**: Checks CLAUDE.md Resources section first, then Context7 docs, then WebSearch/WebFetch
+  - **Resource suggestions**: When finding exceptional resources during research, suggests adding to CLAUDE.md Resources section (1-3 per session max)
+  - **Benefits**: Research happens in separate context window, implementation agents keep clean context
+  - **Integration**: Used by `/troubleshoot` Research phase, implementation agents requesting external knowledge
+  - **Tools**: WebSearch, WebFetch, Context7 for documentation research
+  - **Output**: Focused summaries with curated resource links + suggestions for future-valuable resources
+  - **Prevents**: Context window pollution where relevant problem context gets pushed out by generic research
+  - Updated 4 commands to remove old context-analyzer references (project-status, docs, security-audit, ui-design)
+
+- **Guideline documentation improvements** after holistic review (16 guideline files reviewed)
+  - **Fixed critical issues**:
+    - Complete rewrite of context-analyzer section in agent-coordination.md (lines 425-506) - was completely outdated
+    - Removed all `/test-fix` references (command removed in v0.19.0) - replaced with `/troubleshoot`
+    - Fixed DRY violation: moved security detection criteria to single source of truth in agent-coordination.md
+  - **Added missing integrations**:
+    - Investigation format references added to development-loop.md and troubleshooting.md
+    - context-analyzer integrated into troubleshooting.md Research phase (Option A - recommended approach)
+    - Review format references added to development-loop.md quality gates sections
+    - context-analyzer added to specialist agent list in development-loop.md
+  - **Enhanced clarity**:
+    - WORKLOG format decision tree added to worklog-format.md Quick Reference
+    - When to invoke context-analyzer with examples (agent-coordination.md)
+  - **Files updated**: agent-coordination.md, development-loop.md, troubleshooting.md, worklog-format.md, code-reviewer.md, security-auditor.md
+  - **Benefits**: Consistent documentation, accurate agent roles, clear format selection, reduced confusion
+
+- **Guideline metadata standardization** - removed version numbers, date-based tracking only
+  - **Rationale**: Guidelines are living documentation, not APIs - version numbers imply discrete releases that don't match reality
+  - **Approach**: Date-based tracking with `created` and `last_updated` fields only
+  - **Fixed inconsistencies**: Updated 7 files with stale `last_updated` dates (2025-11-06), fixed status capitalization in ui-design-guidelines.md
+  - **Documentation**: Added "Guideline Versioning" section to docs/development/README.md explaining when to update dates
+  - **Benefits**: Simpler maintenance, clearer freshness tracking, CHANGELOG.md tracks actual changes better than version numbers
+  - **Files affected**: All 15 guideline files (removed `version` field from metadata)
+
+### Removed
+
+- **RESEARCH.md file concept** - removed as unnecessary complexity with poor integration
+  - **Rationale**: RESEARCH.md was never properly integrated into workflow, no agent created it, no command triggered it
+  - **Overlapped with**: ADRs (architecture decisions), WORKLOG entries (simple decisions), Investigation format (external research)
+  - **Replaced with**:
+    - Simple decisions → WORKLOG entries with brief rationale
+    - External research → Investigation format (context-analyzer)
+    - Architecture decisions → ADRs via `/adr` command
+    - Complex debugging → Extended WORKLOG entries with hypothesis tracking
+  - **Removed from**: research-documentation.md guideline (deleted), implement.md, worklog-format.md, development-loop.md, troubleshooting.md, pm-guidelines.md, issue-management.md, plan-structure.md
+  - **File count change**: 16 guidelines → 15 guidelines (research-documentation.md removed)
+  - **Benefits**: Simpler workflow, clearer decision documentation, reduced cognitive load, better alignment with actual usage patterns
+
 ## [0.19.0] - 2025-11-06
 
 ### Added

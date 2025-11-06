@@ -82,7 +82,7 @@ AI analyzes natural language and executes appropriate action:
 ## Agent Coordination
 
 **Primary**: technical-writer (documentation creation/maintenance)
-**Supporting**: context-analyzer (health analysis), code-reviewer (accuracy validation)
+**Supporting**: code-reviewer (accuracy validation)
 **Domain**: Frontend/backend specialists (technical accuracy)
 **Security**: security-auditor (validates security docs, threat models, auth flows)
 

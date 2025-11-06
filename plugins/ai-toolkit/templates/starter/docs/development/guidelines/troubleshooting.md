@@ -1,9 +1,8 @@
 ---
 # === Metadata ===
 template_type: "guideline"
-version: "1.0.0"
 created: "2025-11-05"
-last_updated: "2025-11-05"
+last_updated: "2025-11-06"
 status: "Active"
 target_audience: ["AI Assistants", "Developers"]
 description: "Structured troubleshooting methodology with 5-step loop and debug logging practices"
@@ -37,19 +36,40 @@ debug_logging: "liberal"                       # Encourage extensive logging
 
 ### 1. Research (Don't Guess!)
 
-**Priority order**: Context7 → Official documentation → User guidance
+**Priority order**: context-analyzer (recommended) → Context7 → Official documentation → User guidance
 
 **Steps**:
-1. Check Context7 for library/framework documentation
-2. Search official docs for error messages and patterns
-3. Ask user for links to relevant documentation or examples
-4. Identify existing debug tools (verbose modes, framework debugging features)
-5. Look for canonical examples and templates
+
+**Option A - Invoke context-analyzer (Recommended)**:
+1. Provide specific research query to context-analyzer
+   - Example: "PostgreSQL JSONB aggregation timeout solutions"
+   - Example: "React component re-renders on every state change - debugging patterns"
+2. Receive curated summary with:
+   - Official documentation excerpts (Context7)
+   - Community solutions (blogs, Stack Overflow, GitHub)
+   - Recommended resources with quality filtering
+   - Investigation WORKLOG entry documenting findings
+3. Read Investigation WORKLOG entry for curated resources
+4. Check CLAUDE.md Resources section (context-analyzer checks there first)
+
+**Option B - Manual Research**:
+1. Check CLAUDE.md Resources section for project-curated links
+2. Check Context7 for library/framework documentation
+3. Search official docs for error messages and patterns
+4. Ask user for links to relevant documentation or examples
+5. Identify existing debug tools (verbose modes, framework debugging features)
+6. Look for canonical examples and templates
 
 **Questions to ask user**:
 - "Do you have links to relevant docs or examples?"
 - "Are there canonical patterns in your codebase I should follow?"
 - "Any specific guidance on this issue?"
+
+**Benefits of using context-analyzer**:
+- Reads 10-20 sources, returns 2-5 page curated summary
+- Research happens in separate context window (keeps your context clean)
+- Quality-filtered resources (best solutions highlighted)
+- Documented findings in Investigation WORKLOG entry
 
 **Don't**: Try to reinvent the wheel or guess based on "common patterns"
 
@@ -357,12 +377,12 @@ export const getCurrentUser = query({
 ## Related Documentation
 
 **WORKLOG Formats**:
-- `worklog-format.md` - Complete WORKLOG entry formats (standard and troubleshooting)
+- `worklog-format.md` - Complete WORKLOG entry formats (Standard, Troubleshooting, Investigation, Reviews)
 
 **Issue and Plan Management**:
 - `issue-management.md` - TASK.md, BUG.md file formats
 - `plan-structure.md` - PLAN.md structure and progress tracking
-- `research-documentation.md` - RESEARCH.md format for complex decisions
+- Use `/adr` command for architecture decisions requiring detailed rationale
 
 **Development Workflow**:
 - `development-loop.md` - Core development workflow and quality gates

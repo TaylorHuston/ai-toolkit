@@ -38,7 +38,6 @@ Comprehensive security assessment workflow:
 
 **Primary**: security-auditor (for comprehensive vulnerability assessment and OWASP compliance)
 **Supporting**: code-reviewer (security-focused code review), database-specialist (data security), devops-engineer (infrastructure security)
-**Analysis**: context-analyzer (system architecture understanding)
 
 ## Options
 
@@ -49,7 +48,6 @@ Comprehensive security assessment workflow:
 
 ## Process
 
-- Use context-analyzer to understand system architecture
 - Use security-auditor for comprehensive vulnerability assessment
 - Use code-reviewer for security-focused code review
 - Use database-specialist for data security review (if applicable)

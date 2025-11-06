@@ -187,7 +187,7 @@ npm run test:coverage
 
 ## Output Format
 
-### Code Review Report
+### Full Code Review Report (for detailed reviews, saved as separate file)
 ```markdown
 ## Code Review: [Feature/Bug Description]
 
@@ -231,6 +231,44 @@ npm run test:coverage
 
 **Verdict**: [Approve / Request Changes]
 **Reviewer**: code-reviewer
+```
+
+### WORKLOG Entry (always create in WORKLOG.md)
+
+**See**: `docs/development/guidelines/worklog-format.md` for complete Review entry formats
+
+**When review passes**:
+```markdown
+## YYYY-MM-DD HH:MM - [AUTHOR: code-reviewer] (Review Approved)
+
+Reviewed: [Phase/feature reviewed]
+Scope: [Quality/Security/Performance aspects]
+Verdict: ✅ Approved [clean / with minor notes]
+
+Strengths:
+- [Key positive aspect 1]
+- [Key positive aspect 2]
+
+Files: [files reviewed]
+```
+
+**When issues found**:
+```markdown
+## YYYY-MM-DD HH:MM - [AUTHOR: code-reviewer] → [NEXT: implementation-agent]
+
+Reviewed: [Phase/feature reviewed]
+Scope: [Quality aspects reviewed]
+Verdict: ⚠️ Requires Changes
+
+Critical:
+- [Issue] @ file.ts:line - [Fix needed]
+
+Major:
+- [Issue] @ file.ts:line - [Fix needed]
+
+Files: [files reviewed]
+
+→ Passing back to {agent-name} for fixes
 ```
 
 ## Review Levels

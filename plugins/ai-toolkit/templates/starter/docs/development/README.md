@@ -140,6 +140,57 @@ Commands read guidelines before executing:
 1. Reads `git-workflow.md` → knows commit convention
 2. Formats commit message accordingly
 
+## Guideline Versioning
+
+**Guidelines use date-based tracking, not version numbers.**
+
+### Metadata Fields
+
+Each guideline has three metadata fields:
+```yaml
+---
+created: "2025-10-30"        # When guideline was first created
+last_updated: "2025-11-06"   # When last significantly changed
+status: "Active"             # Active, Optional, Deprecated
+---
+```
+
+### When to Update `last_updated`
+
+**DO update** when making:
+- ✅ Structural changes (added/removed sections)
+- ✅ Configuration changes (frontmatter updates)
+- ✅ Workflow changes (changed steps/requirements)
+- ✅ Behavior changes (how agents should interpret this)
+
+**DON'T update** for:
+- ❌ Typo fixes (too minor)
+- ❌ Grammar improvements (cosmetic)
+- ❌ Example additions (unless they change behavior)
+
+### Why No Version Numbers?
+
+Guidelines are **living documentation**, not APIs:
+- They evolve continuously as your project matures
+- Version numbers (1.0, 2.0) imply discrete releases that don't match reality
+- `last_updated` date tells you freshness without version number overhead
+- CHANGELOG.md tracks what changed (more useful than version numbers)
+
+**Example workflow:**
+```bash
+# Make significant change to testing-standards.md
+# Update last_updated: "2025-11-06"
+# Add entry to CHANGELOG.md under "Documentation"
+```
+
+### Status Field
+
+- **Active**: Used by commands/agents, kept current
+- **Optional**: Template, fill in when needed
+- **Deprecated**: No longer used, kept for reference
+
+---
+
 ## Best Practices
 
 ### 1. Start Minimal

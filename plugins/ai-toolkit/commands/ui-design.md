@@ -183,7 +183,7 @@ Acceptance: Implement matching design, responsive 320px-1920px
 ## Agent Coordination
 
 **Primary**: ui-ux-designer (creates mockups)
-**Supporting**: context-analyzer (existing patterns), frontend-specialist (feasibility)
+**Supporting**: frontend-specialist (feasibility and existing patterns)
 **Approval**: User (visual review)
 
 ## Error Handling

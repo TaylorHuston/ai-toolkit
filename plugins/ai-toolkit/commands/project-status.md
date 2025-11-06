@@ -45,24 +45,7 @@ Provides comprehensive project context through intelligent agent analysis, enabl
 
 ### Execution Steps
 
-**1. Invoke context-analyzer agent:**
-```
-Task: "Analyze project status comprehensively.
-
-Dimensions:
-- Git: Branch strategy, commit patterns, merge readiness
-- Project health: Code quality, technical debt, architecture
-- Workflow: Current phase, task progress, blockers
-- Environment: Consistency, dependencies, optimization
-- Jira (if enabled): Hybrid local/Jira status display
-
-Format: {standard|ai-format|detailed|json}
-Scope: {all|git|project|environment}
-
-Provide actionable insights and recommendations."
-```
-
-**2. Collect status data:**
+**1. Collect status data:**
 ```bash
 # Git
 git branch --show-current
@@ -108,7 +91,7 @@ Legend:
 - (Jira: X) = Current Jira status (read-only)
 ```
 
-**4. Intelligent analysis (context-analyzer):**
+**3. Intelligent analysis:**
 - Branch strategy assessment
 - Commit pattern insights
 - Technical debt identification
@@ -117,7 +100,7 @@ Legend:
 - Risk assessment
 - Actionable recommendations
 
-**5. Format output:**
+**4. Format output:**
 - Standard: Human-readable with visual indicators
 - AI-format: Structured for AI consumption
 - Detailed: Comprehensive with trends and rationale
@@ -143,8 +126,8 @@ Legend:
 
 ### Agent Coordination
 
-**Primary:** context-analyzer (comprehensive analysis, pattern recognition)
-**Supporting:** data-analyst (metrics, trends), technical-writer (formatting)
+**Primary:** project-manager (orchestration and analysis)
+**Supporting:** technical-writer (formatting)
 
 ### Error Handling
 

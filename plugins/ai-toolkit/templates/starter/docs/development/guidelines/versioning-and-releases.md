@@ -1,7 +1,6 @@
 ---
 # === Metadata ===
 template_type: "guideline"
-version: "1.0.0"
 created: "2025-11-03"
 last_updated: "2025-11-03"
 status: "Active"

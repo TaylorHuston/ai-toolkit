@@ -186,7 +186,7 @@ trivy image myimage:latest
 
 ## Output Format
 
-### Security Audit Report
+### Full Security Audit Report (for comprehensive audits, saved as separate file)
 ```markdown
 ## Security Audit Results
 
@@ -227,6 +227,47 @@ trivy image myimage:latest
 
 **Approval**: [Approved / Requires Fixes / Blocked]
 **Reviewed by**: security-auditor + [Gemini cross-validation if used]
+```
+
+### WORKLOG Entry (always create in WORKLOG.md)
+
+**See**: `docs/development/guidelines/worklog-format.md` for complete Review entry formats
+
+**When security review passes**:
+```markdown
+## YYYY-MM-DD HH:MM - [AUTHOR: security-auditor] (Review Approved)
+
+Reviewed: [Phase/feature reviewed]
+Scope: Security (OWASP Top 10, auth, data protection)
+Verdict: ✅ Approved [clean / with minor notes]
+
+Strengths:
+- [Security strength 1]
+- [Security strength 2]
+
+Notes:
+- [Optional suggestion]
+
+Files: [files reviewed]
+```
+
+**When vulnerabilities found**:
+```markdown
+## YYYY-MM-DD HH:MM - [AUTHOR: security-auditor] → [NEXT: implementation-agent]
+
+Reviewed: [Phase/feature reviewed]
+Scope: Security (OWASP categories reviewed)
+Verdict: ⚠️ Requires Changes - [Critical/High] vulnerabilities found
+
+Critical:
+- [Vulnerability] @ file.ts:line - [Fix] (OWASP A##: [Category])
+
+Major:
+- [Vulnerability] @ file.ts:line - [Fix] (OWASP A##: [Category])
+
+Files: [files reviewed]
+
+→ Passing back to {agent-name} for security fixes (URGENT if Critical)
 ```
 
 ## Escalation Scenarios

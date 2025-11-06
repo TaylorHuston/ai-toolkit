@@ -25,6 +25,47 @@ Welcome to your AI-assisted project! This file provides essential context to Cla
 - **CI/CD**: [GitHub Actions/Jenkins/CircleCI]
 - **Monitoring**: [Datadog/New Relic/Sentry]
 
+## Resources
+
+**Curated links for AI research and reference** - Add high-quality resources discovered during development that you want to reference frequently. The context-analyzer agent will prioritize these when researching related topics.
+
+### Documentation
+- [Official docs URL] - [Brief description of what makes this valuable]
+- [Framework/library guide URL] - [What patterns or gotchas this covers]
+
+### Community Resources
+- [Blog post URL] - [Author name] - [Why this is particularly useful]
+- [Stack Overflow answer URL] - [Specific problem this solves]
+
+### Example Implementations
+- [GitHub repo URL] - [What pattern or approach to reference]
+- [Open source project URL] - [What to learn from their implementation]
+
+### Similar Projects
+- [Project URL] - [What aspects of their approach to study]
+- [Case study URL] - [Lessons learned or patterns used]
+
+### Performance & Optimization
+- [Benchmark URL] - [What performance insights this provides]
+- [Profiling guide URL] - [When to reference this]
+
+### Security & Best Practices
+- [Security guide URL] - [What threats or patterns this addresses]
+- [OWASP resource URL] - [Specific security concerns covered]
+
+**Usage Tips:**
+- Add resources as you discover them during development
+- Include WHY each resource is valuable (helps AI know when to use it)
+- Remove outdated links or mark them as deprecated
+- context-analyzer will check these first before broad web searches
+- Organize by category for easy scanning
+
+**Example Entry:**
+```markdown
+### Performance & Optimization
+- https://blog.example.com/postgres-json-performance - [Author Name] - Deep dive on PostgreSQL JSONB aggregation performance with benchmarks. Use when debugging slow JSON queries. Has code examples of chunked aggregation pattern.
+```
+
 ## AI Toolkit Configuration
 
 **Toolkit Version Information:**

@@ -1,9 +1,8 @@
 ---
 # === Metadata ===
 template_type: "guideline"
-version: "1.0.0"
 created: "2025-10-30"
-last_updated: "2025-10-30"
+last_updated: "2025-11-06"
 status: "Active"
 target_audience: ["AI Assistants", "Development Team"]
 description: "AI-assisted development workflow with test-first approach, continuous code review, and agent coordination"
@@ -79,7 +78,7 @@ complexity_scoring:
 
 # Development Loop Guidelines
 
-**Referenced by Commands:** `/implement`, `/plan`, `/quality`, `/test-fix`, `/comment`
+**Referenced by Commands:** `/implement`, `/plan`, `/quality`, `/troubleshoot`, `/comment`
 
 ## Quick Reference
 
@@ -185,6 +184,8 @@ See `testing-standards.md` for framework-specific commands and test organization
 
 **Threshold**: 90+ required to proceed (configurable above)
 
+**WORKLOG Documentation**: code-reviewer creates Review WORKLOG entries (see `worklog-format.md` for Review formats).
+
 See `coding-standards.md` for specific style and quality expectations.
 
 ### 5. Iterate Until Quality Gates Pass
@@ -217,6 +218,7 @@ See `coding-standards.md` for specific style and quality expectations.
 - **security-auditor**: Security review, vulnerability assessment
 - **performance-optimizer**: Performance analysis, optimization
 - **code-reviewer**: Code quality assessment, best practices review
+- **context-analyzer**: External research, documentation lookup, resource curation
 
 ### Agent Orchestration: Who Drives the Handoffs?
 
@@ -311,21 +313,19 @@ Every issue directory (`pm/issues/TASK-###-name/` or `BUG-###-name/`) can contai
 - Created by `/plan` command
 - See `plan-structure.md` for complete format
 
-**WORKLOG.md** (WHAT was done - history):
+**WORKLOG.md** (WHAT was done and WHY):
 - Reverse chronological narrative work history
+- Documents work done, decisions made, and rationale
 - Created automatically by `/implement` after each phase
-- See `worklog-format.md` for entry formats (standard and troubleshooting)
-
-**RESEARCH.md** (WHY decisions were made):
-- Deep technical investigations requiring detailed analysis
-- Created manually when complex decisions need rationale
-- See `research-documentation.md` for format and criteria
+- See `worklog-format.md` for entry formats (Standard, Troubleshooting, Investigation, Reviews)
+- For complex architecture decisions, use `/adr` to create Architecture Decision Records
 
 ### WORKLOG Documentation
 
 **For complete WORKLOG entry formats**, see `worklog-format.md` which documents:
-- Standard format (HANDOFF and COMPLETE entries)
+- Standard format (HANDOFF, COMPLETE, and REVIEW entries)
 - Troubleshooting format (hypothesis-based entries)
+- Investigation format (external research findings)
 - When to write entries vs when to skip
 - Best practices and examples
 - Entry length guidelines
@@ -347,18 +347,20 @@ Every issue directory (`pm/issues/TASK-###-name/` or `BUG-###-name/`) can contai
 
 **Command**: Use `/troubleshoot` to apply systematic debugging approach
 
-### Research Documentation
+### Architecture Decision Records
 
-**For when and how to create RESEARCH.md**, see `research-documentation.md` which documents:
-- Criteria for creating RESEARCH.md (3+ alternatives, benchmarks, root cause analysis)
-- When to keep decisions in WORKLOG instead
-- RESEARCH.md structure and format
-- Anchor linking from WORKLOG entries
-- Multiple decisions in same file
+**For significant technical decisions**, use `/adr` command to create Architecture Decision Records:
+- Architecture decisions affecting multiple components
+- Technology selections with trade-offs
+- Security approaches and threat models
+- Performance strategies with benchmarks
+- API design patterns and conventions
 
-**Rule of thumb:**
-- **Can explain in ~500 chars?** → WORKLOG entry only
-- **Need multiple pages with data?** → Create RESEARCH.md section, reference from WORKLOG
+**Decision documentation guidelines:**
+- **Simple decisions** → WORKLOG entry with brief rationale
+- **External research** → Investigation format (invoke context-analyzer)
+- **Architecture decisions** → ADR via `/adr` command
+- **Complex debugging** → Extended WORKLOG entries with hypothesis tracking
 
 ## Test-First Strategy
 
@@ -533,16 +535,21 @@ complexity_scoring:
 
 1. **Functional**: All acceptance criteria met
 2. **Tests**: All tests pass, coverage ≥ 95%
-3. **Quality**: Code review score ≥ 90
-4. **Security**: Security-auditor review passes (if security-relevant phase)
-5. **Documentation**: Inline docs for public APIs
+3. **Coding Standards**: Implementation follows coding-standards.md conventions
+4. **Quality**: Code review score ≥ 90
+5. **Security**: Security-auditor review passes (if security-relevant phase)
+6. **Documentation**: Inline docs for public APIs
 
-**Security-Relevant Phase Detection** (same criteria as task-level detection):
+**Coding Standards Gate** (enforced before phase completion):
+- Implementation agents read `coding-standards.md` BEFORE writing code
+- Auto-detectable violations (file naming, import order, line length) BLOCK phase completion
+- Agent self-validates before marking phase complete
+- Rationale for necessary deviations documented in WORKLOG
+- See `coding-standards.md` "Automated Quality Checks" for complete validation checklist
 
-A phase is security-relevant if it involves ANY of:
-- **Keywords in phase description**: `auth`, `login`, `password`, `token`, `encrypt`, `decrypt`, `hash`, `crypto`, `permission`, `role`, `admin`, `validate input`, `sanitize`, `API key`, `secret`, `credential`, `OAuth`, `PII`, `sensitive data`
-- **File patterns being modified**: `**/auth/**`, `**/security/**`, `**/crypto/**`, `**/*Auth*`, `**/*Security*`, `**/*Validation*`, `**/middleware/auth*`, `**/guards/**`, `**/policies/**`
-- **Security-specific phases**: Threat modeling, security testing, penetration testing, security audit
+**Security-Relevant Phase Detection**:
+
+See `agent-coordination.md` "Security Governance" section for complete detection criteria (security keywords and file patterns). A phase is security-relevant if it involves security keywords, file patterns, or security-specific phases.
 
 **Security-Auditor Phase Review** (automatic for security-relevant phases):
 - Reviews implementation for vulnerabilities (injection, XSS, CSRF, etc.)
@@ -552,6 +559,8 @@ A phase is security-relevant if it involves ANY of:
 - Confirms secure data handling (PII, credentials, sensitive info)
 - Ensures OWASP compliance
 - **BLOCKS phase completion if critical vulnerabilities found**
+
+**WORKLOG Documentation**: security-auditor creates Review WORKLOG entries with OWASP classifications (see `worklog-format.md` for Security Review formats).
 
 **When invoked**: Automatically by `/implement` command before marking security-relevant phase complete
 
@@ -632,7 +641,7 @@ A phase is security-relevant if it involves ANY of:
 - **`/implement TASK-### PHASE`**: Executes development loop for specific phase
 - **`/plan TASK-###`**: Defines phases and acceptance criteria that drive the loop
 - **`/quality`**: Comprehensive quality assessment (superset of code review)
-- **`/test-fix`**: Automated test failure detection and resolution
+- **`/troubleshoot`**: Systematic debugging with research-first approach
 
 ### How Commands Enforce the Loop
 
@@ -745,7 +754,6 @@ See [Versioning and Releases](./versioning-and-releases.md) for complete CHANGEL
 **Core Workflow Guidelines:**
 - [Plan Structure](./plan-structure.md) - Phase patterns, reviews, progress tracking, test-first guidance
 - [WORKLOG Format](./worklog-format.md) - Standard and troubleshooting WORKLOG entry formats
-- [Research Documentation](./research-documentation.md) - When and how to create RESEARCH.md
 - [Issue Management](./issue-management.md) - TASK.md, BUG.md, EPIC.md file formats
 - [Troubleshooting](./troubleshooting.md) - 5-step debug loop methodology
 

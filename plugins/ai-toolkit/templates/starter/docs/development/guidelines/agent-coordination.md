@@ -1,7 +1,6 @@
 ---
 # === Metadata ===
 template_type: "guideline"
-version: "1.0.0"
 created: "2025-11-02"
 last_updated: "2025-11-02"
 status: "Active"
@@ -79,7 +78,6 @@ collaboration_patterns:
     - [test-engineer, domain_specialists]  # TDD: tests written alongside implementation
 
   sequential_handoff:
-    - [context-analyzer, domain_specialists]  # Context gathered before implementation
     - [domain_specialists, code-reviewer]  # Implementation reviewed after completion
     - [code-reviewer, technical-writer]  # Documentation after code approved
 
@@ -210,7 +208,7 @@ This guideline defines how agents coordinate, when to escalate, and how quality 
 **When Involved:**
 - During `/plan` command (test strategy in phases)
 - During `/implement` command (test-first guidance)
-- Via `/test-fix` command (test failure resolution)
+- Via `/troubleshoot` command (test failure debugging and resolution)
 
 **Test Coverage Threshold:**
 - **Minimum Coverage**: 95% (configurable in `development-loop.md`)
@@ -310,11 +308,6 @@ Code-reviewer: "This module has high cyclomatic complexity across 15 functions"
 - Continuous: test-engineer provides ongoing guidance
 
 ### Sequential Handoff Patterns
-
-**Context-Analyzer → Domain Specialists:**
-1. context-analyzer gathers project context (ADRs, patterns, previous work)
-2. Provides filtered, domain-specific context to domain specialist
-3. Domain specialist implements with full context awareness
 
 **Domain Specialists → Code-Reviewer:**
 1. Domain specialist completes implementation
@@ -428,26 +421,88 @@ Upgrading framework or dependencies?
 
 **Handoff:** backend-specialist implements analytics features, data-analyst analyzes resulting data.
 
-## Context-Analyzer: Pre-Task Intelligence
+## Context-Analyzer: External Research Specialist
 
-**Automatic context gathering before complex tasks.**
+**On-demand research for external knowledge needs.**
 
-**When Auto-Invoked:**
-- Before complex, multi-step tasks
-- When `/implement` starts work on new epic
-- When semantic code analysis would help
+**Role**: External research specialist that curates signal from noise. When agents need outside information (documentation, community solutions, examples), context-analyzer researches extensively and returns focused summaries with curated resource links.
+
+**When Invoked:**
+- During `/troubleshoot` Research phase (external docs/solutions needed)
+- When implementation agents need best practices research
+- When exploring unfamiliar technologies or patterns
+- Explicitly requested by user or agent for external knowledge
 
 **What It Provides:**
-- Project context (ADRs, architectural patterns)
-- Domain-specific filtering (only relevant context)
-- Previous work and lessons learned
-- Semantic code structure (via Serena tools)
+- Curated documentation summaries (via Context7)
+- Community solutions from blogs, Stack Overflow, GitHub (via WebSearch + WebFetch)
+- Resource recommendations with quality filtering
+- Investigation WORKLOG entries documenting findings
+- Suggestions for adding exceptional resources to CLAUDE.md
+
+**What It Does NOT Do:**
+- ❌ Local project context gathering (agents read files directly using Read/Grep/Glob)
+- ❌ Auto-invocation before tasks (only invoked on-demand)
+- ❌ ADR or pattern discovery (use Grep/Glob for `docs/decisions/*.md`)
+- ❌ Codebase exploration (use Serena tools or Read/Grep directly)
+
+**Research Workflow:**
+1. Checks CLAUDE.md Resources section first (project-curated links)
+2. Fetches official documentation via Context7
+3. Searches community solutions via WebSearch + WebFetch
+4. Reads 10-20 sources, extracts signal, returns 2-5 page summary
+5. Curates best resources with quality filtering
+6. Creates Investigation WORKLOG entry with findings
+
+**WORKLOG Format**: Investigation entries (see `worklog-format.md` for Investigation format)
+
+**Key Benefit**: Research happens in context-analyzer's context window, implementation agents keep clean context focused on the problem.
 
 **What This Means for Domain Specialists:**
-1. You'll receive pre-filtered, relevant context
-2. Don't need to manually search for ADRs or patterns
-3. context-analyzer has already gathered what you need
-4. Focus on implementation, not context discovery
+1. Invoke context-analyzer when you need external research (not local project context)
+2. Provide specific research query: "PostgreSQL JSONB aggregation performance solutions"
+3. Expect curated summary with resource links, not raw research dump
+4. Check CLAUDE.md Resources section first (context-analyzer checks there too)
+5. Read Investigation WORKLOG entry for research findings and curated resources
+
+**When to Invoke context-analyzer:**
+
+✅ **External Documentation Research**:
+- "How does React useEffect cleanup work?"
+- "What's the PostgreSQL JSONB aggregation best practice?"
+- "Official Next.js caching strategy documentation?"
+
+✅ **Community Solutions**:
+- "How do others solve rate limiting in distributed systems?"
+- "Common patterns for Convex auth integration?"
+- "Why is my JSONB query timing out - community solutions?"
+
+✅ **Best Practice Discovery**:
+- "What's the recommended approach for API versioning?"
+- "OAuth2 PKCE flow implementation patterns?"
+- "Node.js memory leak debugging techniques?"
+
+❌ **Don't Invoke context-analyzer for**:
+- Local project context (use Read/Grep/Glob tools directly)
+- ADR discovery (use Glob for `docs/decisions/*.md`)
+- Previous work review (read WORKLOG.md directly)
+- Codebase patterns (use Serena tools: get_symbols_overview, find_symbol)
+- Architecture questions (escalate to code-architect)
+
+**Example Invocation**:
+```
+# Good - specific external research query
+Domain specialist: "I need to research PostgreSQL JSONB aggregation performance issues causing timeouts"
+→ Invoke context-analyzer with query
+
+# Bad - local project context (do yourself)
+Domain specialist: "What ADRs exist for caching?"
+→ Use Grep: "grep -r 'caching' docs/decisions/*.md"
+
+# Bad - too generic
+Domain specialist: "Research the task"
+→ Be specific about what external knowledge you need
+```
 
 ## Customization
 

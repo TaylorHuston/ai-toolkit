@@ -1,9 +1,8 @@
 ---
 # === Metadata ===
 template_type: "guideline"
-version: "1.0.0"
 created: "2025-11-02"
-last_updated: "2025-11-02"
+last_updated: "2025-11-06"
 status: "Active"
 target_audience: ["AI Assistants", "Project Managers"]
 description: "Epic and issue management patterns for project planning and tracking"
@@ -105,7 +104,7 @@ This guideline defines patterns for creating and managing epics and issues. Comm
 - EPIC.md structure (YAML frontmatter, sections, Definition of Done patterns)
 - TASK.md structure (acceptance criteria, technical notes)
 - BUG.md structure (reproduction steps, environment details)
-- Issue directory structure (TASK.md, PLAN.md, WORKLOG.md, RESEARCH.md)
+- Issue directory structure (TASK.md, PLAN.md, WORKLOG.md)
 - Epic and issue naming conventions
 - Epic size guidelines and decomposition patterns
 - Issue type detection patterns
@@ -115,7 +114,8 @@ This guideline defines patterns for creating and managing epics and issues. Comm
 - **EPIC.md**: `pm/epics/EPIC-###-kebab-name.md` (feature-level initiatives)
 - **TASK.md**: `pm/issues/TASK-###-kebab-name/TASK.md` (implementation work)
 - **BUG.md**: `pm/issues/BUG-###-kebab-name/BUG.md` (defects and fixes)
-- **File purposes**: TASK.md (WHAT), PLAN.md (HOW), WORKLOG.md (WHAT was done), RESEARCH.md (WHY)
+- **File purposes**: TASK.md (WHAT), PLAN.md (HOW), WORKLOG.md (WHAT/WHY history)
+- **Architecture decisions**: Use `/adr` command for complex technical decisions
 
 **Recommended Epic Size**: 2-8 tasks (decompose above 10 tasks)
 
@@ -305,7 +305,7 @@ created: YYYY-MM-DD
 - Epics: Created in Jira ONLY (PROJ-100, PROJ-200)
 - No local epic files: `pm/epics/` remains empty
 - Issues: Hybrid - Jira (PROJ-###) or local exploration (TASK-###, BUG-###)
-- Local directories: `pm/issues/PROJ-###-name/` for PLAN.md, WORKLOG.md, RESEARCH.md
+- Local directories: `pm/issues/PROJ-###-name/` for PLAN.md, WORKLOG.md
 
 ### Jira Epic Creation
 
@@ -338,8 +338,8 @@ created: YYYY-MM-DD
 - Create `pm/issues/PROJ-###-name/` for:
   - `PLAN.md` - Implementation phases (AI-managed)
   - `WORKLOG.md` - Work history
-  - `RESEARCH.md` - Technical deep dives
 - NO `TASK.md` file (Jira is source of truth)
+- For complex decisions, use `/adr` command to create Architecture Decision Records
 
 ### Promotion Pattern
 
@@ -355,8 +355,7 @@ When local exploration (TASK-###) is validated and ready for team:
    ```
    pm/issues/TASK-001-name/ → pm/issues/PROJ-123-name/
    ├── PLAN.md    (migrated)
-   ├── WORKLOG.md (migrated)
-   └── RESEARCH.md (migrated)
+   └── WORKLOG.md (migrated)
    ```
 6. Update git branch: `feature/TASK-001` → `feature/PROJ-123`
 7. Optional: Clean up original `TASK-001/` directory
@@ -530,8 +529,8 @@ EPIC-003: "Real-time Notifications"
 - `development-loop.md` - Implementation workflow and quality gates
 - `plan-structure.md` - PLAN.md structure, phase patterns, progress tracking
 - `worklog-format.md` - WORKLOG entry formats (standard and troubleshooting)
-- `research-documentation.md` - RESEARCH.md format and criteria
 - `git-workflow.md` - Branch naming aligned with issue IDs
+- Use `/adr` command for architecture decisions requiring detailed documentation
 
 **Commands:**
 - `/epic` - Creates epics and issues following these patterns

@@ -342,10 +342,7 @@ Available phases:
 - ✓ Brief summaries (5-10 lines): what YOU did, not entire phase history
 - ✓ See `worklog-format.md` for HANDOFF and COMPLETE entry formats
 - ✓ Prepend to top (reverse chronological)
-
-**pm/issues/ISSUE-ID-*/RESEARCH.md** (if needed):
-- ✓ Complex technical decisions requiring detailed rationale
-- ✓ See `research-documentation.md` for when to create
+- ✓ For complex decisions, use longer WORKLOG entries or create ADR via `/adr`
 
 **pm/epics/EPIC-###-name.md** (if epic exists):
 - ✓ Mark task complete when all phases done: `- [x] TASK-001`
@@ -390,11 +387,45 @@ When implementing `/implement ISSUE-ID PHASE`:
 
 1. **Validate parameters**: Issue exists, phase exists in PLAN.md
 2. **Verify branch**: Warn if mismatch, offer to fix (non-blocking)
-3. **Load context**: TASK.md/BUG.md or Jira, ADRs, WORKLOG, RESEARCH
+3. **Load context**: TASK.md/BUG.md or Jira, ADRs, WORKLOG, coding-standards.md
 4. **Check test-first**: Follow `plan-structure.md` guidance protocol
 5. **Brief agent**: Provide domain-filtered context per `plan-structure.md`
-6. **Execute phase**: Agent follows development loop with quality gates
-7. **Update progress**: Follow `plan-structure.md` progress tracking protocol
-8. **Check completion**: If all phases done, follow `plan-structure.md` task completion validation
+6. **Apply coding standards**: Agent reads `coding-standards.md` BEFORE writing code
+7. **Execute phase**: Agent follows development loop with quality gates
+8. **Validate standards**: Agent self-checks compliance before marking phase complete
+9. **Update progress**: Follow `plan-structure.md` progress tracking protocol
+10. **Check completion**: If all phases done, follow `plan-structure.md` task completion validation
+
+### Implementation Agent Protocol
+
+**Before writing code:**
+1. Read `coding-standards.md` for:
+   - File naming conventions (for new files)
+   - Identifier naming patterns (variables, functions, classes, constants)
+   - Import organization structure
+   - Line length and indentation rules
+   - Language-specific idioms
+2. Extract machine-readable config from frontmatter (language, formatter, linter, etc.)
+3. Note any project-specific conventions or examples
+
+**While writing code:**
+1. Apply standards proactively (don't wait for code review)
+2. Follow file naming when creating new files
+3. Organize imports according to defined order
+4. Keep line length within configured limits
+5. Use correct identifier naming patterns
+
+**Before marking phase complete:**
+1. Self-validate against coding standards:
+   - [ ] File names match convention
+   - [ ] Identifiers follow naming patterns
+   - [ ] Imports organized correctly
+   - [ ] Line length within limits
+   - [ ] Indentation consistent
+2. Auto-detectable violations BLOCK phase completion
+3. Document rationale for necessary deviations in WORKLOG
+4. Run formatter/linter if configured
+
+**See**: `coding-standards.md` "Automated Quality Checks" section for complete validation checklist.
 
 **Key Principle**: Commands orchestrate, guidelines configure. Workflow rules distributed across specialized guideline files for team customization.

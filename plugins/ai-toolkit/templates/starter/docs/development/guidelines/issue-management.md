@@ -1,15 +1,14 @@
 ---
 # === Metadata ===
 template_type: "guideline"
-version: "1.0.0"
 created: "2025-11-05"
-last_updated: "2025-11-05"
+last_updated: "2025-11-06"
 status: "Active"
 target_audience: ["AI Assistants", "Project Managers"]
 description: "TASK.md, BUG.md, EPIC.md file structures and issue directory organization"
 
 # === Configuration ===
-issue_files: ["TASK.md", "BUG.md", "EPIC.md", "PLAN.md", "WORKLOG.md", "RESEARCH.md"]
+issue_files: ["TASK.md", "BUG.md", "EPIC.md", "PLAN.md", "WORKLOG.md"]
 epic_location: "pm/epics/"
 issue_location: "pm/issues/"
 ---
@@ -28,13 +27,12 @@ issue_location: "pm/issues/"
 - **BUG.md** - Defects and fixes (`pm/issues/BUG-###-name/BUG.md`)
 - **PLAN.md** - Implementation phases (created by `/plan`)
 - **WORKLOG.md** - Work history (created by `/implement`)
-- **RESEARCH.md** - Technical decisions (optional)
 
 **File Purposes**:
 - **[TYPE].md** - WHAT to do (requirements, acceptance criteria)
 - **PLAN.md** - HOW to do it (phase breakdown)
-- **WORKLOG.md** - WHAT was done (narrative history)
-- **RESEARCH.md** - WHY decisions were made (analysis)
+- **WORKLOG.md** - WHAT was done and WHY (narrative history with rationale)
+- **Architecture decisions** - Use `/adr` command for complex technical decisions
 
 ---
 
@@ -277,8 +275,7 @@ assignee: Person Name     # Optional
 pm/issues/TASK-001-user-registration/
 ├── TASK.md        # Definition, acceptance criteria (REQUIRED)
 ├── PLAN.md        # Implementation phases (created by /plan)
-├── WORKLOG.md     # Work history (created by /implement)
-└── RESEARCH.md    # Technical deep dives (optional, created as needed)
+└── WORKLOG.md     # Work history (created by /implement)
 ```
 
 ### File Lifecycle
@@ -301,15 +298,16 @@ Status: Ready for implementation
 ```
 Creates: pm/issues/TASK-###-name/WORKLOG.md (first time)
 Updates: WORKLOG.md (subsequent phases)
-Contains: Work narrative, lessons, handoffs
+Contains: Work narrative, lessons, handoffs, decisions and rationale
 Status: In progress
 ```
 
-**4. Complex Decisions** (manual or agent-created)
+**4. Architecture Decisions** (when needed)
 ```
-Creates: pm/issues/TASK-###-name/RESEARCH.md
-Contains: Technical analysis, alternatives, benchmarks
-Status: Referenced from WORKLOG entries
+Use: /adr command
+Creates: docs/adr/ADR-###-title.md (project-wide)
+Contains: Context, decision, alternatives, consequences
+Status: Referenced from WORKLOG or code comments
 ```
 
 ### File Relationships
@@ -319,9 +317,9 @@ TASK.md         →  Defines WHAT to build
     ↓
 PLAN.md         →  Defines HOW to build it (phases)
     ↓
-WORKLOG.md      →  Documents WHAT was done (history)
+WORKLOG.md      →  Documents WHAT was done and WHY (history with rationale)
     ↓
-RESEARCH.md     →  Explains WHY decisions were made
+ADRs (via /adr) →  Complex architecture decisions (project-wide)
 ```
 
 ---
@@ -383,11 +381,10 @@ RESEARCH.md     →  Explains WHY decisions were made
 ```
 pm/issues/PROJ-123-feature-name/
 ├── PLAN.md        # AI-managed implementation phases
-├── WORKLOG.md     # Work history
-└── RESEARCH.md    # Technical decisions
+└── WORKLOG.md     # Work history
 ```
 
-**Note**: No TASK.md file for Jira issues (Jira is source of truth)
+**Note**: No TASK.md file for Jira issues (Jira is source of truth). Use `/adr` for complex architecture decisions.
 
 ### Promotion Pattern
 
@@ -399,7 +396,7 @@ pm/issues/PROJ-123-feature-name/
 # Creates PROJ-124 in Jira
 # Copies acceptance criteria
 # Updates epic linkage
-# Preserves PLAN.md, WORKLOG.md, RESEARCH.md
+# Preserves PLAN.md, WORKLOG.md
 ```
 
 ---
@@ -412,7 +409,7 @@ pm/issues/PROJ-123-feature-name/
 
 **For work documentation**:
 - See `worklog-format.md` for WORKLOG.md entry formats
-- See `research-documentation.md` for RESEARCH.md format
+- Use `/adr` command for architecture decisions requiring detailed documentation
 
 **For management patterns**:
 - See `pm-guidelines.md` for epic/issue creation workflows

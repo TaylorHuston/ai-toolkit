@@ -1,12 +1,12 @@
 ---
 # === Metadata ===
 template_type: "guideline"
-version: "1.0.0"
 created: "2025-10-30"
-last_updated: "2025-10-30"
-status: "Optional"
+last_updated: "2025-11-06"
+status: "Active"
+enforcement: "automated"
 target_audience: ["AI Assistants", "Development Team"]
-description: "Code style, naming conventions, and file organization standards"
+description: "Code style, naming conventions, and file organization standards - enforced during implementation"
 
 # === Coding Configuration (Machine-readable for AI agents) ===
 language: "TBD"                # javascript, typescript, python, go, etc.
@@ -21,11 +21,74 @@ indent_size: 2
 
 # Coding Standards
 
-**Referenced by Commands:** _None currently_ (available for code quality tools and agent guidance)
+**Status:** Active - Enforced proactively during implementation
+
+**Referenced by Commands:**
+- `/implement` - Implementation agents read before code generation
+- `/quality` - Quality assessment validates adherence
+
+**Referenced by Agents:**
+- frontend-specialist, backend-specialist, etc. - Read before implementation
+- code-reviewer - Validates compliance during review
 
 ## Quick Reference
 
 This guideline defines our code style, naming conventions, and file organization. Update as you establish project conventions.
+
+**Enforcement:** Implementation agents consult this guideline BEFORE writing code. code-reviewer validates compliance during review.
+
+---
+
+## Getting Started (Fill These First)
+
+**When starting your project, complete these in order:**
+
+### Phase 1: Language Basics (5 minutes)
+- [ ] Set `language` in frontmatter (javascript, typescript, python, go, etc.)
+- [ ] Set `formatter` in frontmatter (prettier, black, gofmt, etc.)
+- [ ] Set `linter` in frontmatter (eslint, pylint, golangci-lint, etc.)
+- [ ] Update "Language & Tooling" section with version and runtime
+
+### Phase 2: Naming Conventions (10 minutes)
+- [ ] Define variable naming convention (camelCase, snake_case)
+- [ ] Define function naming convention
+- [ ] Define class naming convention
+- [ ] Define constant naming convention (UPPER_SNAKE_CASE)
+- [ ] Define type/interface naming convention
+- [ ] Update "Code Identifiers" section with examples
+
+### Phase 3: File Organization (15 minutes)
+- [ ] Choose directory structure approach (feature-based, layer-based, module-based)
+- [ ] Set max file size guideline (recommended: 200-300 lines)
+- [ ] Define import ordering (external → internal → relative → types → styles)
+- [ ] Update "Directory Structure" section with your structure
+- [ ] Update "Import Organization" section with ordering
+
+### Phase 4: Style Details (10 minutes)
+- [ ] Set max parameters for functions (recommended: 3-4)
+- [ ] Define comment policy (when to comment, when not to)
+- [ ] Add link to formatter config file (if exists)
+- [ ] Add link to linter config file (if exists)
+- [ ] Update "Function Guidelines" section
+
+### Phase 5: Examples (ongoing - add as you establish patterns)
+- [ ] Link to exemplar file showing good structure
+- [ ] Link to well-written function demonstrating conventions
+- [ ] Add import organization example from codebase
+- [ ] Update "Examples" section with links
+
+**Total setup time: ~40 minutes**
+**Can complete incrementally as you establish patterns**
+
+---
+
+## Core Principals
+
+- DRY
+- SOLID
+- YAGNI
+- KISS
+- Adhere to known good patterns and documented examples, don't try and reinvent the wheel
 
 ## Language & Tooling
 
@@ -146,6 +209,179 @@ This section will be populated with examples from the codebase showing good prac
 
 ### Import Organization Example
 - TBD - Add example from codebase
+
+---
+
+## Common Violations and Fixes
+
+**Purpose:** Clear examples reduce ambiguity and help AI agents apply standards correctly.
+
+### File Naming
+
+❌ **Wrong:** `UserProfile.tsx` (PascalCase)
+✅ **Correct:** `user-profile.tsx` (kebab-case)
+
+❌ **Wrong:** `getUserData.ts` (camelCase)
+✅ **Correct:** `get-user-data.ts` (kebab-case)
+
+❌ **Wrong:** `user_service.py` (snake_case when kebab-case configured)
+✅ **Correct:** `user-service.py` (kebab-case)
+
+### Identifier Naming (update examples after Phase 2)
+
+❌ **Wrong:** `const UserName = "john"` (PascalCase for variable)
+✅ **Correct:** `const userName = "john"` (camelCase for variable)
+
+❌ **Wrong:** `function ApiCall()` (PascalCase for function)
+✅ **Correct:** `function apiCall()` (camelCase for function)
+
+❌ **Wrong:** `const max_retries = 3` (snake_case for constant)
+✅ **Correct:** `const MAX_RETRIES = 3` (UPPER_SNAKE_CASE for constant)
+
+### Import Organization (update after Phase 3)
+
+❌ **Wrong order:**
+```javascript
+import './styles.css'
+import { formatDate } from '../utils'
+import React from 'react'
+import type { User } from './types'
+```
+
+✅ **Correct order:**
+```javascript
+// 1. External dependencies
+import React from 'react'
+
+// 2. Internal modules
+import { formatDate } from '../utils'
+
+// 3. Relative imports
+import { UserProfile } from './user-profile'
+
+// 4. Types
+import type { User } from './types'
+
+// 5. Styles
+import './styles.css'
+```
+
+### Line Length
+
+❌ **Wrong:** `const result = someFunction(param1, param2, param3, param4, param5, param6, param7, param8, param9);` (132 chars)
+
+✅ **Correct:**
+```javascript
+const result = someFunction(
+  param1, param2, param3,
+  param4, param5, param6,
+  param7, param8, param9
+);
+```
+
+### Function Parameters (update after Phase 4)
+
+❌ **Wrong:** Too many parameters
+```javascript
+function createUser(name, email, age, address, phone, role, department, manager) {
+  // 8 parameters is too many
+}
+```
+
+✅ **Correct:** Use object parameter
+```javascript
+function createUser({ name, email, age, address, phone, role, department, manager }) {
+  // Single object parameter, much cleaner
+}
+```
+
+---
+
+## Auto-Detection from Config Files
+
+**If you have existing config files, AI agents can extract standards automatically:**
+
+### From `.prettierrc` / `prettier.config.js`
+
+AI can auto-detect:
+- `printWidth` → `max_line_length`
+- `useTabs` → `indent_style` (tabs vs spaces)
+- `tabWidth` → `indent_size`
+- `singleQuote` / `quoteProps` → quote style preferences
+
+### From `.eslintrc` / `eslint.config.js`
+
+AI can auto-detect:
+- `naming-convention` rule → variable/function/class naming patterns
+- `max-params` rule → max function parameters
+- `complexity` rule → cyclomatic complexity limits
+- `max-lines` / `max-lines-per-function` → file/function size limits
+
+### From `tsconfig.json` / `jsconfig.json`
+
+AI can auto-detect:
+- `strict` mode configuration
+- `paths` → import alias configuration
+- `moduleResolution` → import style
+
+### From `pyproject.toml` / `setup.cfg` (Python)
+
+AI can auto-detect:
+- `[tool.black]` → line length, target versions
+- `[tool.pylint]` → max line length, naming conventions
+- `[tool.mypy]` → type checking configuration
+
+**Recommendation:** Keep coding-standards.md in sync with config files as SINGLE SOURCE OF TRUTH. When config files exist, reference them here and extract their values into the frontmatter for AI consumption.
+
+---
+
+## Automated Quality Checks
+
+**These are auto-validated by implementation agents and code-reviewer:**
+
+### File-Level Checks (Enforced Before Phase Complete)
+
+- [ ] **File name** matches convention (kebab-case by default)
+- [ ] **File size** within limits (if max_file_size configured)
+- [ ] **Imports organized** according to defined order
+- [ ] **No commented-out code** (unless justified with explanation)
+- [ ] **No console.log** in production code (unless logger-wrapped)
+
+### Code-Level Checks (Enforced Before Phase Complete)
+
+- [ ] **Identifiers follow naming** conventions (variables, functions, classes, constants)
+- [ ] **Line length** within configured limit (100 chars by default)
+- [ ] **Indentation consistent** (2 spaces by default)
+- [ ] **Functions have** <= max parameters (if configured)
+- [ ] **No magic numbers** (extract to named constants)
+
+### Style Checks (Enforced Before Code Review)
+
+- [ ] **Formatter passes** (prettier/black/gofmt runs clean)
+- [ ] **Linter passes** with zero warnings (or documented exceptions)
+- [ ] **Type checking passes** (if using TypeScript/mypy/etc.)
+- [ ] **No duplicate code** detected (DRY principle)
+
+### Enforcement Protocol
+
+**During Implementation** (`/implement`):
+1. Implementation agent reads coding-standards.md before writing code
+2. Agent applies standards proactively while coding
+3. Agent self-validates before marking phase complete
+4. Auto-detectable violations BLOCK phase completion
+
+**During Code Review** (code-reviewer agent):
+1. Validates all automated checks passed
+2. Flags style violations missed during implementation
+3. Checks for consistency across codebase
+4. BLOCKS approval if critical violations found
+
+**Rationale for "Why?"**:
+- Simple decisions (naming, formatting) → WORKLOG entry with brief note
+- Complex decisions (architecture, patterns) → ADR via `/adr`
+- Agent documents WHY deviations were necessary (if justified)
+
+---
 
 ## General Coding Knowledge
 

@@ -1,9 +1,8 @@
 ---
 # === Metadata ===
 template_type: "guideline"
-version: "1.0.0"
 created: "2025-11-05"
-last_updated: "2025-11-05"
+last_updated: "2025-11-06"
 status: "Active"
 target_audience: ["AI Assistants", "Project Managers"]
 description: "PLAN.md structure, phase patterns, review requirements, and progress tracking protocols"
@@ -198,10 +197,12 @@ Teams can choose different testing approaches based on context:
    - Note which agent receives work next (if handoff)
    - Prepend to top (reverse chronological order)
    - See `worklog-format.md` for entry patterns
+   - Include decision rationale in WORKLOG entries
 
-**5. Consider RESEARCH.md**
-   - If complex technical decisions were made, create RESEARCH.md section
-   - See `research-documentation.md` for criteria
+**5. Architecture Decisions**
+   - For complex architectural decisions affecting multiple components, use `/adr` command
+   - ADRs document context, decision, alternatives, and consequences
+   - Reference ADRs from WORKLOG entries or code comments
 
 **Critical**: Never mark items complete until verified working. Premature checkoffs lead to incomplete work and confusion.
 
@@ -330,7 +331,7 @@ Filter and prepare only relevant information for each specialist to optimize per
 ### Dynamic Context Loading
 
 **Process:**
-1. Parse WORKLOG.md, RESEARCH.md, ADR files in real-time
+1. Parse WORKLOG.md and ADR files in real-time
 2. Extract only domain-relevant sections for selected agent
 3. Combine with phase-specific requirements from PLAN.md
 4. Include lessons learned from previous phases to avoid repeating mistakes
