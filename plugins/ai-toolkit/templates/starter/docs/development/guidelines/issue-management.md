@@ -454,6 +454,101 @@ See `plan-structure.md` "Agile Plan Updates" for update patterns and examples.
 
 ---
 
+## Development Notes
+
+**Purpose**: Quick capture of out-of-scope observations discovered during work
+
+**Location**: `pm/notes/` directory (atomic note files)
+
+### What Notes Are For
+
+**Parking lot for**:
+- Minor bugs found while working on something else
+- Performance optimization opportunities
+- Feature ideas or enhancements
+- Technical debt observations
+- Things to research later
+
+**NOT for**:
+- Current work items (those are TASK/BUG files)
+- Things you're working on right now (document in WORKLOG)
+- Architecture decisions (use `/adr` command)
+
+### File Format
+
+**Naming convention**: `YYYY-MM-DD-HHMMSS-slug.md`
+- Timestamp prefix ensures chronological sorting
+- Slug provides context at a glance
+- Example: `2025-11-06-143000-redis-pooling.md`
+
+**Template**: Use `pm/templates/note.md` as reference
+
+```markdown
+---
+type: [bug|perf|idea|tech-debt|research]
+context: [TASK-### phase X.Y | general]
+impact: [critical|high|medium|low]
+created: YYYY-MM-DD HH:MM:SS
+---
+
+# [Brief title]
+
+[3-5 line description of what you noticed]
+
+**Location**: [file:line if applicable]
+**Impact**: [Why this matters and when]
+```
+
+### Workflow
+
+**Creating notes** (conversational):
+- **Agent discovers**: "Should I create a note for [thing]?"
+- **User thinks of something**: "Create a note about [thing]"
+- AI creates timestamped file with brief description
+
+**Reviewing notes** (manual):
+```bash
+# List notes chronologically (oldest first for review)
+ls -1 pm/notes/ | grep -v .gitkeep | sort
+
+# Read a note
+cat pm/notes/2025-11-06-143000-redis-pooling.md
+```
+
+**Promoting notes** (manual):
+```bash
+# Promote to task
+mv pm/notes/2025-11-06-143000-redis-pooling.md pm/issues/TASK-005-redis-pooling/TASK.md
+# Edit to add acceptance criteria, then run: /plan TASK-005
+
+# Promote to bug
+mv pm/notes/2025-11-06-101500-button-hover.md pm/issues/BUG-004-button-hover/BUG.md
+# Edit to add reproduction steps, then run: /plan BUG-004
+```
+
+**Discarding notes** (manual):
+```bash
+rm pm/notes/2025-11-06-143000-redis-pooling.md
+```
+
+### Keep Notes Atomic
+
+✅ **Good notes** (atomic, brief, actionable):
+- One observation per file
+- 3-5 lines description
+- Clear context (what you were doing)
+- Specific location if applicable
+
+❌ **Bad notes** (verbose, vague, multiple topics):
+- Multiple observations in one file
+- Long explanations or research dumps
+- No context about when/where discovered
+- Vague "we should improve X someday"
+
+**Principle**: If it's worth capturing, it's worth making it actionable later. Keep notes brief so you can decide quickly whether to promote or discard.
+
+---
+
 ## Related Documentation
 
 **For planning phases**:

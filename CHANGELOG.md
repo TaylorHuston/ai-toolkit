@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- **Development notes system** - atomic note files for parking lot captures
+  - **Location**: `pm/notes/` directory with timestamped atomic note files
+  - **Template**: `pm/templates/note.md` with frontmatter (type, context, impact, created)
+  - **Naming convention**: `YYYY-MM-DD-HHMMSS-slug.md` for chronological sorting
+  - **Workflow**: Conversational capture (agent asks, user asks), manual review/promote/discard
+  - **Use cases**: Minor bugs, performance ideas, tech debt, feature ideas discovered during work
+  - **Promotion**: `mv` note to TASK-###.md or BUG-###.md when ready to act on it
+  - **Documentation**: issue-management.md "Development Notes" section with full workflow
+  - **Benefits**: Zero overhead, atomic files, git-friendly, flexible via conversation
+  - **Template count**: Increased from 37 → 39 files (added pm/notes/.gitkeep and pm/templates/note.md)
+
 ## [0.20.0] - 2025-11-06
 
 ### Changed

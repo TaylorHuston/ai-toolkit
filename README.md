@@ -28,7 +28,7 @@ See [CHANGELOG.md](CHANGELOG.md) for complete release history.
 This marketplace contains:
 
 - **AI Toolkit Plugin** - Complete workflow system with 23 commands, 18 specialized agents, and intelligent automation
-- **Starter Template** - 37 essential files for clean project initialization via `/toolkit-init`
+- **Starter Template** - 39 essential files for clean project initialization via `/toolkit-init`
 - **Guideline Templates** - 8 customizable guideline templates (project configuration files, not plugin docs)
 
 ## Quick Start

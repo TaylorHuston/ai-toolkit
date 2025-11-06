@@ -1,0 +1,5 @@
+# Development Notes Directory
+
+This directory contains atomic note files for capturing observations, bugs, ideas, and optimizations discovered during work.
+
+Each note is a separate timestamped file that can be independently promoted to a TASK/BUG or discarded.
