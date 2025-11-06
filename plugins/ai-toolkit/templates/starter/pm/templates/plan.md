@@ -62,7 +62,7 @@ sections:
 
 ---
 
-**Note**: Phases are suggestions. Modify to fit your workflow!
+**Note**: Phases are suggestions. See plan-structure.md "Agile Plan Updates" for guidance on updating phases during implementation based on code reviews and security audits.
 
 **Alternative Patterns**:
 - **Strict TDD**: Red-Green-Refactor cycle visible in every step

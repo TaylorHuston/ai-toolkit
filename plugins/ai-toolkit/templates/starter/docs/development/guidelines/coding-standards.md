@@ -39,46 +39,23 @@ This guideline defines our code style, naming conventions, and file organization
 
 ---
 
-## Getting Started (Fill These First)
+## Getting Started
 
-**When starting your project, complete these in order:**
+**When starting your project, configure these settings:**
 
-### Phase 1: Language Basics (5 minutes)
-- [ ] Set `language` in frontmatter (javascript, typescript, python, go, etc.)
-- [ ] Set `formatter` in frontmatter (prettier, black, gofmt, etc.)
-- [ ] Set `linter` in frontmatter (eslint, pylint, golangci-lint, etc.)
-- [ ] Update "Language & Tooling" section with version and runtime
+**Frontmatter Configuration:**
+- [ ] Set `language`, `formatter`, `linter` in YAML frontmatter
+- [ ] Set `file_naming`, `directory_structure`, indentation preferences
 
-### Phase 2: Naming Conventions (10 minutes)
-- [ ] Define variable naming convention (camelCase, snake_case)
-- [ ] Define function naming convention
-- [ ] Define class naming convention
-- [ ] Define constant naming convention (UPPER_SNAKE_CASE)
-- [ ] Define type/interface naming convention
-- [ ] Update "Code Identifiers" section with examples
+**Define in Sections Below:**
+- [ ] Naming conventions (variables, functions, classes, constants, types)
+- [ ] Directory structure approach (feature-based, layer-based, module-based)
+- [ ] Import ordering (external → internal → relative → types → styles)
+- [ ] Function guidelines (max parameters, comment policy)
+- [ ] Link to formatter/linter config files (if exists)
+- [ ] Add code examples from codebase (optional, add as patterns establish)
 
-### Phase 3: File Organization (15 minutes)
-- [ ] Choose directory structure approach (feature-based, layer-based, module-based)
-- [ ] Set max file size guideline (recommended: 200-300 lines)
-- [ ] Define import ordering (external → internal → relative → types → styles)
-- [ ] Update "Directory Structure" section with your structure
-- [ ] Update "Import Organization" section with ordering
-
-### Phase 4: Style Details (10 minutes)
-- [ ] Set max parameters for functions (recommended: 3-4)
-- [ ] Define comment policy (when to comment, when not to)
-- [ ] Add link to formatter config file (if exists)
-- [ ] Add link to linter config file (if exists)
-- [ ] Update "Function Guidelines" section
-
-### Phase 5: Examples (ongoing - add as you establish patterns)
-- [ ] Link to exemplar file showing good structure
-- [ ] Link to well-written function demonstrating conventions
-- [ ] Add import organization example from codebase
-- [ ] Update "Examples" section with links
-
-**Total setup time: ~40 minutes**
-**Can complete incrementally as you establish patterns**
+**Tip:** Complete incrementally as you establish patterns. Start with frontmatter, then add conventions as you go.
 
 ---
 

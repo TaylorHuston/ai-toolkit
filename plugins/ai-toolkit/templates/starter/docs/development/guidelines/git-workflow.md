@@ -63,6 +63,8 @@ commit_type_inference:
 
 **Referenced by Commands:** `/branch`, `/commit`, `/implement`
 
+**IMPORTANT:** Never commit without the express permission from the user first.
+
 ## Quick Reference
 
 This guideline defines our three-branch Git workflow with automated merge validation. Commands like `/branch` and `/implement` enforce these rules automatically.
@@ -157,96 +159,36 @@ hotfix/critical-bug → main (emergency only)
 
 ### Creating Work Branches
 
-**Two methods are supported** - choose based on your workflow preference:
+**Two methods** - choose based on preference:
 
-#### Method 1: Automatic Creation (Faster Workflow)
+**Automatic**: `/implement TASK-001 1.1` prompts to create `feature/TASK-001` (quick iteration)
+**Explicit**: `/branch create TASK-001` creates branch before work (manual control)
 
-Start implementing and `/implement` creates the branch automatically:
-
-```bash
-/implement TASK-001 1.1
-# → Prompts: "Create and switch to feature/TASK-001? (y/n)"
-# → Creates feature/TASK-001 from develop (if you confirm)
-# → Switches to new branch
-# → Executes phase 1.1
-```
-
-**When to use:**
-- Quick iteration - start coding immediately
-- Default workflow - let the system manage branches
-- Non-blocking prompts - you can decline if needed
-
-#### Method 2: Explicit Creation (Full Control)
-
-Create the branch explicitly before starting work:
-
-```bash
-/branch create TASK-001
-# → Creates feature/TASK-001 from develop
-# → Switches to new branch
-
-/implement TASK-001 1.1
-# → Executes phase 1.1 on your existing branch
-```
-
-**When to use:**
-- Manual control - you want explicit branch management
-- Setup work - create branch before planning implementation
-- Multiple issues - create several branches at once
-
-**Both approaches are equivalent** - they create the same branch from the same base. The only difference is timing and control preference.
+Both create the same branch from `develop`. Only difference is timing.
 
 ### Merging Work Branches
 
 **To develop (staging):**
-
-✅ **This is the ONLY valid destination for work branches** (feature/*, bugfix/*)
-
 ```bash
-/branch merge
-# OR
 /branch merge develop
 ```
-
-**Merge rules enforced:**
-1. All tests MUST pass (unit, integration, E2E)
-2. Merge BLOCKED if any test fails
-3. Shows test results before merge
+Enforces: All tests pass, no uncommitted changes. Merge blocked if tests fail.
 
 **To main (production):**
-
-❌ **Work branches CANNOT merge to main** - You must merge to develop first, then develop to main.
-
 ```bash
-# ❌ WRONG - This will be BLOCKED
-git checkout feature/TASK-001
+# Must merge to develop first, then:
+git checkout develop
 /branch merge main
-# Error: Cannot merge work branch to main. Merge to develop first.
-
-# ✅ CORRECT - Two-step process
-/branch merge develop          # Step 1: Work → staging
-git checkout develop           # Step 2: Switch to develop
-/branch merge main             # Step 3: Staging → production (after validation)
 ```
-
-**Merge rules enforced:**
-1. Source branch MUST be `develop` (work branches BLOCKED)
-2. Staging deployment health checks MUST pass
-3. Automated validation of staging environment
-4. Merge BLOCKED if health checks fail
+Enforces: Source must be `develop` (work branches blocked), staging health checks pass.
 
 ### Deleting Work Branches
 
-After merging to develop, delete your work branch:
-
+After merging:
 ```bash
 /branch delete feature/TASK-001
 ```
-
-Verification:
-- Confirms branch is fully merged
-- Cleans up local and remote branches
-- Prevents accidental deletion of unmerged work
+Verifies branch is fully merged before deletion.
 
 ## Commit Conventions
 
@@ -349,18 +291,13 @@ The `/branch merge` command enforces quality gates based on target branch.
 
 ### Merging to `develop` (Staging)
 
-**Implements Per-Task Gates** from `development-loop.md`:
+**Enforces Per-Task Gates** from `development-loop.md`. See that file for complete quality gate definitions.
 
-**Required validations:**
-1. ✅ All tests pass (unit, integration, E2E)
+**Technical checks performed by `/branch merge develop`:**
+1. ✅ All tests pass (full suite execution)
 2. ✅ No uncommitted changes
 3. ✅ Branch is up to date with remote
-
-**Implicitly validated** (from development loop):
-- All phases complete (each passed per-phase gates)
-- Code review scores ≥90 per phase
-- Test coverage ≥95% (configurable in development-loop.md)
-- WORKLOG documented
+4. ⚠️ Documentation sync validation (see development-loop.md "Documentation Synchronization Checklist")
 
 **Process:**
 ```bash

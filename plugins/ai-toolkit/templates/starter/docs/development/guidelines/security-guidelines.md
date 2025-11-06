@@ -22,7 +22,7 @@ secrets_management: "TBD"      # env vars, vault, etc.
 
 ## Quick Reference
 
-This guideline defines our security approach, authentication patterns, and compliance requirements. Update as you make security decisions.
+This guideline defines our security approach, authentication patterns, and compliance requirements. Update the YAML frontmatter as you make security decisions.
 
 ## Security Philosophy
 
@@ -33,106 +33,15 @@ This guideline defines our security approach, authentication patterns, and compl
 - **Defense in Depth**: Multiple layers of security
 - **Zero Trust**: Verify every request
 
-## Authentication
+## Configuration Process
 
-### Strategy
+**When making security decisions:**
 
-**Method**: TBD → Run `/adr "authentication strategy"` to decide
+1. Run `/adr "authentication strategy"` to document auth/authz decisions
+2. Update YAML frontmatter with decisions (`authentication_method`, `authorization_model`, `sensitive_data_handling`, etc.)
+3. Add examples section below with links to security implementations
 
-- JWT (stateless, scalable)
-- Session-based (server-side state)
-- OAuth 2.0 (third-party authentication)
-- Custom (define your approach)
-
-### Implementation
-
-- **Library**: TBD
-- **Token Storage**: TBD (httpOnly cookies, localStorage, etc.)
-- **Token Expiry**: TBD
-- **Refresh Strategy**: TBD
-
-## Authorization
-
-### Model
-
-**Approach**: TBD → Run `/adr "authorization model"` to decide
-
-- **RBAC** (Role-Based Access Control): Users have roles with permissions
-- **ABAC** (Attribute-Based Access Control): Policy-based decisions
-- **Simple Roles**: Basic admin/user distinction
-
-### Implementation
-
-- **Permission Check Location**: TBD (middleware, route guards, service layer)
-- **Role Definition**: TBD
-- **Permission Granularity**: TBD
-
-## Data Protection
-
-### Sensitive Data
-
-**What qualifies as sensitive**:
-- TBD - Define for your domain (PII, financial, health, etc.)
-
-**Handling**:
-- **Encryption at Rest**: TBD
-- **Encryption in Transit**: TBD (HTTPS, TLS version)
-- **Data Masking**: TBD (logs, responses)
-- **Retention Policy**: TBD
-
-### Secrets Management
-
-- **Method**: TBD (environment variables, vault, KMS)
-- **Never Commit**: Passwords, API keys, tokens, certificates
-- **Rotation Policy**: TBD
-
-## Input Validation
-
-### Strategy
-
-- **Validation Library**: TBD (Zod, Joi, class-validator, etc.)
-- **Where to Validate**: TBD (API boundary, service layer, both)
-- **Sanitization**: TBD (XSS prevention, SQL injection, etc.)
-
-### Rules
-
-- **Allow-list over Deny-list**: Define what's allowed, reject everything else
-- **Validate Type & Format**: Don't trust client input
-- **Limit Size**: Prevent DoS via large payloads
-
-## Security Headers
-
-```
-TBD - Define security headers for your application
-
-Recommended:
-- Strict-Transport-Security (HSTS)
-- Content-Security-Policy (CSP)
-- X-Frame-Options
-- X-Content-Type-Options
-- CORS configuration
-```
-
-## Common Vulnerabilities
-
-### OWASP Top 10 Awareness
-
-- **Injection**: TBD - How we prevent SQL/NoSQL injection
-- **Broken Authentication**: TBD - Our auth security measures
-- **Sensitive Data Exposure**: TBD - Data protection strategy
-- **XSS**: TBD - Output encoding, CSP
-- **CSRF**: TBD - Token-based protection
-- **And others...**: Reference OWASP for full list
-
-## Compliance
-
-**Requirements**: TBD
-
-- GDPR (if handling EU data)
-- HIPAA (if handling health data)
-- PCI-DSS (if handling payment data)
-- SOC 2 (if providing SaaS)
-- Custom compliance needs
+**Agents read the frontmatter** to understand your security posture and enforce patterns during implementation.
 
 ## Security Checklist
 
@@ -154,25 +63,12 @@ Recommended:
 - [ ] Error messages don't leak info
 - [ ] Logging doesn't expose sensitive data
 
-## Examples
+## OWASP Top 10 Awareness
 
-### Authentication Implementation
-- TBD - Add link to auth code when implemented
-
-### Authorization Check
-- TBD - Add link to authorization middleware
-
-### Input Validation
-- TBD - Add link to validation schema
+Agents automatically check for OWASP Top 10 vulnerabilities during security audits:
+- Injection, Broken Authentication, Sensitive Data Exposure, XSS, CSRF, and others
+- See `/security-audit` command for proactive vulnerability detection
 
 ## General Security Knowledge
 
-For security best practices, Claude has extensive knowledge of:
-- OWASP Top 10 vulnerabilities and mitigations
-- Authentication patterns (JWT, OAuth, SAML)
-- Authorization models (RBAC, ABAC, PBAC)
-- Encryption standards and algorithms
-- Secure coding practices
-- Security testing and threat modeling
-
-Ask questions like "How should I secure [X]?" and Claude will provide guidance based on security standards and your application context.
+Claude has extensive knowledge of OWASP Top 10, authentication patterns (JWT, OAuth, SAML), authorization models (RBAC, ABAC, PBAC), encryption standards, secure coding practices, and threat modeling. Ask questions like "How should I secure [X]?" for guidance based on security standards.

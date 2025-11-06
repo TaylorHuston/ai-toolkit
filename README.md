@@ -5,9 +5,15 @@ A comprehensive AI-assisted development workflow system for Claude Code, providi
 ## IMPORTANT
 This is very much an alpha/experiment at this point. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and massively changing things as I go.
 
-## What's New in v0.17.0+
+## What's New in v0.20.0
 
-**Recent additions:**
+**Latest additions:**
+- 🔄 **Phase commit tracking** - Atomic rollback points for each completed phase with visual commit map
+- 📋 **Documentation sync quality gate** - Validates project docs before merge to develop
+- 🧹 **Guidelines cleanup** - Reduced verbosity by ~520 lines while preserving essential information
+- 📝 **Living documents workflow** - TASK/PLAN/WORKLOG evolve based on implementation learnings
+
+**Recent additions (v0.17.0-0.19.0):**
 - ✨ `/plan` enhancement - Deep thinking + library research + best practices (3-5 min thorough planning)
 - 🆕 `/sanity-check` - Mid-work validation with deep reflection to catch drift early
 - 🆕 `/refresh` - Silent AI context refresh (CLAUDE.md + guidelines + recent commits)

@@ -6,7 +6,60 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.20.0] - 2025-11-06
+
+### Changed
+
+- **Guidelines cleanup and compression** - reduced verbosity while preserving essential information
+  - **Total reduction**: ~520 lines across 11 guideline files (from 6,396 → ~5,876 lines)
+  - **Phase 1 - Single source of truth fixes**: Removed duplicated content with clean references
+    - plan-structure.md: Security auto-detection, WORKLOG philosophy, test coverage (saved ~34 lines)
+    - git-workflow.md: Quality gates duplication (saved ~7 lines)
+  - **Phase 2 - Verbose examples trimmed**: Compressed detailed examples to essential patterns
+    - coding-standards.md: Getting Started checklist 40 → 17 lines (saved 23 lines)
+    - git-workflow.md: Branch lifecycle 94 → 34 lines (saved 60 lines)
+    - development-loop.md: Workflow examples 73 → 22 lines (saved 51 lines)
+    - versioning-and-releases.md: Release workflows 67 → 22 lines (saved 45 lines)
+  - **Phase 3 - Optional guidelines TBD compression**: Removed placeholder bloat, leveraged YAML frontmatter
+    - api-guidelines.md: 113 → 40 lines (saved 73 lines)
+    - architectural-principles.md: 173 → 79 lines (saved 94 lines)
+    - security-guidelines.md: 178 → 75 lines (saved 103 lines)
+  - **Phase 4 - Design tokens trimmed**: Pattern demonstrations instead of exhaustive listings
+    - ui-design-guidelines.md: Color/typography/spacing tokens (saved ~41 lines)
+  - **Phase 5 - Cross-references validated**: All file references and links verified working
+  - **Principle maintained**: Everything AI needs to work effectively, nothing more
+
 ### Added
+
+- **Agile workflow for TASK/PLAN/WORKLOG files** - formalized inspect-and-adapt cycle
+  - **Philosophy**: TASK.md and PLAN.md are living documents that evolve based on implementation learnings
+  - **Review cycle**: After each phase → Run reviews (code/security/architecture) → Adapt plans → Document changes → Proceed
+  - **New section in plan-structure.md**: "Agile Plan Updates" with when/how to update cleanly
+  - **New section in development-loop.md**: "Review and Adapt Plans" with 5-step adaptation process
+  - **New WORKLOG format**: "PLAN CHANGES" entry for documenting adaptations (worklog-format.md)
+  - **Command integration**: /implement now includes post-phase review cycle (step 7) before phase completion
+  - **Living documents guidance**: issue-management.md updated with file lifecycle and size expectations
+  - **Size expectations**: TASK 50-200 lines, PLAN 300-600 lines, WORKLOG 400-800 lines (~1,200 total for complex tasks)
+  - **Key principle**: Update files cleanly with current state, don't preserve debate history - WORKLOG records why changes were made
+  - **Benefits**: Plans adapt to reality, requirements discovered incrementally, files stay manageable, audit trail preserved
+
+- **Documentation synchronization quality gate** - validates project docs before merge to develop
+  - **New Per-Task Gate #6**: Project documentation synchronized (development-loop.md)
+  - **Comprehensive checklist**: Validates architecture-overview.md, design-overview.md, README.md, CLAUDE.md, guidelines
+  - **Integration points**: git-workflow.md merge validation, plan-structure.md completion checklist
+  - **Purpose**: Prevents documentation drift as features evolve
+  - **Smart validation**: Checklist format with file-specific criteria (components, tech stack, features, workflows, patterns)
+  - **Note included**: "Not every task requires updates to all files - use judgment"
+  - **Benefits**: Documentation stays current, architecture decisions captured, design changes tracked, workflow improvements documented
+
+- **Phase commit tracking** - atomic rollback points for each completed phase
+  - **New WORKLOG section**: "Phase Commits" summary at top of WORKLOG.md with commit IDs
+  - **Workflow**: Complete phase → Commit → Get commit ID → Add to Phase Commits section → Commit reference
+  - **Format**: `- Phase X.Y: \`commit-id\` - Brief description` (one line per phase)
+  - **Integration**: New step #5 in plan-structure.md "After Each Phase Completion" protocol
+  - **Documentation**: worklog-format.md includes Phase Commits Summary section format and rollback example
+  - **Benefits**: Visual rollback map, easy git reset to any phase, no chicken-and-egg problem with commit IDs
+  - **Use case**: `git reset --hard abc123d` to roll back to specific phase completion state
 
 - **Resources section in CLAUDE.md template** for curated link tracking
   - **Purpose**: Living documentation of valuable external resources discovered during development

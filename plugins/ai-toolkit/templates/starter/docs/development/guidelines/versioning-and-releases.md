@@ -140,74 +140,25 @@ git tag v1.0.0  # ❌ Missing commit message, date, author
 ### Development Release (0.x.y on develop)
 
 **Workflow:**
+1. Complete feature and merge to develop
+2. Determine version (new feature → MINOR, bug fix → PATCH)
+3. Update CHANGELOG.md (move items from Unreleased to new version)
+4. Commit: `git commit -m "chore: release v0.5.0"`
+5. Optional tag: `git tag -a v0.5.0-dev -m "Development release v0.5.0"`
 
-1. **Complete feature** on feature branch
-2. **Merge to develop** via pull request
-3. **Determine version number** based on changes:
-   - New feature? Increment MINOR (0.4.0 → 0.5.0)
-   - Bug fix? Increment PATCH (0.4.0 → 0.4.1)
-4. **Update CHANGELOG.md**:
-   - Move items from `[Unreleased]` to new version section
-   - Add release date
-5. **Commit CHANGELOG**:
-   ```bash
-   git add CHANGELOG.md
-   git commit -m "chore: release v0.5.0"
-   ```
-6. **Optional: Tag develop** (for tracking):
-   ```bash
-   git tag -a v0.5.0-dev -m "Development release v0.5.0"
-   git push origin develop --tags
-   ```
+**Tip:** Use `/release` command to automate this process.
 
 ### Production Release (1.0.0+ on main)
 
 **Workflow:**
+1. Ensure develop is stable (tests pass, audit complete, docs updated)
+2. Merge develop → main: `git merge develop --no-ff`
+3. Update CHANGELOG.md (change Unreleased to version with date)
+4. Commit and tag: `git commit -m "chore: release v1.0.0"` + annotated tag
+5. Push: `git push origin main --tags`
+6. Deploy: `npx convex deploy --prod` (Vercel auto-deploys)
 
-1. **Ensure develop is stable**:
-   - All tests passing
-   - Security audit passed
-   - Code review complete
-   - Documentation updated
-
-2. **Merge develop → main**:
-   ```bash
-   git checkout main
-   git pull origin main
-   git merge develop --no-ff
-   ```
-
-3. **Update CHANGELOG.md**:
-   - Change `[Unreleased]` to `[1.0.0] - 2025-11-15`
-   - Ensure all changes documented
-
-4. **Commit and tag**:
-   ```bash
-   git add CHANGELOG.md
-   git commit -m "chore: release v1.0.0"
-   git tag -a v1.0.0 -m "Release v1.0.0: Production-ready MVP
-
-   Features:
-   - User authentication (email + Google OAuth)
-   - Quote generation with Cloudinary
-   - Real-time database with Convex
-   - Comprehensive testing (92% coverage)
-   "
-   ```
-
-5. **Push to remote**:
-   ```bash
-   git push origin main --tags
-   ```
-
-6. **Deploy to production**:
-   ```bash
-   # Convex
-   npx convex deploy --prod
-
-   # Vercel (auto-deploys from main push)
-   # Or manually: vercel --prod
-   ```
+**Tip:** Use `/release` command to automate this process.
 
 7. **Create GitHub release** (optional):
    - Go to GitHub → Releases → Create new release

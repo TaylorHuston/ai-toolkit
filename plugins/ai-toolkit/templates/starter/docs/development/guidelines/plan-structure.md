@@ -118,37 +118,10 @@ Teams can choose different testing approaches based on context:
 
 **AFTER code-architect approval**, the `/plan` command must detect if the task is security-relevant and invoke security-auditor for review.
 
-**Auto-Detection Criteria** (task is security-relevant if ANY match):
-
-**Keywords in task description or acceptance criteria:**
-- Authentication/authorization: `auth`, `login`, `password`, `token`, `session`, `permission`, `role`, `access control`
-- Data security: `encrypt`, `decrypt`, `hash`, `salt`, `crypto`, `PII`, `sensitive data`, `personal information`
-- Security features: `security`, `vulnerability`, `threat`, `OWASP`, `XSS`, `CSRF`, `SQL injection`, `sanitize`, `validate input`
-- Admin features: `admin`, `privilege`, `elevation`, `sudo`, `root`
-- External integrations: `API key`, `secret`, `credential`, `OAuth`, `SAML`, `SSO`, `third-party`
-
-**File patterns in affected files:**
-- `**/auth/**`, `**/authentication/**`, `**/authorization/**`
-- `**/security/**`, `**/crypto/**`, `**/encryption/**`
-- `**/*Auth*`, `**/*Security*`, `**/*Crypto*`, `**/*Validation*`
-- `**/middleware/auth*`, `**/guards/**`, `**/policies/**`
-
-**Security-Auditor Reviews:**
-- Threat modeling for authentication/authorization flows
-- Input validation and sanitization approach
-- Cryptographic implementation (algorithms, key management)
-- Data protection for sensitive information (PII, credentials)
-- Authorization logic and permission models
-- Security best practices (OWASP compliance)
-- Vulnerability risks (injection, XSS, CSRF, etc.)
-
-**Security-Auditor May:**
-- Approve security approach as-is
-- Suggest security-specific phases (threat modeling, penetration testing)
-- Request additional security controls or validation
-- Recommend creating security-focused ADR
-- Identify potential security vulnerabilities in plan
-- Require security testing phases before implementation
+**Auto-Detection and Review Process**: See `agent-coordination.md` "Security Governance" section for:
+- Complete auto-detection criteria (keywords and file patterns)
+- Security-auditor review scope and responsibilities
+- Approval/rejection workflow
 
 **Only after BOTH code-architect AND security-auditor approval (if security-relevant) should the plan be presented to the user.**
 
@@ -189,17 +162,19 @@ Teams can choose different testing approaches based on context:
      - Note satisfied criteria in WORKLOG entry (Jira is source of truth)
      - Example: "✓ Satisfies Jira AC: User can log in with email/password"
 
-**4. Write WORKLOG Entry (at agent handoffs only)**
-   - **When**: Only when handing off to another agent OR when phase fully complete
-   - **Type**: HANDOFF entry (if passing to another agent) or COMPLETE entry (if phase done)
-   - Get timestamp: Run `date '+%Y-%m-%d %H:%M'` (never estimate)
-   - Document what YOU did in this step (not entire phase summary - keep it 5-10 lines)
-   - Note which agent receives work next (if handoff)
-   - Prepend to top (reverse chronological order)
-   - See `worklog-format.md` for entry patterns
-   - Include decision rationale in WORKLOG entries
+**4. Write WORKLOG Entry**
+   - See `worklog-format.md` for complete entry philosophy, formats, and timing
+   - Write at agent handoffs or phase completion (not before work starts)
+   - Use HANDOFF, COMPLETE, or REVIEW entry formats as appropriate
 
-**5. Architecture Decisions**
+**5. Commit Phase Completion**
+   - Commit all phase changes: `git add . && git commit -m "feat(TASK-001): complete phase 1.2 - description"`
+   - Get commit ID: `git rev-parse --short HEAD`
+   - Add phase commit reference to WORKLOG "Phase Commits" section (see `worklog-format.md`)
+   - Commit reference update: `git add WORKLOG.md && git commit -m "docs(TASK-001): add phase 1.2 commit reference"`
+   - **Benefit**: Atomic rollback points for each phase
+
+**6. Architecture Decisions**
    - For complex architectural decisions affecting multiple components, use `/adr` command
    - ADRs document context, decision, alternatives, and consequences
    - Reference ADRs from WORKLOG entries or code comments
@@ -228,7 +203,7 @@ Teams can choose different testing approaches based on context:
    - If any criteria remain unsatisfied, task is NOT complete
 
 **3. Tests Passing**
-   - All test suites pass with 95%+ coverage (or configured target)
+   - All test suites pass with coverage ≥ target (see development-loop.md `test_coverage_target`)
    - Run full test suite before marking complete
    - No failing tests, no errors, no warnings
 
@@ -240,6 +215,14 @@ Teams can choose different testing approaches based on context:
 **5. Epic Consistency (if epic exists)**
    - Task marked complete in epic task list: `- [x] TASK-001`
    - Epic progress updated
+
+**6. Project Documentation Synchronized**
+   - architecture-overview.md reflects architectural changes
+   - design-overview.md reflects design changes
+   - Root README.md reflects scope/feature changes
+   - CLAUDE.md reflects workflow changes
+   - Guidelines reflect discovered process improvements
+   - See development-loop.md "Documentation Synchronization Checklist" for complete validation
 
 **Final Checkpoint**: Can you honestly say this task is 100% complete with all requirements met? If no, keep working. If yes, mark complete.
 
@@ -338,6 +321,93 @@ Filter and prepare only relevant information for each specialist to optimize per
 5. Present concise, actionable context that eliminates noise
 
 **Benefit**: Agents focus on relevant information without context overload, improving decision quality and execution speed.
+
+---
+
+## Agile Plan Updates
+
+**PLAN.md and TASK.md are living documents** that evolve based on learnings during implementation.
+
+### When to Update Plans
+
+**After each phase review cycle**:
+1. Code review (always)
+2. Security audit (if security-critical)
+3. Architecture review (if high complexity or architecture-critical)
+
+**Reviews may reveal**:
+- Better implementation approaches → Update remaining phases in PLAN.md
+- New requirements → Add acceptance criteria to TASK.md
+- Security gaps → Add security phases or modify approach
+- Performance concerns → Add optimization phases
+- Technical constraints → Adjust strategy in remaining phases
+
+### How to Update Cleanly
+
+**DO**:
+- ✅ Update TASK.md acceptance criteria when new requirements discovered
+- ✅ Update PLAN.md phases to reflect learnings from completed phases
+- ✅ Remove obsolete approaches from PLAN.md as you learn better ways
+- ✅ Document why changes were made in WORKLOG.md (brief entry)
+- ✅ Keep files clean and current (they reflect NOW, not history)
+
+**DON'T**:
+- ❌ Preserve debate history inline in PLAN.md ("Should we use X or Y?")
+- ❌ Paste full review reports into PLAN.md (link or summarize in WORKLOG)
+- ❌ Keep outdated approaches in PLAN.md "for reference"
+- ❌ Change acceptance criteria to match what you built (unless legitimately discovered)
+
+### Update Example
+
+**After Phase 2 security audit**:
+
+**TASK.md update** (add new criterion):
+```markdown
+## Acceptance Criteria
+- [x] Email/password authentication working
+- [ ] Email verification required before full access  ← NEW from security audit
+- [ ] Google OAuth integration
+```
+
+**PLAN.md update** (add new phase):
+```markdown
+## Phase 3: Email Verification (NEW)
+- [ ] 3.1 Create verification token system
+- [ ] 3.2 Implement email sending
+- [ ] 3.3 Add verification UI
+
+## Phase 4: OAuth Integration (was Phase 3)
+...
+```
+
+**WORKLOG.md entry** (document the change):
+```markdown
+## 2025-11-06 14:30 - Security Audit: Plan Updated
+
+Security audit completed on Phase 2 implementation.
+
+**Key Findings**:
+- Email verification required (spam/impersonation risk)
+- Session timeout should be 24h not 7d
+
+**Decisions**:
+- Added email verification to TASK.md acceptance criteria
+- Inserted Phase 3 for email verification in PLAN.md
+- Updated session config in Phase 2 deliverables
+
+**Full audit report**: [link if needed]
+```
+
+### Size Impact of Agile Updates
+
+**With agile updates, expect larger but still manageable files**:
+- **TASK.md**: 50-200 lines (grows as requirements discovered)
+- **PLAN.md**: 300-600 lines (evolves with learnings)
+- **WORKLOG.md**: 400-800 lines (documents review cycles and changes)
+
+**Total**: ~1,200 lines for well-documented complex task
+
+**Key principle**: Files grow from clean updates and brief documentation, not from pasting debates and verbose reports.
 
 ---
 

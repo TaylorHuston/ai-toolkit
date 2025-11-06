@@ -47,33 +47,22 @@ colors:
   secondary: "#8b5cf6"      # Purple - secondary actions
   accent: "#f59e0b"         # Amber - highlights, notifications
 
-  # Neutral palette
-  gray-50: "#f9fafb"
+  # Neutral palette (example pattern - define full scale in design-overview.md)
   gray-100: "#f3f4f6"
-  gray-200: "#e5e7eb"
   gray-300: "#d1d5db"
-  gray-400: "#9ca3af"
   gray-500: "#6b7280"
-  gray-600: "#4b5563"
   gray-700: "#374151"
-  gray-800: "#1f2937"
   gray-900: "#111827"
+  # ... (50, 200, 400, 600, 800)
 
   # Semantic colors
   success: "#10b981"        # Green
-  warning: "#f59e0b"        # Amber
   error: "#ef4444"          # Red
-  info: "#3b82f6"           # Blue
+  # ... (warning, info)
 
-  # Text colors
-  text-primary: "#111827"   # Dark gray for body text
-  text-secondary: "#6b7280" # Medium gray for secondary text
-  text-muted: "#9ca3af"     # Light gray for hints/labels
-
-  # Background colors
-  bg-primary: "#ffffff"     # White
-  bg-secondary: "#f9fafb"   # Light gray
-  bg-tertiary: "#f3f4f6"    # Lighter gray
+  # Text colors (derived from neutrals)
+  text-primary: "#111827"   # gray-900
+  text-secondary: "#6b7280" # gray-500
 ```
 
 ### Typography
@@ -84,29 +73,21 @@ typography:
   font_family_sans: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
   font_family_mono: "'Fira Code', 'Courier New', monospace"
 
-  # Type scale (1.25 - Major Third)
-  font_scale: "1.25"
-  font_size_base: "16px"
-
-  # Font sizes (calculated from scale)
-  font_size_xs: "0.64rem"    # 10.24px
+  # Type scale (example pattern - 1.25 Major Third ratio)
   font_size_sm: "0.8rem"     # 12.8px
   font_size_base: "1rem"     # 16px
   font_size_lg: "1.25rem"    # 20px
-  font_size_xl: "1.563rem"   # 25px
   font_size_2xl: "1.953rem"  # 31.25px
-  font_size_3xl: "2.441rem"  # 39px
+  # ... (xs, xl, 3xl, 4xl - calculate using scale ratio)
 
   # Line heights
   line_height_tight: "1.2"   # Headings
   line_height_normal: "1.5"  # Body text
-  line_height_relaxed: "1.75" # Long-form content
 
-  # Font weights
+  # Font weights (example range)
   font_weight_normal: "400"
-  font_weight_medium: "500"
   font_weight_semibold: "600"
-  font_weight_bold: "700"
+  # ... (medium: 500, bold: 700)
 ```
 
 ### Spacing
@@ -116,23 +97,17 @@ spacing:
   # Base unit (all spacing multiples of 8px)
   space_unit: "8px"
 
-  # Spacing scale
-  space_0: "0"
+  # Spacing scale (example pattern)
   space_1: "8px"     # 1 * unit
   space_2: "16px"    # 2 * unit
-  space_3: "24px"    # 3 * unit
   space_4: "32px"    # 4 * unit
-  space_5: "40px"    # 5 * unit
-  space_6: "48px"    # 6 * unit
   space_8: "64px"    # 8 * unit
-  space_10: "80px"   # 10 * unit
-  space_12: "96px"   # 12 * unit
   space_16: "128px"  # 16 * unit
+  # ... (0, 3, 5, 6, 10, 12 - multiply unit by scale number)
 
-  # Semantic spacing
+  # Semantic spacing (derived from scale)
   padding_input: "12px 16px"      # Form inputs
   padding_button: "12px 24px"     # Buttons
-  margin_section: "64px"          # Between page sections
 ```
 
 ### Borders & Radii
@@ -142,13 +117,12 @@ borders:
   border_width: "1px"
   border_color: "#e5e7eb"   # gray-200
 
-  # Border radius
+  # Border radius (example pattern)
   radius_none: "0"
   radius_sm: "4px"
   radius_md: "8px"
-  radius_lg: "12px"
-  radius_xl: "16px"
   radius_full: "9999px"     # Pills/circles
+  # ... (lg: 12px, xl: 16px)
 ```
 
 ### Shadows
@@ -174,13 +148,6 @@ breakpoints:
   lg: "1024px"         # Desktop
   xl: "1280px"         # Large desktop
   xxl: "1536px"        # Extra large desktop
-
-  # Target devices
-  mobile_portrait: "320px-480px"
-  mobile_landscape: "481px-767px"
-  tablet_portrait: "768px-1023px"
-  tablet_landscape: "1024px-1279px"
-  desktop: "1280px+"
 ```
 
 ---

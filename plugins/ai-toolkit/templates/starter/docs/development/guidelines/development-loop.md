@@ -204,6 +204,47 @@ See `coding-standards.md` for specific style and quality expectations.
 4. Request re-review if major changes
 5. Repeat until all gates pass
 
+### 6. Review and Adapt Plans (After Phase Completion)
+
+**After completing each phase, conduct review cycle to adapt plans**:
+
+**Step 1: Run Quality Reviews**
+- Code review (always - via code-reviewer agent)
+- Security audit (if security-critical flag set)
+- Architecture review (if high complexity)
+
+**Step 2: Synthesize Findings**
+- Identify immediate actions vs deferred improvements
+- Determine impact on remaining phases
+- Make decisions (with stakeholder input if needed)
+
+**Step 3: Adapt TASK and PLAN Files**
+- Update TASK.md if new requirements discovered
+- Update PLAN.md phases based on learnings
+- Remove obsolete approaches from PLAN
+- Keep files clean and current
+
+**Step 4: Document in WORKLOG**
+- Brief entry: what changed and why
+- Link to detailed reports if needed
+- See [worklog-format.md](worklog-format.md) for "Plan Changes" entry format
+
+**Step 5: Proceed to Next Phase**
+- With updated understanding
+- With adapted approach
+- With cleaner, more accurate plan
+
+**Example review cycle**:
+```
+Phase 2 Complete → Security Audit → Finds email verification needed
+→ Add to TASK.md acceptance criteria
+→ Insert Phase 3 in PLAN.md for email verification
+→ Document decision in WORKLOG.md
+→ Proceed to new Phase 3
+```
+
+**Key principle**: Inspect and adapt - plans evolve based on implementation learnings.
+
 ## Agent Coordination
 
 ### Specialist Agent Selection
@@ -573,6 +614,7 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 3. **WORKLOG complete**: All work documented
 4. **No regressions**: Existing tests still pass
 5. **Branch up-to-date**: Merged latest from develop
+6. **Project documentation synchronized**: architecture-overview.md, design-overview.md, README.md, CLAUDE.md, and guidelines reflect task changes (see Documentation Synchronization Checklist below)
 
 **Enforcement**: The `/branch merge develop` command (see `git-workflow.md`) enforces these gates:
 - Runs full test suite before merge
@@ -590,6 +632,42 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 3. **Documentation**: User-facing docs updated if needed
 4. **Deployment**: Changes successfully deployed to staging
 5. **Validation**: Stakeholder sign-off (if required)
+
+### Documentation Synchronization Checklist
+
+**Before merging to develop, validate these files are current:**
+
+#### architecture-overview.md
+- [ ] New components/modules documented in system structure
+- [ ] Technology decisions reflected in tech stack
+- [ ] Integration patterns updated if new integrations added
+- [ ] ADRs referenced if significant architectural decisions made
+
+#### design-overview.md
+- [ ] New UI components documented
+- [ ] Design tokens updated if colors/typography/spacing changed
+- [ ] Design patterns updated if new patterns established
+- [ ] Screenshots/mockups updated if UI changed significantly
+
+#### Root README.md
+- [ ] Features list reflects new capabilities
+- [ ] Setup instructions updated if dependencies changed
+- [ ] Project status reflects current state
+- [ ] Links and references still valid
+
+#### CLAUDE.md
+- [ ] Workflow changes reflected in instructions
+- [ ] New commands documented if added
+- [ ] Guidelines references updated if structure changed
+- [ ] Project context reflects current architecture
+
+#### Guidelines (docs/development/guidelines/)
+- [ ] Process improvements documented
+- [ ] New patterns added to relevant guidelines
+- [ ] Examples updated with real implementations
+- [ ] Anti-patterns documented if discovered
+
+**Note**: Not every task requires updates to all files. Use judgment - only update files affected by your changes.
 
 ## Planning and Implementation Structure
 
@@ -669,74 +747,23 @@ See individual command documentation for complete workflows.
 ### Example 1: Feature Implementation
 
 ```
-Task: TASK-001 - User Authentication
-Phase: 1.2 - Implement login endpoint
-
-1. Test-Engineer writes tests:
-   ✓ POST /api/login with valid credentials returns token
-   ✓ POST /api/login with invalid credentials returns 401
-   ✓ Token includes correct user claims
-   ✓ Login attempts are rate-limited
-
-2. Backend-Specialist implements:
-   - POST /api/login route
-   - Credential validation
-   - JWT token generation
-   - Rate limiting middleware
-
-3. Run tests: All pass ✅
-
-4. Code-Reviewer assesses:
-   - Score: 88
-   - Feedback: "Add password hashing timing attack protection"
-
-5. Backend-Specialist refactors:
-   - Implement constant-time comparison
-   - Update tests for timing safety
-
-6. Re-run tests: All pass ✅
-
-7. Code-Reviewer re-assesses:
-   - Score: 93 ✅
-
-8. Backend-Specialist writes WORKLOG:
-   "/comment Implemented login endpoint with JWT tokens and rate limiting.
-   Key decision: Use bcrypt.compare for timing-safe password verification.
-   Challenge: Initial implementation vulnerable to timing attacks.
-   Next: Implement token refresh mechanism in phase 1.3."
-
-9. Phase marked complete, proceed to phase 1.3
+TASK-001 Phase 1.2: Implement login endpoint
+→ Test-Engineer writes 4 tests (valid creds, invalid creds, token claims, rate limit)
+→ Backend-Specialist implements endpoint + JWT + rate limiting
+→ Tests pass, Code-Reviewer scores 88 (feedback: timing attack protection needed)
+→ Refactor with constant-time comparison, re-test, score 93 ✅
+→ WORKLOG entry, mark phase complete
 ```
 
 ### Example 2: Bug Fix
 
 ```
-Bug: BUG-003 - Cart total calculation incorrect for discounted items
-
-1. Test-Engineer writes failing test:
-   ✓ Cart with 10% discount shows correct total
-   (Currently fails - shows $100 instead of $90)
-
-2. Backend-Specialist investigates:
-   - Reads WORKLOG from previous cart work
-   - Identifies discount not applied in subtotal calculation
-
-3. Implement fix:
-   - Update calculateSubtotal() to apply discounts
-   - Add discount validation
-
-4. Run tests: All pass ✅ (including new test)
-
-5. Code-Reviewer assesses:
-   - Score: 95 ✅
-
-6. Backend-Specialist writes WORKLOG:
-   "/comment Fixed cart total calculation bug.
-   Root cause: Discount multiplier applied to total, not subtotal.
-   Also added validation to prevent negative discounts.
-   All existing cart tests still pass."
-
-7. Bug marked resolved, create PR
+BUG-003: Cart total calculation incorrect
+→ Test-Engineer writes failing test (expects $90, shows $100)
+→ Backend-Specialist investigates, finds discount not applied to subtotal
+→ Fix calculateSubtotal(), add validation
+→ Tests pass, Code-Reviewer scores 95 ✅
+→ WORKLOG entry, mark bug resolved
 ```
 
 ## CHANGELOG Updates

@@ -29,10 +29,16 @@ issue_location: "pm/issues/"
 - **WORKLOG.md** - Work history (created by `/implement`)
 
 **File Purposes**:
-- **[TYPE].md** - WHAT to do (requirements, acceptance criteria)
-- **PLAN.md** - HOW to do it (phase breakdown)
-- **WORKLOG.md** - WHAT was done and WHY (narrative history with rationale)
+- **[TYPE].md** - WHAT to do (requirements, acceptance criteria) - **Living document**
+- **PLAN.md** - HOW to do it (phase breakdown) - **Living document**
+- **WORKLOG.md** - WHAT was done and WHY (narrative history with rationale) - **Immutable history**
 - **Architecture decisions** - Use `/adr` command for complex technical decisions
+
+**Living Documents Model**:
+- TASK.md and PLAN.md evolve based on implementation learnings
+- Updated after phase reviews (code review, security audit, architecture review)
+- Files reflect current understanding, not historical debates
+- WORKLOG.md documents why changes were made (audit trail)
 
 ---
 
@@ -401,14 +407,63 @@ pm/issues/PROJ-123-feature-name/
 
 ---
 
+## File Evolution and Size Guidelines
+
+### File Lifecycle
+
+**TASK.md / BUG.md**:
+- Created: At task/bug creation
+- Updated: When requirements legitimately discovered during implementation
+- Completed: Status changes to complete, file preserved for history
+- Size: 50-200 lines (grows as requirements discovered)
+
+**PLAN.md**:
+- Created: By `/plan` command after TASK/BUG exists
+- Updated: After each phase review based on learnings (agile adaptation)
+- Completed: When all phases done, no more updates
+- Size: 300-600 lines (evolves with learnings, includes new phases from reviews)
+
+**WORKLOG.md**:
+- Created: First `/implement` execution
+- Updated: Continuously during implementation, after each review cycle
+- Completed: When task completes (frozen as historical record)
+- Size: 400-800 lines for complex tasks (includes review cycles and adaptations)
+
+### Size Management
+
+**Agile workflow produces larger but manageable files**:
+- Reviews discover new requirements → TASK.md grows
+- Learnings adapt phases → PLAN.md evolves
+- Review cycles documented → WORKLOG.md captures decisions
+
+**Target total**: ~1,200 lines for well-documented complex task
+
+**What causes bloat** (avoid these):
+- ❌ Preserving debate history inline in PLAN.md
+- ❌ Pasting full review reports into files
+- ❌ Verbose troubleshooting logs in WORKLOG.md
+- ❌ Creating extra files (RESEARCH.md, ANALYSIS.md, etc.)
+
+**Keep files clean**:
+- ✅ Update TASK/PLAN with current state only
+- ✅ Summarize review findings in WORKLOG (link to detailed reports)
+- ✅ Remove obsolete approaches as you learn
+- ✅ Use `/adr` for architecture decisions needing detailed documentation
+
+See `plan-structure.md` "Agile Plan Updates" for update patterns and examples.
+
+---
+
 ## Related Documentation
 
 **For planning phases**:
 - See `plan-structure.md` for PLAN.md format
 - See `plan-structure.md` for phase patterns and review requirements
+- See `plan-structure.md` for agile plan updates guidance
 
 **For work documentation**:
 - See `worklog-format.md` for WORKLOG.md entry formats
+- See `worklog-format.md` for PLAN CHANGES entry format
 - Use `/adr` command for architecture decisions requiring detailed documentation
 
 **For management patterns**:
@@ -417,4 +472,5 @@ pm/issues/PROJ-123-feature-name/
 
 **For workflow**:
 - See `development-loop.md` for implementation workflow
+- See `development-loop.md` for review and adapt cycle
 - See `development-loop.md` for acceptance criteria validation

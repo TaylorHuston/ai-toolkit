@@ -55,6 +55,8 @@ sections:
 ## Environment
 {environment}
 
+**Note**: See plan-structure.md "Agile Plan Updates" if bug scope evolves during investigation.
+
 ---
 
 **Fix Plan**: Run `/plan BUG-{id}` to create PLAN.md with root cause analysis and fix approach.

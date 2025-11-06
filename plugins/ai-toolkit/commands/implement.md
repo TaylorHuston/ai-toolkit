@@ -154,11 +154,26 @@ Required checks:
 - Security approval (if security-relevant per plan-structure.md criteria)
 - Documentation updated (if user-facing changes)
 
-### 7. Phase Completion
+### 7. Post-Phase Review and Adaptation
+
+**Conduct review cycle after quality gates pass**.
+
+See development-loop.md "Review and Adapt Plans" for the complete 5-step process:
+1. Run quality reviews (code/security/architecture)
+2. Analyze findings for plan impacts
+3. Adapt TASK/PLAN files if needed
+4. Document changes in WORKLOG
+5. Inform user of adaptations
+
+**WORKLOG documentation**: Use "Review Cycle: Plan Updated" entry format from worklog-format.md if plans changed.
+
+### 8. Phase Completion
 
 Display:
 - ✓ Phase {X.Y} completed
 - Quality gate status
+- Review findings summary (if any)
+- Plan adaptations made (if any)
 - Next phase available (if any)
 - Suggested next action
 

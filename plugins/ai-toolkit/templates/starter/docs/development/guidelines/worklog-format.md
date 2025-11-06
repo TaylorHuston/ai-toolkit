@@ -59,6 +59,9 @@ entry_length: "500_chars_ideal"              # ~5-10 lines per entry
 │  ├─ No vulnerabilities? → Use: Standard REVIEW APPROVED entry
 │  └─ Vulnerabilities found? → Use: Standard REVIEW REQUIRES CHANGES entry
 │
+├─ Review cycle resulted in plan changes
+│  └─ Use: Standard PLAN CHANGES entry
+│
 ├─ Debugging/troubleshooting work
 │  ├─ Hypothesis succeeded? → Use: Troubleshooting Loop N - Success entry
 │  └─ Hypothesis failed? → Use: Troubleshooting Loop N - Failed entry
@@ -74,8 +77,43 @@ entry_length: "500_chars_ideal"              # ~5-10 lines per entry
 - **Phase done**: "Phase 2.1 complete, all tests passing" → COMPLETE
 - **Code review**: "Reviewed and found 3 issues needing fixes" → REVIEW REQUIRES CHANGES
 - **Security audit**: "No vulnerabilities found, approved" → REVIEW APPROVED
+- **Plan updated**: "Security audit found gaps, updated TASK/PLAN" → PLAN CHANGES
 - **Debugging**: "Tried adding indexes, query still slow" → Troubleshooting Loop N - Failed
 - **Research**: "Researched PostgreSQL JSONB performance solutions" → Investigation Complete
+
+---
+
+## Phase Commits Summary Section
+
+**Purpose**: Provide quick rollback map for each completed phase
+
+**Location**: At the **top** of WORKLOG.md (above all entries)
+
+**Format**:
+```markdown
+## Phase Commits
+
+- Phase 1.1: `abc123d` - Database schema setup
+- Phase 1.2: `def456e` - JWT authentication implementation
+- Phase 2.1: `ghi789j` - Frontend login form
+- Phase 2.2: `klm012n` - Integration tests
+
+---
+```
+
+**Workflow**:
+1. Complete phase → Update PLAN.md/TASK.md → Write WORKLOG entry → Commit
+2. Get commit ID: `git rev-parse --short HEAD`
+3. Add one line to "Phase Commits" section: `- Phase X.Y: \`commit-id\` - Brief description`
+4. Commit reference: `git add WORKLOG.md && git commit -m "docs(TASK-001): add phase X.Y commit reference"`
+
+**Benefit**: Instant visual rollback map, no chicken-and-egg problem with commit IDs
+
+**Rollback Example**:
+```bash
+# Roll back to Phase 1.2 (before Phase 2.1 changes)
+git reset --hard def456e
+```
 
 ---
 
@@ -281,6 +319,48 @@ Major:
 Files: src/api/users.ts, src/middleware/auth.ts
 
 → Passing back to backend-specialist for security fixes (URGENT)
+```
+
+#### PLAN CHANGES Entry (documenting adaptations after reviews)
+
+```markdown
+## YYYY-MM-DD HH:MM - Review Cycle: Plan Updated
+
+[Review type] completed on [Phase X] implementation.
+
+**Key Findings**:
+- [Finding 1 that requires action]
+- [Finding 2 that requires action]
+- [Finding 3 if applicable]
+
+**Decisions**:
+- [What changed in TASK.md and why]
+- [What changed in PLAN.md and why]
+- [What was deferred/descoped and why]
+
+**Files Updated**: TASK.md, PLAN.md
+**Full report**: [link if needed]
+```
+
+**Plan changes entry example**:
+```markdown
+## 2025-11-06 14:30 - Security Audit: Plan Updated
+
+Security audit completed on Phase 2 (email/password auth) implementation.
+
+**Key Findings**:
+- Email verification required to prevent spam accounts (high priority)
+- Rate limiting needed on auth endpoints (medium priority)
+- Session timeout should be 24h not 7d (configuration issue)
+
+**Decisions**:
+- Added "Email verification required" to TASK.md acceptance criteria
+- Inserted Phase 3 for email verification in PLAN.md (before OAuth)
+- Rate limiting deferred to post-MVP (tracked in backlog)
+- Updated session config in Phase 2 deliverables
+
+**Files Updated**: TASK.md, PLAN.md
+**Full report**: docs/security/audit-2025-11-06.md
 ```
 
 ---

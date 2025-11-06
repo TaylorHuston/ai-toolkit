@@ -36,6 +36,8 @@ sections:
 ## Acceptance Criteria
 {acceptance_criteria}
 
+**Note**: See plan-structure.md "Agile Plan Updates" if acceptance criteria need refinement during implementation.
+
 ## Technical Notes
 {technical_notes}
 

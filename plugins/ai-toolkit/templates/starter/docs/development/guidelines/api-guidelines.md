@@ -22,92 +22,18 @@ documentation: "TBD"          # OpenAPI, GraphQL schema, tRPC types
 
 ## Quick Reference
 
-This guideline defines our API design patterns, structure, and conventions. Update as you make API architecture decisions.
+This guideline defines our API design patterns, structure, and conventions. Update the YAML frontmatter as you make API architecture decisions.
 
-## Our API Approach
+## Configuration Process
 
-**Pattern**: TBD → Run `/adr "API architecture"` to decide
+**When starting API development:**
 
-- REST (traditional, widely supported)
-- GraphQL (flexible querying, single endpoint)
-- tRPC (type-safe, TypeScript-first)
-- gRPC (high performance, binary protocol)
+1. Run `/adr "API architecture"` to decide pattern (REST, GraphQL, tRPC, gRPC)
+2. Update YAML frontmatter with decisions (`api_pattern`, `api_location`, `authentication`, etc.)
+3. Add examples section below with links to actual implementations
 
-## API Structure
-
-### Endpoint Organization
-```
-TBD - Update based on chosen pattern
-
-Examples:
-- REST: src/api/routes/users.ts
-- GraphQL: src/api/schema/user.graphql
-- tRPC: src/server/api/routers/users.ts
-- gRPC: src/api/proto/users.proto
-```
-
-### File Structure
-- **Location**: TBD
-- **Naming Convention**: TBD (kebab-case, camelCase, etc.)
-- **Organization**: TBD (by resource, by feature, etc.)
-
-## Authentication & Authorization
-
-- **Strategy**: TBD → Run `/adr "authentication strategy"` to decide
-- **Implementation**: TBD
-- **Session Management**: TBD
-
-## Error Handling
-
-### Error Format
-```json
-TBD - Define standard error format
-
-Example:
-{
-  "error": {
-    "code": "USER_NOT_FOUND",
-    "message": "User with ID 123 not found",
-    "statusCode": 404
-  }
-}
-```
-
-### Error Codes
-- TBD - Define standard error codes for your domain
-
-## Versioning Strategy
-
-- **Approach**: TBD
-- **Current Version**: TBD
-- **Deprecation Policy**: TBD
-
-## Documentation
-
-- **Tool**: TBD (OpenAPI/Swagger, GraphQL introspection, tRPC types)
-- **Location**: TBD
-- **Auto-generated**: TBD
-
-## Examples
-
-This section will be populated as APIs are built. Agents will reference existing endpoints for consistency.
-
-### Endpoint Example
-- TBD - Add link to first API endpoint
-
-### Authentication Example
-- TBD - Add link to auth implementation
-
-### Error Handling Example
-- TBD - Add link to error handler
+**Agents read the frontmatter** to understand your API conventions and apply them during implementation.
 
 ## General API Knowledge
 
-For API design best practices, Claude has extensive knowledge of:
-- REST principles (resources, verbs, status codes)
-- GraphQL schema design and query optimization
-- API security (authentication, authorization, rate limiting)
-- Versioning strategies and backward compatibility
-- Documentation standards (OpenAPI, AsyncAPI)
-
-Ask questions like "What's the best way to design [X] endpoint?" and Claude will provide guidance based on industry standards and your chosen pattern.
+Claude has extensive knowledge of REST, GraphQL, tRPC, gRPC, API security, versioning strategies, and documentation standards. Ask questions like "What's the best way to design [X] endpoint?" for guidance based on industry standards.
