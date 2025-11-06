@@ -10,70 +10,69 @@ references_guidelines:
 
 # /docs Command
 
-**Purpose**: Unified documentation management through natural language. Generate, validate, sync, update, and analyze project documentation using AI.
+**WHAT**: Unified documentation management - generate, validate, sync, update, and analyze documentation.
+
+**WHY**: Maintain documentation accuracy, completeness, and freshness alongside code evolution.
+
+**HOW**: See docs/development/README.md for documentation structure. Natural language intent determines action (generate/validate/sync/update/analyze).
 
 ## Philosophy
 
-Natural language describes the intent - AI determines the appropriate action. No need for separate commands for each documentation operation.
+Natural language describes intent - AI determines action. No separate commands needed.
 
 ## Usage
 
 ```bash
-# Generate documentation
-/docs "generate API documentation for the auth system"
+# Generate
+/docs "generate API documentation for auth system"
 /docs "create technical architecture overview"
-/docs "generate comprehensive project documentation"
 
-# Validate documentation
+# Validate
 /docs "validate all documentation links"
 /docs "check for broken references and outdated content"
-/docs "verify documentation accuracy"
 
 # Sync with code
-/docs "update documentation to reflect recent code changes"
+/docs "update docs to reflect recent code changes"
 /docs "sync API docs with latest endpoint changes"
-/docs "align documentation with current codebase"
 
 # Update and maintain
 /docs "update outdated information across project docs"
-/docs "comprehensive accuracy review"
 /docs "fix all cross-references"
 
 # Health analysis
 /docs "analyze documentation health and coverage"
-/docs "check documentation completeness"
 /docs "generate documentation metrics report"
 ```
 
 ## How It Works
 
-The AI analyzes your natural language instruction and determines the appropriate action:
+AI analyzes natural language and executes appropriate action:
 
-**Generation Tasks**: Creates new documentation based on code analysis
+**Generation**: Creates new documentation
 - Analyzes codebase structure
-- Generates appropriate documentation format
-- Follows project documentation standards
-- Creates comprehensive, accurate content
+- Generates appropriate format
+- Follows project standards
+- Creates comprehensive content
 
-**Validation Tasks**: Checks documentation quality and accuracy
-- Validates internal and external links
+**Validation**: Checks quality and accuracy
+- Validates internal/external links
 - Checks code examples and references
-- Verifies documentation freshness
-- Identifies outdated or missing content
+- Verifies freshness
+- Identifies outdated/missing content
 
-**Synchronization Tasks**: Keeps docs aligned with code
+**Synchronization**: Keeps docs aligned with code
 - Analyzes recent code changes
 - Updates affected documentation
-- Maintains consistency between code and docs
-- Preserves documentation structure
+- Maintains consistency
+- Preserves structure
 
-**Update Tasks**: Maintains documentation accuracy
-- Reviews entire documentation tree
+**Update**: Maintains accuracy
+- Reviews documentation tree
 - Updates stale information
 - Fixes broken references
-- Ensures current project state reflected
+- Ensures current state reflected
 
-**Health Analysis**: Provides documentation metrics
+**Health Analysis**: Provides metrics
 - Coverage analysis
 - Quality scoring
 - Freshness metrics
@@ -82,84 +81,73 @@ The AI analyzes your natural language instruction and determines the appropriate
 
 ## Agent Coordination
 
-**Primary**: technical-writer (documentation creation and maintenance)
-**Supporting**: context-analyzer (documentation health analysis), code-reviewer (accuracy validation)
-**Domain Specialists**: Frontend/backend specialists for technical accuracy
-**Security**: security-auditor (validates accuracy of security documentation, threat models, auth flows)
+**Primary**: technical-writer (documentation creation/maintenance)
+**Supporting**: context-analyzer (health analysis), code-reviewer (accuracy validation)
+**Domain**: Frontend/backend specialists (technical accuracy)
+**Security**: security-auditor (validates security docs, threat models, auth flows)
 
 ## Output Locations
 
-Documentation follows project structure:
 - **Project docs**: `docs/project/` - Architecture, decisions, features
 - **Development docs**: `docs/development/` - Guidelines, standards, setup
-- **AI toolkit docs**: `docs/ai-toolkit/` - Plugin documentation (read-only from plugin)
+- **AI toolkit docs**: `docs/ai-toolkit/` - Plugin docs (read-only from plugin)
 
 ## Best Practices
 
 **Be Specific**: "Generate API docs for auth endpoints" vs. "make some docs"
-
 **Provide Context**: "Update database docs after schema migration" vs. "update docs"
-
 **Set Scope**: "Validate links in docs/project/" vs. "check everything"
-
 **Define Depth**: "Quick health check" vs. "comprehensive analysis with metrics"
 
-## Examples by Task Type
+## Examples
 
-### Generation Examples
+**Generation:**
 ```bash
 /docs "generate complete API reference documentation"
-/docs "create architecture decision record for the new caching layer"
+/docs "create ADR for new caching layer"
 /docs "generate database schema documentation with ER diagrams"
-/docs "create user guide for the authentication system"
 ```
 
-### Validation Examples
+**Validation:**
 ```bash
 /docs "validate all markdown links in docs/"
-/docs "check for broken code examples in technical documentation"
-/docs "verify all external references are still valid"
-/docs "validate documentation before commit"
+/docs "check for broken code examples"
+/docs "verify all external references still valid"
 ```
 
-### Synchronization Examples
+**Synchronization:**
 ```bash
-/docs "sync documentation with code changes from last week"
-/docs "update API docs after refactoring the user service"
-/docs "align architecture docs with current system design"
-/docs "sync all documentation with latest main branch"
+/docs "sync docs with code changes from last week"
+/docs "update API docs after refactoring user service"
+/docs "align architecture docs with current design"
 ```
 
-### Update Examples
+**Update:**
 ```bash
-/docs "update all outdated version numbers in documentation"
+/docs "update all outdated version numbers"
 /docs "refresh technology stack documentation"
-/docs "update setup guides with new dependencies"
 /docs "comprehensive documentation accuracy review"
 ```
 
-### Health Analysis Examples
+**Health Analysis:**
 ```bash
 /docs "analyze documentation coverage and quality"
-/docs "generate documentation health dashboard"
 /docs "identify documentation gaps and missing content"
-/docs "create documentation metrics report for team review"
+/docs "create documentation metrics report"
 ```
 
 ## Integration
 
-**Git Integration**: Documentation changes tracked in version control
-**Code Analysis**: Analyzes actual codebase for accurate documentation
-**Project Standards**: Follows project's documentation guidelines
-**Living Documentation**: Documentation evolves with the project
+**Git**: Documentation changes tracked in version control
+**Code Analysis**: Analyzes actual codebase for accuracy
+**Standards**: Follows project documentation guidelines
+**Living Docs**: Evolves with the project
 
 ## Quality Standards
 
-- **Accuracy**: Documentation reflects actual code behavior
-- **Completeness**: All public APIs and features documented
-- **Freshness**: Documentation updated with code changes
-- **Clarity**: Clear, concise, well-structured content
+- **Accuracy**: Reflects actual code behavior
+- **Completeness**: All public APIs/features documented
+- **Freshness**: Updated with code changes
+- **Clarity**: Clear, concise, well-structured
 - **Examples**: Code examples tested and accurate
 - **Links**: All references valid and current
-
-All functionality preserved - natural language determines the action.

@@ -24,7 +24,7 @@ The AI Toolkit provides a flexible workflow that adapts to your needs:
 3. **Architecture**: `/adr` - Make technical decisions and create ADRs
 4. **Tasks**: `/plan TASK-###` - Break down implementation into phases
 5. **Build**: `/implement TASK-### PHASE` - Execute with specialized agents
-6. **Quality**: `/quality`, `/test-fix`, `/security-audit` - Ensure excellence
+6. **Quality**: `/quality`, `/troubleshoot`, `/security-audit` - Ensure excellence
 
 ### Commands Are Conversational
 
@@ -184,7 +184,7 @@ Commands use different parameter paradigms because **different workflows need di
 
 - **[/quality](./quality.md)** - Multi-dimensional quality analysis using specialized agents
 - **[/security-audit](./security-audit.md)** - OWASP-compliant security assessment with vulnerability remediation
-- **[/test-fix](./test-fix.md)** - Automated test failure detection, analysis, and resolution
+- **[/troubleshoot](../commands/troubleshoot.md)** - Systematic debugging with research-first approach, hypothesis testing, and rollback safety
 - **[/sanity-check](../commands/sanity-check.md)** - Mid-work validation with deep reflection to catch drift before it becomes expensive
 
 ### **Development Support**
@@ -225,7 +225,7 @@ Commands use different parameter paradigms because **different workflows need di
 | `/implement` | Phase-based execution | `TASK-### PHASE` or `BUG-### PHASE` |
 | `/quality` | Quality assessment | Subcommands (assess/validate/audit/fix) |
 | `/security-audit` | Security assessment | OWASP compliance analysis |
-| `/test-fix` | Test failure resolution | Automated detection and fixes |
+| `/troubleshoot` | Systematic debugging | `[BUG-XXX \| TASK-XXX] [--continue]` |
 | `/sanity-check` | Mid-work validation | No arguments (deep reflection) |
 | `/branch` | Branch operations | `create \| merge \| delete \| switch \| status` |
 | `/commit` | Branch-aware git commits | Natural language instructions |
@@ -332,7 +332,7 @@ model: claude-sonnet-4-5                 # Versioned alias (claude-sonnet-4-5, c
 
 - **Use For**: Development, quality, documentation, operations, most commands
 - **Model ID**: `claude-sonnet-4-5` (versioned alias)
-- **Commands**: `/implement`, `/commit`, `/quality`, `/test-fix`, `/docs`, `/project-status`, `/epic`, `/project-brief`
+- **Commands**: `/implement`, `/commit`, `/quality`, `/troubleshoot`, `/docs`, `/project-status`, `/epic`, `/project-brief`
 - **When**: Implementation tasks, code execution, standard operations
 
 #### **Model Selection Guidelines**

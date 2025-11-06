@@ -5,233 +5,193 @@ argument-hint: "TASK-### PHASE | TASK-### --next | --next"
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/development-loop.md  # Test-first, quality gates, WORKLOG, progress tracking, context briefing
+  - docs/development/guidelines/plan-structure.md  # Test-first, progress tracking, agent briefing
+  - docs/development/guidelines/worklog-format.md  # WORKLOG entry formats
+  - docs/development/guidelines/development-loop.md  # Quality gates
   - docs/development/guidelines/git-workflow.md  # Branch creation and verification
 ---
 
 # /implement Command
 
-Execute specific phases of implementation plans with full context awareness and intelligent agent coordination.
+**WHAT**: Execute implementation phases with intelligent agent coordination and progress tracking.
+
+**WHY**: Structured execution ensures quality gates, test-first approach, and complete context handoffs.
+
+**HOW**: See plan-structure.md for phase execution, test-first guidance, progress tracking, and agent briefing. See worklog-format.md for WORKLOG entry formats. See development-loop.md for quality gates.
 
 ## Usage
 
 ```bash
-/implement TASK-001 1.1    # Execute phase 1.1 of TASK-001
-/implement BUG-003 2.2     # Execute phase 2.2 of BUG-003
-/implement PROJ-123 1.1    # Execute phase 1.1 of Jira issue
-/implement TASK-001 --next # Intelligently determine and execute next phase
-/implement --next          # Auto-detect current task and execute next phase
+/implement TASK-001 1.1    # Execute phase 1.1
+/implement BUG-003 2.2     # Execute phase 2.2
+/implement PROJ-123 1.1    # Execute Jira issue phase
+/implement TASK-001 --next # Smart: find and execute next uncompleted phase
+/implement --next          # Auto-detect current task, execute next phase
 ```
 
-**Parameters**:
-- **Standard**: Issue ID + Phase number (e.g., `TASK-001 1.1`)
-- **Smart next**: Issue ID + `--next` flag (e.g., `TASK-001 --next`)
-- **Auto next**: Just `--next` flag (detects current task from branch or recent work)
+## Pre-Execution Context
 
-**Next Phase Intelligence**:
-When using `--next` flag, the command:
-1. Finds the first uncompleted phase in PLAN.md
-2. Shows what phase will be executed
-3. Asks for confirmation before proceeding
-4. Executes the phase using standard workflow
+**Load workflow rules** (read before proceeding):
+
+```bash
+Read: docs/development/guidelines/plan-structure.md
+Read: docs/development/guidelines/worklog-format.md
+Read: docs/development/guidelines/development-loop.md
+Read: docs/development/guidelines/git-workflow.md
+```
+
+**plan-structure.md contains**:
+- Phase structures and patterns
+- Progress tracking rules
+- Test-first protocol
+- Agent context briefing patterns
+- Security detection criteria
+
+**worklog-format.md contains**:
+- Standard WORKLOG format (HANDOFF and COMPLETE entries)
+- Troubleshooting WORKLOG format (hypothesis-based)
+- Entry timing and best practices
+
+**development-loop.md contains**:
+- Quality gate requirements and thresholds
+- Code review process
+- Agent coordination patterns
+
+**This is the source of truth for HOW to execute. Command implements WHAT.**
+
+## Execution Steps
+
+### 1. Parse Parameters
+
+- Parse issue ID and phase number
+- Continue to step 2
+
+**Smart next mode** (TASK-001 --next):
+- Parse issue ID
+- Read PLAN.md
+- Find first uncompleted phase (unchecked checkbox)
+- Show phase to user, ask confirmation
+- Continue to step 2
+
+**Auto next mode** (--next only):
+- Detect current task from git branch or recent WORKLOG
+- Read PLAN.md
+- Find first uncompleted phase
+- Show phase to user, ask confirmation
+- Continue to step 2
+
+### 2. Load Task Context
+
+```bash
+# Find and read task files
+Glob: pm/issues/{ISSUE-ID}-*/
+Read: PLAN.md (phase details, acceptance criteria)
+Read: WORKLOG.md (previous work context)
+Read: TASK.md or BUG.md (requirements)
+
+# Load epic context if linked
+Read: pm/epics/EPIC-###-*.md
+```
+
+### 3. Branch Management
+
+**Branch creation**: See git-workflow.md for naming patterns.
+
+```bash
+# Check current branch
+Bash: git branch --show-current
+
+# Create feature branch if needed (per git-workflow.md)
+# Pattern: feature/{ISSUE-ID} or bugfix/{ISSUE-ID}
+```
+
+### 4. Spawn Domain Agent
+
+**Agent selection**: Based on phase type (frontend, backend, database, etc.)
+
+**Context briefing**: See plan-structure.md "Agent Context Briefing" for filtering patterns.
+
+Provide agent with:
+- Phase requirements (filtered from PLAN.md)
+- Relevant context only (not full PLAN.md)
+- Architecture decisions (from architecture-overview.md)
+- Design patterns (if frontend work)
+
+**Test-first guidance**: See plan-structure.md "Test-First Guidance Protocol".
+
+Spawn agent via Task tool:
+```
+Task(
+  subagent_type: {domain-specialist},
+  prompt: {filtered context + phase requirements}
+)
+```
+
+### 5. Track Progress
+
+**Update PLAN.md**:
+- Mark phase checkbox as complete
+- Add completion timestamp
+- Update progress indicators
+
+**Update WORKLOG.md**: See worklog-format.md for HANDOFF and COMPLETE entry formats.
+
+Required entry format (per guideline):
+- Timestamp (run `date '+%Y-%m-%d %H:%M'`)
+- Phase completed
+- What was done (brief)
+- Gotchas/Lessons
+- Files changed
+- Handoff information (if applicable)
+
+### 6. Quality Gates
+
+**Per-phase validation**: See development-loop.md "Quality Gates" for thresholds.
+
+Required checks:
+- Tests pass (if test-first phase)
+- Code review score ≥ 90 (invoke code-reviewer agent)
+- Security approval (if security-relevant per plan-structure.md criteria)
+- Documentation updated (if user-facing changes)
+
+### 7. Phase Completion
+
+Display:
+- ✓ Phase {X.Y} completed
+- Quality gate status
+- Next phase available (if any)
+- Suggested next action
 
 ## Agent Coordination
 
 **Primary**: Domain specialists (backend-specialist, frontend-specialist, database-specialist, etc.) based on phase type
-**Supporting**: test-engineer (test-first approach), code-reviewer (quality validation)
-**Security**: security-auditor (automatic for security-relevant phases per `development-loop.md` detection criteria)
-**Coordination**: WORKLOG.md for narrative work history and context preservation
 
-## How It Works
+**Supporting**:
+- test-engineer (test-first approach)
+- code-reviewer (quality validation)
 
-### CRITICAL: Read development-loop.md First
+**Conditional**:
+- security-auditor (automatic for security-relevant phases per plan-structure.md criteria)
 
-**BEFORE doing ANYTHING else, you MUST:**
-1. **Read** `docs/development/guidelines/development-loop.md` in its entirety
-2. **Understand** the complete workflow protocol defined in the guideline
-3. **Follow** every step exactly as documented
+**Coordination method**: WORKLOG.md handoff entries per worklog-format.md.
 
-**This is NOT optional.** The guideline contains:
-- **Test-First Protocol**: When and how to write tests first (pragmatic, not dogmatic)
-- **Progress Tracking**: How to update PLAN.md and TASK.md checkboxes
-- **WORKLOG Format**: Required structure, timestamps, completeness criteria, handoff entries
-- **Quality Gates**: Per-phase validation requirements (code review score ≥ 90, security approval)
-- **Task Completion**: Comprehensive completion checklist
-- **Agent Context Briefing**: Domain-specific context filtering patterns
-- **Security Detection**: Criteria for when security-auditor review is required
-- **Code Review Process**: Handoff protocol, iteration requirements, approval criteria
+## Error Handling
 
-**Why this matters:**
-- The guideline is THE authoritative source for how work is done
-- Skipping it leads to incomplete implementations, missing WORKLOG entries, and workflow violations
-- Every project customizes this guideline - you must read the actual file, not assume defaults
-- The guideline defines quality thresholds, test patterns, and completion criteria specific to this project
+- **Issue not found**: "Cannot find issue {ID} in pm/issues/"
+- **PLAN.md missing**: "No PLAN.md found - run /plan {ID} first"
+- **Phase not found**: "Phase {X.Y} not found in PLAN.md"
+- **Phase already complete**: "Phase {X.Y} already completed. Use /implement {ID} {next-phase}"
+- **Quality gate failure**: Loop with agent until gates pass
 
-### All Workflow Rules are in Guidelines
+## Integration
 
-**After reading development-loop.md**, this command orchestrates the workflow by:
-- Following the test-first guidance protocol from the guideline
-- Enforcing progress tracking rules from the guideline
-- Using WORKLOG format specifications from the guideline
-- Applying quality gates defined in the guideline
-- Executing task completion checklist from the guideline
-- Briefing agents with context patterns from the guideline
+**Workflow position**:
+```
+/plan TASK-### → /implement TASK-### 1.1 → /implement TASK-### 1.2 → ... → /commit
+```
 
-**The guideline is the source of truth. This command is the executor.**
-
-### Execution Flow
-
-**0. Read Guideline (MANDATORY FIRST STEP)**
-
-**CRITICAL**: Before proceeding with ANY of the steps below:
-- **Read** `docs/development/guidelines/development-loop.md` completely
-- **Parse** the workflow protocol, quality gates, WORKLOG format, test-first guidance
-- **Internalize** project-specific thresholds and patterns
-- **Only then** proceed to step 1
-
-**Failure to read the guideline will result in:**
-- Incorrect WORKLOG entries (wrong format, missing handoffs, incomplete entries)
-- Skipped quality gates (missing code review, no security check)
-- Improper progress tracking (checkboxes not updated, criteria not marked)
-- Workflow violations (no test-first consideration, agent context dump)
-
-**1. Parameter Validation**
-
-**Standard mode** (`TASK-001 1.1`):
-- Detect ID type: TASK-###/BUG-### (local) vs PROJ-### (Jira)
-- Find issue directory or fetch from Jira
-- Locate PLAN.md and validate phase exists
-- If invalid: Show available phases
-
-**Next mode** (`TASK-001 --next` or `--next`):
-- **Auto-detect task** (if only `--next` provided):
-  - Check current git branch (feature/TASK-001 → TASK-001)
-  - If no match: Check recent WORKLOG.md files for last worked task
-  - If still unclear: List recent tasks and ask user to specify
-- **Find next phase**:
-  - Read PLAN.md for the task
-  - Find first uncompleted checkbox: `- [ ] X.Y Phase Name`
-  - Skip completed phases: `- [x] X.Y Phase Name`
-- **Confirm with user**:
-  - Show: "Next phase: 1.2 - Implement authentication logic"
-  - Ask: "Proceed with this phase? (yes/no/specify different)"
-  - If no: Exit without executing
-  - If specify: Switch to standard mode with user-provided phase
-- **Execute**: Continue with standard workflow using detected phase
-
-**2. Branch Verification**
-- Read `git-workflow.md` for branch configuration
-- Check current branch matches expected (feature/TASK-001, bugfix/BUG-003, etc.)
-- Offer to create/switch if mismatch (non-blocking warning)
-
-**3. Load Context**
-- **Local issues**: Read TASK.md/BUG.md, epic context, ADRs
-- **Jira issues**: Fresh fetch from Jira (description, criteria, status), read ADRs
-- Read WORKLOG.md for previous work and lessons learned
-- Read RESEARCH.md for technical decisions
-
-**4. Test-First Check**
-- **MANDATORY**: Re-read `development-loop.md` test-first guidance section
-- **Follow the exact protocol** defined in the guideline (pragmatic, not dogmatic)
-- Check for preceding test phases
-- Prompt user if tests should come first (never blocking)
-- Offer auto-generation of comprehensive test suites
-- **Do NOT assume defaults** - the guideline may define project-specific patterns (TDD, BDD, Test Pyramid, Pragmatic)
-
-**5. Agent Selection and Context Briefing**
-- Select specialist based on phase domain
-- **MANDATORY**: Re-read `development-loop.md` agent context briefing section
-- **Follow the exact briefing patterns** defined in the guideline
-- Provide filtered, domain-specific context (NOT full epic dump - guideline defines what to include)
-- Include relevant WORKLOG insights and ADR decisions
-- **Common violation**: Dumping entire epic/ADR content instead of filtering to domain-relevant parts
-
-**6. Phase Execution**
-- Agent follows development loop: test → code → review iteration
-- **MANDATORY**: Re-read `development-loop.md` quality gates section
-- **Follow the exact quality thresholds** defined in the guideline
-- Iterate until code review score meets threshold (default ≥ 90, but CHECK the guideline)
-- **Agent MUST write WORKLOG HANDOFF entry BEFORE invoking code-reviewer**
-- **Common violation**: Skipping WORKLOG handoff entry before code review
-
-**7. Code Review Handoff**
-- **MANDATORY**: Re-read `development-loop.md` WORKLOG format section for handoff entries
-- **BEFORE invoking code-reviewer**: Implementing agent MUST write WORKLOG entry
-- **Follow exact format from guideline**: Typically `YYYY-MM-DD HH:MM - agent-name → code-reviewer`
-- Brief summary (5-10 lines): what was done, files changed, gotchas
-- Include handoff note: `→ Passing to code-reviewer for {reason}`
-- Code-reviewer executes review and returns result
-- **IF changes required**: Code-reviewer writes WORKLOG entry with issues found
-- **IF approved**: Continue to security review (if needed) or post-phase updates
-- **Common violations**:
-  - Missing handoff entry entirely
-  - Wrong timestamp format (guideline defines the format)
-  - Incomplete summary (not listing files changed or gotchas)
-
-**8. Security Review (CONDITIONAL)**
-- **MANDATORY**: Re-read `development-loop.md` security detection criteria
-- **Follow the exact detection rules** from the guideline (keywords, file patterns, phase types)
-- Auto-detect if phase is security-relevant using guideline criteria
-- If security-relevant: Invoke security-auditor before phase completion
-- **Agent MUST write WORKLOG HANDOFF entry before invoking security-auditor**
-- Security-auditor reviews implementation for vulnerabilities
-- **BLOCKS phase completion if critical security issues found**
-- Iterate on security fixes until approved (with WORKLOG entries at each handoff)
-- **Common violation**: Not checking security detection criteria, missing security review entirely
-
-**9. Post-Phase Updates**
-- **MANDATORY**: Re-read `development-loop.md` progress tracking and WORKLOG completion sections
-- Verify completion thoroughly (tests pass, code works, requirements met, security approved if applicable)
-- Update PLAN.md checkbox: `- [ ] 1.1` → `- [x] 1.1`
-- Update TASK.md acceptance criteria if satisfied (check guideline for criteria format)
-- **Write WORKLOG COMPLETE entry** following exact format from guideline
-- **Follow exact timestamp and format** from guideline (typically: `YYYY-MM-DD HH:MM - agent-name (Phase X.Y COMPLETE)`)
-- Consider RESEARCH.md for complex decisions
-- **Common violations**:
-  - Marking phase complete before tests pass or code review approved
-  - Missing WORKLOG completion entry
-  - Wrong WORKLOG format (guideline defines the structure)
-  - Not updating TASK.md acceptance criteria when satisfied
-
-**10. Task Completion Check**
-- If all PLAN.md phases complete:
-- **MANDATORY**: Re-read `development-loop.md` task completion validation checklist
-- **Execute EVERY item** from the completion checklist in the guideline
-- Verify ALL acceptance criteria checked off (don't skip any)
-- Run full test suite (guideline may define specific test commands)
-- Write final WORKLOG entry following guideline format
-- Update epic if applicable
-- **Do NOT skip the checklist** - the guideline defines comprehensive validation steps
-- **Common violations**:
-  - Marking task complete without running full test suite
-  - Missing final WORKLOG entry
-  - Not verifying all acceptance criteria
-  - Skipping epic update when task was part of an epic
-
-## Jira Integration
-
-**Hybrid Mode**: Works with both local (TASK-###, BUG-###) and Jira (PROJ-###) issues.
-
-### ID Detection
-- Local: `TASK-###`, `BUG-###` (e.g., TASK-001, BUG-042)
-- Jira: `[A-Z]+-###` (e.g., PROJ-123, ENG-456)
-
-### Context Loading Strategy
-
-**For Local Issues**:
-- Read requirements from TASK.md/BUG.md
-- Read PLAN.md for phase details
-- Standard workflow (unchanged)
-
-**For Jira Issues**:
-- **Fresh fetch from Jira** (latest description, acceptance criteria, status)
-- Read PLAN.md from local directory
-- No local TASK.md (Jira is source of truth)
-- Ensures requirements always current
-
-### Branch Naming
-- Local: `feature/TASK-001`, `bugfix/BUG-042`
-- Jira: `feature/PROJ-123`, `bugfix/PROJ-456`
+**Progress tracking**: Updates PLAN.md checkboxes and WORKLOG.md entries
+**Next steps**: Continue with next phase or `/commit` when task complete
 
 ### Jira Workflow Example
 ```
@@ -248,7 +208,7 @@ AI: Fetching PROJ-123 from Jira...
     ✓ On feature/PROJ-123
 
     Following test-first protocol...
-    [Executes phase per development-loop.md]
+    [Executes phase per plan-structure.md]
 
     ✓ Phase 1.1 complete
     ✓ Updated PLAN.md checkbox
@@ -363,7 +323,7 @@ Available phases:
 
 ### MANDATORY Updates
 
-**Following** `development-loop.md` **progress tracking protocol**, after each phase:
+**Following** `plan-structure.md` **progress tracking protocol**, after each phase:
 
 **pm/issues/ISSUE-ID-*/PLAN.md**:
 - ✓ Mark completed phase: `- [ ] 1.1` → `- [x] 1.1`
@@ -380,19 +340,19 @@ Available phases:
 - ✓ Write COMPLETE entry when phase fully done
 - ✓ Timestamped entries (get timestamp via `date` command)
 - ✓ Brief summaries (5-10 lines): what YOU did, not entire phase history
-- ✓ See `development-loop.md` for stream-style format and patterns
+- ✓ See `worklog-format.md` for HANDOFF and COMPLETE entry formats
 - ✓ Prepend to top (reverse chronological)
 
 **pm/issues/ISSUE-ID-*/RESEARCH.md** (if needed):
 - ✓ Complex technical decisions requiring detailed rationale
-- ✓ See `development-loop.md` for when to create
+- ✓ See `research-documentation.md` for when to create
 
 **pm/epics/EPIC-###-name.md** (if epic exists):
 - ✓ Mark task complete when all phases done: `- [x] TASK-001`
 
 ### Validation Before Completion
 
-**Following** `development-loop.md` **task completion validation checklist**:
+**Following** `plan-structure.md` **task completion validation checklist**:
 - All PLAN.md phases checked off: `- [x] All phases`
 - All acceptance criteria verified and checked off
 - All tests pass with 95%+ coverage (or configured target)
@@ -431,10 +391,10 @@ When implementing `/implement ISSUE-ID PHASE`:
 1. **Validate parameters**: Issue exists, phase exists in PLAN.md
 2. **Verify branch**: Warn if mismatch, offer to fix (non-blocking)
 3. **Load context**: TASK.md/BUG.md or Jira, ADRs, WORKLOG, RESEARCH
-4. **Check test-first**: Follow `development-loop.md` guidance protocol
-5. **Brief agent**: Provide domain-filtered context per `development-loop.md`
+4. **Check test-first**: Follow `plan-structure.md` guidance protocol
+5. **Brief agent**: Provide domain-filtered context per `plan-structure.md`
 6. **Execute phase**: Agent follows development loop with quality gates
-7. **Update progress**: Follow `development-loop.md` progress tracking protocol
-8. **Check completion**: If all phases done, follow `development-loop.md` task completion validation
+7. **Update progress**: Follow `plan-structure.md` progress tracking protocol
+8. **Check completion**: If all phases done, follow `plan-structure.md` task completion validation
 
-**Key Principle**: Commands orchestrate, guidelines configure. All workflow rules live in `development-loop.md` for team customization.
+**Key Principle**: Commands orchestrate, guidelines configure. Workflow rules distributed across specialized guideline files for team customization.

@@ -10,7 +10,11 @@ references_guidelines:
 
 # /security-audit Command
 
-**Purpose**: OWASP-compliant security assessment with vulnerability remediation.
+**WHAT**: OWASP-compliant security assessment with vulnerability identification and remediation guidance.
+
+**WHY**: Proactively identify and fix security vulnerabilities before they reach production, ensuring compliance with security standards.
+
+**HOW**: See security-guidelines.md for security practices. Multi-agent assessment (security-auditor, code-reviewer) scans OWASP Top 10, auth/authz, data protection, and infrastructure.
 
 ## Usage
 

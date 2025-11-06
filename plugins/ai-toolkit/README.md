@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-Comprehensive AI-assisted development workflow system for Claude Code with 16 commands, 18 specialized agents, and intelligent state management.
+Comprehensive AI-assisted development workflow system for Claude Code with 23 commands, 18 specialized agents, and intelligent state management.
 
 ## Quick Start
 
@@ -23,7 +23,7 @@ cd my-project
 
 ## What You Get
 
-- **16 Workflow Commands** - Complete `/project-brief` → `/epic` → `/plan` → `/implement` cycle + utilities
+- **23 Workflow Commands** - Complete `/project-brief` → `/epic` → `/plan` → `/implement` cycle + utilities
 - **18 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
 - **3 Bundled MCP Servers** - Auto-configured tools (context7, sequential-thinking, playwright)
 - **Starter Template** - 37 files (9 core + 28 structure) for organized project initialization
@@ -46,7 +46,7 @@ No manual MCP configuration required! These tools are ready immediately after pl
 
 The AI Toolkit uses different Claude models strategically based on task requirements:
 
-### Sonnet 4.5 - Primary Workhorse (15 agents + 12 commands)
+### Sonnet 4.5 - Primary Workhorse (13 agents + 20 commands)
 
 **Performance**: Best coding model in the world (77.2% SWE-bench), strongest for agents (30+ hours autonomous), best computer use (61.4% OSWorld)
 
@@ -55,7 +55,7 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 **Used For**:
 - **All specialist agents**: frontend, backend, database, devops, api, performance, ui-ux, data, migration, refactoring
 - **Code-focused agents**: code-architect, test-engineer, code-reviewer, technical-writer
-- **Execution commands**: /implement, /plan, /quality, /branch, /commit, /docs, /project-status, /test-fix, /toolkit-init, /comment, /changelog, /release
+- **Execution commands**: /implement, /plan, /quality, /branch, /commit, /docs, /project-status, /toolkit-init, /comment, /changelog, /release, /troubleshoot, /sanity-check, /refresh, /comment-issue, /promote, /refresh-schema, /import-issue, /ui-design
 
 **Why**: Sonnet 4.5 excels at coding, code generation, documentation, and autonomous operation. Its superior performance at lower cost makes it ideal for hands-on development work.
 
@@ -157,7 +157,7 @@ my-project/
 **Setup & Strategy**: `/toolkit-init`, `/project-brief`
 **Epic Management**: `/epic`
 **Workflow**: `/adr`, `/plan`, `/implement`
-**Quality**: `/quality`, `/security-audit`, `/test-fix`
+**Quality**: `/quality`, `/security-audit`, `/troubleshoot`
 **Development**: `/branch`, `/commit`, `/comment`
 **Documentation & Status**: `/docs`, `/project-status`
 

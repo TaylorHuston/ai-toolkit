@@ -5,280 +5,128 @@ argument-hint: "\"your comment text\""
 allowed-tools: ["Read", "Write", "Edit", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/development-loop.md  # WORKLOG format and work documentation standards
+  - docs/development/guidelines/worklog-format.md  # WORKLOG format and work documentation standards
 ---
 
 # /comment Command
 
-Add timestamped work log entries to document manual changes and communicate with AI agents. Creates bidirectional human ↔ AI collaboration through narrative work logs.
+**WHAT**: Add timestamped work log entries to track manual changes and communicate with AI.
+
+**WHY**: Enable AI to understand manual work, avoid duplicating human effort, and maintain shared context.
+
+**HOW**: See worklog-format.md for format standards. AI timestamps entry, finds WORKLOG, prepends in reverse chronological order.
 
 ## Usage
 
 ```bash
-# Add a comment about manual work
-/comment "I added a login button to the header"
-
-# Document a manual fix
-/comment "Fixed the dark mode toggle - using --color-grey-dark (#2d2d2d)"
-
-# Add a note for future work
-/comment "Remember we need loading states when API is wired up"
-
-# Document a gotcha
-/comment "Don't use jsonwebtoken - jose has better TypeScript support"
+/comment "Added login button to header"
+/comment "Fixed dark mode - using --color-grey-dark (#2d2d2d)"
+/comment "Don't use jsonwebtoken - jose has better TS support"
 ```
-
-## Purpose
-
-The `/comment` command solves the "AI forgets what humans did" problem by:
-
-1. **Documenting manual work** - Track changes you make outside of `/implement`
-2. **Communicating with AI** - Tell AI about decisions, constraints, gotchas
-3. **Creating narrative history** - Build scannable work log that AI reads for context
-4. **Triggering plan updates** - AI offers to update task plan based on your comment
 
 ## How It Works
 
-### 1. Add Comment Entry
+AI executes this workflow:
 
-When you run `/comment "text"`, AI:
-
-1. **Gets accurate timestamp**: Runs `date '+%Y-%m-%d %H:%M'` to get current system time
-2. **Gets username**: Runs `git config user.name` to get git username
-3. Locates the current task's WORKLOG.md file in `pm/issues/TASK-###-*/`
-4. **Prepends** a timestamped entry at the top (reverse chronological):
+1. **Get timestamp**: Run `date '+%Y-%m-%d %H:%M'` (NEVER guess/estimate)
+2. **Get username**: Run `git config user.name`
+3. **Find WORKLOG**: Locate current task's WORKLOG.md in `pm/issues/TASK-###-*/`
+4. **Prepend entry** (reverse chronological):
    ```markdown
    ## 2025-10-22 15:30 - @username
-   I added a login button to the header
+   Added login button to header
    ```
-5. Confirms entry was added
+5. **Analyze impact**: Read TASK.md and check if comment relates to existing phases
+6. **Offer update** (interactive): Ask if task plan needs updating based on comment
+7. **Update if confirmed**: Modify TASK.md and log the change in WORKLOG.md
 
-### 2. Analyze Impact on Task Plan
+## When to Use
 
-AI then:
+✅ **Use when:**
+- Making manual code changes outside `/implement`
+- Documenting gotchas or lessons learned
+- Communicating constraints to AI ("must use library X")
 
-1. Reads the current TASK.md plan
-2. Analyzes if your comment relates to any existing phases
-3. Identifies potential plan updates needed
+❌ **Don't use when:**
+- AI agents did the work (they auto-log)
+- No changes made (just reading code)
+- Already documented in commit message
 
-### 3. Offer Plan Update (Interactive)
+## WORKLOG Format
 
-AI asks:
+```markdown
+# Work Log - TASK-001: User Authentication
+
+## 2025-10-22 15:30 - @taylor
+Added login button with dark mode support.
+Files: src/components/Header.tsx
+
+## 2025-10-22 14:30 - backend-specialist
+Implemented JWT middleware with refresh logic.
+Gotcha: Token expiry configurable via TOKEN_EXPIRY_HOURS.
+Files: src/middleware/auth.js
 ```
-Your comment mentions adding a login button. This might relate to:
+
+**Reverse chronological** (newest first) for quick context scanning.
+
+## Interactive Plan Updates
+
+After adding comment, AI analyzes task plan:
+
+```
+Your comment mentions login button. This might relate to:
 - [ ] 2.1 Implement login UI components
 
-Should I update the task plan?
-  1. Mark phase 2.1 as complete
-  2. Add new phase for login button work
+Update task plan?
+  1. Mark phase 2.1 complete
+  2. Add new phase for login work
   3. No update needed
 
 Choose (1/2/3): _
 ```
 
-### 4. Update Plan and Confirm
-
-If you choose an update:
-
-1. AI updates TASK.md accordingly
-2. AI adds confirmation entry to WORKLOG.md:
-   ```markdown
-   ## 2025-10-22 15:31 - project-manager
-   Updated task plan: Marked phase 2.1 complete based on @taylor's manual work.
-   ```
-
-## WORKLOG.md Integration
-
-Your comments become part of the narrative work log that AI reads when starting new work:
-
-```markdown
-# Work Log - TASK-001: User Authentication
-
-## 2025-10-22 15:30 - @taylor
-Added login button to header with dark mode support.
-Using --color-grey-dark (#2d2d2d) for consistency.
-Files: src/components/Header.tsx
-
-## 2025-10-22 14:30 - backend-specialist
-Implemented JWT authentication middleware with token refresh logic.
-Gotcha: Token expiry must be configurable via env var (TOKEN_EXPIRY_HOURS).
-Files: src/middleware/auth.js
-
-## 2025-10-22 12:15 - test-engineer
-Added integration tests for login flow. Mock JWT validation for speed.
-Coverage: 98% on auth module, all edge cases covered.
-Files: tests/integration/auth.test.ts
-```
-
-**Note**: Entries are in **reverse chronological order** (newest first) so recent work is immediately visible.
-
-## When to Use /comment
-
-✅ **Use /comment when:**
-- You manually change code outside of `/implement`
-- You make styling tweaks, configuration changes, quick fixes
-- You want to document a gotcha or lesson learned
-- You need to communicate constraints to AI ("must use library X")
-- You've discovered something AI should know ("API changed, use v2")
-
-❌ **Don't use /comment when:**
-- AI agents are doing the work (they auto-log via `/implement`)
-- You're just reading code (no changes made)
-- The work is already documented in a commit message
-
-## Benefits
-
-**For AI Context:**
-- AI reads WORKLOG before starting new phases
-- Understands what humans have done manually
-- Avoids duplicating human work
-- Respects human decisions and constraints
-
-**For Developers:**
-- Quick way to document manual changes
-- No context switching to update task files
-- AI keeps task plan synchronized
-- Creates shared narrative history with AI
-
-**For Teams:**
-- Other developers see what was done and why
-- Gotchas and lessons are captured
-- Work log provides implementation timeline
-- Reduces "why did they do this?" questions
-
 ## Examples
 
-### Example 1: Manual Styling Work
-
+**Styling work:**
 ```bash
-/comment "Tweaked button padding to 12px/24px for better mobile UX"
-
-# AI responds:
-# Added entry to WORKLOG.md
-# No task plan updates needed (styling detail)
+/comment "Tweaked button padding to 12px/24px for mobile"
+# → Added to WORKLOG, no plan updates needed
 ```
 
-### Example 2: Manual Feature Addition
-
+**Feature addition:**
 ```bash
-/comment "Added email validation regex to login form"
-
-# AI responds:
-# Added entry to WORKLOG.md
-# This relates to phase 1.3 "Implement form validation"
-# Should I mark phase 1.3 as complete? (y/n)
+/comment "Added email validation to login form"
+# → Added to WORKLOG, AI asks: "Mark phase 1.3 complete? (y/n)"
 ```
 
-### Example 3: Documenting a Gotcha
-
+**Gotcha documentation:**
 ```bash
-/comment "Don't use setTimeout for token refresh - use setInterval and clear on logout"
-
-# AI responds:
-# Added entry to WORKLOG.md
-# Gotcha documented for future reference
-# No task plan updates needed
+/comment "Don't use setTimeout for token refresh - use setInterval"
+# → Added to WORKLOG, documented for future reference
 ```
 
-### Example 4: API Change Notification
-
+**API change:**
 ```bash
-/comment "Backend API changed - login endpoint now /api/v2/auth/login (not /api/login)"
-
-# AI responds:
-# Added entry to WORKLOG.md
-# This affects phase 3.1 "Wire up login API"
-# Should I update phase 3.1 description to reference /api/v2/auth/login? (y/n)
+/comment "API changed - login endpoint now /api/v2/auth/login"
+# → Added to WORKLOG, AI asks: "Update phase 3.1 description? (y/n)"
 ```
-
-## File Structure
-
-Comments are added to the current task's WORKLOG.md:
-
-```
-pm/issues/
-  TASK-001-user-authentication/
-    TASK.md          # Requirements (synced with PM tool)
-    PLAN.md          # Implementation plan with checkboxes
-    WORKLOG.md       # Narrative work log (comments go here)
-    RESEARCH.md      # Technical decisions
-```
-
-If no task is currently active, AI will:
-
-1. List available tasks
-2. Ask which task this comment relates to
-3. Add entry to the selected task's WORKLOG.md
-
-## Integration with Other Commands
-
-**`/implement`** - Reads WORKLOG to understand previous work (including human comments)
-**`/plan`** - Can reference WORKLOG entries when creating implementation plan
-**`/project-status`** - Shows recent WORKLOG activity in status report
-
-## Best Practices
-
-**Keep comments focused:**
-- What you did (~200-300 chars)
-- Why you did it (if not obvious)
-- Any gotchas or lessons learned
-- Files changed (optional but helpful)
-
-**Don't overthink it:**
-- Comments are informal, like Jira comments
-- No need for perfect grammar or structure
-- Just capture the essence of what happened
-
-**Use when it helps AI memory:**
-- Document things AI wouldn't know from reading code
-- Capture the "why" behind manual decisions
-- Note gotchas that aren't obvious in code
-
-## Technical Details
-
-**Comment Entry Format:**
-```markdown
-## YYYY-MM-DD HH:MM - @username
-Comment text goes here.
-Gotchas, lessons, file references.
-```
-
-**Entry Order:** Reverse chronological (newest entries at top)
-**Timestamp:** Get from system using `date '+%Y-%m-%d %H:%M'` (NEVER guess the date/time)
-**Username:** Git username from `git config user.name`
-**Length:** ~500 chars guideline (not enforced, just recommended)
-
-**Critical**: Always run `date '+%Y-%m-%d %H:%M'` to get the current timestamp. Do not use estimated dates.
 
 ## Error Handling
 
-**No active task:**
-```
-No active task found. Which task does this comment relate to?
-Available tasks:
-  - TASK-001-user-authentication
-  - TASK-002-database-schema
-  - BUG-001-login-error
+**No active task**: AI lists available tasks and asks which one to associate comment with
 
-Select task: _
-```
+**No WORKLOG.md**: AI creates it automatically with proper header
 
-**No WORKLOG.md:**
-AI automatically creates WORKLOG.md with header:
-```markdown
-# Work Log - TASK-001: User Authentication
+## Benefits
 
-## 2025-10-22 15:30 - @taylor
-[Your comment]
-```
+**For AI**: Understands manual changes, avoids duplicating human work, respects decisions
+**For Humans**: Quick documentation, no context switching, AI keeps plan synchronized
+**For Teams**: Shared history, captured gotchas, implementation timeline
 
 ## Philosophy
 
-The `/comment` command embodies the core principle: **AI and humans work together, not separately.**
-
-- **Humans** add comments when they manually change things
-- **AI agents** add entries when they complete phases via `/implement`
-- **Both** contribute to a shared narrative work log
-- **Result**: Complete implementation history that helps AI remember context
-
-This solves the "vibe coding" problem where AI forgets what was done and breaks existing features.
+Human-AI collaboration through shared work log:
+- Humans add comments for manual work
+- AI agents add entries for automated work
+- Both contribute to narrative history
+- Result: AI remembers context, avoids breaking existing features

@@ -10,110 +10,103 @@ references_guidelines:
 
 # /commit Command
 
-**Purpose**: Create a proper git commit with quality checks and conventional message formatting.
+**WHAT**: Create git commit with quality checks and conventional message formatting.
 
-**Guide**: Always check the git-workflow.md guideline first and adhere to that.
+**WHY**: Ensure consistent commit messages, enforce quality gates, enable semantic versioning and automated changelogs.
+
+**HOW**: See git-workflow.md for commit conventions, type inference rules, and branch-based message generation.
 
 ## Usage
 
 ```bash
-# Basic commits
-/commit                           # Interactive commit with quality checks
-/commit "feat: add user auth"      # Direct commit with message
-/commit --files "src/auth.js"      # Commit specific files
+# Basic
+/commit                           # Interactive with quality checks
+/commit "feat: add user auth"     # Direct with message
+/commit --files "src/auth.js"     # Commit specific files
 
-# Advanced workflows
-/commit --amend                    # Amend last commit (with safety checks)
-/commit "fix: typo" --no-verify    # Skip pre-commit hooks
-/commit --interactive              # Interactive staging + commit
+# Advanced
+/commit --amend                   # Amend last (safety checks)
+/commit "fix: typo" --no-verify   # Skip hooks
+/commit --interactive             # Interactive staging + commit
 /commit "docs: update" --amend --no-verify  # Combine flags
 ```
 
 ## Process
 
-**Parse Arguments**:
-- If `--amend` flag present: Execute Amend Mode with safety checks
-- If `--no-verify` flag present: Skip pre-commit hooks
-- If `--interactive` flag present: Run interactive staging before commit
-- If `--files` specified: Stage only specified files
+**Argument Parsing**:
+- `--amend`: Amend mode with safety checks
+- `--no-verify`: Skip pre-commit hooks
+- `--interactive`: Interactive staging first
+- `--files`: Stage only specified files
 
-**Branch-Aware Commit Message Generation**:
-1. Get current branch: `git branch --show-current`
-2. Read `docs/development/guidelines/git-workflow.md` for branch naming pattern
-3. Extract issue ID from branch name (if matches pattern):
-   - `feature/TASK-001` → TASK-001
-   - `bugfix/BUG-003` → BUG-003
-4. Determine commit type from staged changes using `commit_type_inference` config in git-workflow.md:
-   - Analyzes file patterns (tests, docs, config, source code)
-   - Checks commit message keywords (fix, feature, refactor, etc.)
-   - Applies most specific match or defaults to configured default_type
-   - See git-workflow.md "Commit Type Inference" section for customization
-5. If issue ID extracted and not in user's message:
-   - Format as: `type(ISSUE-ID): description`
-   - Example: `feat(TASK-001): add user authentication`
+**Branch-Aware Message Generation**:
+1. Get branch: `git branch --show-current`
+2. Read `git-workflow.md` for branch naming pattern
+3. Extract issue ID from branch (feature/TASK-001 → TASK-001)
+4. Determine commit type from staged changes using `commit_type_inference` config
+   - Analyzes file patterns (tests, docs, config, source)
+   - Checks message keywords (fix, feature, refactor)
+   - See git-workflow.md "Commit Type Inference" for customization
+5. If issue ID extracted and not in message: `type(ISSUE-ID): description`
 6. Follow conventional commits format from git-workflow.md
 
-**Standard Commit Flow**:
+**Standard Flow**:
 1. Run pre-commit checks (tests, lint, type-check) unless `--no-verify`
-2. Review staged changes for quality and completeness
-3. Draft commit message (branch-aware, with issue reference)
-4. Ask for user confirmation before committing
+2. Review staged changes
+3. Draft message (branch-aware, with issue reference)
+4. Ask confirmation
 
-**Amend Mode** (`--amend` flag):
-1. Safety Check: Verify commit hasn't been pushed (`git log @{u}..HEAD`)
-2. Authorship Check: Verify current commit author matches user
-3. Warning: If commit from different author, WARN and require explicit confirmation
-4. Proceed: If safe, allow amending with new changes or updated message
+**Amend Mode** (`--amend`):
+1. Safety: Verify not pushed (`git log @{u}..HEAD`)
+2. Authorship: Verify author matches user
+3. Warning: If different author, warn and require confirmation
+4. Proceed: Allow amending if safe
 
-**No-Verify Mode** (`--no-verify` flag):
-1. Display warning that pre-commit checks are being skipped
-2. Explain appropriate use cases (emergency fixes, WIP commits)
-3. Note that code quality checks won't run
-4. Execute commit with `--no-verify` flag
+**No-Verify Mode** (`--no-verify`):
+1. Display warning (checks skipped)
+2. Explain use cases (emergency fixes, WIP)
+3. Note quality checks won't run
+4. Execute with `--no-verify`
 
-**Interactive Mode** (`--interactive` flag):
-1. Run `git add -i` or `git add -p` for interactive staging
+**Interactive Mode** (`--interactive`):
+1. Run `git add -i` or `git add -p`
 2. Review selected changes
-3. Proceed with standard commit flow
+3. Proceed with standard flow
 
 ## Agent Coordination
 
-**Primary**: code-reviewer (for change assessment and quality validation)
-**Supporting**: test-engineer (for test validation), security-auditor (for security-sensitive changes)
+**Primary**: code-reviewer (change assessment, quality validation)
+**Supporting**: test-engineer (test validation), security-auditor (security-sensitive changes)
 
-## Branch-Aware Commit Messages
+## Branch-Aware Messages
 
-The `/commit` command automatically includes issue references from your branch name:
+Auto-includes issue references from branch:
 
 ```bash
-# On branch: feature/TASK-001
+# On feature/TASK-001
 /commit "add user authentication"
-# → Generates: feat(TASK-001): add user authentication
+# → feat(TASK-001): add user authentication
 
-# On branch: bugfix/BUG-003
+# On bugfix/BUG-003
 /commit "fix login timeout"
-# → Generates: fix(BUG-003): fix login timeout
+# → fix(BUG-003): fix login timeout
 
-# On branch: develop (no issue)
+# On develop (no issue)
 /commit "refactor database connection"
-# → Generates: refactor: refactor database connection
+# → refactor: refactor database connection
 
-# Manual override (if issue already in message)
+# Manual override
 /commit "feat(TASK-001): add user auth"
 # → Uses as-is: feat(TASK-001): add user auth
 ```
 
-**Benefits:**
-- Automatic issue tracking in commits
-- No need to remember issue IDs
-- Links commits to tasks/bugs
-- Follows conventional commits format
+**Benefits**: Auto issue tracking, no need to remember IDs, links commits to tasks
 
 ## Examples
 
-**Interactive commit**: `/commit` → Review changes → Generate branch-aware message → Confirm
-**Direct commit**: `/commit "add user authentication"` → Adds issue from branch → Quality checks → Commit
-**Selective commit**: `/commit --files "src/auth.js"` → Commit specific files with issue reference
-**Amend last commit**: `/commit --amend` → Safety checks → Amend with new changes
-**Skip hooks**: `/commit "fix typo" --no-verify` → Skip pre-commit → Fast commit
-**Interactive staging**: `/commit --interactive` → Choose hunks → Commit with issue reference
+**Interactive**: `/commit` → Review → Generate message → Confirm
+**Direct**: `/commit "add auth"` → Adds issue → Quality checks → Commit
+**Selective**: `/commit --files "src/auth.js"` → Specific files with issue
+**Amend**: `/commit --amend` → Safety checks → Amend
+**Skip hooks**: `/commit "fix typo" --no-verify` → Fast commit
+**Interactive staging**: `/commit --interactive` → Choose hunks → Commit

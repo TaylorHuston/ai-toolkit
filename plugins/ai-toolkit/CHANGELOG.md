@@ -6,6 +6,81 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- **`/troubleshoot` command**: Structured 5-step debugging loop (Research → Hypothesize → Implement → Test → Document)
+  - **Research-first approach**: Context7 docs lookup, official documentation, user guidance (no guessing)
+  - **Liberal debug logging**: Encourages console.log statements at all decision points for evidence gathering
+  - **Single hypothesis testing**: One theory at a time with mandatory rollback on failure
+  - **Validation required**: Never claims "fixed" without test confirmation and user verification
+  - **WORKLOG integration**: Brief entries documenting hypothesis, debug findings, and results
+  - **Loop structure**: Repeats until issue resolved, prevents shotgun debugging anti-pattern
+  - **Usage**: Standalone bugs (`/troubleshoot BUG-007`) or during tasks (`/troubleshoot`)
+
+### Changed
+
+- **Guideline structure split into focused files** for better organization and targeted loading (16 guideline files now)
+  - **Created 4 new guideline files** (1,355 lines total):
+    - `worklog-format.md` (347 lines) - **Single source of truth** for both standard and troubleshooting WORKLOG formats
+      - Standard format (HANDOFF and COMPLETE entries for implementation work)
+      - Troubleshooting format (hypothesis-based entries for debugging)
+      - Entry timing, best practices, and cross-referencing RESEARCH.md
+    - `plan-structure.md` (330 lines) - Phase patterns, reviews, and progress tracking
+      - Default phase structures by task type (frontend, backend, bug fixes, etc.)
+      - Mandatory code-architect and conditional security-auditor review requirements
+      - Progress tracking protocol (dual PLAN.md + TASK.md tracking)
+      - Test-first guidance and agent context briefing patterns
+    - `issue-management.md` (410 lines) - EPIC/TASK/BUG file format specifications
+      - Complete EPIC.md, TASK.md, BUG.md file structures with YAML frontmatter
+      - Issue directory structure and file purposes (TASK.md, PLAN.md, WORKLOG.md, RESEARCH.md)
+      - Epic and issue naming conventions, numbering schemes
+      - Epic size guidelines (2-8 tasks recommended) and decomposition patterns
+    - `research-documentation.md` (268 lines) - When and how to create RESEARCH.md
+      - Criteria for RESEARCH.md (3+ alternatives, benchmarks, root cause analysis)
+      - RESEARCH.md structure (Problem → Alternatives → Decision → Implementation → References)
+      - When to keep decisions in WORKLOG vs creating RESEARCH.md (~500 char rule)
+      - Anchor linking from WORKLOG, multiple decisions in same file
+  - **Updated existing guideline files** to remove extracted sections and add cross-references:
+    - `development-loop.md` (1,188 → ~760 lines, 36% reduction)
+      - Removed: WORKLOG format, PLAN structure, progress tracking details, RESEARCH.md format
+      - Retained: Core development loop, quality gates, agent coordination
+      - Added: Cross-references to new guideline files
+    - `pm-guidelines.md` (681 → ~540 lines, 21% reduction)
+      - Removed: Epic/TASK/BUG file format specifications, naming conventions
+      - Retained: Epic creation workflow, Jira integration patterns, task suggestion
+      - Added: Cross-references to issue-management.md
+    - `troubleshooting.md` - References worklog-format.md for WORKLOG entry formats
+  - **Updated 6 commands** to reference new guideline files:
+    - `/troubleshoot`: Reads worklog-format.md instead of development-loop.md
+    - `/plan`: Reads plan-structure.md for review requirements and phase patterns
+    - `/implement`: Reads plan-structure.md, worklog-format.md, development-loop.md
+    - `/comment`: References worklog-format.md for WORKLOG format
+    - `/epic`: References both issue-management.md and pm-guidelines.md
+    - Commands now load only relevant content (e.g., `/implement` reads 3 focused files vs 1 monolithic file)
+  - **Benefit**: Easier maintenance, focused loading, single responsibility per file
+
+- **WORKLOG format specification updated** in development-loop.md (lines 324-407)
+  - **Philosophy**: Stream-based brief entries at handoffs (5-10 lines, ~500 chars ideal)
+  - **Ordering**: Reverse chronological (newest entries at TOP) - explicitly enforced
+  - **Format**: `[AUTHOR: agent-name] → [NEXT: next-agent]` with Gotcha/Lesson/Files
+  - **Entry types**: HANDOFF (passing to another agent) and COMPLETE (phase done)
+  - **Best practices**: Focus on insights (WHY), capture alternatives, reference RESEARCH.md for deep dives
+  - **Source**: Merged from production usage in quotable project (proven format)
+  - **Note**: Troubleshooting has separate format in troubleshooting.md (hypothesis-based structure)
+
+- **All 23 commands optimized** following "Commands = WHAT, Guidelines = HOW" principle
+  - **Massive reduction**: 8,277 lines → 3,534 lines (57% reduction, 4,743 lines removed)
+  - **Consistent structure**: All commands follow WHAT/WHY/HOW format with concise execution steps
+  - **Context preservation**: Commands explicitly load required context via Pre-Execution blocks
+  - **Guideline references**: Commands reference HOW details instead of embedding them
+  - **Top reductions**: toolkit-init (1,018→241, 76%), ui-design (614→198, 68%), sanity-check (531→128, 76%)
+  - **Functionality preserved**: All modes, flags, error handling, and agent coordination intact
+  - **Maintainability**: Single source of truth (guidelines), easier to scan and update
+  - **Alignment**: Follows best practices from "Claude Code Command Best Practices" research
+  - **Pattern**: Pre-execution context loading → Execution steps → Agent coordination → Error handling
+
+## [0.18.0] - 2025-11-05
+
 ### Removed
 
 - **data-analyst agent**: Removed from plugin (18 agents remaining)

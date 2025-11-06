@@ -21,7 +21,7 @@ See [CHANGELOG.md](CHANGELOG.md) for complete release history.
 
 This marketplace contains:
 
-- **AI Toolkit Plugin** - Complete workflow system with 23 commands, 20 specialized agents, and intelligent automation
+- **AI Toolkit Plugin** - Complete workflow system with 23 commands, 18 specialized agents, and intelligent automation
 - **Starter Template** - 37 essential files for clean project initialization via `/toolkit-init`
 - **Guideline Templates** - 8 customizable guideline templates (project configuration files, not plugin docs)
 
@@ -79,7 +79,7 @@ The AI Toolkit plugin provides a complete development workflow system with **23 
 
 - `/quality` - Multi-dimensional quality assessment using specialized agents
 - `/security-audit` - OWASP-compliant security assessment with vulnerability remediation
-- `/test-fix` - Automated test failure detection, analysis, and resolution
+- `/troubleshoot` - Systematic debugging with research-first approach (replaces ad-hoc test fixing)
 - `/sanity-check` - Mid-work validation with deep reflection to catch drift early
 
 ### 🛠️ Development Support

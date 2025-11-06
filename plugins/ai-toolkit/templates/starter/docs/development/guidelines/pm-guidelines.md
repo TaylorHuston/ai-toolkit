@@ -99,175 +99,27 @@ task_suggestion_strategy:
 
 This guideline defines patterns for creating and managing epics and issues. Commands like `/epic` and `/plan` read these configurations to ensure consistent project management structure.
 
-## Epic Management
+## Epic and Issue File Formats
 
-### Epic Structure
+**For complete file format specifications**, see `issue-management.md` which documents:
+- EPIC.md structure (YAML frontmatter, sections, Definition of Done patterns)
+- TASK.md structure (acceptance criteria, technical notes)
+- BUG.md structure (reproduction steps, environment details)
+- Issue directory structure (TASK.md, PLAN.md, WORKLOG.md, RESEARCH.md)
+- Epic and issue naming conventions
+- Epic size guidelines and decomposition patterns
+- Issue type detection patterns
+- Custom issue type configuration
 
-Epics are feature-level initiatives that group related tasks and bugs. They represent significant capabilities or product areas.
+**Quick Reference:**
+- **EPIC.md**: `pm/epics/EPIC-###-kebab-name.md` (feature-level initiatives)
+- **TASK.md**: `pm/issues/TASK-###-kebab-name/TASK.md` (implementation work)
+- **BUG.md**: `pm/issues/BUG-###-kebab-name/BUG.md` (defects and fixes)
+- **File purposes**: TASK.md (WHAT), PLAN.md (HOW), WORKLOG.md (WHAT was done), RESEARCH.md (WHY)
 
-**File Location:** `pm/epics/EPIC-###-<kebab-case-name>.md`
+**Recommended Epic Size**: 2-8 tasks (decompose above 10 tasks)
 
-**Standard Format:**
-```yaml
----
-epic_number: EPIC-###
-status: planning
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
----
-
-# EPIC-###: Name
-
-## Description
-[Epic goal and scope - what capability are we building?]
-
-## Definition of Done
-[Concrete criteria that signal epic completion]
-[Can be prose or checklist based on complexity]
-
-## Dependencies
-- ADR-###: [Decision name]
-- EPIC-###: [Other epic dependency]
-- External: [External dependencies]
-
-## Tasks
-- [ ] TASK-###: [Task name]
-- [ ] TASK-###: [Task name]
-- [ ] BUG-###: [Bug name]
-```
-
-### Epic Naming Conventions
-
-**Epic Files:**
-- Pattern: `EPIC-###-<kebab-case-name>.md`
-- Examples:
-  - `EPIC-001-user-authentication.md`
-  - `EPIC-002-payment-processing.md`
-  - `EPIC-003-admin-dashboard.md`
-
-**Naming Rules:**
-- Sequential numbering starting from 001
-- Kebab-case for multi-word names
-- Descriptive but concise (3-5 words ideal)
-- Focus on capability, not implementation
-
-### Epic Breakdown Guidelines
-
-**Recommended Epic Size: 2-8 tasks**
-
-**Why this range:**
-- **Too small (1 task):** Acceptable for significant features, but consider if it's really an epic
-- **Sweet spot (2-8 tasks):** Focused, deliverable in 1-3 iterations
-- **Too large (10+ tasks):** Consider decomposing into multiple epics
-
-**Epic Decomposition Triggers:**
-- More than 10 tasks
-- Tasks span multiple domains with no shared context
-- Epic takes more than 3 sprints/iterations
-- Definition of Done is vague or overly broad
-
-**How to Decompose:**
-```
-Original: EPIC-001 "E-commerce Platform" (25 tasks)
-  ↓
-Decomposed:
-- EPIC-001: "Product Catalog" (5 tasks)
-- EPIC-002: "Shopping Cart" (4 tasks)
-- EPIC-003: "Checkout Flow" (6 tasks)
-- EPIC-004: "Order Management" (5 tasks)
-- EPIC-005: "Admin Panel" (5 tasks)
-```
-
-### Definition of Done Patterns
-
-**Format Choice: Prose vs Checklist**
-
-**Use Prose** when criteria are conceptual:
-```markdown
-## Definition of Done
-Users can create accounts, log in securely with email/password or Google OAuth, reset forgotten passwords via email, and manage their profile information. The system achieves 95%+ test coverage and passes security audit.
-```
-
-**Use Checklist** when criteria are concrete:
-```markdown
-## Definition of Done
-- [ ] Users can register with email/password
-- [ ] Users can log in with Google OAuth
-- [ ] Password reset via email works end-to-end
-- [ ] Profile management (update email, password)
-- [ ] 95%+ test coverage achieved
-- [ ] Security audit passed with no critical findings
-```
-
-**Best Practice:** Choose format that makes completion criteria clearest for your team.
-
-## Issue Management
-
-### Issue Types
-
-Standard types provided by default (see machine-readable config above):
-
-**TASK** - Implementation work
-- New features, enhancements, refactoring
-- Template: `pm/templates/task.md`
-- File: `pm/issues/TASK-###-name/TASK.md`
-
-**BUG** - Defects and fixes
-- Bugs, regressions, incorrect behavior
-- Template: `pm/templates/bug.md`
-- File: `pm/issues/BUG-###-name/BUG.md`
-
-### Custom Issue Types
-
-Teams can add custom types by:
-1. Creating template: `pm/templates/[type].md`
-2. Updating machine-readable config above
-3. Using pattern: `[TYPE]-###-name/[TYPE].md`
-
-**Common Custom Types:**
-- **SPIKE** - Research, investigation, proof of concept
-- **RFC** - Request for Comments, design proposals
-- **EXPERIMENT** - Time-boxed experiments
-- **DEBT** - Technical debt remediation
-
-### Issue Naming Conventions
-
-**Issue Directories:**
-- Pattern: `[TYPE]-###-<kebab-case-name>/`
-- Examples:
-  - `TASK-001-user-registration/`
-  - `BUG-003-session-timeout/`
-  - `SPIKE-002-caching-strategy/`
-
-**Naming Rules:**
-- Sequential numbering per type (TASK-001, TASK-002, BUG-001, BUG-002)
-- Global numbering across entire project (not per-epic)
-- Kebab-case for multi-word names
-- Descriptive (appears in file paths and git branches)
-
-### Issue Directory Structure
-
-Each issue gets a directory containing multiple files:
-
-```
-pm/issues/TASK-001-user-registration/
-├── TASK.md        # Definition, acceptance criteria, plan (REQUIRED)
-├── PLAN.md        # Implementation phases (created by /plan)
-├── WORKLOG.md     # Work history (auto-created by /implement)
-└── RESEARCH.md    # Technical deep dives (optional)
-```
-
-**File Purposes:**
-- **[TYPE].md** - WHAT to do (requirements, acceptance criteria)
-- **PLAN.md** - HOW to do it (phase breakdown, approach)
-- **WORKLOG.md** - WHAT was done (narrative history, lessons)
-- **RESEARCH.md** - WHY decisions were made (technical analysis)
-
-**File Lifecycle:**
-1. `/epic` or manual creation → Creates `[TYPE].md`
-2. `/plan TASK-###` → Creates `PLAN.md`
-3. `/implement TASK-### 1.1` → Creates/updates `WORKLOG.md`
-4. Complex decisions → Manually create `RESEARCH.md`
+**Numbering**: Sequential global per type (TASK-001, TASK-002, BUG-001, BUG-002)
 
 ## Epic Creation Workflow
 
@@ -664,6 +516,9 @@ EPIC-003: "Real-time Notifications"
 
 ## Related Documentation
 
+**File Format Specifications:**
+- `issue-management.md` - Complete EPIC.md, TASK.md, BUG.md file formats and naming conventions
+
 **Project Management Structure:**
 - `pm/README.md` - User guide for PM directory structure and workflow
 - `pm/templates/README.md` - Template customization guide
@@ -672,8 +527,11 @@ EPIC-003: "Real-time Notifications"
 - `pm/templates/bug.md` - Bug template
 
 **Development Workflow:**
-- `docs/development/guidelines/development-loop.md` - Implementation workflow, WORKLOG, RESEARCH.md
-- `docs/development/guidelines/git-workflow.md` - Branch naming aligned with issue IDs
+- `development-loop.md` - Implementation workflow and quality gates
+- `plan-structure.md` - PLAN.md structure, phase patterns, progress tracking
+- `worklog-format.md` - WORKLOG entry formats (standard and troubleshooting)
+- `research-documentation.md` - RESEARCH.md format and criteria
+- `git-workflow.md` - Branch naming aligned with issue IDs
 
 **Commands:**
 - `/epic` - Creates epics and issues following these patterns

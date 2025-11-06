@@ -10,9 +10,13 @@ references_guidelines:
 
 # /adr Command
 
-Create Architecture Decision Records (ADRs) through interactive conversation. This command ALWAYS results in a new ADR file being created.
+**WHAT**: Create Architecture Decision Records through interactive conversation.
 
-**IMPORTANT**: Architecture decisions have long-term consequences. Take your time, think thoroughly about all considerations and options. Quality matters more than speed.
+**WHY**: Document significant architectural decisions with context, alternatives, and rationale for future reference.
+
+**HOW**: See architectural-principles.md for design principles and patterns. Interactive 8-step process gathers context and creates ADR.
+
+**IMPORTANT**: Architecture decisions have long-term consequences. Take time to think thoroughly - quality > speed.
 
 ## Usage
 
@@ -23,98 +27,67 @@ Create Architecture Decision Records (ADRs) through interactive conversation. Th
 /adr "frontend framework"
 ```
 
-## Process Overview
+## Process (8 Steps)
 
-**8-Step Interactive Flow**:
-
-1. **Read Context** - Load ADR best practices, template, existing ADRs, and architecture overview first
-2. **Understand Decision** - Read project context, clarify the decision topic
+1. **Read Context** - Load best practices, template, existing ADRs, architecture overview
+2. **Understand Decision** - Read project context, clarify topic
 3. **Ask Questions** - ONE at a time, build understanding progressively
 4. **Present Options** - 2-3 viable options with trade-offs
-5. **Discuss Deeply** - Leverage specialist agents, explore implications, slow down
-6. **Get Confirmation** - Ensure user understands trade-offs and is ready
-7. **Create ADR** - Document the decision following template
-8. **Update Architecture Overview** - Update `architecture-overview.md` to reflect the new decision
+5. **Discuss Deeply** - Leverage specialist agents, explore implications
+6. **Get Confirmation** - Ensure user understands trade-offs
+7. **Create ADR** - Document decision following template
+8. **Update Architecture Overview** - Reflect decision in `architecture-overview.md`
 
-## Example Conversation
+## Example Flow
 
 ```
 User: /adr "database selection"
 
-AI: [Reads best practices, template, existing ADRs, and architecture overview]
+AI: [Reads best practices, template, existing ADRs, architecture overview]
 
-Looking at your project brief, you're building a quotation management app.
-Your current architecture uses a monolithic approach with no database yet.
-I see you've made decisions about authentication (ADR-002) and API design (ADR-003).
+Looking at your project brief - quotation management app, monolithic, no database yet.
+Previous decisions: ADR-002 (auth), ADR-003 (API design).
 
-What are your data structure needs?
-- Primarily relational?
-- Flexible schema?
-- Mix of both?
-
+Data structure needs? (relational/flexible/mix)
 User: Primarily relational
 
-AI: What's your expected scale?
-- < 10k users
-- 10k-100k users
-- 100k+ users
+Expected scale? (<10k/10k-100k/100k+)
+User: <10k users first year
 
-User: < 10k users for first year
-
-AI: What's your team's database experience?
-- Strong SQL?
-- Prefer ORM?
-- NoSQL?
-
+Team experience? (SQL/ORM/NoSQL)
 User: SQL + ORM
 
-AI: Hosting preference?
-- Managed service?
-- Self-hosted?
-
+Hosting? (managed/self-hosted)
 User: Managed, minimize ops
 
-AI: Based on your answers, here are 3 options:
+Options:
+- PostgreSQL (Supabase) - Managed, built-in auth, relational
+- PostgreSQL (Self-hosted) - Full control, no vendor lock-in
+- MongoDB Atlas - Flexible schema, horizontal scaling
 
-**PostgreSQL (Supabase)** - Managed, built-in auth, relational model
-**PostgreSQL (Self-hosted)** - Full control, no vendor lock-in
-**MongoDB Atlas** - Flexible schema, horizontal scaling
+[Consults database-specialist, security-auditor for expert analysis]
 
-Which interests you most?
-
-[Conversation continues, leverages database-specialist and security-auditor agents
-for expert analysis, confirms decision]
-
-AI: Great! I'll document the decision.
-
-[Creates ADR-001-use-postgresql-supabase.md]
-[Updates architecture-overview.md to reflect PostgreSQL + Supabase as primary database]
+AI: Great! Creating ADR-001-use-postgresql-supabase.md
+    Updating architecture-overview.md
 
 ✓ ADR-001 created and architecture overview updated
 ```
 
-## Template System
+## Files Read Before Conversation
 
-The command reads these files FIRST to guide the entire conversation:
+- `docs/project/adrs/README.md` - Best practices, quality standards
+- `docs/project/adrs/adr-template.md` - Required sections (YAML frontmatter)
+- `docs/project/adrs/ADR-*.md` - Existing ADRs (decision history, patterns, conflicts)
+- `docs/project/architecture-overview.md` - Current architecture state
+- `docs/project-brief.md`, `CLAUDE.md` - Project context
 
-- `docs/project/adrs/README.md` - Best practices, quality standards, writing guidance
-- `docs/project/adrs/adr-template.md` - Required sections via YAML frontmatter
-- `docs/project/adrs/ADR-*.md` - All existing ADRs for context (decisions already made, patterns to follow/avoid)
-- `docs/project/architecture-overview.md` - Current architecture state (updated after each ADR)
-
-**Why read existing ADRs**: Understand decision history, avoid conflicts, reference related decisions, build on previous choices
-
-**Template Customization**: Add project-specific sections, modify prompts, adjust requirements
-
-**ADR Location**: `docs/project/adrs/ADR-###-<kebab-case-title>.md` (sequential numbering)
-
-**Architecture Overview**: Living document reflecting all architectural decisions - read at start, updated at end
+**Why read existing ADRs**: Understand history, avoid conflicts, reference related decisions, build on previous choices
 
 ## Agent Coordination
 
-**Primary**: `code-architect` leads conversation and creates ADR
+**Primary**: `code-architect` (leads conversation, creates ADR)
 
-**Specialists** (consult via Task tool during step 5):
+**Specialists** (consulted via Task tool during step 5):
 - `database-specialist` - DB selection, data modeling, scaling
 - `devops-engineer` - Infrastructure, deployment, CI/CD
 - `security-auditor` - Security architecture, auth, compliance
@@ -127,60 +100,46 @@ The command reads these files FIRST to guide the entire conversation:
 
 ## Command Instructions
 
-When this command is invoked, execute:
-
 ```
-Task: "Create Architecture Decision Record for [topic] through interactive conversation.
+Task: "Create ADR for [topic] through interactive conversation.
 
-**CRITICAL MINDSET**:
+CRITICAL MINDSET:
 - Architecture decisions have long-term consequences
-- Take time to think thoroughly - quality > speed
-- Consider implications 1, 3, 5 years out
+- Take time - quality > speed
+- Consider implications 1/3/5 years out
 - Explore edge cases before committing
-- Don't rush - architectural decisions are hard to reverse
 
-**PROCESS**:
+PROCESS:
+1. BEFORE: Read README.md, adr-template.md, ALL ADR-*.md, architecture-overview.md,
+   project-brief.md, CLAUDE.md
+2. DURING: Ask ONE question at a time, wait for answer, leverage specialist agents
+   via Task tool
+3. AFTER: Determine ADR number, create ADR-###-<kebab-case>.md, update
+   architecture-overview.md, link from epic if relevant
 
-1. BEFORE conversation:
-   - Read docs/project/adrs/README.md (best practices, quality standards)
-   - Read docs/project/adrs/adr-template.md (required sections)
-   - Read ALL existing docs/project/adrs/ADR-*.md files (decision history, patterns, related decisions)
-   - Read docs/project/architecture-overview.md (current architecture state)
-   - Read docs/project-brief.md and CLAUDE.md (project context)
-   - Use existing ADRs to understand what's already decided, avoid conflicts, reference related decisions
+ADR CONTENT:
+- Context: Why matters, forces at play, honest problem framing
+- Decision: Definitive ("We will use X"), clear rationale
+- Alternatives: Options considered, why rejected
+- Consequences: Honest trade-offs, negative consequences, long-term impact
+- References: Related ADRs, epics, docs
 
-2. DURING conversation:
-   - **Ask ONE question at a time** - never present a wall of questions
-   - Wait for answer before asking next question
-   - Keep questions terminal-friendly and focused
-   - Build understanding progressively through dialogue
-   - **Leverage specialist agents** (database-specialist, devops-engineer, security-auditor,
-     frontend-specialist, backend-specialist, performance-optimizer, ui-ux-designer)
-   - Use Task tool to consult specialists during trade-off discussion
-   - Expert input should inform options and trade-offs presented
+Output ADR documenting conversation and decision."
+```
 
-3. AFTER confirmation:
-   - Determine next ADR number (scan existing ADR-*.md files)
-   - Generate content following template structure and best practices
-   - Create docs/project/adrs/ADR-###-<kebab-case-title>.md
-   - If epic-related, update epic file with ADR reference
-   - **Update docs/project/architecture-overview.md** to reflect the new decision:
-     * Add/update relevant architecture components
-     * Ensure overview stays accurate and current
-     * Link to the new ADR for context
+## ADR Content Guidelines
 
-**ADR CONTENT GUIDELINES**:
 - **Context**: Why this decision matters, forces at play, honest problem framing
 - **Decision**: Definitive ("We will use X"), clear rationale, active voice
 - **Alternatives**: Real options considered, why each was rejected
 - **Consequences**: Honest trade-offs, negative consequences, long-term impact (1/3/5 years)
-- **References**: Related ADRs, epics, documentation for future readers
+- **References**: Related ADRs, epics, documentation
 
-**CONVERSATION SUMMARY**: [questions asked, answers received, options presented, discussion]
-**DECISION CONFIRMED**: [the decision user confirmed]
+## ADR Location & Naming
 
-Generate ADR documenting the conversation and decision."
-```
+**Location**: `docs/project/adrs/ADR-###-<kebab-case-title>.md`
+**Numbering**: Sequential (scan existing ADR-*.md files for next number)
+**Architecture Overview**: Living document - read at start, updated at end
 
 ## Workflow Integration
 
@@ -192,20 +151,20 @@ Generate ADR documenting the conversation and decision."
         Referenced by epics/tasks
 ```
 
-Use `/adr`:
-- After `/project-brief` - foundational architecture decisions
-- Before `/epic` - establish architectural patterns
-- During `/epic` - epic-specific technical decisions
-- Before `/plan` - document technical approach
+**Use `/adr`**:
+- After `/project-brief` - Foundational decisions
+- Before `/epic` - Establish patterns
+- During `/epic` - Epic-specific technical decisions
+- Before `/plan` - Document technical approach
 
 ## ADR Maintenance
 
 **Status Transitions**:
-- Proposed → Accepted (when finalized)
+- Proposed → Accepted (finalized)
 - Accepted → Deprecated (no longer recommended)
-- Accepted → Superseded by ADR-### (when replaced)
+- Accepted → Superseded by ADR-### (replaced)
 
-**Superseding**: Create new ADR (don't edit old one), link bidirectionally, explain why changed
+**Superseding**: Create new ADR (don't edit old), link bidirectionally, explain why changed
 
 ## Related Commands
 

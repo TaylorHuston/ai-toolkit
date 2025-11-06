@@ -4,19 +4,18 @@ description: "Promote local exploration issue to Jira for team visibility"
 argument-hint: "TASK-### | BUG-###"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: claude-sonnet-4-5
+references_guidelines:
+  - docs/development/guidelines/pm-guidelines.md  # Jira integration and promotion workflow
+  - docs/development/guidelines/issue-management.md  # Local issue structure and migration
 ---
 
 # /promote Command
 
-Promote a local exploration issue to Jira for team collaboration and visibility.
+**WHAT**: Promote local exploration issue to Jira for team collaboration.
 
-## Purpose
+**WHY**: Convert validated prototypes to production-tracked work.
 
-Convert a local issue (TASK-###, BUG-###) into a Jira issue when:
-- Prototype validated and ready for production
-- Exploration complete, now needs team collaboration
-- Want to track work in Jira for stakeholder visibility
-- Need to coordinate with other team members
+**HOW**: Migrate TASK-###/BUG-### to Jira, preserve all artifacts, update branch.
 
 ## Usage
 
@@ -27,331 +26,183 @@ Convert a local issue (TASK-###, BUG-###) into a Jira issue when:
 
 ## Requirements
 
-- **Jira integration enabled** in CLAUDE.md
-- **Atlassian Remote MCP** configured
-- **Local issue must exist** with TASK.md or BUG.md
-- **Field cache available** (auto-discovered on first use)
+- Jira enabled in CLAUDE.md
+- Atlassian Remote MCP configured
+- Local issue exists (TASK.md or BUG.md)
+- Field cache available (auto-created if missing)
 
-## What It Does
+## Execution Steps
 
-1. **Reads local issue**:
-   - Loads TASK.md or BUG.md
-   - Extracts: description, acceptance criteria
-   - Reads PLAN.md (if exists)
-   - Reads WORKLOG.md (if exists)
-
-2. **Discovers Jira fields** (if needed):
-   - Checks cache: `.ai-toolkit/jira-field-cache.json`
-   - If missing: Fetches field requirements from Jira
-   - Prompts for custom required fields
-
-3. **Creates issue in Jira**:
-   - Uses Atlassian MCP
-   - Maps local fields to Jira fields
-   - Returns Jira issue key (PROJ-123)
-
-4. **Migrates local artifacts**:
-   - Creates `pm/issues/PROJ-123-{name}/`
-   - Copies PLAN.md, WORKLOG.md, RESEARCH.md
-   - Adds promotion note to WORKLOG.md
-
-5. **Cleanup**:
-   - Optionally deletes original TASK-###/ directory
-   - Updates git branch (feature/TASK-001 → feature/PROJ-123)
-
-## Workflow Example
+### 1. Validate Prerequisites
 
 ```bash
-# Developer prototyped auth approach locally
-/plan TASK-001
-/implement TASK-001 1.1
-/implement TASK-001 1.2
+# Check Jira enabled
+Read: CLAUDE.md  # jira.enabled: true
 
-# Prototype validated, ready for production
-/promote TASK-001
+# Verify MCP available
+# Check Atlassian MCP tools accessible
 
-AI: Promoting TASK-001 to Jira...
-
-    Reading local issue...
-    ✓ TASK-001: OAuth Implementation Spike
-
-    Description: Explored OAuth 2.0 integration...
-    Acceptance Criteria: [from TASK.md]
-
-    Checking Jira field requirements...
-    ✓ Loaded cached schema
-
-    Your Jira requires these fields:
-    - Summary: "OAuth Implementation Spike" ✓
-    - Issue Type: Story / Task / Bug? (Story)
-
-User: Story
-
-AI: - Team: Which team owns this?
-    Options: Frontend, Backend, DevOps
-
-User: Backend
-
-AI: Creating issue in Jira...
-    ✓ Created PROJ-456: OAuth Implementation Spike
-    🔗 https://company.atlassian.net/browse/PROJ-456
-
-    Migrating local artifacts...
-    ✓ Created pm/issues/PROJ-456-oauth-implementation/
-    ✓ Copied PLAN.md (3 phases)
-    ✓ Copied WORKLOG.md (4 entries)
-    ✓ Added promotion note to WORKLOG
-
-    Delete original TASK-001 directory? (yes/no)
-
-User: yes
-
-AI: ✓ Deleted pm/issues/TASK-001-oauth-spike/
-
-    Updating git branch...
-    Current: feature/TASK-001
-    ✓ Renamed to feature/PROJ-456
-
-    Promotion complete!
-    - Jira: https://company.atlassian.net/browse/PROJ-456
-    - Local: pm/issues/PROJ-456-oauth-implementation/
-    - Branch: feature/PROJ-456
-
-    Next: /implement PROJ-456 2.1
+# Verify local issue exists
+Glob: pm/issues/{ISSUE-ID}-*/
+Read: TASK.md or BUG.md
 ```
 
-## Command Behavior
+### 2. Load Local Issue
 
-### Prerequisites Check
+```bash
+Read: TASK.md or BUG.md  # Description, acceptance criteria
+Read: PLAN.md            # If exists
+Read: WORKLOG.md         # If exists
+Read: RESEARCH.md        # If exists
+```
 
-1. **Validate Jira enabled**:
-   - Read CLAUDE.md
-   - If `jira.enabled: false`: Error "Jira not enabled"
+### 3. Discover Jira Fields
 
-2. **Validate MCP**:
-   - Check for Atlassian MCP tools
-   - If unavailable: Error with setup instructions
+```bash
+# Check cache
+Read: .ai-toolkit/jira-field-cache.json
 
-3. **Validate local issue exists**:
-   - Find `pm/issues/TASK-###-*/` or `pm/issues/BUG-###-*/`
-   - Must have TASK.md or BUG.md
-   - If not found: Error with available issues
+# If missing: Fetch via MCP (same as /epic)
+# Determine issue type: TASK → Story/Task, BUG → Bug
+```
 
-### Field Discovery & Collection
+### 4. Collect Fields Conversationally
 
-**Same process as `/epic` command:**
+**Map local to Jira:**
+- Summary: From TASK.md title
+- Description: From TASK.md description + acceptance criteria
+- Issue Type: Story/Task/Bug (ask if TASK)
+- Custom fields: Prompt based on cache
 
-1. **Check cache**:
-   - Load `.ai-toolkit/jira-field-cache.json`
-   - If missing or stale: Fetch from Jira
+### 5. Create in Jira
 
-2. **Determine issue type**:
-   - TASK-### → Story or Task (ask user)
-   - BUG-### → Bug (automatic)
+```bash
+# Use Atlassian MCP
+Create issue with collected fields
+Get PROJ-### issue key
+Display Jira URL
+```
 
-3. **Collect required fields conversationally**:
-   - Summary: From TASK.md title
-   - Description: From TASK.md description
-   - Custom required fields: Prompt user
+### 6. Migrate Artifacts
 
-### Create in Jira
+```bash
+# Create new directory
+mkdir pm/issues/PROJ-###-{name}/
 
-**Use Atlassian MCP:**
-- Create issue with all collected fields
-- Get returned issue key (PROJ-456)
-- Display Jira URL
+# Copy files
+cp PLAN.md pm/issues/PROJ-###-{name}/
+cp WORKLOG.md pm/issues/PROJ-###-{name}/
+cp RESEARCH.md pm/issues/PROJ-###-{name}/  # If exists
+cp -r resources/ pm/issues/PROJ-###-{name}/  # If exists
 
-### Migrate Artifacts
+# Add promotion note to WORKLOG
+Edit: WORKLOG.md
+```
 
-**Copy local work to Jira issue directory:**
+**Promotion note format:**
+```markdown
+## 2025-10-31 14:30 - system
 
-1. **Create new directory**:
-   - `pm/issues/PROJ-456-{name}/`
+Promoted from TASK-001 to PROJ-456.
+Jira: https://company.atlassian.net/browse/PROJ-456
+```
 
-2. **Copy files**:
-   - PLAN.md (if exists)
-   - WORKLOG.md (if exists)
-   - RESEARCH.md (if exists)
-   - resources/ (if exists)
+### 7. Cleanup & Branch Update
 
-3. **Add promotion note to WORKLOG**:
-   ```markdown
-   ## 2025-10-31 14:30 - system
+**Ask user**: Delete original directory? (yes/no)
 
-   Promoted from TASK-001 to PROJ-456.
+If yes: `rm -rf pm/issues/TASK-###-*/`
 
-   Original work preserved. Issue now tracked in Jira.
+**Update branch** (if on feature/TASK-###):
+```bash
+git branch --show-current
+git branch -m feature/TASK-001 feature/PROJ-456
+```
 
-   Jira: https://company.atlassian.net/browse/PROJ-456
-   ```
+## Example Output
 
-### Cleanup & Branch Update
+```
+Promoting TASK-001 to Jira...
 
-**Optionally remove original:**
+✓ Read TASK-001: OAuth Implementation Spike
+✓ Loaded Jira field cache
 
-1. **Ask user**: "Delete original TASK-001 directory? (yes/no)"
-2. **If yes**: Delete `pm/issues/TASK-001-*/`
-3. **If no**: Keep for reference
+Your Jira requires:
+- Summary: "OAuth Implementation Spike" ✓
+- Issue Type: Story / Task? → Story
+- Team: Frontend / Backend / DevOps → Backend
 
-**Update git branch (if on feature/TASK-001)**:
+✓ Created PROJ-456: OAuth Implementation Spike
+🔗 https://company.atlassian.net/browse/PROJ-456
 
-1. **Check current branch**: `git branch --show-current`
-2. **If matches TASK-001**:
-   - Rename: `git branch -m feature/TASK-001 feature/PROJ-456`
-   - Inform user of new branch name
+✓ Created pm/issues/PROJ-456-oauth-implementation/
+✓ Copied PLAN.md, WORKLOG.md
+✓ Added promotion note
+
+Delete original TASK-001? (yes/no) → yes
+✓ Deleted pm/issues/TASK-001-oauth-spike/
+✓ Renamed branch: feature/TASK-001 → feature/PROJ-456
+
+Next: /implement PROJ-456 2.1
+```
+
+## When to Promote
+
+**Promote when:**
+- Prototype validated and working
+- Ready for production
+- Needs team collaboration
+- Stakeholders want visibility
+
+**Don't promote when:**
+- Still exploring
+- Throwaway spike
+- Personal learning
+- Already complete (keep local)
+
+## Integration
+
+```
+Local Exploration → Promotion → Team Collaboration
+
+/plan TASK-001 → /implement → Validate → /promote → PROJ-###
+```
 
 ## Error Handling
 
-### Jira Not Enabled
+**Jira not enabled:**
 ```
-Error: Jira integration not enabled.
-
-To promote to Jira, enable integration in CLAUDE.md:
-## Jira Integration
-- **Enabled**: true
-- **Project Key**: PROJ
-
-Or continue working locally with TASK-001
+Error: Jira not enabled in CLAUDE.md
+Enable with: jira.enabled: true
 ```
 
-### Local Issue Not Found
+**Issue not found:**
 ```
-Error: TASK-001 not found.
-
-Available local issues:
-- TASK-002: Session management
-- BUG-001: Login timeout
-
-Usage: /promote TASK-002
+Error: TASK-001 not found
+Available: TASK-002, BUG-001
 ```
 
-### Jira Creation Fails
+**Field discovery fails:**
 ```
-Error: Failed to create issue in Jira.
-Reason: Field 'customfield_10099' is required
-
-This usually means:
-1. Jira admin added new required fields
-2. Field cache is stale
-
-Fix: /refresh-schema and try again
-
-Local issue preserved at: pm/issues/TASK-001-oauth-spike/
+Error: Field 'customfield_10099' required
+Fix: /refresh-schema and retry
 ```
 
-### MCP Unavailable
+**MCP unavailable:**
 ```
-Error: Atlassian Remote MCP not configured.
-
-Cannot create Jira issue without MCP.
-
-Setup:
-1. Install Atlassian Remote MCP Server
-2. Configure in Claude Code MCP settings
-3. Run: /promote TASK-001 again
-
-Local issue preserved at: pm/issues/TASK-001-oauth-spike/
+Error: Atlassian MCP not configured
+Setup: Install MCP server and configure
 ```
-
-## Field Mapping
-
-**Local → Jira mapping:**
-
-| Local (TASK.md) | Jira Field |
-|----------------|-----------|
-| Title | Summary |
-| Description | Description |
-| Acceptance Criteria | Append to Description or custom field |
-| Type (TASK/BUG) | Issue Type (Story/Task/Bug) |
-| Epic (frontmatter) | Epic Link (if provided) |
-| Status | Always "To Do" (new issue) |
-
-**Custom fields:**
-- Prompted conversationally based on cached schema
-- Example: Team, Priority, Sprint, etc.
-
-## Integration with Workflow
-
-**Typical flow:**
-
-```
-Local Exploration → Validation → Promotion → Team Collaboration
-
-/plan TASK-001
-/implement TASK-001 1.1
-/implement TASK-001 1.2
-/implement TASK-001 1.3
-# Validated: This works!
-
-/promote TASK-001
-# → PROJ-456 created in Jira
-
-/plan PROJ-456  # Continue with Jira issue
-/implement PROJ-456 2.1
-```
-
-**When to promote:**
-- ✅ Prototype validated and working
-- ✅ Ready for production implementation
-- ✅ Needs team collaboration
-- ✅ Stakeholders want visibility
-
-**When NOT to promote:**
-- ❌ Still exploring/experimenting
-- ❌ Throwaway spike
-- ❌ Personal learning project
-- ❌ Already complete (just keep local)
-
-## Implementation Notes
-
-When implementing `/promote TASK-###`:
-
-1. **Validate prerequisites**:
-   - Check Jira enabled in CLAUDE.md
-   - Check Atlassian MCP available
-   - Verify local issue exists
-
-2. **Load local issue**:
-   - Read TASK.md or BUG.md
-   - Parse: title, description, acceptance criteria
-   - Load: PLAN.md, WORKLOG.md, RESEARCH.md (if exist)
-
-3. **Discover/load Jira fields**:
-   - Check cache: `.ai-toolkit/jira-field-cache.json`
-   - If missing: Fetch and cache
-   - Determine required fields for issue type
-
-4. **Collect fields conversationally**:
-   - Map local data to Jira fields
-   - Prompt for custom required fields
-   - Validate all required fields collected
-
-5. **Create in Jira**:
-   - Use Atlassian MCP to create issue
-   - Get issue key (PROJ-456)
-   - Display success with URL
-
-6. **Migrate artifacts**:
-   - Create `pm/issues/PROJ-456-{name}/`
-   - Copy PLAN.md, WORKLOG.md, RESEARCH.md, resources/
-   - Add promotion note to WORKLOG
-
-7. **Cleanup**:
-   - Ask: Delete original directory?
-   - Update git branch if on feature/TASK-001
-   - Confirm completion with next steps
 
 ## Related Commands
 
-- `/import-issue PROJ-123` - Opposite direction (Jira → local)
-- `/plan TASK-001` - Work locally before promoting
-- `/refresh-schema` - Update field cache if promotion fails
-- `/epic` - Create epic in Jira directly (no promotion needed)
+- `/refresh-schema` - Update Jira field cache
+- `/import-issue PROJ-###` - Opposite (Jira → local)
+- `/epic` - Create epic directly in Jira
 
 ## Notes
 
-- **Preserves work** - Copies all artifacts, doesn't lose progress
-- **Optional cleanup** - User chooses whether to keep original
-- **Branch aware** - Updates git branch automatically
-- **Field discovery** - Same mechanism as `/epic` command
-- **Idempotent** - Safe to retry if creation fails
+- Preserves all local artifacts
+- User confirms cleanup and branch rename
+- Uses same field discovery as `/epic`
+- Safe to retry if creation fails

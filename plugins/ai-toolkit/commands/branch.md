@@ -10,14 +10,17 @@ references_guidelines:
 
 # /branch Command
 
-Unified command for Git branching operations with automatic enforcement of project git workflow rules.
+**WHAT**: Unified branch operations (create, merge, delete, switch, status) with git-workflow enforcement.
 
-**CRITICAL**: Always read `docs/development/guidelines/git-workflow.md` FIRST to understand project-specific branching rules, naming conventions, and merge requirements.
+**WHY**: Ensure consistent branch naming, enforce quality gates on merge, prevent workflow violations.
+
+**HOW**: See git-workflow.md for branching rules, merge validation requirements, and naming patterns.
+
+**CRITICAL**: Always read `docs/development/guidelines/git-workflow.md` FIRST for project-specific rules.
 
 ## Usage
 
 ```bash
-# Branch operations
 /branch create TASK-001              # Create work branch
 /branch merge [develop|main]         # Merge with validation
 /branch delete feature/TASK-001      # Delete merged branch
@@ -33,7 +36,7 @@ Unified command for Git branching operations with automatic enforcement of proje
 
 ### Create
 1. Read git-workflow.md for branching pattern and base branch
-2. Parse issue ID → determine branch type (TASK → feature, BUG → bugfix)
+2. Parse issue ID → determine type (TASK → feature, BUG → bugfix)
 3. Create branch following pattern (e.g., `feature/TASK-001` from `develop`)
 4. Switch to new branch
 
@@ -42,35 +45,35 @@ Unified command for Git branching operations with automatic enforcement of proje
 2. Apply validation based on target:
    - **To develop**: Run tests (BLOCK if fail)
    - **To main**:
-     - Verify source is `develop` (BLOCK if feature/bugfix branch)
+     - Verify source is `develop` (BLOCK if feature/bugfix)
      - Run staging health checks (BLOCK if fail)
-     - Emergency hotfixes require explicit justification
-3. If validation passes: merge and push
-4. If validation fails: block with clear error message
+     - Hotfixes require explicit justification
+3. If pass: merge and push
+4. If fail: block with clear error
 
-**Critical Rule Enforcement:**
+**Critical Rules:**
 - ❌ Work branches (feature/*, bugfix/*) CANNOT merge to main
 - ✅ Only develop can merge to main
-- ⚠️ Hotfix branches require ADR documenting emergency justification
+- ⚠️ Hotfix branches require ADR justification
 
 ### Delete
-1. Check if branch is fully merged
-2. Confirm deletion with user
-3. Delete local and remote branches
+1. Check if fully merged
+2. Confirm with user
+3. Delete local and remote
 
 ### Switch
-1. Check for uncommitted changes (offer to stash)
-2. Switch to target branch
-3. Pull latest changes
+1. Check uncommitted changes (offer stash)
+2. Switch to target
+3. Pull latest
 
 ### Status
 1. Show current branch and issue context
 2. Check test/validation status
-3. Show what's needed for merge
+3. Show merge requirements
 
 ## Configuration
 
-The command reads `docs/development/guidelines/git-workflow.md` YAML frontmatter:
+Reads `docs/development/guidelines/git-workflow.md` YAML frontmatter:
 
 ```yaml
 ---
@@ -84,28 +87,26 @@ merge_rules:
 ---
 ```
 
-**If guideline missing**: Use defaults (three-branch: main ← develop ← work branches)
+**If missing**: Use defaults (three-branch: main ← develop ← work branches)
 
 ## Validation Rules
 
-**Defined in git-workflow.md**, enforced by this command:
+Defined in git-workflow.md, enforced by this command:
 
-### Merge to Develop (Staging)
+**Merge to Develop (Staging)**:
 - ✅ Source: Any work branch (feature/*, bugfix/*)
 - ✅ Validation: All tests MUST pass
-- ❌ BLOCKS merge if tests fail
+- ❌ BLOCKS if tests fail
 
-### Merge to Main (Production)
+**Merge to Main (Production)**:
 - ✅ Source: ONLY `develop` branch
 - ❌ BLOCKS work branches (feature/*, bugfix/*)
 - ✅ Validation: Staging health checks MUST pass
-- ⚠️ Exception: hotfix/* branches (requires ADR justification)
+- ⚠️ Exception: hotfix/* (requires ADR justification)
 
-### Branch Naming
-- Follow configured pattern (type/ISSUE-ID)
-- Auto-detect test framework and run appropriate commands
+**Branch Naming**: Follow configured pattern, auto-detect test framework
 
-**See `docs/development/guidelines/git-workflow.md` for complete workflow rules and rationale.**
+See `git-workflow.md` for complete rules and rationale.
 
 ## Agent Coordination
 
@@ -117,45 +118,39 @@ merge_rules:
 ```
 Task: "Execute Git branch operation following project workflow rules.
 
-**CRITICAL**:
+CRITICAL:
 1. FIRST: Read docs/development/guidelines/git-workflow.md
-   - Extract YAML frontmatter configuration
-   - Understand branching strategy, patterns, merge rules
-   - Use this as source of truth for all operations
+   - Extract YAML frontmatter
+   - Understand strategy, patterns, merge rules
+   - Use as source of truth
 
-2. Execute operation based on command:
-   - create: Follow branching pattern, create from base branch
-   - merge: Apply validation rules from guideline, block if fail
+2. Execute operation:
+   - create: Follow pattern, create from base
+   - merge: Apply validation, block if fail
    - delete: Check merge status, confirm, delete
-   - switch: Handle uncommitted changes, switch, pull
-   - status: Show current state and readiness
+   - switch: Handle uncommitted, switch, pull
+   - status: Show state and readiness
 
 3. Validation enforcement:
-   - For merge to develop: Run tests (auto-detect framework)
-   - For merge to main: Verify source=develop, check staging health
-   - Block operation if validation fails
-   - Show clear error messages with next steps
+   - Merge to develop: Run tests (auto-detect)
+   - Merge to main: Verify source=develop, check staging
+   - Block if fail, show clear errors
 
-4. Use git commands appropriately:
-   - git checkout, git branch, git merge, git push
-   - Parse git output for status and errors
-   - Handle conflicts and failures gracefully
+4. Git commands:
+   - git checkout, branch, merge, push
+   - Parse output, handle conflicts
 
-5. Natural language support:
+5. Natural language:
    - Parse intent from quoted string
    - Map to structured operation
    - Execute with same validation
 
-All workflow rules, patterns, and rationale are defined in git-workflow.md guideline.
-This command simply enforces those rules."
+All rules defined in git-workflow.md - this command enforces them."
 ```
 
-## Related Commands
+## Related
 
 - `/implement` - Creates work branches automatically
 - `/commit` - Branch-aware commit messages
-- `/docs` - Reference for workflow documentation
-
-## Related Guidelines
-
-- `docs/development/guidelines/git-workflow.md` - **Source of truth** for all branching rules
+- `/docs` - Workflow documentation reference
+- `git-workflow.md` - **Source of truth** for all branching rules
