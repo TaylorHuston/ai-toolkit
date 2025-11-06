@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.19.0] - 2025-11-06
+
 ### Added
 
 - **`/troubleshoot` command**: Structured 5-step debugging loop (Research → Hypothesize → Implement → Test → Document) - replaces `/test-fix` for systematic debugging

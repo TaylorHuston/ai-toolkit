@@ -6,9 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.19.0] - 2025-11-06
+
 ### Added
 
-- **`/troubleshoot` command**: Structured 5-step debugging loop (Research → Hypothesize → Implement → Test → Document)
+- **`/troubleshoot` command**: Structured 5-step debugging loop (Research → Hypothesize → Implement → Test → Document) - replaces `/test-fix` for systematic debugging
   - **Research-first approach**: Context7 docs lookup, official documentation, user guidance (no guessing)
   - **Liberal debug logging**: Encourages console.log statements at all decision points for evidence gathering
   - **Single hypothesis testing**: One theory at a time with mandatory rollback on failure
@@ -59,6 +61,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
     - Commands now load only relevant content (e.g., `/implement` reads 3 focused files vs 1 monolithic file)
   - **Benefit**: Easier maintenance, focused loading, single responsibility per file
 
+- **All 23 commands standardized** following claude-code-commands-best-practices.md
+  - **Added WHAT/WHY/HOW structure** to 7 commands (adr, branch, commit, docs, comment, quality, security-audit)
+    - WHAT: One-sentence description of what the command does
+    - WHY: When and why to use it
+    - HOW: References guideline files for detailed guidance
+  - **Added references_guidelines frontmatter** to 7 commands (comment-issue, import-issue, promote, refresh-schema, refresh, toolkit-init, troubleshoot)
+    - Machine-readable guideline loading specification
+    - Clear comments indicating what each guideline provides
+  - **Verified all commands** follow guidelines-first methodology
+    - Commands define WHAT (orchestration), guidelines define HOW (configuration)
+    - No embedded guideline content in commands
+    - All references point to current guideline structure
+  - **Benefit**: Consistent command structure, clear guideline references, easier for AI to load correct context
+
 - **WORKLOG format specification updated** in development-loop.md (lines 324-407)
   - **Philosophy**: Stream-based brief entries at handoffs (5-10 lines, ~500 chars ideal)
   - **Ordering**: Reverse chronological (newest entries at TOP) - explicitly enforced
@@ -82,6 +98,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.18.0] - 2025-11-05
 
 ### Removed
+
+- **`/test-fix` command**: Removed (23 commands remaining)
+  - **Rationale**: Redundant with `/implement` workflow - all test failures should go through structured `/plan` → `/implement` process
+  - **Why removed**: With "never merge with failing tests" policy, test failures occur either:
+    1. During `/implement` (handled by test-engineer agent within the command)
+    2. Outside `/implement` (should create BUG-XXX, use `/plan` + `/implement` for structured fixing)
+  - **Benefits**: Enforces structured workflow, creates audit trails, eliminates shortcut mentality, reduces command count
+  - **Migration path**: Use `/implement` for all test fixing work - even for "simple" fixes, create a plan and implement systematically
+  - **Aligned with toolkit philosophy**: Commands orchestrate structured work; convenience shortcuts undermine documentation and quality gates
 
 - **data-analyst agent**: Removed from plugin (18 agents remaining)
   - **Rationale**: Zero command integration, too generic (violated single-responsibility), overlapped with backend-specialist (data processing), database-specialist (queries), and project-manager (ad-hoc tasks)
