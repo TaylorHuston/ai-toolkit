@@ -11,7 +11,7 @@ tags: ["claude-code", "commands", "workflow", "reference"]
 
 # Claude Code Command Reference
 
-Streamlined catalog of 23 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
+Streamlined catalog of 24 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
 
 ## How Commands Work Together
 
@@ -23,7 +23,7 @@ The AI Toolkit provides a flexible workflow that adapts to your needs:
 2. **Planning**: `/epic` - Break features into organized work
 3. **Architecture**: `/adr` - Make technical decisions and create ADRs
 4. **Tasks**: `/plan TASK-###` - Break down implementation into phases
-5. **Build**: `/implement TASK-### PHASE` - Execute with specialized agents
+5. **Build**: `/implement TASK-### PHASE` (automated) or `/advise TASK-### PHASE` (collaborative)
 6. **Quality**: `/quality`, `/troubleshoot`, `/security-audit` - Ensure excellence
 
 ### Commands Are Conversational
@@ -171,12 +171,20 @@ Commands use different parameter paradigms because **different workflows need di
 - _Workflow Phase_: **2. Planning** - Phase-based task breakdown, agent coordination, test-first patterns
 - _Output_: Creates `pm/issues/TASK-###-*/PLAN.md` (keeps TASK.md clean for PM tool sync)
 
-### ⚡ **/implement** - Phase-Based Execution
+### ⚡ **/implement** - Automated Phase Execution
 
-- _Purpose_: Execute specific implementation phases from task plans with test-first enforcement
-- _Usage_: `/implement TASK-### PHASE | /implement BUG-### PHASE`
-- _Workflow Phase_: **3. Execution** - Phase-by-phase development, test-first approach, agent coordination
-- _Examples_: `/implement TASK-001 1.1`, `/implement BUG-003 2.2`
+- _Purpose_: Execute specific implementation phases from task plans with test-first enforcement (AI writes code)
+- _Usage_: `/implement TASK-### PHASE | /implement BUG-### PHASE | /implement --next`
+- _Workflow Phase_: **3. Execution (Automated)** - AI writes code, tests, commits
+- _Examples_: `/implement TASK-001 1.1`, `/implement BUG-003 2.2`, `/implement --next`
+
+### 🤝 **/advise** - Collaborative Phase Guidance
+
+- _Purpose_: Get implementation guidance for a phase without automated code generation (user writes code)
+- _Usage_: `/advise TASK-### PHASE | /advise BUG-### PHASE | /advise --next`
+- _Workflow Phase_: **3. Execution (Collaborative)** - AI guides, user codes
+- _Examples_: `/advise TASK-001 1.2`, `/advise --next`
+- _Hybrid_: Mix `/implement` (AI codes) and `/advise` (user codes) per phase
 
 ## 🔧 Supporting Commands
 
@@ -222,7 +230,8 @@ Commands use different parameter paradigms because **different workflows need di
 | `/epic` | Unified epic management | `[EPIC-###]` (optional) |
 | `/adr` | Technical architecture | Various flags for modes |
 | `/plan` | Task implementation planning | `TASK-###` or `BUG-###` |
-| `/implement` | Phase-based execution | `TASK-### PHASE` or `BUG-### PHASE` |
+| `/implement` | Automated phase execution | `TASK-### PHASE` or `--next` |
+| `/advise` | Collaborative phase guidance | `TASK-### PHASE` or `--next` |
 | `/quality` | Quality assessment | Subcommands (assess/validate/audit/fix) |
 | `/security-audit` | Security assessment | OWASP compliance analysis |
 | `/troubleshoot` | Systematic debugging | `[BUG-XXX \| TASK-XXX] [--continue]` |
