@@ -31,7 +31,7 @@ See [CHANGELOG.md](CHANGELOG.md) for complete release history.
 
 This marketplace contains:
 
-- **AI Toolkit Plugin** - Complete workflow system with 23 commands, 18 specialized agents, and intelligent automation
+- **AI Toolkit Plugin** - Complete workflow system with 24 commands, 18 specialized agents, and intelligent automation
 - **Starter Template** - 39 essential files for clean project initialization via `/toolkit-init`
 - **Guideline Templates** - 8 customizable guideline templates (project configuration files, not plugin docs)
 
@@ -392,8 +392,9 @@ MIT License - see `LICENSE` for details.
 - **Issues**: Report bugs and request features via GitHub Issues
 - **Discussions**: Share feedback and ask questions in GitHub Discussions
 
-## Version
+## Inspiration and Alternatives
 
-Current version: 0.17.0
+Other projects that are also roughly trying to solve the same thing and I find interesting
 
-See `CHANGELOG.md` for release history and `STATUS.md` for current development status.
+- [[Taskmaster AI]](https://github.com/eyaltoledano/claude-task-master)
+- [[GItHub Spec Kit]](https://github.com/github/spec-kit)

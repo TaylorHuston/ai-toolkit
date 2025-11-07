@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- **`/advise` command** - collaborative implementation mode with structured guidance
+  - **Purpose**: Get implementation guidance for a phase WITHOUT automated code generation - user implements manually
+  - **Workflow**: AI provides structured advice (approach, files, security, testing, examples), user codes following guidance
+  - **Advisory mode agents**: code-architect, security-auditor, test-engineer provide recommendations only (no code generation)
+  - **WORKLOG integration**: ADVICE entry format documents guidance provided
+  - **Smart modes**: Supports `--next` for auto-detecting next phase like `/implement`
+  - **Quality gates**: Same per-phase gates as `/implement`, user responsible for meeting them
+  - **Hybrid delegation**: Mix `/implement` (AI codes) and `/advise` (user codes) per phase
+  - **Benefits**: Hands-on learning, full control, balanced automation, flexible per-phase choice
+  - **Command count**: 23 → 24 commands
+
 ## [0.21.0] - 2025-11-06
 
 ### Added
