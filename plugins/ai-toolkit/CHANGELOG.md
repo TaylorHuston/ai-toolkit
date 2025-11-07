@@ -8,16 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- **`/advise` command** - collaborative implementation mode with structured guidance
-  - **Purpose**: Get implementation guidance for a phase WITHOUT automated code generation - user implements manually
-  - **Workflow**: AI provides structured advice (approach, files, security, testing, examples), user codes following guidance
-  - **Advisory mode agents**: code-architect, security-auditor, test-engineer provide recommendations only (no code generation)
-  - **WORKLOG integration**: ADVICE entry format documents guidance provided
-  - **Smart modes**: Supports `--next` for auto-detecting next phase like `/implement`
-  - **Quality gates**: Same per-phase gates as `/implement`, user responsible for meeting them
-  - **Hybrid delegation**: Mix `/implement` (AI codes) and `/advise` (user codes) per phase
-  - **Benefits**: Hands-on learning, full control, balanced automation, flexible per-phase choice
-  - **Command count**: 23 → 24 commands
+- **Jira integration documentation** - dedicated guide for Jira integration setup and usage
+  - **Location**: `plugins/ai-toolkit/docs/jira-integration.md`
+  - **Content**: Requirements, setup, workflows, commands, limitations, troubleshooting
+  - **Commands documented**: `/import-issue`, `/promote`, `/comment-issue`, `/refresh-schema`
+  - **README refactor**: Replaced ~100 lines with brief overview linking to detailed guide
+  - **Benefits**: Clearer documentation structure, room for future integrations (Linear, Notion, etc.)
+
+### Changed
+
+- **Documentation standardization** - unified naming conventions and removed versioning metadata
+  - **File naming**: All docs now use lowercase-kebab-case (AGENTS.md → agents.md, COMMANDS.md → commands.md, OPTIONAL-MCP-SERVERS.md → optional-mcp-servers.md)
+  - **Consistency rule**: Only README and CLAUDE in root use uppercase, all other files lowercase-kebab-case
+  - **Versioning removed**: Eliminated version/created/last_updated from doc frontmatter (guidelines pattern)
+  - **Broken links fixed**: 18 broken agent references in agents.md updated from `./` to `../agents/`
+  - **CLAUDE_PLUGIN_ROOT clarified**: agent-template.md now documents valid usage (commands) vs invalid (agents)
+  - **Metadata cleanup**: Streamlined frontmatter to target_audience, document_type, priority, tags only
 
 ## [0.21.0] - 2025-11-06
 

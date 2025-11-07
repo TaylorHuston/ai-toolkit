@@ -1,8 +1,4 @@
 ---
-version: "2.0.0"
-created: "2025-08-21"
-last_updated: "2025-10-22"
-status: "active"
 target_audience: ["ai-assistants", "development-team"]
 document_type: "reference"
 priority: "high"

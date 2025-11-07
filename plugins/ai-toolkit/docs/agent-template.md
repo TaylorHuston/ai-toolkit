@@ -300,8 +300,9 @@ Use `mcp__context7__get-library-docs` for:
    - ~~primary_scripts, supporting_scripts fields~~
    - Scripts should be documented in workflow sections, not YAML
 
-2. **${CLAUDE_PLUGIN_ROOT} references** - Variable may not be defined
-   - Use relative paths instead: `docs/development/guidelines/`
+2. **${CLAUDE_PLUGIN_ROOT} references in agent files** - Variable may not be defined in agent context
+   - ✅ Valid in commands: `/toolkit-init` uses it to locate templates
+   - ❌ Invalid in agents: Use relative paths instead: `docs/development/guidelines/`
 
 3. **Verbose framework catalogs** - Use Context7 instead
    - ❌ 50+ lines of React patterns, Vue API details

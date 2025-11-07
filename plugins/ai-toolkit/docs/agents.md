@@ -1,6 +1,6 @@
 # AI Agent Index and Directory
 
-**Created**: 2025-08-21 **Last Updated**: 2025-11-05 **Status**: Active - Refactored for Best Practices **Target Audience**: AI Assistants, Development Teams **Total Agents**: 18 | **Coverage**: Complete development workflow
+**Total Agents**: 18 | **Coverage**: Complete development workflow
 
 Comprehensive catalog of specialized AI agents optimized for modern development workflows.
 
@@ -31,104 +31,104 @@ AI agents are specialized experts that automatically activate based on your work
 
 #### **Architecture & Planning**
 
-- **[brief-strategist](./brief-strategist.md)** - Product brief and strategic planning
+- **[brief-strategist](../agents/brief-strategist.md)** - Product brief and strategic planning
 
   - _Capabilities_: Brief creation, strategic analysis, business model design, success metrics
   - _Best For_: Product brief development, strategic decisions, market positioning
   - _Model_: opus | _Color_: purple | _Auto-Invoked_: Brief and strategic planning tasks
 
-- **[code-architect](./code-architect.md)** - System design and long-term architecture
+- **[code-architect](../agents/code-architect.md)** - System design and long-term architecture
 
   - _Capabilities_: System architecture, feature-level design patterns, API design
   - _Best For_: Feature architecture decisions, implementation patterns, technical design
   - _Model_: opus | _Color_: purple | _Auto-Invoked_: Feature architectural tasks
 
-- **[project-manager](./project-manager.md)** - Project coordination and orchestration
+- **[project-manager](../agents/project-manager.md)** - Project coordination and orchestration
 
   - _Capabilities_: Multi-agent coordination, task orchestration, resource allocation
   - _Best For_: Complex project coordination, multi-phase implementations, team coordination
   - _Model_: opus | _Color_: blue | _Auto-Invoked_: Multi-domain tasks
 
-- **[context-analyzer](./context-analyzer.md)** - Project context analysis and investigation
+- **[context-analyzer](../agents/context-analyzer.md)** - Project context analysis and investigation
   - _Capabilities_: Root cause analysis, systematic investigation, evidence-based reasoning
   - _Best For_: Bug investigation, system analysis, problem diagnosis
   - _Model_: sonnet | _Color_: yellow | _Auto-Invoked_: Investigation tasks
 
-- **[ai-llm-expert](./ai-llm-expert.md)** - AI/LLM architecture, implementation, and optimization
+- **[ai-llm-expert](../agents/ai-llm-expert.md)** - AI/LLM architecture, implementation, and optimization
   - _Capabilities_: LLM architecture design, prompt engineering, context management, AI integration patterns
   - _Best For_: AI/ML decision analysis, LLM implementation guidance, AI architecture optimization
   - _Model_: opus | _Color_: green | _Auto-Invoked_: AI/ML architecture decisions
 
 #### **Design & User Experience**
 
-- **[ui-ux-designer](./ui-ux-designer.md)** - UI/UX design specialist for strategic and tactical design decisions
+- **[ui-ux-designer](../agents/ui-ux-designer.md)** - UI/UX design specialist for strategic and tactical design decisions
   - _Capabilities_: Visual design, color theory, typography, accessibility (WCAG), design systems, Figma/Sketch, user flows
   - _Best For_: Design decisions, mockups, color schemes, accessibility planning, design system architecture
   - _Model_: sonnet | _Color_: pink | _Auto-Invoked_: Design decision requests
 
 #### **Development & Implementation**
 
-- **[frontend-specialist](./frontend-specialist.md)** - UI/UX focused development
+- **[frontend-specialist](../agents/frontend-specialist.md)** - UI/UX focused development
 
   - _Capabilities_: React/Vue/Angular, responsive design, accessibility, Core Web Vitals
   - _Best For_: Component development, user interface optimization, performance
   - _Model_: sonnet | _Color_: blue | _Auto-Invoked_: UI/UX development tasks
 
-- **[backend-specialist](./backend-specialist.md)** - Server-side implementation and business logic
+- **[backend-specialist](../agents/backend-specialist.md)** - Server-side implementation and business logic
 
   - _Capabilities_: Server frameworks, business logic, authentication, real-time features
   - _Best For_: API implementation, business logic, authentication, background processing
   - _Model_: sonnet | _Color_: green | _Auto-Invoked_: Server-side implementation tasks
 
-- **[database-specialist](./database-specialist.md)** - Database design and optimization
+- **[database-specialist](../agents/database-specialist.md)** - Database design and optimization
 
   - _Capabilities_: Schema design, query optimization, performance tuning, migrations
   - _Best For_: Database architecture, query performance, data modeling
   - _Model_: sonnet | _Color_: magenta | _Auto-Invoked_: All database work
 
-- **[api-designer](./api-designer.md)** - API design and endpoint architecture
+- **[api-designer](../agents/api-designer.md)** - API design and endpoint architecture
   - _Capabilities_: REST/GraphQL design, API contracts, data validation, error handling
   - _Best For_: API architecture, endpoint design, service contracts
   - _Model_: sonnet | _Color_: orange | _Auto-Invoked_: API development tasks
 
 #### **Quality & Testing**
 
-- **[test-engineer](./test-engineer.md)** - Comprehensive test creation and strategy
+- **[test-engineer](../agents/test-engineer.md)** - Comprehensive test creation and strategy
 
   - _Capabilities_: TDD/BDD workflows, unit/integration/E2E tests, test automation
   - _Best For_: Test strategy development, test creation, quality assurance
   - _Model_: sonnet | _Color_: green | _Auto-Invoked_: Test creation requests
 
-- **[code-reviewer](./code-reviewer.md)** - Code quality assessment and reviews
+- **[code-reviewer](../agents/code-reviewer.md)** - Code quality assessment and reviews
 
   - _Capabilities_: Quality analysis, best practices, maintainability assessment
   - _Best For_: Post-implementation reviews, refactoring guidance, quality improvement
   - _Model_: sonnet | _Color_: yellow | _Auto-Invoked_: After code implementation
 
-- **[security-auditor](./security-auditor.md)** - Security assessment and compliance
+- **[security-auditor](../agents/security-auditor.md)** - Security assessment and compliance
   - _Capabilities_: Vulnerability detection, OWASP compliance, threat modeling
   - _Best For_: Security reviews, compliance validation, vulnerability assessment
   - _Model_: opus | _Color_: red | _Auto-Invoked_: Security-critical changes
 
-- **[refactoring-specialist](./refactoring-specialist.md)** - Code improvement and technical debt reduction
+- **[refactoring-specialist](../agents/refactoring-specialist.md)** - Code improvement and technical debt reduction
   - _Capabilities_: Code quality improvement, technical debt management, pattern refactoring
   - _Best For_: Code cleanup, maintainability improvement, complexity reduction
   - _Model_: sonnet | _Color_: yellow | _Auto-Invoked_: On-demand
 
 #### **Operations & Performance**
 
-- **[devops-engineer](./devops-engineer.md)** - Infrastructure and deployment automation
+- **[devops-engineer](../agents/devops-engineer.md)** - Infrastructure and deployment automation
 
   - _Capabilities_: CI/CD, containerization, cloud platforms, monitoring
   - _Best For_: Deployment automation, infrastructure setup, environment management
   - _Model_: sonnet | _Color_: cyan | _Auto-Invoked_: Infrastructure tasks
 
-- **[performance-optimizer](./performance-optimizer.md)** - Performance analysis and optimization
+- **[performance-optimizer](../agents/performance-optimizer.md)** - Performance analysis and optimization
   - _Capabilities_: Bottleneck identification, optimization strategies, monitoring
   - _Best For_: Performance audits, optimization recommendations, scalability planning
   - _Model_: sonnet | _Color_: orange | _Auto-Invoked_: Performance issues
 
-- **[migration-specialist](./migration-specialist.md)** - Version upgrades and framework migrations
+- **[migration-specialist](../agents/migration-specialist.md)** - Version upgrades and framework migrations
   - _Capabilities_: Safe migrations, compatibility assessment, incremental modernization
   - _Best For_: Framework upgrades, dependency updates, legacy modernization
   - _Model_: sonnet | _Color_: purple | _Auto-Invoked_: On-demand
@@ -136,7 +136,7 @@ AI agents are specialized experts that automatically activate based on your work
 
 #### **Documentation & Communication**
 
-- **[technical-writer](./technical-writer.md)** - Documentation creation and maintenance specialist
+- **[technical-writer](../agents/technical-writer.md)** - Documentation creation and maintenance specialist
 
   - _Capabilities_: Documentation creation, updates, synchronization, maintenance, link validation, technical writing
   - _Best For_: All documentation needs - creation, updates, maintenance, API docs, user guides, tutorials

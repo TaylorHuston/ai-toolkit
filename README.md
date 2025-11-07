@@ -202,108 +202,37 @@ Customize the workflow by editing templates:
 
 See `pm/templates/README.md` for customization guide.
 
-### Working With Jira
+### 🔗 Project Management Integrations
 
-The AI Toolkit integrates with Atlassian Jira for teams using Jira as their project management system.
+The AI Toolkit supports both **local file-based project management** and **external PM tool integrations**.
 
-This integration is currently minimal. It has only been tested with one Jira project, and currently doesn't involve things like actually transitioning Jira issues through a workflow or anything. More functionality coming soon.
+#### Local PM (Built-in)
 
-#### Requirements
+File-based epics and tasks in `pm/` directory:
+- ✅ Works offline, fully version controlled
+- ✅ Perfect for individuals and small teams
+- ✅ No external dependencies
+- See [Local Project Management](#local-project-management) section above
 
-- **Atlassian Remote MCP Server** configured in Claude Code
-- Jira Cloud account with appropriate permissions
-- Project Key (e.g., "PROJ") for your Jira project
+#### Jira Integration (Optional)
 
-#### Setup
+Bidirectional sync with Atlassian Jira:
+- Import Jira issues: `/import-issue PROJ-123`
+- Create Jira issues from local work: `/promote TASK-001`
+- Add AI-suggested comments: `/comment-issue PROJ-123`
+- Create epics conversationally: `/epic` (Jira mode)
 
-1. **Configure Atlassian Remote MCP Server** (see [Atlassian's guide](https://www.atlassian.com/blog/announcements/remote-mcp-server))
-2. **Enable Jira in CLAUDE.md:**
-   ```yaml
-   ## Jira Integration
-   - **Enabled**: true
-   - **MCP Server**: Atlassian Remote MCP
-   - **Project Key**: PROJ
-   ```
-3. **Run your first command:**
-   ```bash
-   /epic  # Creates epic in Jira
-   ```
+**Setup & Usage**: See [docs/jira-integration.md](plugins/ai-toolkit/docs/jira-integration.md)
 
-#### How It Works
+**Status**: Minimal integration. Tested with one Jira project. No automated workflow transitions.
 
-**Epics → Jira Only**
-- All epics live in Jira (PROJ-100, PROJ-200)
-- Use `/epic` to create epics conversationally
-- AI discovers required fields automatically
+#### Future Integrations
 
-**Issues → Jira or Local**
-- **Jira issues** (PROJ-123): Import with `/import-issue PROJ-123`
-- **Local exploration** (TASK-001): Create with `/plan TASK-001`
-- **Promotion**: Use `/promote TASK-001` to create Jira issue from local spike
-
-**What Syncs:**
-- ✅ **Read from Jira**: Description, acceptance criteria, status (display only)
-- ✅ **Create in Jira**: Epics, stories, tasks via AI conversation
-- ✅ **Add comments**: AI-suggested comments based on local work context
-- ❌ **Not synced**: Status updates, field changes, automatic comment sync
-
-**Local Storage:**
-- `PLAN.md` - AI implementation phases (local only)
-- `WORKLOG.md` - Implementation history (local only)
-- `RESEARCH.md` - Technical decisions (local only)
-- No TASK.md for Jira issues (fetched on-demand)
-
-#### Common Workflows
-
-**Working on Jira Issue:**
-```bash
-/import-issue PROJ-123         # Pull from Jira
-/plan PROJ-123                 # Create implementation plan
-/implement PROJ-123 1.1        # Execute phase
-/commit                        # Commit changes
-/comment-issue PROJ-123        # AI suggests progress comment for Jira
-# Update Jira status manually in UI
-```
-
-**Exploration Then Promotion:**
-```bash
-/plan TASK-001                 # Quick local spike
-/implement TASK-001 1.1        # Prototype
-/promote TASK-001              # Create PROJ-125 in Jira
-/plan PROJ-125                 # Continue with Jira issue
-```
-
-**Creating Epics + Issues:**
-```bash
-/epic                          # AI guides epic creation
-→ Creates PROJ-100 in Jira
-→ Optionally creates initial issues
-/plan PROJ-123                 # Start implementation
-```
-
-#### Limitations
-
-- **Status updates**: Not automated. Update Jira status manually in UI.
-- **Comment sync**: Use `/comment-issue` to manually add comments. Local WORKLOG.md is not automatically synced.
-- **Custom workflows**: AI doesn't trigger Jira workflow transitions.
-- **Offline work**: Can work on existing issues with cached data, but can't create new Jira issues or add comments offline.
-- **One project**: Currently supports one Jira project key per repository.
-
-#### Troubleshooting
-
-**"Atlassian MCP unavailable"**
-- Ensure Atlassian Remote MCP Server is configured in Claude Code MCP settings
-- Check network/VPN connection
-- Verify Jira permissions
-
-**"Field 'X' is required"**
-- Run `/refresh-schema` to update field cache
-- Jira admin may have added new required fields
-
-**"Issue not found"**
-- Verify issue exists in Jira
-- Check project key is correct in CLAUDE.md
-- Ensure you have permission to view issue
+Planned support for:
+- Linear
+- Notion
+- GitHub Projects
+- Azure DevOps
 
 ### File-Based State Management
 
