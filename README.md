@@ -5,9 +5,13 @@ A comprehensive AI-assisted development workflow system for Claude Code, providi
 ## IMPORTANT
 This is very much an alpha/experiment at this point. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and massively changing things as I go.
 
-## What's New in v0.20.0
+## What's New in v0.21.0
 
 **Latest additions:**
+- 📝 **Development notes system** - Atomic note files for parking lot captures during work
+- 📊 **Phase granularity guidance** - Strengthened principles for atomic, testable, committable phases
+
+**Recent additions (v0.20.0):**
 - 🔄 **Phase commit tracking** - Atomic rollback points for each completed phase with visual commit map
 - 📋 **Documentation sync quality gate** - Validates project docs before merge to develop
 - 🧹 **Guidelines cleanup** - Reduced verbosity by ~520 lines while preserving essential information
