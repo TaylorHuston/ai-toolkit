@@ -346,7 +346,7 @@ Every issue directory (`pm/issues/TASK-###-name/` or `BUG-###-name/`) can contai
 
 **TASK.md / BUG.md** (WHAT to do):
 - Primary issue file with acceptance criteria
-- Created by `/epic` or `/plan` commands
+- Created by `/spec` or `/plan` commands
 - See `issue-management.md` for complete format
 
 **PLAN.md** (HOW to do it - phases):
@@ -467,13 +467,13 @@ Per-Phase Gates (finest granularity)
   ↓ Multiple phases combine into...
 Per-Task Gates (task completion)
   ↓ Multiple tasks combine into...
-Per-Epic Gates (epic completion)
+Per-Spec Gates (spec completion)
 ```
 
 **Enforcement**:
 - **Per-Phase Gates**: `/implement` command validates before marking phase complete
 - **Per-Task Gates**: `/branch merge develop` command validates before merging
-- **Per-Epic Gates**: Manual validation (checklist in epic Definition of Done)
+- **Per-Spec Gates**: Manual validation (checklist in spec Definition of Done)
 
 **Related Guidelines**:
 - `git-workflow.md`: Describes how `/branch merge` enforces per-task gates
@@ -623,11 +623,11 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 
 **This is the primary quality gate for task completion** - if you can merge to develop, your task meets quality standards.
 
-### Per-Epic Gates
+### Per-Spec Gates
 
-**Required before closing epic:**
+**Required before closing spec:**
 
-1. **All tasks complete**: Every task in epic finished
+1. **All tasks complete**: Every task in spec finished
 2. **Acceptance criteria**: Epic-level definition of done met
 3. **Documentation**: User-facing docs updated if needed
 4. **Deployment**: Changes successfully deployed to staging

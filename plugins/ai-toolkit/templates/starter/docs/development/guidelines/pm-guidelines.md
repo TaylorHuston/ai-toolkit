@@ -5,15 +5,15 @@ created: "2025-11-02"
 last_updated: "2025-11-06"
 status: "Active"
 target_audience: ["AI Assistants", "Project Managers"]
-description: "Epic and issue management patterns for project planning and tracking"
+description: "Feature Spec and issue management patterns for project planning and tracking"
 
 # === Machine-readable Configuration (for AI agents) ===
 
-# Epic Configuration
-epic_numbering: "sequential_global"     # EPIC-001, EPIC-002 across project
-epic_location: "pm/epics/"
-epic_file_pattern: "EPIC-###-<kebab-case-name>.md"
-epic_template: "pm/templates/epic.md"
+# Feature Spec Configuration
+epic_numbering: "sequential_global"     # SPEC-001, SPEC-002 across project
+spec_location: "pm/specs/"
+epic_file_pattern: "SPEC-###-<kebab-case-name>.md"
+epic_template: "pm/templates/feature spec.md"
 
 # Issue Configuration
 issue_numbering: "sequential_per_type"  # TASK-001, BUG-001 (global per type)
@@ -38,10 +38,10 @@ issue_types:
   #   template: "pm/templates/spike.md"
   #   description: "Research and investigation"
 
-# Epic File Structure
+# Feature Spec File Structure
 epic_frontmatter:
   required_fields:
-    - epic_number    # EPIC-###
+    - epic_number    # SPEC-###
     - status         # planning, in_progress, completed, on_hold
     - created        # YYYY-MM-DD
     - updated        # YYYY-MM-DD
@@ -52,12 +52,12 @@ epic_frontmatter:
 
 epic_sections:
   required:
-    - name           # Epic title (extracted from conversation)
-    - description    # What is this epic about
+    - name           # Feature Spec title (extracted from conversation)
+    - description    # What is this feature spec about
     - definition_of_done  # Concrete completion criteria
     - tasks          # Checkbox list of associated issues
   optional:
-    - dependencies   # ADRs, other epics, external factors
+    - dependencies   # ADRs, other feature specs, external factors
     - scope          # What's included/excluded
     - technical_notes # Implementation considerations
 
@@ -70,21 +70,21 @@ issue_frontmatter:
     - created        # YYYY-MM-DD
     - updated        # YYYY-MM-DD
   optional_fields:
-    - epic           # EPIC-### (which epic this belongs to)
+    - feature spec           # SPEC-### (which feature spec this belongs to)
     - assignee       # Team member (if using)
     - priority       # high, medium, low
     - estimate       # story points or hours
 
-# Epic Creation Patterns
+# Feature Spec Creation Patterns
 epic_breakdown:
   recommended_size: "2-8 tasks"       # Sweet spot for focused delivery
   max_size_warning: 10                # Suggest decomposition above this
-  min_size_note: "1 task epics okay for significant features"
+  min_size_note: "1 task feature specs okay for significant features"
 
 # Issue Suggestion Patterns
 task_suggestion_strategy:
-  analyze_scope: true                 # Parse epic description for key features
-  suggest_count: "2-3"                # Initial suggestions per epic
+  analyze_scope: true                 # Parse feature spec description for key features
+  suggest_count: "2-3"                # Initial suggestions per feature spec
   suggest_foundational_first: true    # Database, auth, core logic first
   user_driven: true                   # User selects, customizes, or adds own
 
@@ -92,82 +92,82 @@ task_suggestion_strategy:
 
 # PM Guidelines
 
-**Referenced by Commands:** `/epic` for epic/issue creation patterns
+**Referenced by Commands:** `/feature spec` for feature spec/issue creation patterns
 
 ## Quick Reference
 
-This guideline defines patterns for creating and managing epics and issues. Commands like `/epic` and `/plan` read these configurations to ensure consistent project management structure.
+This guideline defines patterns for creating and managing feature specs and issues. Commands like `/feature spec` and `/plan` read these configurations to ensure consistent project management structure.
 
-## Epic and Issue File Formats
+## Feature Spec and Issue File Formats
 
 **For complete file format specifications**, see `issue-management.md` which documents:
 - EPIC.md structure (YAML frontmatter, sections, Definition of Done patterns)
 - TASK.md structure (acceptance criteria, technical notes)
 - BUG.md structure (reproduction steps, environment details)
 - Issue directory structure (TASK.md, PLAN.md, WORKLOG.md)
-- Epic and issue naming conventions
-- Epic size guidelines and decomposition patterns
+- Feature Spec and issue naming conventions
+- Feature Spec size guidelines and decomposition patterns
 - Issue type detection patterns
 - Custom issue type configuration
 
 **Quick Reference:**
-- **EPIC.md**: `pm/epics/EPIC-###-kebab-name.md` (feature-level initiatives)
+- **EPIC.md**: `pm/specs/SPEC-###-kebab-name.md` (feature-level initiatives)
 - **TASK.md**: `pm/issues/TASK-###-kebab-name/TASK.md` (implementation work)
 - **BUG.md**: `pm/issues/BUG-###-kebab-name/BUG.md` (defects and fixes)
 - **File purposes**: TASK.md (WHAT), PLAN.md (HOW), WORKLOG.md (WHAT/WHY history)
 - **Architecture decisions**: Use `/adr` command for complex technical decisions
 
-**Recommended Epic Size**: 2-8 tasks (decompose above 10 tasks)
+**Recommended Feature Spec Size**: 2-8 tasks (decompose above 10 tasks)
 
 **Numbering**: Sequential global per type (TASK-001, TASK-002, BUG-001, BUG-002)
 
-## Epic Creation Workflow
+## Feature Spec Creation Workflow
 
-**Pattern Used by `/epic` Command**
+**Pattern Used by `/feature spec` Command**
 
 ### 1. Conversational Creation
 
-The `/epic` command conducts natural conversation to gather:
-- Epic name (extracted or asked)
+The `/feature spec` command conducts natural conversation to gather:
+- Feature Spec name (extracted or asked)
 - Description (what capability are we building)
 - Definition of Done (completion criteria)
-- Dependencies (ADRs, other epics, external factors)
+- Dependencies (ADRs, other feature specs, external factors)
 
 **Philosophy:** Natural on surface, structured underneath.
 
-### 2. Epic Number Assignment
+### 2. Feature Spec Number Assignment
 
 **Logic:**
-1. Scan `pm/epics/` directory
-2. Find highest EPIC-### number
+1. Scan `pm/specs/` directory
+2. Find highest SPEC-### number
 3. Increment by 1
-4. Assign to new epic
+4. Assign to new feature spec
 
 **Example:**
 ```
-Existing: EPIC-001, EPIC-002, EPIC-004 (EPIC-003 deleted)
-Next: EPIC-005 (continues sequence, doesn't fill gaps)
+Existing: SPEC-001, SPEC-002, SPEC-004 (SPEC-003 deleted)
+Next: SPEC-005 (continues sequence, doesn't fill gaps)
 ```
 
 ### 3. Name Conversion
 
 User input: "User Authentication System"
 ↓ Convert to kebab-case
-File name: `EPIC-005-user-authentication-system.md`
+File name: `SPEC-005-user-authentication-system.md`
 
 ### 4. Task Suggestion Strategy
 
-**After epic creation, optionally suggest initial tasks:**
+**After feature spec creation, optionally suggest initial tasks:**
 
 **Analysis Approach:**
-1. Parse epic description for key features
+1. Parse feature spec description for key features
 2. Identify foundational components (database, auth, core logic)
 3. Suggest 2-3 foundational tasks
 4. User selects, customizes, or describes own
 
 **Example:**
 ```
-Epic: "User Authentication System"
+Feature Spec: "User Authentication System"
 Description: "Login, registration, password reset, Google OAuth"
 
 Suggested Tasks:
@@ -194,7 +194,7 @@ AI: "Create another? (yes/no)"
 
 ## Issue Creation Workflow
 
-**Pattern Used During Epic Task Creation**
+**Pattern Used During Feature Spec Task Creation**
 
 ### 1. Issue Number Assignment
 
@@ -204,16 +204,16 @@ AI: "Create another? (yes/no)"
 3. Increment by 1
 4. Assign to new issue
 
-**Important:** Numbering is GLOBAL per type, not per-epic.
+**Important:** Numbering is GLOBAL per type, not per-feature spec.
 
 **Example:**
 ```
 Existing issues:
-- TASK-001 (epic: EPIC-001)
-- TASK-002 (epic: EPIC-001)
-- TASK-003 (epic: EPIC-002)
+- TASK-001 (feature spec: SPEC-001)
+- TASK-002 (feature spec: SPEC-001)
+- TASK-003 (feature spec: SPEC-002)
 
-Creating task for EPIC-003:
+Creating task for SPEC-003:
 Next: TASK-004 (continues global sequence)
 ```
 
@@ -244,34 +244,34 @@ Next: TASK-004 (continues global sequence)
 - Technical Notes (optional)
 - NO Plan section (added later by `/plan`)
 
-### 4. Epic Linkage
+### 4. Feature Spec Linkage
 
 **Frontmatter Reference:**
 ```yaml
 ---
 issue_number: TASK-###
 type: task
-epic: EPIC-001        # Links issue to epic
+feature spec: SPEC-001        # Links issue to feature spec
 status: todo
 created: YYYY-MM-DD
 ---
 ```
 
-**Epic Update:**
+**Feature Spec Update:**
 ```markdown
 ## Tasks
 - [ ] TASK-001: User Registration
 - [ ] TASK-002: Login Flow
-- [ ] TASK-003: Password Reset  ← Added to epic file
+- [ ] TASK-003: Password Reset  ← Added to feature spec file
 ```
 
 **Bidirectional References:**
-- Issue → Epic (via frontmatter `epic:` field)
-- Epic → Issues (via Tasks section checkboxes)
+- Issue → Feature Spec (via frontmatter `feature spec:` field)
+- Feature Spec → Issues (via Tasks section checkboxes)
 
 ## Jira Integration Patterns
 
-**CRITICAL: Always check CLAUDE.md for Jira configuration before creating epics/issues**
+**CRITICAL: Always check CLAUDE.md for Jira configuration before creating feature specs/issues**
 
 ### Detecting Jira Mode
 
@@ -292,22 +292,22 @@ created: YYYY-MM-DD
 5. **If Enabled: true** → Use Jira mode
 6. **If Enabled: false or missing** → Use local mode
 
-**Reminder:** When Jira is enabled, epics MUST be created in Jira (not in pm/epics/)
+**Reminder:** When Jira is enabled, feature specs MUST be created in Jira (not in pm/specs/)
 
 ### Dual Mode Behavior
 
 **Local Mode (Jira Disabled - Default):**
-- Epics: `pm/epics/EPIC-###-name.md` files
+- Feature Specs: `pm/specs/SPEC-###-name.md` files
 - Issues: `pm/issues/TASK-###/`, `BUG-###/` directories
 - Fully offline, no external dependencies
 
 **Jira Mode (Jira Enabled):**
-- Epics: Created in Jira ONLY (PROJ-100, PROJ-200)
-- No local epic files: `pm/epics/` remains empty
+- Feature Specs: Created in Jira ONLY (PROJ-100, PROJ-200)
+- No local feature spec files: `pm/specs/` remains empty
 - Issues: Hybrid - Jira (PROJ-###) or local exploration (TASK-###, BUG-###)
 - Local directories: `pm/issues/PROJ-###-name/` for PLAN.md, WORKLOG.md
 
-### Jira Epic Creation
+### Jira Feature Spec Creation
 
 **Field Discovery:**
 1. Check cache: `.ai-toolkit/jira-field-cache.json`
@@ -322,12 +322,12 @@ created: YYYY-MM-DD
 
 **Create in Jira:**
 - Use Atlassian Remote MCP
-- Get epic ID: PROJ-100
+- Get feature spec ID: PROJ-100
 - Display Jira URL
 
 ### Jira Issue Creation
 
-**Same field discovery + collection pattern as epics**
+**Same field discovery + collection pattern as feature specs**
 
 **Issue Type Mapping:**
 - User Story → Jira Story
@@ -364,7 +364,7 @@ See `/promote` command for detailed workflow.
 
 ## Naming Best Practices
 
-### Epic Names
+### Feature Spec Names
 
 **Good Names** (clear capability focus):
 - "User Authentication"
@@ -394,16 +394,16 @@ See `/promote` command for detailed workflow.
 
 ## Status Management
 
-### Epic Status Values
+### Feature Spec Status Values
 
-- `planning` - Epic defined, tasks not yet created or planned
+- `planning` - Feature Spec defined, tasks not yet created or planned
 - `in_progress` - At least one task started
 - `completed` - All tasks complete, DoD satisfied
 - `on_hold` - Blocked or deprioritized
 
 **Status Updates:**
 - Manual updates by team
-- Or: Infer from task status (all tasks complete → epic complete)
+- Or: Infer from task status (all tasks complete → feature spec complete)
 
 ### Issue Status Values
 
@@ -418,12 +418,12 @@ See `/promote` command for detailed workflow.
 
 ## Integration with Development Workflow
 
-**Epic/Issue Management Fits into Overall Workflow:**
+**Feature Spec/Issue Management Fits into Overall Workflow:**
 
 ```
 1. /project-brief          → Define product vision
-2. /epic                   → Break down into epics
-3. /epic (refinement)      → Add tasks to epics
+2. /feature spec                   → Break down into feature specs
+3. /feature spec (refinement)      → Add tasks to feature specs
 4. /plan TASK-###          → Create implementation plan
 5. /implement TASK-### 1.1 → Execute phases
 6. /commit                 → Create commits
@@ -431,10 +431,10 @@ See `/promote` command for detailed workflow.
 ```
 
 **Key Relationships:**
-- Epic → Tasks (one-to-many)
+- Feature Spec → Tasks (one-to-many)
 - Task → Plan (one-to-one, created by `/plan`)
 - Task → Worklog (one-to-one, created by `/implement`)
-- Epic → ADRs (many-to-many via Dependencies)
+- Feature Spec → ADRs (many-to-many via Dependencies)
 
 ## Customization
 
@@ -442,7 +442,7 @@ See `/promote` command for detailed workflow.
 
 1. **Create Template:** `pm/templates/spike.md`
 2. **Update Configuration:** Add to `issue_types` in YAML frontmatter above
-3. **Use in Workflow:** `/epic` will automatically support new type
+3. **Use in Workflow:** `/feature spec` will automatically support new type
 
 **Example Custom Type:**
 ```yaml
@@ -453,9 +453,9 @@ issue_types:
     description: "Time-boxed research and investigation"
 ```
 
-### Modifying Epic Structure
+### Modifying Feature Spec Structure
 
-1. **Update Template:** `pm/templates/epic.md`
+1. **Update Template:** `pm/templates/feature spec.md`
 2. **Update Configuration:** Modify `epic_sections` in YAML frontmatter
 3. Commands adapt automatically
 
@@ -470,10 +470,10 @@ epic_breakdown:
 
 ## Common Patterns
 
-### Pattern: Feature Epic with Phased Delivery
+### Pattern: Feature Feature Spec with Phased Delivery
 
 ```
-EPIC-001: "Payment Processing"
+SPEC-001: "Payment Processing"
 
 Phase 1 (MVP):
 - TASK-001: Credit Card Processing (Stripe)
@@ -488,10 +488,10 @@ Phase 2 (Enhancements):
 
 **Approach:** Create all tasks upfront, mark MVP tasks as higher priority.
 
-### Pattern: Bug Fix Epic
+### Pattern: Bug Fix Feature Spec
 
 ```
-EPIC-002: "Session Management Improvements"
+SPEC-002: "Session Management Improvements"
 
 - BUG-001: Session Timeout Not Working
 - BUG-002: Session Cookies Not Secure
@@ -499,12 +499,12 @@ EPIC-002: "Session Management Improvements"
 - TASK-008: Session Cleanup Cron Job
 ```
 
-**Approach:** Mix bugs and improvement tasks in single epic.
+**Approach:** Mix bugs and improvement tasks in single feature spec.
 
 ### Pattern: Spike Before Implementation
 
 ```
-EPIC-003: "Real-time Notifications"
+SPEC-003: "Real-time Notifications"
 
 1. SPIKE-001: Research WebSocket vs SSE
 2. SPIKE-002: Evaluate Pusher vs self-hosted
@@ -521,7 +521,7 @@ EPIC-003: "Real-time Notifications"
 **Project Management Structure:**
 - `pm/README.md` - User guide for PM directory structure and workflow
 - `pm/templates/README.md` - Template customization guide
-- `pm/templates/epic.md` - Epic template (defines structure)
+- `pm/templates/feature spec.md` - Feature Spec template (defines structure)
 - `pm/templates/task.md` - Task template
 - `pm/templates/bug.md` - Bug template
 
@@ -533,6 +533,6 @@ EPIC-003: "Real-time Notifications"
 - Use `/adr` command for architecture decisions requiring detailed documentation
 
 **Commands:**
-- `/epic` - Creates epics and issues following these patterns
+- `/feature spec` - Creates feature specs and issues following these patterns
 - `/plan` - Reads issue files, creates PLAN.md
 - `/implement` - Executes plans, creates WORKLOG.md

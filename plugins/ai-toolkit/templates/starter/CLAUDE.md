@@ -80,7 +80,7 @@ Welcome to your AI-assisted project! This file provides essential context to Cla
 
 ### Configuration
 
-When Jira integration is enabled, epics and issues can be created and managed in Jira through AI commands.
+When Jira integration is enabled, epics can be created and managed in Jira through AI commands.
 
 ```yaml
 ## Jira Integration
@@ -98,12 +98,12 @@ When Jira integration is enabled, epics and issues can be created and managed in
 ### How It Works
 
 **When Jira is DISABLED (default):**
-- Epics: `pm/epics/EPIC-001-name.md` (local files)
+- Feature Specs: `pm/specs/SPEC-001-name.md` (local files)
 - Issues: `pm/issues/TASK-001/`, `pm/issues/BUG-001/` (local directories)
 - Fully local, works offline
 
 **When Jira is ENABLED:**
-- Epics: Only in Jira (PROJ-100, PROJ-200) - no local epic files
+- Epics: Only in Jira (PROJ-100, PROJ-200) - no local spec files
 - Issues:
   - Jira issues: `PROJ-123`, `PROJ-124` (fetched from Jira on-demand)
   - Local exploration: `TASK-001`, `BUG-001` (for quick spikes, can be promoted to Jira)
@@ -113,7 +113,8 @@ When Jira integration is enabled, epics and issues can be created and managed in
 
 **Creating Epics:**
 ```bash
-/epic  # Creates PROJ-100 in Jira (if enabled) or EPIC-001 locally (if disabled)
+/spec  # Creates SPEC-001 locally
+/epic  # Creates PROJ-100 in Jira (requires Jira integration)
 ```
 
 **Working with Issues:**
@@ -162,7 +163,7 @@ This project uses the AI Toolkit plugin for structured development with three-br
 /project-brief              # Fill in product vision through conversation
 
 # 2. Create feature epics
-/epic                       # Create epics aligned with your brief
+/spec                       # Create feature specs aligned with your brief
 
 # 3. Make architecture decisions
 /adr                  # Create ADRs for technical decisions
@@ -273,7 +274,7 @@ See `docs/development/README.md` for details on how guidelines work.
 - "What agents are available and what do they do?"
 - "How does the /adr command work?"
 - "Show me the full command workflow"
-- "What's the difference between /epic and /plan?"
+- "What's the difference between /spec and /plan?"
 - "How do I customize guidelines?"
 
 Claude reads the plugin documentation and provides detailed explanations.

@@ -5,9 +5,14 @@ A comprehensive AI-assisted development workflow system for Claude Code, providi
 ## IMPORTANT
 This is very much an alpha/experiment at this point. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and massively changing things as I go.
 
-## What's New in v0.22.0
+## What's New in v0.23.0
 
 **Latest additions:**
+- 🔄 **Epic → Feature Spec terminology pivot** - Aligned with spec-driven development trends (BREAKING CHANGE)
+- ✨ **`/spec` command** - Create and manage local feature specifications with bidirectional Jira integration
+- 🔧 **`/epic` command refactored** - Now Jira-only (requires integration enabled)
+
+**Recent additions (v0.22.0):**
 - 📚 **Documentation standardization** - Unified lowercase-kebab-case naming, fixed broken links, streamlined metadata
 - 📖 **Jira integration guide** - Dedicated docs/jira-integration.md with detailed setup and troubleshooting
 
@@ -66,13 +71,14 @@ The `/toolkit-init` command scaffolds your project with:
 
 ## AI Toolkit Plugin
 
-The AI Toolkit plugin provides a complete development workflow system with **23 commands** organized around a 3-phase development cycle:
+The AI Toolkit plugin provides a complete development workflow system with **24 commands** organized around a 3-phase development cycle:
 
 ### 🚀 Setup & Initialization
 
 - `/toolkit-init` - Initialize project structure with templates and smart conflict resolution
 - `/project-brief` - Create and refine project brief through conversational Q&A
-- `/epic` - Create and manage epics (local or Jira) through natural language
+- `/spec` - Create and manage feature specs (local files) through natural language
+- `/epic` - Create and manage Jira epics (requires Jira integration)
 
 ### 🌟 Core 3-Phase Workflow
 
@@ -146,11 +152,11 @@ _Note that this probably doesn't scale well across larger teams, and is not inte
 #### Quick Start
 
 ```bash
-# 1. Create an epic
-/epic
-→ Creates pm/epics/EPIC-001-user-auth.md
+# 1. Create a feature spec
+/spec
+→ Creates pm/specs/SPEC-001-user-auth.md
 
-# 2. Create tasks (during /epic or separately)
+# 2. Create tasks (during /spec or separately)
 → Creates pm/issues/TASK-001-login-form/
 → Creates pm/issues/TASK-002-password-reset/
 
@@ -165,15 +171,15 @@ _Note that this probably doesn't scale well across larger teams, and is not inte
 
 # 5. Track progress
 /project-status
-→ Shows all epics and tasks with completion status
+→ Shows all specs and tasks with completion status
 ```
 
 #### File Structure
 
 ```
 pm/
-├── epics/
-│   └── EPIC-001-user-auth.md       # Epic with tasks list
+├── specs/
+│   └── SPEC-001-user-auth.md       # Feature spec with tasks list
 │
 └── issues/
     ├── TASK-001-login-form/
@@ -199,7 +205,7 @@ pm/
 #### Customization
 
 Customize the workflow by editing templates:
-- `pm/templates/epic.md` - Epic structure and prompts
+- `pm/templates/spec.md` - Feature spec structure and prompts
 - `pm/templates/task.md` - Task requirements template
 - `pm/templates/bug.md` - Bug report template
 
@@ -211,7 +217,7 @@ The AI Toolkit supports both **local file-based project management** and **exter
 
 #### Local PM (Built-in)
 
-File-based epics and tasks in `pm/` directory:
+File-based specs and tasks in `pm/` directory:
 - ✅ Works offline, fully version controlled
 - ✅ Perfect for individuals and small teams
 - ✅ No external dependencies
@@ -223,7 +229,7 @@ Bidirectional sync with Atlassian Jira:
 - Import Jira issues: `/import-issue PROJ-123`
 - Create Jira issues from local work: `/promote TASK-001`
 - Add AI-suggested comments: `/comment-issue PROJ-123`
-- Create epics conversationally: `/epic` (Jira mode)
+- Create Jira epics from local specs: `/epic --spec SPEC-001`
 
 **Setup & Usage**: See [docs/jira-integration.md](plugins/ai-toolkit/docs/jira-integration.md)
 
@@ -241,7 +247,7 @@ Planned support for:
 
 Seamless session continuity through structured files:
 
-- **EPIC.md** - Epic-level context and progress
+- **SPEC.md** - Feature spec context and progress
 - **TASK-###-*/TASK.md** - Task-specific implementation details
 - **WORKLOG.md** - Narrative work history with lessons learned
 - **RESEARCH.md** - Investigation findings and technical decisions
@@ -279,7 +285,7 @@ The starter template includes comprehensive documentation:
 
 - **docs/project/** - Project-specific documentation (ADRs, design assets)
 - **docs/development/** - Development guidelines (customizable templates)
-- **pm/** - Project management (epics, tasks, bugs with templates)
+- **pm/** - Project management (feature specs, tasks, bugs with templates)
 
 ## Repository Structure
 
@@ -291,10 +297,10 @@ ai-toolkit/
     └── ai-toolkit/                # AI Toolkit plugin
         ├── .claude-plugin/
         │   └── plugin.json
-        ├── commands/              # 23 slash commands
+        ├── commands/              # 24 slash commands
         ├── agents/                # 18 specialized agents
         ├── templates/             # Bundled project templates
-        │   └── starter/           # 33 template files
+        │   └── starter/           # 39 template files
         ├── docs/                  # Plugin documentation
         └── README.md
 ```

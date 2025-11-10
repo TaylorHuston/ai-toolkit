@@ -14,7 +14,7 @@ your-project/
 │   ├── project/            # Architecture, ADRs, design assets
 │   └── development/        # Guidelines (8 customizable templates)
 └── pm/
-    ├── epics/              # Feature planning
+    ├── specs/              # Feature planning
     ├── issues/             # Tasks and bugs
     └── templates/          # Issue templates
 ```
@@ -35,9 +35,9 @@ Interactive conversation to create your project brief - the "what" and "why" of 
 
 ### 2. Plan Your First Feature
 ```bash
-/epic
+/spec
 ```
-Create an epic to organize related work. The AI helps you break it down into tasks.
+Create an spec to organize related work. The AI helps you break it down into tasks.
 
 ### 3. Make Architecture Decisions
 ```bash
@@ -141,7 +141,7 @@ Commands automatically read and enforce these rules.
 ### Commands Guide You
 Each command is conversational and guides you through its workflow:
 - `/project-brief` asks questions to fill in your vision
-- `/epic` helps structure features with acceptance criteria
+- `/spec` helps structure features with acceptance criteria
 - `/adr` explores options and creates ADRs
 - `/plan` breaks work into testable phases
 - `/implement` executes with domain-specific agents
@@ -170,7 +170,7 @@ Start with TBD placeholders, fill in via `/adr` decisions, customize as needed.
 
 1. **Review CLAUDE.md** - Add your tech stack and external links
 2. **Create Your Vision** - Run `/project-brief`
-3. **Start Your First Feature** - Run `/epic`
+3. **Start Your First Feature** - Run `/spec`
 4. **Learn As You Go** - Commands guide you through the workflow
 
 ## Command Reference
@@ -179,7 +179,7 @@ Start with TBD placeholders, fill in via `/adr` decisions, customize as needed.
 |---------|---------|
 | `/toolkit-init` | Initialize project structure |
 | `/project-brief` | Create/update project vision |
-| `/epic` | Plan features and epics |
+| `/spec` | Plan features and specs |
 | `/adr` | Make technical decisions (ADRs) |
 | `/plan TASK-###` | Break down implementation |
 | `/implement TASK-### PHASE` | Execute specific phases |
@@ -231,7 +231,7 @@ Understanding the distinction between **slash commands** and **agents** helps yo
 
 **Examples:**
 ```bash
-/epic                      # Creates pm/epics/EPIC-###-name.md
+/spec                      # Creates pm/specs/SPEC-###-name.md
 /plan TASK-001             # Creates pm/issues/TASK-001-*/PLAN.md
 /adr                       # Creates docs/project/adrs/ADR-###.md
 /implement TASK-001 1.1    # Executes phase, updates WORKLOG.md
@@ -300,7 +300,7 @@ Both approaches work together - commands orchestrate agents to deliver complete 
 - "When should I use the code-architect vs api-designer?"
 - "How does the /adr command work?"
 - "Show me the full command workflow"
-- "What's the difference between /epic and /plan?"
+- "What's the difference between /spec and /plan?"
 
 Claude reads the plugin documentation (AGENTS.md, COMMANDS.md) and provides detailed explanations.
 

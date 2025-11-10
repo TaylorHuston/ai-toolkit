@@ -5,24 +5,24 @@ created: "2025-11-05"
 last_updated: "2025-11-06"
 status: "Active"
 target_audience: ["AI Assistants", "Project Managers"]
-description: "TASK.md, BUG.md, EPIC.md file structures and issue directory organization"
+description: "TASK.md, BUG.md, SPEC.md file structures and issue directory organization"
 
 # === Configuration ===
-issue_files: ["TASK.md", "BUG.md", "EPIC.md", "PLAN.md", "WORKLOG.md"]
-epic_location: "pm/epics/"
+issue_files: ["TASK.md", "BUG.md", "SPEC.md", "PLAN.md", "WORKLOG.md"]
+spec_location: "pm/specs/"
 issue_location: "pm/issues/"
 ---
 
 # Issue Management - File Structures
 
-**Purpose**: Define file formats for TASK.md, BUG.md, EPIC.md and directory organization
+**Purpose**: Define file formats for TASK.md, BUG.md, SPEC.md and directory organization
 
-**Referenced by**: `/epic`, `/plan`, `/implement` commands
+**Referenced by**: `/feature spec`, `/plan`, `/implement` commands
 
 ## Quick Reference
 
 **File Types**:
-- **EPIC.md** - Feature-level initiatives (`pm/epics/EPIC-###-name.md`)
+- **SPEC.md** - Feature-level initiatives (`pm/specs/SPEC-###-name.md`)
 - **TASK.md** - Implementation work (`pm/issues/TASK-###-name/TASK.md`)
 - **BUG.md** - Defects and fixes (`pm/issues/BUG-###-name/BUG.md`)
 - **PLAN.md** - Implementation phases (created by `/plan`)
@@ -42,15 +42,15 @@ issue_location: "pm/issues/"
 
 ---
 
-## EPIC.md Format
+## SPEC.md Format
 
-**File Location**: `pm/epics/EPIC-###-<kebab-case-name>.md`
+**File Location**: `pm/specs/SPEC-###-<kebab-case-name>.md`
 
 ### Structure
 
 ```yaml
 ---
-epic_number: EPIC-###
+spec_number: SPEC-###
 status: planning          # planning, in_progress, completed, on_hold
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
@@ -59,14 +59,14 @@ priority: high            # Optional: high, medium, low
 target_date: YYYY-MM-DD   # Optional
 ---
 
-# EPIC-###: Epic Name
+# SPEC-###: Spec Name
 
 ## Description
-[Epic goal and scope - what capability are we building?]
+[Feature goal and scope - what capability are we building?]
 [Multi-paragraph explanation of the initiative]
 
 ## Definition of Done
-[Concrete criteria that signal epic completion]
+[Concrete criteria that signal feature spec completion]
 [Can be prose or checklist based on complexity]
 
 **Prose format example:**
@@ -84,7 +84,7 @@ system achieves 95%+ test coverage and passes security audit.
 
 ## Dependencies
 - ADR-###: [Decision name]
-- EPIC-###: [Other epic dependency]
+- SPEC-###: [Other feature spec dependency]
 - External: [External dependencies]
 
 ## Tasks
@@ -98,7 +98,7 @@ system achieves 95%+ test coverage and passes security audit.
 - Feature X, Y, Z
 
 **Out of Scope:**
-- Feature A, B (deferred to EPIC-###)
+- Feature A, B (deferred to SPEC-###)
 
 ## Technical Notes (Optional)
 [Implementation considerations, technology choices, architectural notes]
@@ -106,12 +106,12 @@ system achieves 95%+ test coverage and passes security audit.
 
 ### Naming Conventions
 
-**Pattern**: `EPIC-###-<kebab-case-name>.md`
+**Pattern**: `SPEC-###-<kebab-case-name>.md`
 
 **Examples**:
-- `EPIC-001-user-authentication.md`
-- `EPIC-002-payment-processing.md`
-- `EPIC-003-admin-dashboard.md`
+- `SPEC-001-user-authentication.md`
+- `SPEC-002-payment-processing.md`
+- `SPEC-003-admin-dashboard.md`
 
 **Rules**:
 - Sequential numbering starting from 001
@@ -119,28 +119,28 @@ system achieves 95%+ test coverage and passes security audit.
 - Descriptive but concise (3-5 words ideal)
 - Focus on capability, not implementation
 
-### Epic Size Guidelines
+### Feature Spec Size Guidelines
 
 **Recommended**: 2-8 tasks
 **Minimum**: 1 task (acceptable for significant features)
 **Maximum**: 10 tasks (consider decomposition above this)
 
-**Why decompose large epics:**
+**Why decompose large feature specs:**
 - More than 10 tasks
 - Tasks span multiple domains with no shared context
-- Epic takes more than 3 sprints/iterations
+- Feature Spec takes more than 3 sprints/iterations
 - Definition of Done is vague or overly broad
 
 **Decomposition example**:
 ```
-Original: EPIC-001 "E-commerce Platform" (25 tasks)
+Original: SPEC-001 "E-commerce Platform" (25 tasks)
   ↓
 Decomposed:
-- EPIC-001: "Product Catalog" (5 tasks)
-- EPIC-002: "Shopping Cart" (4 tasks)
-- EPIC-003: "Checkout Flow" (6 tasks)
-- EPIC-004: "Order Management" (5 tasks)
-- EPIC-005: "Admin Panel" (5 tasks)
+- SPEC-001: "Product Catalog" (5 tasks)
+- SPEC-002: "Shopping Cart" (4 tasks)
+- SPEC-003: "Checkout Flow" (6 tasks)
+- SPEC-004: "Order Management" (5 tasks)
+- SPEC-005: "Admin Panel" (5 tasks)
 ```
 
 ---
@@ -155,7 +155,7 @@ Decomposed:
 ---
 issue_number: TASK-###
 type: task
-epic: EPIC-###            # Optional: which epic this belongs to
+feature spec: SPEC-###            # Optional: which feature spec this belongs to
 status: todo              # todo, in_progress, completed, blocked
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
@@ -199,7 +199,7 @@ estimate: 5               # Optional: story points or hours
 - Global sequential numbering (TASK-001, TASK-002, across entire project)
 - Kebab-case for multi-word names
 - Descriptive (appears in file paths and git branches)
-- Not per-epic (continues global sequence)
+- Not per-feature spec (continues global sequence)
 
 ---
 
@@ -213,7 +213,7 @@ estimate: 5               # Optional: story points or hours
 ---
 issue_number: BUG-###
 type: bug
-epic: EPIC-###            # Optional: if part of epic
+feature spec: SPEC-###            # Optional: if part of feature spec
 status: todo              # todo, in_progress, completed, blocked
 severity: medium          # critical, high, medium, low
 created: YYYY-MM-DD
@@ -286,7 +286,7 @@ pm/issues/TASK-001-user-registration/
 
 ### File Lifecycle
 
-**1. Epic/Issue Creation** (`/epic` or manual)
+**1. Feature Spec/Issue Creation** (`/feature spec` or manual)
 ```
 Creates: pm/issues/TASK-###-name/TASK.md
 Contains: Description, acceptance criteria
@@ -369,15 +369,15 @@ ADRs (via /adr) →  Complex architecture decisions (project-wide)
 
 ### Local Mode (Jira Disabled - Default)
 
-**Epics**: `pm/epics/EPIC-###-name.md` files
+**Feature Specs**: `pm/specs/SPEC-###-name.md` files
 **Issues**: `pm/issues/TASK-###/`, `BUG-###/` directories
 **Benefits**: Fully offline, no external dependencies
 
 ### Jira Mode (Jira Enabled)
 
-**Epics**: Created in Jira ONLY (PROJ-100, PROJ-200)
-- No local epic files
-- `pm/epics/` remains empty
+**Feature Specs**: Created in Jira ONLY (PROJ-100, PROJ-200)
+- No local feature spec files
+- `pm/specs/` remains empty
 
 **Issues**: Hybrid approach
 - Jira issues: `PROJ-###` (fetched on-demand)
@@ -401,7 +401,7 @@ pm/issues/PROJ-123-feature-name/
 
 # Creates PROJ-124 in Jira
 # Copies acceptance criteria
-# Updates epic linkage
+# Updates feature spec linkage
 # Preserves PLAN.md, WORKLOG.md
 ```
 
@@ -562,7 +562,7 @@ rm pm/notes/2025-11-06-143000-redis-pooling.md
 - Use `/adr` command for architecture decisions requiring detailed documentation
 
 **For management patterns**:
-- See `pm-guidelines.md` for epic/issue creation workflows
+- See `pm-guidelines.md` for feature spec/issue creation workflows
 - See `pm-guidelines.md` for Jira integration details
 
 **For workflow**:

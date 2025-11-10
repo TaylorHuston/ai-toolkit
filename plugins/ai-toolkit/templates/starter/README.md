@@ -22,8 +22,8 @@
 # 1. Complete your project brief
 /project-brief
 
-# 2. Create your first epic
-/epic
+# 2. Create your first spec
+/spec
 
 # 3. Make architecture decisions
 /adr
@@ -73,15 +73,15 @@ your-project/
 └── pm/                            # Project management
     ├── README.md                  # PM guide
     │
-    ├── epics/                     # Feature epics (created by /epic)
+    ├── specs/                     # Feature specs (created by /spec)
     │   └── .gitkeep
     │
-    ├── issues/                    # Tasks and bugs (created by /epic and /plan)
+    ├── issues/                    # Tasks and bugs (created by /spec and /plan)
     │   └── .gitkeep
     │
     └── templates/                 # Issue templates
         ├── README.md              # Template customization guide
-        ├── epic.md                # Epic template
+        ├── spec.md                # Epic template
         ├── task.md                # Task template
         ├── bug.md                 # Bug template
         └── resources/
@@ -90,7 +90,7 @@ your-project/
 
 **37 files breakdown:**
 - **9 core files**: CLAUDE.md, README.md, GETTING-STARTED.md, CHANGELOG.md, .gitignore, 5 top-level README files
-- **28 structure files**: 8 guidelines, 5 templates (epic, task, bug, plan, adr), 9 documentation READMEs, 6 .gitkeep placeholders
+- **28 structure files**: 8 guidelines, 5 templates (spec, task, bug, plan, adr), 9 documentation READMEs, 6 .gitkeep placeholders
 
 ### Active Project Structure (After Development)
 
@@ -122,12 +122,12 @@ your-project/
 │           └── architectural-principles.md  # Fill in via /adr decisions
 │
 ├── pm/
-│   ├── epics/                     # Created by /epic
+│   ├── specs/                     # Created by /spec
 │   │   ├── EPIC-001-user-authentication.md
 │   │   ├── EPIC-002-data-management.md
 │   │   └── EPIC-003-admin-dashboard.md
 │   │
-│   └── issues/                    # Created by /epic and /plan
+│   └── issues/                    # Created by /spec and /plan
 │       ├── TASK-001-user-registration/
 │       │   ├── TASK.md            # Task definition with plan
 │       │   ├── WORKLOG.md         # Work history (auto-created by /implement)
@@ -157,7 +157,7 @@ The AI Toolkit provides **14 commands** for structured development:
 - `/project-brief` - Create/update project vision through interactive Q&A
 
 ### Epic & Planning
-- `/epic` - Create new epics or refine existing ones
+- `/spec` - Create new specs or refine existing ones
 - `/adr` - Make architecture decisions and create ADRs
 
 ### Core Workflow

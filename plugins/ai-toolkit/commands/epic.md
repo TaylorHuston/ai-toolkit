@@ -1,86 +1,128 @@
 ---
-tags: ["workflow", "epic", "project-management", "conversational"]
-description: "Create new epics or refine existing ones through natural language conversation"
-argument-hint: "[EPIC-###]"
+tags: ["workflow", "epic", "jira", "project-management", "conversational"]
+description: "Create Jira epics through natural language conversation (requires Jira integration)"
+argument-hint: "[PROJ-### | --spec SPEC-###]"
 allowed-tools: ["Read", "Write", "Edit", "Glob", "Grep", "Task", "TodoWrite"]
 model: claude-opus-4-1
 references_guidelines:
-  - docs/development/guidelines/issue-management.md  # Epic/issue file formats and naming conventions
-  - docs/development/guidelines/pm-guidelines.md  # Epic creation workflow, Jira integration
+  - docs/development/guidelines/issue-management.md  # Issue file formats
+  - docs/development/guidelines/pm-guidelines.md  # Jira integration workflow
 ---
 
 # /epic Command
 
-**WHAT**: Create/refine feature epics through conversational interaction.
+**WHAT**: Create/refine Jira epics through conversational interaction.
 
-**WHY**: Natural conversation ensures complete epic structure without rigid forms.
+**WHY**: Natural conversation for creating PM tracking containers in Jira. Epics organize work at the PM tool level.
 
-**HOW**: See issue-management.md for epic file format and naming conventions. See pm-guidelines.md for workflow patterns, Jira integration, and task suggestion.
+**HOW**: See pm-guidelines.md for Jira integration patterns. This command requires Jira integration enabled in CLAUDE.md.
 
 ## Usage
 
 ```bash
-/epic                 # Start conversation (create new or work with existing)
-/epic EPIC-###        # Work with specific epic
+/epic                 # Create new Jira epic
+/epic PROJ-###        # Work with specific Jira epic
+/epic --spec SPEC-### # Create Jira epic from local feature spec
 ```
 
-## Template System
+## Jira Integration Requirement
 
-**Epic location**: `pm/epics/EPIC-###-<name>.md` (local mode) OR Jira (PROJ-###)
-**Issue location**: `pm/issues/TASK-###-<name>/` and `pm/issues/BUG-###-<name>/`
+**This command requires Jira integration enabled.**
 
-See pm/README.md for patterns and pm/templates/epic.md for structure.
+```yaml
+## Jira Integration (in CLAUDE.md)
+- **Enabled**: true
+- **MCP Server**: Atlassian Remote MCP
+- **Project Key**: PROJ
+```
+
+**If Jira is NOT enabled:**
+- Command will error with setup instructions
+- Use `/spec` for local feature specifications instead
+
+## Local vs Jira Separation
+
+**Feature Specs (use /spec):**
+- Local files: `pm/specs/SPEC-###-name.md`
+- Document WHAT to build
+- Version controlled, always accessible
+
+**Jira Epics (this command):**
+- Jira only: PROJ-###
+- PM tracking container
+- Requires network/MCP access
+
+**Semantic mapping:**
+```
+Local Spec (SPEC-001) = Specification (what to build)
+Jira Epic (PROJ-100)  = Tracking container (PM tool)
+```
 
 ## Execution Steps
 
-### 1. Check Jira Mode - CRITICAL FIRST STEP
+### 1. Verify Jira Integration - CRITICAL FIRST STEP
 
 ```bash
 Read: CLAUDE.md  # Look for "## Jira Integration"
-# Parse: Enabled: true OR Enabled: false
+# Check: Enabled: true
 ```
 
-**Display mode confirmation:**
-- If `Enabled: true`: "Creating epic in Jira (PROJ project)..."
-- If `Enabled: false` or missing: "Creating local epic (pm/epics/)..."
+**If NOT enabled:**
+```
+Error: This command requires Jira integration
 
-**REMINDER**: Jira enabled = epics in Jira ONLY, no local pm/epics/ files.
+To create local feature specs, use:
+  /spec
 
-### 2. Determine Intent
+To enable Jira integration, see:
+  docs/jira-integration.md
+```
 
-- No arguments: Ask "Create new or work on existing?"
-- EPIC-### or PROJ-### provided: Load and enter refinement mode
+### 2. Check for --spec Flag
 
-### 3. Load Context
-
-**Local mode:**
 ```bash
-Read: pm/templates/epic.md  # Required sections
-Glob: pm/epics/EPIC-*.md    # Determine next number
+# If --spec SPEC-### provided:
+#   1. Read pm/specs/SPEC-###-*.md
+#   2. Extract: Name, Description, Definition of Done, Tasks
+#   3. Pre-populate Jira epic fields
+#   4. Continue to creation flow
 ```
+
+**Display**:
+- With `--spec`: "Creating Jira epic from SPEC-###..."
+- Without flag: "Creating Jira epic in PROJ project..."
+
+### 3. Determine Intent
+
+- No arguments: Create new epic
+- PROJ-### provided: Load and enter refinement mode
+- --spec SPEC-###: Read spec and pre-populate
+
+### 4. Load Context
 
 **Jira mode:**
 ```bash
 Read: .ai-toolkit/jira-field-cache.json  # Field requirements
-# Skip local file scanning
+# Determine required/optional fields
 ```
 
-### 4. Creation Flow (Conversational)
-
-**Following pm-guidelines.md epic structure:**
-
-Ask user:
-- What's the main goal?
-- Who are the primary users?
-- What are the success criteria?
-- What's OUT of scope?
-
-**Local mode:**
+**If --spec flag:**
 ```bash
-Write: pm/epics/EPIC-###-<name>.md
+Read: pm/specs/SPEC-###-*.md
+# Extract content for pre-population
 ```
 
-**Jira mode:**
+### 5. Creation Flow (Conversational)
+
+**Following pm-guidelines.md Jira epic structure:**
+
+Ask user for required fields:
+- Summary (epic name)
+- Description
+- Epic name (if different from summary)
+- Custom fields (as discovered)
+
+**Create in Jira:**
 ```bash
 # Collect fields conversationally (per pm-guidelines.md)
 # Create via Atlassian MCP
@@ -88,94 +130,129 @@ Write: pm/epics/EPIC-###-<name>.md
 # Display Jira URL
 ```
 
-### 5. Optionally Add Initial Tasks
+**If created from --spec:**
+```
+Based on local spec SPEC-001:
+- Summary: User Authentication
+- Description: [Pre-populated from SPEC-001]
+- Epic Name: user-authentication
+
+Customize or accept? [Continue to conversational refinement]
+```
+
+### 6. Optionally Add Initial Issues
 
 **Following pm-guidelines.md task suggestion strategy:**
 
-Suggest tasks based on epic scope:
-1. TASK-001-user-registration (user-story)
-2. TASK-002-database-schema (task)
-3. TASK-003-login-form (user-story)
+Suggest issues based on epic scope:
+1. PROJ-101: User Registration (Story)
+2. PROJ-102: Database Schema (Task)
+3. PROJ-103: Login Form (Story)
 
 Interactive loop: Which to create? (1/2/3/custom/stop)
 
-### 6. Refinement Flow
+### 7. Refinement Flow
 
 **For existing epics:**
 ```bash
-# Read epic and related issues
-# Conversational: add tasks, update scope, check status
-# Update epic file (local) or Jira (Jira mode)
+# Fetch epic via Atlassian MCP
+# Display current state
+# Conversational: add issues, update fields
+# Update via MCP
+```
+
+### 8. Optional Spec Creation
+
+After creating epic, ask:
+```
+Create local feature spec from this epic?
+→ Yes: Run /spec --epic PROJ-100
+→ No: Continue without local spec
 ```
 
 ## Agent Coordination
 
-**Primary**: project-manager (conversation, creation)
+**Primary**: project-manager (conversation, creation, Jira interaction)
 
 **Supporting**:
-- test-engineer (test strategy)
-- Domain specialists (complexity)
-- security-auditor (flags auth, encryption, PII, API work)
+- Domain specialists (for field suggestions)
+- test-engineer (for acceptance criteria structure)
 
-## Jira Integration
+## Workflow Patterns
 
-**Configuration** (from CLAUDE.md):
-```yaml
-jira:
-  enabled: true/false
-  project_key: PROJ
+```bash
+# Pattern 1: Spec-first (recommended)
+/spec                    # Create SPEC-001 locally
+/epic --spec SPEC-001    # Create PROJ-100 from spec
+
+# Pattern 2: Epic-first
+/epic                    # Create PROJ-100 in Jira
+/spec --epic PROJ-100    # Create SPEC-001 from epic
+
+# Pattern 3: Epic-only (no local spec)
+/epic                    # Create PROJ-100
+/import-issue PROJ-101   # Work on issues directly
 ```
-
-**Local Mode** (enabled: false):
-- Epics: `pm/epics/EPIC-###-name.md`
-- Issues: `pm/issues/TASK-###/`, `BUG-###/`
-- Fully offline
-
-**Jira Mode** (enabled: true):
-- Epics: Jira ONLY (PROJ-100, PROJ-200)
-- No local epic files
-- Issues: Hybrid (Jira PROJ-### or local TASK-###/BUG-###)
-
-**All Jira patterns in pm-guidelines.md:**
-- Field discovery/caching
-- Conversational field collection
-- MCP creation
-- Error handling
 
 ## Example Output
 
 ```
-Creating epic in Jira (PROJ project)...
+Creating Jira epic from SPEC-001...
 
-What's the main goal? → User authentication
-Who are users? → End users
-Success criteria? → Secure login, 95% coverage
-OUT of scope? → No SSO, no 2FA yet
+Extracted from SPEC-001: User Authentication
+- Description: Enable secure user authentication...
+- Tasks: 3 tasks identified
+
+Customize or proceed? → proceed
+
+Summary: User Authentication
+Epic Name: user-authentication
+Description: [Pre-populated]
 
 ✓ Created PROJ-100: User Authentication
 🔗 https://company.atlassian.net/browse/PROJ-100
 
-Add initial tasks? (yes/no) → yes
+Add initial issues? (yes/no) → yes
 ✓ PROJ-101: User Registration
 ✓ PROJ-102: Login Flow
 
-Next: /plan PROJ-101
+Next: /import-issue PROJ-101
 ```
 
 ## Integration
 
 ```
-/project-brief → /epic → /plan TASK-### → /implement
-                   ↓
-              /epic EPIC-### (refine)
+/spec → /epic --spec SPEC-### → /import-issue PROJ-### → /plan → /implement
+          ↓
+      /epic PROJ-### (refine)
 ```
 
 ## Error Handling
 
-**MCP unavailable (Jira mode):**
+**Jira not enabled:**
+```
+Error: Jira integration not enabled
+
+Enable Jira in CLAUDE.md:
+  ## Jira Integration
+  - **Enabled**: true
+  - **MCP Server**: Atlassian Remote MCP
+  - **Project Key**: PROJ
+
+Or use /spec for local feature specs
+```
+
+**MCP unavailable:**
 ```
 Error: Jira enabled but MCP not configured
-Fix: Install MCP or set jira.enabled: false
+Fix: Install Atlassian Remote MCP or disable Jira
+```
+
+**--spec file not found:**
+```
+Error: SPEC-001 not found
+Check: pm/specs/ directory
+Verify: Spec number is correct
 ```
 
 **Field discovery fails:**
@@ -186,14 +263,14 @@ If creation fails, run: /refresh-schema
 
 ## Related Commands
 
-- `/project-brief` - Project vision before epics
-- `/plan TASK-###` - Implementation breakdown
-- `/implement TASK-### PHASE` - Execute phases
-- `/project-status` - Progress across epics
+- `/spec` - Create local feature specifications
+- `/import-issue PROJ-###` - Import Jira issue for local work
+- `/promote TASK-###` - Create Jira issue from local task
+- `/comment-issue PROJ-###` - Add AI comments to Jira issue
+- `/refresh-schema` - Refresh Jira field cache
 
 ## Related Guidelines
 
-- `docs/development/guidelines/issue-management.md` - Epic/issue file formats and naming
-- `docs/development/guidelines/pm-guidelines.md` - Epic creation workflow and Jira integration
-- `pm/README.md` - PM directory structure guide
-- `pm/templates/epic.md` - Epic structure template
+- `docs/development/guidelines/pm-guidelines.md` - Jira integration workflow
+- `docs/jira-integration.md` - Jira setup and configuration
+- `pm/templates/spec.md` - Local spec structure (for --spec flag)

@@ -234,7 +234,7 @@ New team members (human or AI) read guidelines to understand:
 The AI Toolkit itself follows these guidelines:
 - **File naming**: kebab-case (testing-standards.md, not TestingStandards.md)
 - **Documentation**: Three-tier structure (docs/project/, docs/development/, plugin docs)
-- **Templates**: YAML frontmatter + markdown (epic.md, task.md, adr-template.md)
+- **Templates**: YAML frontmatter + markdown (spec.md, task.md, adr-template.md)
 - **Commands**: Read templates/guidelines at runtime to adapt behavior
 
 ## Getting Help

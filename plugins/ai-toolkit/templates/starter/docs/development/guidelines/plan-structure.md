@@ -271,8 +271,8 @@ Each phase is atomic (one concept), testable (can verify), and committable (work
    - Lists all completed phases and satisfied criteria
    - See `worklog-format.md` for format
 
-**5. Epic Consistency (if epic exists)**
-   - Task marked complete in epic task list: `- [x] TASK-001`
+**5. Spec Consistency (if spec exists)**
+   - Task marked complete in spec task list: `- [x] TASK-001`
    - Epic progress updated
 
 **6. Project Documentation Synchronized**
@@ -328,7 +328,7 @@ Each phase is atomic (one concept), testable (can verify), and committable (work
 
 ### Principle
 
-**Provide domain-specific context to agents, not full epic context dump.**
+**Provide domain-specific context to agents, not full spec context dump.**
 
 Filter and prepare only relevant information for each specialist to optimize performance and reduce context overload.
 
@@ -474,7 +474,7 @@ Security audit completed on Phase 2 implementation.
 
 **For PLAN.md file creation**:
 - See `issue-management.md` for complete PLAN.md file format
-- See `pm-guidelines.md` for epic and issue structure
+- See `pm-guidelines.md` for spec and issue structure
 
 **For progress updates**:
 - See `worklog-format.md` for WORKLOG entry formats

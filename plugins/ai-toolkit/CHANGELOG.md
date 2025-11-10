@@ -6,6 +6,72 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.23.0] - 2025-11-07
+
+### Breaking Changes
+
+- **Epic → Feature Spec terminology pivot** - aligned with spec-driven development trends
+  - **Rationale**: "Epic" overloaded (Jira vs local), "Feature Spec" clearer and trendy (spec-driven development movement)
+  - **Local changes**: EPIC-### → SPEC-###, pm/epics/ → pm/specs/, pm/templates/epic.md → spec.md
+  - **Commands split**: `/spec` (local specs) vs `/epic` (Jira-only)
+  - **Migration**: Existing projects using pm/epics/ must rename to pm/specs/ and update issue references
+
+### Added
+
+- **`/spec` command** - create and manage local feature specifications
+  - **Usage**: `/spec` (new), `/spec SPEC-###` (existing), `/spec --epic PROJ-###` (from Jira)
+  - **Purpose**: Document WHAT to build (local files, version controlled)
+  - **Location**: `pm/specs/SPEC-###-name.md`
+  - **Separation**: Local specs (SPEC-###) vs Jira epics (PROJ-###)
+  - **Workflow patterns**: Spec-first (recommended), epic-first, spec-only
+
+### Changed
+
+- **`/epic` command** - now Jira-only (requires integration enabled)
+  - **Breaking**: No longer handles local mode (use `/spec` instead)
+  - **Usage**: `/epic` (new Jira epic), `/epic PROJ-###` (existing), `/epic --spec SPEC-###` (from local spec)
+  - **Requirement**: Jira integration must be enabled in CLAUDE.md
+  - **Error handling**: Clear messaging when Jira not configured
+  - **Semantic separation**: Epic = PM tracking container (Jira), Spec = specification (local)
+
+- **Starter template structure** - updated for spec terminology
+  - **Directory renamed**: pm/epics/ → pm/specs/
+  - **Template renamed**: pm/templates/epic.md → spec.md
+  - **Template updated**: Epic → Feature Spec (version 2.0.0)
+  - **Guidelines updated**: All references to EPIC-### → SPEC-###
+  - **Files affected**: issue-management.md, pm-guidelines.md, development-loop.md, plan-structure.md, pm/README.md, docs/development/README.md, CLAUDE.md, GETTING-STARTED.md
+
+- **Keywords updated** - reflects spec-driven development focus
+  - **Removed**: "epic-management"
+  - **Added**: "spec-driven-development", "feature-specs"
+  - **Files**: plugin.json, marketplace.json
+
+- **Command count** - increased from 23 to 24 commands (added `/spec`)
+  - **Updated**: README.md, plugin.json description, marketplace.json description
+
+### Migration Guide
+
+**For existing projects using pm/epics/:**
+
+```bash
+# 1. Rename directory
+mv pm/epics pm/specs
+
+# 2. Rename template
+mv pm/templates/epic.md pm/templates/spec.md
+
+# 3. Update all EPIC-### references to SPEC-###
+find pm/ -type f -name "*.md" -exec sed -i 's/EPIC-/SPEC-/g' {} +
+
+# 4. Update epic references in guidelines
+find docs/development/guidelines/ -type f -name "*.md" -exec sed -i 's/epic/feature spec/g; s/pm\/epics/pm\/specs/g' {} +
+```
+
+**For Jira users:**
+- Continue using `/epic` for Jira epic management (requires integration)
+- Use `/spec` for local specifications
+- Create bidirectional workflow: `/spec --epic PROJ-###` or `/epic --spec SPEC-001`
+
 ## [0.22.0] - 2025-11-07
 
 ### Added

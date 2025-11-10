@@ -2,7 +2,7 @@
 
 ## Overview
 
-Templates define the structure and required information for epics, issues, and implementation plans. Commands read templates to determine what questions to ask and what sections to generate.
+Templates define the structure and required information for specs, issues, and implementation plans. Commands read templates to determine what questions to ask and what sections to generate.
 
 **Key Principle**: Templates define **structure** ("what sections"), commands provide **intelligence** ("how to create good content").
 
@@ -10,7 +10,7 @@ Templates define the structure and required information for epics, issues, and i
 
 This directory contains 4 templates:
 
-1. **epic.md** - Feature epics with goals and task lists
+1. **spec.md** - Feature specs with goals and task lists
 2. **task.md** - User stories and development tasks
 3. **bug.md** - Bug reports with reproduction steps
 4. **plan.md** - Implementation plans (created by `/plan` command)
@@ -232,7 +232,7 @@ Once template exists, create issues with that type:
 
 ```bash
 # Commands will automatically find templates/spike.md
-/epic    # Add SPIKE-001 to epic task list
+/spec    # Add SPIKE-001 to spec task list
 /plan SPIKE-001    # Will use spike template for structure
 ```
 
@@ -323,7 +323,7 @@ Five essential fields:
 - **Name** - Epic identifier
 - **Description** - Problem, context, value
 - **Definition of Done** - Completion criteria (flexible format)
-- **Dependencies** - ADRs, other epics, external factors
+- **Dependencies** - ADRs, other specs, external factors
 - **Tasks** - Checkbox list of issue IDs
 
 ### Task Template

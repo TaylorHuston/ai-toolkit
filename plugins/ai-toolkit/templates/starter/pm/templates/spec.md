@@ -1,43 +1,43 @@
 ---
 # === Metadata ===
 template_type: "pm-template"
-version: "1.0.0"
+version: "2.0.0"
 created: "2025-10-30"
-last_updated: "2025-10-30"
+last_updated: "2025-11-07"
 status: "Active"
 target_audience: ["AI Assistants", "Project Management"]
-description: "Epic template for organizing related tasks with definition of done"
+description: "Feature Spec template for documenting feature requirements and organizing related tasks"
 
 # === Template Configuration ===
-type: epic
+type: spec
 sections:
   - name: Name
-    prompt: "What is the epic name? (concise, kebab-case friendly)"
+    prompt: "What is the feature spec name? (concise, kebab-case friendly)"
     required: true
     format: text
   - name: Description
-    prompt: "Describe the epic. What problem does it solve? What value does it provide?"
+    prompt: "Describe the feature. What problem does it solve? What value does it provide?"
     required: true
     format: paragraph
-    hint: "Write a clear paragraph explaining the purpose, context, and value of this epic."
+    hint: "Write a clear paragraph explaining the purpose, context, and value of this feature."
   - name: Definition of Done
-    prompt: "How will we know this epic is complete? What are the concrete completion criteria?"
+    prompt: "How will we know this feature is complete? What are the concrete completion criteria?"
     required: true
     format: flexible
     hint: "Can be prose paragraph or bulleted checklist. Make it concrete to prevent scope creep."
   - name: Dependencies
-    prompt: "What must exist before this epic can be completed?"
+    prompt: "What must exist before this feature can be completed?"
     required: false
     format: list
-    hint: "Include ADR references (ADR-001), other epics (EPIC-002), external factors (OAuth setup), etc."
+    hint: "Include ADR references (ADR-001), other specs (SPEC-002), external factors (OAuth setup), etc."
   - name: Tasks
-    prompt: "What tasks make up this epic?"
+    prompt: "What tasks make up this feature?"
     required: true
     format: checklist
     hint: "Bulleted checkbox list with global IDs in creation order: [ ] TASK-001, [ ] BUG-003, etc."
 ---
 
-# EPIC-{id}: {name}
+# SPEC-{id}: {name}
 
 ## Description
 {description}
