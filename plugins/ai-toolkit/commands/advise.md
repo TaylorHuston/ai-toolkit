@@ -5,7 +5,7 @@ argument-hint: "TASK-### PHASE | TASK-### --next | --next"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/plan-structure.md  # Phase structure, quality gates, completion protocol
+  - docs/development/guidelines/pm-guide.md  # Phase structure, quality gates, completion protocol
   - docs/development/guidelines/worklog-format.md  # ADVICE entry format
   - docs/development/guidelines/development-loop.md  # Quality gates, collaborative mode
   - docs/development/guidelines/agent-coordination.md  # Advisory mode agent coordination
@@ -17,7 +17,7 @@ references_guidelines:
 
 **WHY**: Collaborative mode enables hands-on learning, full control over implementation, and balance between automation and manual coding.
 
-**HOW**: See plan-structure.md for phase requirements and completion protocol. See development-loop.md for collaborative implementation mode. See agent-coordination.md for advisory mode patterns.
+**HOW**: See pm-guide.md for phase requirements and completion protocol. See development-loop.md for collaborative implementation mode. See agent-coordination.md for advisory mode patterns.
 
 ## Usage
 
@@ -46,13 +46,13 @@ references_guidelines:
 **Load workflow rules** (read before proceeding):
 
 ```bash
-Read: docs/development/guidelines/plan-structure.md
+Read: docs/development/guidelines/pm-guide.md
 Read: docs/development/guidelines/worklog-format.md
 Read: docs/development/guidelines/development-loop.md
 Read: docs/development/guidelines/coding-standards.md
 ```
 
-**plan-structure.md contains**:
+**pm-guide.md contains**:
 - Phase structure patterns
 - Quality gate requirements
 - Completion protocol (applies to manual implementation too)
@@ -173,7 +173,7 @@ User follows this flow (see development-loop.md for collaborative mode details):
 1. **Code** - Implement following guidance, ask questions naturally as needed
 2. **Document** - Use `/comment` to log work and AI assistance received
 3. **Complete** - Mark phase checkbox in PLAN.md manually
-4. **Commit** - Follow phase commit workflow (see plan-structure.md)
+4. **Commit** - Follow phase commit workflow (see pm-guide.md)
 5. **Review** (optional) - Ask naturally: "Can you review my implementation in [file]?"
 
 **Quality gates apply**: Same per-phase gates as `/implement` (see development-loop.md).

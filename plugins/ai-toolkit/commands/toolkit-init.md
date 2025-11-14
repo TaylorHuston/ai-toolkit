@@ -5,7 +5,7 @@ argument-hint: "[--force | --dry-run]"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Glob", "AskUserQuestion"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/issue-management.md  # PM structure and directory organization
+  - docs/development/guidelines/pm-guide.md  # PM structure and directory organization
   - docs/development/guidelines/development-loop.md  # Development workflow structure
 ---
 

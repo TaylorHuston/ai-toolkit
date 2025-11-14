@@ -420,5 +420,5 @@ sections:
 - **Commands**: Plugin commands documentation for command-specific behavior
 
 **For workflow and process guidance**:
-- `docs/development/guidelines/plan-structure.md` - Agile plan updates, living documents, review cycles
+- `docs/development/guidelines/pm-guide.md` - Agile plan updates, living documents, review cycles
 - `docs/development/guidelines/development-loop.md` - Review-and-adapt process, quality gates

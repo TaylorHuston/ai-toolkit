@@ -5,7 +5,7 @@ argument-hint: "PROJ-###"
 allowed-tools: ["Read", "Write", "Bash", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/pm-guidelines.md  # Jira integration patterns
+  - docs/development/guidelines/jira-integration.md  # Jira integration patterns
   - docs/development/guidelines/worklog-format.md  # WORKLOG format for context gathering
 ---
 

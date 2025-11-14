@@ -5,8 +5,8 @@ argument-hint: "[SPEC-### | --epic PROJ-###]"
 allowed-tools: ["Read", "Write", "Edit", "Glob", "Grep", "Task", "TodoWrite"]
 model: claude-opus-4-1
 references_guidelines:
-  - docs/development/guidelines/issue-management.md  # Spec/issue file formats and naming conventions
-  - docs/development/guidelines/pm-guidelines.md  # Spec creation workflow
+  - docs/development/guidelines/pm-guide.md  # Spec creation workflows and file formats
+  - docs/development/guidelines/jira-integration.md  # Jira mode (if enabled in CLAUDE.md)
 ---
 
 # /spec Command
@@ -15,7 +15,7 @@ references_guidelines:
 
 **WHY**: Natural conversation ensures complete spec structure without rigid forms. Specs document WHAT to build locally, separate from PM tool tracking.
 
-**HOW**: See issue-management.md for spec file format and naming conventions. See pm-guidelines.md for workflow patterns and task suggestion.
+**HOW**: See pm-guide.md for spec creation workflows, file formats, and task suggestion strategies. For Jira mode, see jira-integration.md.
 
 ## Usage
 
@@ -72,11 +72,15 @@ Glob: pm/specs/SPEC-*.md    # Determine next number
 
 ### 4. Creation Flow (Conversational)
 
-**Following pm-guidelines.md spec structure:**
+**Following spec template structure (pm/templates/spec.md):**
 
 Ask user:
 - What's the main goal?
 - Who are the primary users?
+- What are the acceptance scenarios? (2-5 key scenarios in Given-When-Then format)
+  - Example: "Given user has valid credentials, When user submits login form, Then user is redirected to dashboard"
+  - Focus on happy paths and critical edge cases
+  - These scenarios become test phases in /plan
 - What are the success criteria?
 - What's OUT of scope?
 
@@ -96,7 +100,7 @@ _Based on Jira epic PROJ-100_
 
 ### 5. Optionally Add Initial Tasks
 
-**Following pm-guidelines.md task suggestion strategy:**
+**Following pm-guide.md task suggestion strategy:**
 
 Suggest tasks based on spec scope:
 1. TASK-001-user-registration (user-story)
@@ -166,7 +170,13 @@ Creating local feature spec...
 
 What's the main goal? → User authentication
 Who are users? → End users
-Success criteria? → Secure login, 95% coverage
+
+Acceptance scenarios (2-5 key scenarios in Given-When-Then):
+→ 1. Given user has valid credentials, When user submits login, Then redirected to dashboard
+→ 2. Given user enters invalid password, When user submits, Then error shown and login blocked
+→ 3. Given user is inactive, When user tries to login, Then account reactivation prompt shown
+
+Success criteria? → Secure login, 95% test coverage, <2s response time
 OUT of scope? → No SSO, no 2FA yet
 
 ✓ Created SPEC-001: User Authentication
@@ -222,7 +232,7 @@ Fallback: Create spec manually
 
 ## Related Guidelines
 
-- `docs/development/guidelines/issue-management.md` - Spec/issue file formats and naming
-- `docs/development/guidelines/pm-guidelines.md` - Spec creation workflow
+- `docs/development/guidelines/pm-guide.md` - Spec creation workflows and file formats
+- `docs/development/guidelines/jira-integration.md` - Jira mode (if enabled)
 - `pm/README.md` - PM directory structure guide
 - `pm/templates/spec.md` - Spec structure template

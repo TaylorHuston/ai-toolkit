@@ -5,8 +5,8 @@ argument-hint: "TASK-### | BUG-###"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/pm-guidelines.md  # Jira integration and promotion workflow
-  - docs/development/guidelines/issue-management.md  # Local issue structure and migration
+  - docs/development/guidelines/jira-integration.md  # Jira integration and promotion workflow
+  - docs/development/guidelines/pm-guide.md  # Core PM workflows and file formats
 ---
 
 # /promote Command

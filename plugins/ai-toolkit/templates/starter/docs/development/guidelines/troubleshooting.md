@@ -380,8 +380,8 @@ export const getCurrentUser = query({
 - `worklog-format.md` - Complete WORKLOG entry formats (Standard, Troubleshooting, Investigation, Reviews)
 
 **Issue and Plan Management**:
-- `issue-management.md` - TASK.md, BUG.md file formats
-- `plan-structure.md` - PLAN.md structure and progress tracking
+- `pm-guide.md` - TASK.md, BUG.md file formats
+- `pm-guide.md` - PLAN.md structure and progress tracking
 - Use `/adr` command for architecture decisions requiring detailed rationale
 
 **Development Workflow**:

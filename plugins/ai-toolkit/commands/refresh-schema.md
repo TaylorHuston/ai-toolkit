@@ -5,7 +5,7 @@ argument-hint: ""
 allowed-tools: ["Read", "Write", "Bash", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/pm-guidelines.md  # Jira field caching and schema management
+  - docs/development/guidelines/jira-integration.md  # Jira field caching and schema management
 ---
 
 # /refresh-schema Command

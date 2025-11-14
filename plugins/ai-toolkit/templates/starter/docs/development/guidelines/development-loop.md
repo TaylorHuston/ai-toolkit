@@ -2,7 +2,7 @@
 # === Metadata ===
 template_type: "guideline"
 created: "2025-10-30"
-last_updated: "2025-11-06"
+last_updated: "2025-11-13"
 status: "Active"
 target_audience: ["AI Assistants", "Development Team"]
 description: "AI-assisted development workflow with test-first approach, continuous code review, and agent coordination"
@@ -347,12 +347,12 @@ Every issue directory (`pm/issues/TASK-###-name/` or `BUG-###-name/`) can contai
 **TASK.md / BUG.md** (WHAT to do):
 - Primary issue file with acceptance criteria
 - Created by `/spec` or `/plan` commands
-- See `issue-management.md` for complete format
+- See `pm-guide.md` for complete format
 
 **PLAN.md** (HOW to do it - phases):
 - Phase-based implementation breakdown
 - Created by `/plan` command
-- See `plan-structure.md` for complete format
+- See `pm-guide.md` for complete format
 
 **WORKLOG.md** (WHAT was done and WHY):
 - Reverse chronological narrative work history
@@ -673,7 +673,7 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 
 ### Plan Creation and Review
 
-**For complete planning details**, see `plan-structure.md` which documents:
+**For complete planning details**, see `pm-guide.md` which documents:
 - Default phase structures by task type (frontend, backend, bug fixes, etc.)
 - Mandatory code-architect review requirements
 - Conditional security-auditor review for security-relevant tasks
@@ -684,7 +684,7 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 
 ### Progress Tracking
 
-**For progress tracking protocol**, see `plan-structure.md` which documents:
+**For progress tracking protocol**, see `pm-guide.md` which documents:
 - Dual tracking system (PLAN.md phases vs TASK.md acceptance criteria)
 - After-phase-completion checklist (verify, update PLAN, update TASK, write WORKLOG, consider RESEARCH)
 - Task completion validation criteria
@@ -694,7 +694,7 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 
 ### Test-First Guidance
 
-**For test-first approach**, see `plan-structure.md` which documents:
+**For test-first approach**, see `pm-guide.md` which documents:
 - Pragmatic test-first philosophy (test-first when you know, code-first when discovering)
 - Pre-implementation check for test phases
 - AI-powered test generation messaging
@@ -704,7 +704,7 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 
 ### Agent Context Preparation
 
-**For agent briefing patterns**, see `plan-structure.md` which documents:
+**For agent briefing patterns**, see `pm-guide.md` which documents:
 - Context filtering by agent type (backend, frontend, test, security, database, performance)
 - What each agent receives (domain-specific vs full context)
 - Dynamic context loading process
@@ -779,9 +779,9 @@ See [Versioning and Releases](./versioning-and-releases.md) for complete CHANGEL
 ## Related Documentation
 
 **Core Workflow Guidelines:**
-- [Plan Structure](./plan-structure.md) - Phase patterns, reviews, progress tracking, test-first guidance
+- [Plan Structure](./pm-guide.md) - Phase patterns, reviews, progress tracking, test-first guidance
 - [WORKLOG Format](./worklog-format.md) - Standard and troubleshooting WORKLOG entry formats
-- [Issue Management](./issue-management.md) - TASK.md, BUG.md, EPIC.md file formats
+- [Issue Management](./pm-guide.md) - TASK.md, BUG.md, SPEC.md file formats
 - [Troubleshooting](./troubleshooting.md) - 5-step debug loop methodology
 
 **Supporting Guidelines:**

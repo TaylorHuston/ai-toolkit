@@ -782,8 +782,8 @@ Files: convex/users.ts (initial implementation)
 - See `development-loop.md` for quality gates and workflow phases
 
 **For file structure**:
-- See `issue-management.md` for TASK.md, BUG.md formats
-- See `plan-structure.md` for PLAN.md format
+- See `pm-guide.md` for TASK.md, BUG.md formats
+- See `pm-guide.md` for PLAN.md format
 
 **For complex decisions**:
 - Use `/adr` command to create Architecture Decision Records for significant technical decisions

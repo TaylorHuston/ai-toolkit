@@ -5,8 +5,8 @@ argument-hint: "[PROJ-### | --spec SPEC-###]"
 allowed-tools: ["Read", "Write", "Edit", "Glob", "Grep", "Task", "TodoWrite"]
 model: claude-opus-4-1
 references_guidelines:
-  - docs/development/guidelines/issue-management.md  # Issue file formats
-  - docs/development/guidelines/pm-guidelines.md  # Jira integration workflow
+  - docs/development/guidelines/jira-integration.md  # Jira integration workflow
+  - docs/development/guidelines/pm-guide.md  # Core PM workflows
 ---
 
 # /epic Command
@@ -15,7 +15,7 @@ references_guidelines:
 
 **WHY**: Natural conversation for creating PM tracking containers in Jira. Epics organize work at the PM tool level.
 
-**HOW**: See pm-guidelines.md for Jira integration patterns. This command requires Jira integration enabled in CLAUDE.md.
+**HOW**: See jira-integration.md for Jira integration patterns. This command requires Jira integration enabled in CLAUDE.md.
 
 ## Usage
 
@@ -114,7 +114,7 @@ Read: pm/specs/SPEC-###-*.md
 
 ### 5. Creation Flow (Conversational)
 
-**Following pm-guidelines.md Jira epic structure:**
+**Following jira-integration.md Jira epic structure:**
 
 Ask user for required fields:
 - Summary (epic name)
@@ -124,7 +124,7 @@ Ask user for required fields:
 
 **Create in Jira:**
 ```bash
-# Collect fields conversationally (per pm-guidelines.md)
+# Collect fields conversationally (per jira-integration.md)
 # Create via Atlassian MCP
 # Get PROJ-### ID
 # Display Jira URL
@@ -142,7 +142,7 @@ Customize or accept? [Continue to conversational refinement]
 
 ### 6. Optionally Add Initial Issues
 
-**Following pm-guidelines.md task suggestion strategy:**
+**Following jira-integration.md task suggestion strategy:**
 
 Suggest issues based on epic scope:
 1. PROJ-101: User Registration (Story)
@@ -271,6 +271,6 @@ If creation fails, run: /refresh-schema
 
 ## Related Guidelines
 
-- `docs/development/guidelines/pm-guidelines.md` - Jira integration workflow
+- `docs/development/guidelines/jira-integration.md` - Jira integration workflow
 - `docs/jira-integration.md` - Jira setup and configuration
 - `pm/templates/spec.md` - Local spec structure (for --spec flag)

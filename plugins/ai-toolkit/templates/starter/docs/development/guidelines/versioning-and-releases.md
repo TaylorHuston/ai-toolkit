@@ -2,7 +2,7 @@
 # === Metadata ===
 template_type: "guideline"
 created: "2025-11-03"
-last_updated: "2025-11-03"
+last_updated: "2025-11-13"
 status: "Active"
 target_audience: ["Development Team", "AI Assistants"]
 description: "Semantic versioning strategy, release process, and CHANGELOG maintenance"
@@ -62,13 +62,13 @@ While in `0.x.y`, we use:
 - `0.x.0` for **new features** (feature branches merged to develop)
 - `0.0.x` for **bug fixes** (patch releases)
 
-**Examples from our project:**
-- `0.1.0` - Initial Next.js setup (TASK-001)
-- `0.2.0` - Convex backend (TASK-002)
-- `0.3.0` - Cloudinary integration (TASK-003)
-- `0.4.0` - Authentication (TASK-004)
-- `0.4.1` - Bug fix (hypothetical)
-- `0.5.0` - Quote generation (next feature)
+**Example version progression:**
+- `0.1.0` - Initial setup and core structure (TASK-001)
+- `0.2.0` - Database integration (TASK-002)
+- `0.3.0` - Third-party service integration (TASK-003)
+- `0.4.0` - Authentication system (TASK-004)
+- `0.4.1` - Security patch (BUG-001)
+- `0.5.0` - Next major feature (TASK-005)
 
 **Breaking changes in 0.x.y:**
 - Allowed (users expect instability)
@@ -395,5 +395,5 @@ git push origin develop
 
 ---
 
-**Last Updated**: 2025-11-03
-**Next Review**: When releasing v1.0.0 (production-ready)
+**Last Updated**: 2025-11-13
+**Next Review**: After first production release or annually

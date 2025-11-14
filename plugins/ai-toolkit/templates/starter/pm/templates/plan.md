@@ -1,9 +1,8 @@
 ---
 # === Metadata ===
 template_type: "pm-template"
-version: "1.0.0"
 created: "2025-10-30"
-last_updated: "2025-10-30"
+last_updated: "2025-11-09"
 status: "Active"
 target_audience: ["AI Assistants"]
 description: "AI-managed implementation plan separate from PM-tool-synced TASK.md/BUG.md"
@@ -29,6 +28,11 @@ sections:
     required: true
     format: structured-checklist
     hint: "Organized phases with numbered checkboxes (e.g., '- [ ] 1.1 Write user model tests'). Test-first patterns embedded."
+  - name: Scenario Coverage
+    prompt: "Mapping of which phases validate which acceptance scenarios from parent spec"
+    required: false
+    format: structured-list
+    hint: "Only present when TASK references parent SPEC with acceptance scenarios. Shows traceability from spec scenarios to plan phases."
   - name: Alternative Patterns
     prompt: "Optional testing/development patterns that could be used"
     required: false
@@ -60,9 +64,13 @@ sections:
 - [ ] 3.1 {step_description}
 - [ ] 3.2 {step_description}
 
+## Scenario Coverage
+
+{scenario_coverage}
+
 ---
 
-**Note**: Phases are suggestions. See plan-structure.md "Agile Plan Updates" for guidance on updating phases during implementation based on code reviews and security audits.
+**Note**: Phases are suggestions. See pm-guide.md "Agile Plan Updates" for guidance on updating phases during implementation based on code reviews and security audits.
 
 **Alternative Patterns**:
 - **Strict TDD**: Red-Green-Refactor cycle visible in every step

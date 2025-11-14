@@ -6,6 +6,76 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.24.0] - 2025-11-13
+
+### Added
+
+- **spec.md template enhancement** (v2.1.0 → v2.2.0) - agent-optimized specifications
+  - **Added**: "Users & Actors" section (required) - Who uses this feature and their roles
+    - **AI agent value**: security-auditor identifies privilege levels, test-engineer creates role-specific tests, architects design access controls
+    - **Format**: Brief list with role descriptions
+    - **Placement**: After Description, before Acceptance Scenarios
+  - **Added**: "Out of Scope" section (optional) - Explicitly excluded features
+    - **AI agent value**: Prevents over-engineering, focuses implementation effort, clarifies boundaries
+    - **Format**: List of excluded features
+    - **Placement**: After Acceptance Scenarios, before Definition of Done
+  - **Added**: "Success Metrics" section (optional) - Measurable quality targets
+    - **AI agent value**: test-engineer sets thresholds, performance-optimizer targets, security validation
+    - **Format**: Concrete measurable criteria (coverage %, response time, security requirements)
+    - **Placement**: After Definition of Done, before Dependencies
+  - **Enhanced hints**: Acceptance Scenarios now reference actors, improved examples throughout
+  - **Backward compatible**: All new sections optional except Users & Actors
+
+### Changed
+
+- **BDD acceptance scenarios integration** - testable, outcome-driven specifications
+  - **spec.md template** (v2.0.0 → v2.1.0): Added "Acceptance Scenarios" section with Given-When-Then format
+  - **Location**: Between Description and Definition of Done
+  - **Format**: 2-5 scenarios per spec (happy paths and critical edge cases)
+  - **Guidance**: "These scenarios become test phases" hint in template
+  - **Example**: "Given user has valid credentials, When submits login form, Then redirected to dashboard"
+
+- **`/spec` command enhancement** - now prompts for acceptance scenarios
+  - **Creation flow**: Explicitly asks for 2-5 Given-When-Then scenarios
+  - **Inline examples**: Shows format during conversation
+  - **Test-first alignment**: Emphasizes scenarios become test phases in `/plan`
+  - **Updated output**: Example shows 3 acceptance scenarios in conversational format
+
+- **`/plan` command enhancement** - scenario-driven test phase generation
+  - **Step 1**: Now reads parent SPEC.md and extracts acceptance scenarios (if TASK references spec)
+  - **Step 2**: Deep thinking considers how to validate each scenario
+  - **Step 6**: Generates test phases covering scenarios with explicit traceability
+  - **Step 8**: Presents "Scenario Coverage" mapping showing which phases validate which scenarios
+  - **Example output**: Shows scenario → phase mappings and coverage confirmation
+  - **Flexibility**: Works with or without parent spec (falls back to TASK.md acceptance criteria)
+
+- **plan-structure.md guideline** - scenario-driven planning pattern documented
+  - **New section**: "Scenario-Driven Planning" with when/how guidance
+  - **Example**: Complete workflow from SPEC scenarios → PLAN phases → tests
+  - **Traceability**: Shows explicit mapping between scenarios and test phases
+  - **Benefits**: Direct spec → plan traceability, coverage verification, reduced ambiguity
+
+- **issue-management.md guideline** - SPEC.md format updated
+  - **Added section**: "Acceptance Scenarios" with 3 detailed Given-When-Then examples
+  - **Scenarios**: Login success (happy path), invalid password (error), inactive account (edge case)
+  - **Guidance**: "These scenarios become test phases in /plan"
+
+- **plan.md template** (added "Scenario Coverage" section)
+  - **Section added**: Between Phases and Alternative Patterns
+  - **Purpose**: Maps acceptance scenarios to test phases
+  - **Required**: false (only when TASK references parent SPEC)
+  - **Format**: structured-list showing traceability
+
+- **Guideline consolidation** - reduced from 3 files (1,678 lines) to 2 files (1,044 lines)
+  - **BREAKING**: Deleted issue-management.md, pm-guidelines.md, plan-structure.md
+  - **Created**: pm-guide.md (605 lines) - core PM workflows and plan execution
+  - **Created**: jira-integration.md (439 lines) - Jira-specific integration patterns
+  - **Rationale**: Templates are source of truth for structure; guidelines for workflows only
+  - **Benefits**: Clearer separation (core vs integrations), easier maintenance, Jira-agnostic by default
+  - **Updated**: 12 command references, 6 template references, 3 guideline cross-references
+
+**Impact**: Complete spec-driven workflow with traceability from feature scenarios → implementation plans → test code. Enhanced agent planning with actor context, scope boundaries, and quality targets.
+
 ## [0.23.0] - 2025-11-07
 
 ### Breaking Changes

@@ -5,7 +5,7 @@ argument-hint: "TASK-### PHASE | TASK-### --next | --next"
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/plan-structure.md  # Test-first, progress tracking, agent briefing
+  - docs/development/guidelines/pm-guide.md  # Test-first, progress tracking, agent briefing
   - docs/development/guidelines/worklog-format.md  # WORKLOG entry formats
   - docs/development/guidelines/development-loop.md  # Quality gates
   - docs/development/guidelines/git-workflow.md  # Branch creation and verification
@@ -17,7 +17,7 @@ references_guidelines:
 
 **WHY**: Structured execution ensures quality gates, test-first approach, and complete context handoffs.
 
-**HOW**: See plan-structure.md for phase execution, test-first guidance, progress tracking, and agent briefing. See worklog-format.md for WORKLOG entry formats. See development-loop.md for quality gates.
+**HOW**: See pm-guide.md for phase execution, test-first guidance, progress tracking, and agent briefing. See worklog-format.md for WORKLOG entry formats. See development-loop.md for quality gates.
 
 ## Usage
 
@@ -34,13 +34,13 @@ references_guidelines:
 **Load workflow rules** (read before proceeding):
 
 ```bash
-Read: docs/development/guidelines/plan-structure.md
+Read: docs/development/guidelines/pm-guide.md
 Read: docs/development/guidelines/worklog-format.md
 Read: docs/development/guidelines/development-loop.md
 Read: docs/development/guidelines/git-workflow.md
 ```
 
-**plan-structure.md contains**:
+**pm-guide.md contains**:
 - Phase structures and patterns
 - Progress tracking rules
 - Test-first protocol
@@ -109,7 +109,7 @@ Bash: git branch --show-current
 
 **Agent selection**: Based on phase type (frontend, backend, database, etc.)
 
-**Context briefing**: See plan-structure.md "Agent Context Briefing" for filtering patterns.
+**Context briefing**: See pm-guide.md "Agent Context Briefing" for filtering patterns.
 
 Provide agent with:
 - Phase requirements (filtered from PLAN.md)
@@ -117,7 +117,7 @@ Provide agent with:
 - Architecture decisions (from architecture-overview.md)
 - Design patterns (if frontend work)
 
-**Test-first guidance**: See plan-structure.md "Test-First Guidance Protocol".
+**Test-first guidance**: See pm-guide.md "Test-First Guidance Protocol".
 
 Spawn agent via Task tool:
 ```
@@ -151,7 +151,7 @@ Required entry format (per guideline):
 Required checks:
 - Tests pass (if test-first phase)
 - Code review score ≥ 90 (invoke code-reviewer agent)
-- Security approval (if security-relevant per plan-structure.md criteria)
+- Security approval (if security-relevant per pm-guide.md criteria)
 - Documentation updated (if user-facing changes)
 
 ### 7. Post-Phase Review and Adaptation
@@ -186,7 +186,7 @@ Display:
 - code-reviewer (quality validation)
 
 **Conditional**:
-- security-auditor (automatic for security-relevant phases per plan-structure.md criteria)
+- security-auditor (automatic for security-relevant phases per pm-guide.md criteria)
 
 **Coordination method**: WORKLOG.md handoff entries per worklog-format.md.
 
@@ -223,7 +223,7 @@ AI: Fetching PROJ-123 from Jira...
     ✓ On feature/PROJ-123
 
     Following test-first protocol...
-    [Executes phase per plan-structure.md]
+    [Executes phase per pm-guide.md]
 
     ✓ Phase 1.1 complete
     ✓ Updated PLAN.md checkbox
@@ -338,7 +338,7 @@ Available phases:
 
 ### MANDATORY Updates
 
-**Following** `plan-structure.md` **progress tracking protocol**, after each phase:
+**Following** `pm-guide.md` **progress tracking protocol**, after each phase:
 
 **pm/issues/ISSUE-ID-*/PLAN.md**:
 - ✓ Mark completed phase: `- [ ] 1.1` → `- [x] 1.1`
@@ -364,7 +364,7 @@ Available phases:
 
 ### Validation Before Completion
 
-**Following** `plan-structure.md` **task completion validation checklist**:
+**Following** `pm-guide.md` **task completion validation checklist**:
 - All PLAN.md phases checked off: `- [x] All phases`
 - All acceptance criteria verified and checked off
 - All tests pass with 95%+ coverage (or configured target)
@@ -403,13 +403,13 @@ When implementing `/implement ISSUE-ID PHASE`:
 1. **Validate parameters**: Issue exists, phase exists in PLAN.md
 2. **Verify branch**: Warn if mismatch, offer to fix (non-blocking)
 3. **Load context**: TASK.md/BUG.md or Jira, ADRs, WORKLOG, coding-standards.md
-4. **Check test-first**: Follow `plan-structure.md` guidance protocol
-5. **Brief agent**: Provide domain-filtered context per `plan-structure.md`
+4. **Check test-first**: Follow `pm-guide.md` guidance protocol
+5. **Brief agent**: Provide domain-filtered context per `pm-guide.md`
 6. **Apply coding standards**: Agent reads `coding-standards.md` BEFORE writing code
 7. **Execute phase**: Agent follows development loop with quality gates
 8. **Validate standards**: Agent self-checks compliance before marking phase complete
-9. **Update progress**: Follow `plan-structure.md` progress tracking protocol
-10. **Check completion**: If all phases done, follow `plan-structure.md` task completion validation
+9. **Update progress**: Follow `pm-guide.md` progress tracking protocol
+10. **Check completion**: If all phases done, follow `pm-guide.md` task completion validation
 
 ### Implementation Agent Protocol
 

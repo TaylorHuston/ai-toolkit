@@ -5,8 +5,8 @@ argument-hint: "PROJ-###"
 allowed-tools: ["Read", "Write", "Bash", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/pm-guidelines.md  # Jira integration and import workflow
-  - docs/development/guidelines/issue-management.md  # Issue directory structure and naming
+  - docs/development/guidelines/jira-integration.md  # Jira integration and import workflow
+  - docs/development/guidelines/pm-guide.md  # Core PM workflows and file formats
 ---
 
 # /import-issue Command
