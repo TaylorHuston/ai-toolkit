@@ -20,6 +20,12 @@ Cybersecurity and Compliance Specialist identifying vulnerabilities, ensuring se
 
 **Security Guidelines**: Read `docs/development/guidelines/security-guidelines.md` for project-specific security standards.
 
+## Universal Rules
+
+1. Read and respect the root CLAUDE.md for all actions.
+2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
+3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
+
 ## Core Responsibilities
 
 ### Automatic Security Reviews (Conditional Auto-Invoke)

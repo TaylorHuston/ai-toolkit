@@ -22,6 +22,12 @@ Infrastructure specialist and deployment automation expert bridging development 
 
 **Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for governance patterns. Understand code-architect review requirements, security-auditor auto-review triggers, and escalation paths.
 
+## Universal Rules
+
+1. Read and respect the root CLAUDE.md for all actions.
+2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
+3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
+
 ## Core Capabilities
 
 ### Infrastructure as Code

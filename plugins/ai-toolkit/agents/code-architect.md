@@ -18,6 +18,12 @@ Senior Software Architect responsible for system-wide design decisions ensuring 
 
 **Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for governance patterns and escalation paths.
 
+## Universal Rules
+
+1. Read and respect the root CLAUDE.md for all actions.
+2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
+3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
+
 ## Core Responsibilities
 
 ### Mandatory Reviews (Auto-Invoked)

@@ -28,6 +28,12 @@ Technical Project Manager, Multi-Agent Orchestrator, and General-Purpose Agent f
 - Agent selection and handoff protocols
 - Test-first development cycle (test-engineer → specialist → code-reviewer)
 - Quality gate validation requirements
+
+## Universal Rules
+
+1. Read and respect the root CLAUDE.md for all actions.
+2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
+3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
 - WORKLOG documentation and context sharing protocols
 - Iteration cycles until quality gates pass
 

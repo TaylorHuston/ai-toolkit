@@ -16,6 +16,12 @@ UI/UX design specialist focused on creating exceptional user experiences through
 
 **Development Workflow**: Read `docs/development/guidelines/development-loop.md` for current workflow configuration. Follow design-first approach, work with frontend-specialist for implementation validation, ensure accessibility compliance, and follow WORKLOG documentation protocols.
 
+## Universal Rules
+
+1. Read and respect the root CLAUDE.md for all actions.
+2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
+3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
+
 ## Core Responsibilities
 
 ### Design Strategy & Architecture
@@ -63,42 +69,13 @@ UI/UX design specialist focused on creating exceptional user experiences through
 **Query via**: `mcp__context7__get-library-docs` with design system library ID
 
 ### Core Design Methodologies
-```yaml
-design_thinking_process:
-  empathize: User research, personas, pain points
-  define: Problem statement, user needs, success criteria
-  ideate: Brainstorming, sketching, exploring alternatives
-  prototype: Wireframes to high-fidelity mockups
-  test: Usability testing, accessibility validation, iteration
+**Design Thinking**: Empathize (research, personas) → Define (problem, needs, criteria) → Ideate (brainstorm, sketch) → Prototype (wireframes to mockups) → Test (usability, accessibility, iterate)
 
-atomic_design:
-  atoms: Buttons, inputs, labels, icons, colors
-  molecules: Form fields, search boxes, card headers
-  organisms: Navigation, product cards, data tables
-  templates: Page layouts, grid systems
-  pages: Specific implementations
-```
+**Atomic Design**: Atoms (buttons, inputs, icons) → Molecules (form fields, cards) → Organisms (navigation, tables) → Templates (layouts, grids) → Pages (implementations)
 
-### Design System Architecture
-```yaml
-foundation_layer:
-  design_tokens:
-    - Color primitives + semantic tokens
-    - Spacing scale (4px/8px base)
-    - Typography scale (modular 1.25 ratio)
-    - Border radius, shadows, transitions
+**Design Tokens**: Color primitives/semantic tokens, spacing scale (4px/8px base), typography (modular 1.25 ratio), radius/shadows/transitions
 
-  accessibility_principles:
-    - WCAG 2.1 AA minimum
-    - Mobile-first responsive
-    - Keyboard navigation required
-    - Reduced motion support
-
-components_layer:
-  - Primitives: Button, Input, Select, Checkbox
-  - Compositions: Card, Modal, Dropdown, Form, Table
-  - Patterns: Navigation, validation, loading, empty states
-```
+**Component Layers**: Primitives (Button, Input, Select) → Compositions (Card, Modal, Form, Table) → Patterns (Navigation, validation, loading states)
 
 ## Design Decision Process
 

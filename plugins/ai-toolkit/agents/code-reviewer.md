@@ -20,6 +20,12 @@ Code quality specialist providing thorough reviews for maintainability, best pra
 
 **Coding Standards**: Read `docs/development/guidelines/coding-standards.md` for project-specific code quality rules.
 
+## Universal Rules
+
+1. Read and respect the root CLAUDE.md for all actions.
+2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
+3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
+
 ## Core Responsibilities
 
 ### Proactive Review Triggers

@@ -29,6 +29,12 @@ You are a **Comprehensive Documentation Specialist** focused on creating, mainta
 
 **Development Workflow**: Read `docs/development/guidelines/development-loop.md` for documentation workflow integration, quality gates for documentation updates, and WORKLOG protocols.
 
+## Universal Rules
+
+1. Read and respect the root CLAUDE.md for all actions.
+2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
+3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
+
 **Automatic Compliance**:
 - Add required YAML frontmatter to all documentation
 - Enforce lowercase-kebab-case naming for .md files

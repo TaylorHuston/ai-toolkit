@@ -1,6 +1,5 @@
 # Standardized Agent Template
 
-**Version**: 1.0
 **Based on**: subagent-best-practices.md research and audit findings
 **Target**: 100-300 lines per agent
 
@@ -23,6 +22,7 @@ coordination:
 ```
 
 ### Invocation Trigger Patterns
+**Keywords**: Comma separated list of keywords that might trigger this agane
 
 Choose ONE based on agent role:
 
@@ -101,12 +101,18 @@ Choose ONE based on agent role:
    - `coding-standards.md` → code-reviewer
    - `documentation-standards.md` → technical-writer
 
-### 2. Core Responsibilities (Required)
+### 2. Universal Rules
+Rules that apply to all Agents
+
+1. Read and respect the root CLAUDE.md for all actions.
+2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
+3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
+
+### 3. Invocation Triggers
+Clear guidelines on WHEN to invoke this Agent
 
 ```markdown
-## Core Responsibilities
-
-**PRIMARY MISSION**: [One sentence defining the agent's core objective]
+## Invocation Triggers
 
 **Use PROACTIVELY when**:
 - [Condition 1]
@@ -117,6 +123,16 @@ Choose ONE based on agent role:
 - [Trigger 1]
 - [Trigger 2]
 - [Trigger 3]
+
+### Context Keywords
+- "[keyword1]", "[keyword2]", "[keyword3]"
+- "[phrase1]", "[phrase2]"
+```
+
+### 4. Core Responsibilities (Required)
+
+```markdown
+## Core Responsibilities
 
 ### [Expertise Area 1]
 - [Capability 1]
@@ -133,23 +149,8 @@ Choose ONE based on agent role:
 - 3-5 capabilities per area
 - Use parallel structure for readability
 
-### 3. Auto-Invocation Triggers (Optional, for auto-invoked agents)
-
-```markdown
-## Auto-Invocation Triggers
-
-### Automatic Activation
-- [Trigger condition 1]
-- [Trigger condition 2]
-
-### Context Keywords
-- "[keyword1]", "[keyword2]", "[keyword3]"
-- "[phrase1]", "[phrase2]"
-```
-
-**Include for**: Agents with AUTOMATICALLY INVOKED in description
-
-### 4. High-Level Workflow (Required)
+### 5. High-Level Workflow (Required)
+This varies the most based on what the actual AGENT should be doing. Bais towards refencing the applicable guieline files, not hardcoding instructions.
 
 ```markdown
 ## Workflow
@@ -176,7 +177,7 @@ Choose ONE based on agent role:
 - Each phase: 3-5 steps
 - Action-oriented language (verbs: Analyze, Design, Implement, Validate)
 
-### 5. MCP Tool Integration (Required for agents with MCP tools)
+### 6. MCP Tool Integration (Required for agents with MCP tools)
 
 ```markdown
 ## Tool Integration
@@ -218,7 +219,7 @@ Use `mcp__context7__get-library-docs` for:
 - Context7: Agents needing framework docs
 - Gemini: Agents making critical decisions (code-architect, security-auditor, database-specialist)
 
-### 6. Best Practices (Optional but recommended)
+### 7. Best Practices (Optional but recommended)
 
 ```markdown
 ## Best Practices
@@ -239,7 +240,7 @@ Use `mcp__context7__get-library-docs` for:
 
 **Keep to**: 3-4 categories max, 3-5 practices per category
 
-### 7. Handoff Protocols (Required)
+### 8. Handoff Protocols (Required)
 
 ```markdown
 ## Handoff Protocols
@@ -262,7 +263,7 @@ Use `mcp__context7__get-library-docs` for:
 - Focus on 3-5 most common handoffs
 - Keep descriptions to 1-2 bullets each
 
-### 8. Success Metrics (Optional but recommended)
+### 9. Success Metrics (Optional but recommended)
 
 ```markdown
 ## Success Metrics
@@ -278,7 +279,7 @@ Use `mcp__context7__get-library-docs` for:
 
 **Include for**: Agents where quality is measurable (test-engineer, code-reviewer, performance-optimizer)
 
-### 9. Example Usage (Optional)
+### 10. Example Usage (Optional)
 
 ```markdown
 ---

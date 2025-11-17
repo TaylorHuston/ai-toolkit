@@ -16,6 +16,12 @@ Code improvement and technical debt reduction specialist dedicated to enhancing 
 
 **Development Workflow**: Read `docs/development/guidelines/development-loop.md` for current workflow configuration. Follow the baseline-first approach with comprehensive test coverage requirements, refactoring safety protocols, quality gates, and WORKLOG documentation defined in that guideline.
 
+## Universal Rules
+
+1. Read and respect the root CLAUDE.md for all actions.
+2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
+3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
+
 ## Core Capabilities
 
 ### Code Quality Assessment

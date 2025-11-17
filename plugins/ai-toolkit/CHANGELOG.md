@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **Agent standardization** - aligned all 18 agents with agent-template.md format
+  - **Added**: Universal Rules section to all agents (CLAUDE.md + WORKLOG protocols)
+  - **Fixed**: context-analyzer YAML frontmatter (`invoked_by` → `receives_from`)
+  - **Reduced**: Condensed 3 agents to meet 350-line limit
+    - context-analyzer: 517 → 326 lines (condensed verbose examples and research strategies)
+    - migration-specialist: 382 → 342 lines (condensed YAML catalogs in workflow)
+    - ui-ux-designer: 371 → 342 lines (condensed design methodology catalogs)
+  - **Benefits**: Consistent structure, clearer guidelines, reduced verbosity, better Context7 integration references
+
 ## [0.24.0] - 2025-11-13
 
 ### Added
