@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.26.0] - 2025-11-17
+
+### Added
+
+- **`/sync-progress` command** - Automatically sync project state after manual changes
+  - Analyzes git diff to understand what changed
+  - Updates PLAN.md to reflect completed work or new direction
+  - Documents changes in WORKLOG with inferred intent
+  - Suggests next steps based on remaining plan
+  - **Use case**: Made manual code changes offline and want AI to catch up without manual explanation
+  - **Command count**: 25 → 26 commands
+
+### Fixed
+
+- **Command count accuracy** - Corrected command count from 24 to 26 across all documentation (was showing 24, actual count was 25 before sync-progress)
+
 ## [0.25.0] - 2025-11-17
 
 ### Added

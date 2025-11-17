@@ -7,7 +7,7 @@ tags: ["claude-code", "commands", "workflow", "reference"]
 
 # Claude Code Command Reference
 
-Streamlined catalog of 24 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
+Streamlined catalog of 26 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
 
 ## How Commands Work Together
 
@@ -196,6 +196,7 @@ Commands use different parameter paradigms because **different workflows need di
 - **[/branch](../commands/branch.md)** - Unified branch operations (create, merge, delete, switch, status) with git-workflow enforcement
 - **[/commit](../commands/commit.md)** - Branch-aware git commits with automatic issue references
 - **[/comment](../commands/comment.md)** - Add timestamped work log entries for human-AI collaboration
+- **[/sync-progress](../commands/sync-progress.md)** - Analyze git changes, update plan to reflect progress, and document in WORKLOG
 - **[/refresh](../commands/refresh.md)** - Silently refresh AI context by reading project configuration, guidelines, and recent commits
 
 ### **Jira Integration**
@@ -235,6 +236,7 @@ Commands use different parameter paradigms because **different workflows need di
 | `/branch` | Branch operations | `create \| merge \| delete \| switch \| status` |
 | `/commit` | Branch-aware git commits | Natural language instructions |
 | `/comment` | Work log entries | `"your comment text"` |
+| `/sync-progress` | Sync plan with git changes | No arguments (analyzes diff) |
 | `/refresh` | Refresh AI context | No arguments (silent) |
 | `/import-issue` | Import Jira issue | `PROJ-###` |
 | `/promote` | Promote local to Jira | `TASK-### \| BUG-###` |
