@@ -5,33 +5,34 @@ A comprehensive AI-assisted development workflow system for Claude Code, providi
 ## IMPORTANT
 This is very much an alpha/experiment at this point. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and massively changing things as I go.
 
-## What's New in v0.23.0
+## What's New in v0.26.0
 
 **Latest additions:**
+- 🔄 **`/sync-progress` command** - Automatically sync project state after manual changes
+  - Analyzes git diff to understand uncommitted/staged changes
+  - Updates PLAN.md to reflect completed phases or new direction
+  - Documents in WORKLOG with inferred intent and context
+  - Suggests next steps based on remaining plan
+  - Perfect for when you make manual changes offline and want AI to catch up
+
+**Recent additions (v0.25.0):**
+- ☁️ **Cloud platform expert agents** - Three new specialized agents for cloud architecture
+  - **aws-expert** - AWS Solutions Architect (Well-Architected Framework, cost optimization)
+  - **azure-expert** - Azure Solutions Architect (Microsoft ecosystem, hybrid cloud)
+  - **gcp-expert** - Google Cloud Solutions Architect (Kubernetes, BigQuery, Vertex AI)
+  - Multi-cloud comparison and platform-specific implementation guidance
+  - All use claude-opus-4-1 for critical architectural decisions
+
+**Recent additions (v0.24.0):**
+- 🔧 **Agent standardization** - All 21 agents aligned with agent-template.md format
+  - Universal Rules section added (CLAUDE.md + WORKLOG protocols)
+  - Condensed verbose agents to meet 350-line limit
+  - Enhanced Context7 integration references
+
+**Recent additions (v0.23.0):**
 - 🔄 **Epic → Feature Spec terminology pivot** - Aligned with spec-driven development trends (BREAKING CHANGE)
 - ✨ **`/spec` command** - Create and manage local feature specifications with bidirectional Jira integration
 - 🔧 **`/epic` command refactored** - Now Jira-only (requires integration enabled)
-
-**Recent additions (v0.22.0):**
-- 📚 **Documentation standardization** - Unified lowercase-kebab-case naming, fixed broken links, streamlined metadata
-- 📖 **Jira integration guide** - Dedicated docs/jira-integration.md with detailed setup and troubleshooting
-
-**Recent additions (v0.21.0):**
-- 📝 **Development notes system** - Atomic note files for parking lot captures during work
-- 📊 **Phase granularity guidance** - Strengthened principles for atomic, testable, committable phases
-
-**Recent additions (v0.20.0):**
-- 🔄 **Phase commit tracking** - Atomic rollback points for each completed phase with visual commit map
-- 📋 **Documentation sync quality gate** - Validates project docs before merge to develop
-- 🧹 **Guidelines cleanup** - Reduced verbosity by ~520 lines while preserving essential information
-
-**Recent additions (v0.17.0-0.19.0):**
-- ✨ `/plan` enhancement - Deep thinking + library research + best practices (3-5 min thorough planning)
-- 🆕 `/sanity-check` - Mid-work validation with deep reflection to catch drift early
-- 🆕 `/refresh` - Silent AI context refresh (CLAUDE.md + guidelines + recent commits)
-- 🆕 `/comment-issue` - AI-suggested comments for Jira issues based on work context
-- ✨ `/implement --next` - Auto-detect and execute next uncompleted phase
-- 🔧 WORKLOG format improvements with `[AUTHOR:]` and `[NEXT:]` labels for clarity
 
 See [CHANGELOG.md](CHANGELOG.md) for complete release history.
 
@@ -106,6 +107,7 @@ The AI Toolkit plugin provides a complete development workflow system with **26 
 - `/branch` - Unified branch operations (create, merge, delete, switch, status) with git-workflow enforcement
 - `/commit` - Branch-aware git commits with automatic issue references and quality checks
 - `/comment` - Add timestamped work log entries for human-AI collaboration
+- `/sync-progress` - Analyze git changes, update plan to reflect progress, and document in WORKLOG
 - `/refresh` - Silently refresh AI context by reading project configuration and guidelines
 
 ### 🔗 Jira Integration
@@ -128,17 +130,17 @@ The AI Toolkit plugin provides a complete development workflow system with **26 
 
 ## Key Features
 
-### 20 Specialized Agents
+### 21 Specialized Agents
 
 Domain experts that auto-activate based on task context:
 
 - **Strategy & Planning**: brief-strategist, code-architect, project-manager, context-analyzer
+- **Cloud Platforms**: aws-expert, azure-expert, gcp-expert
 - **Design**: ui-ux-designer, api-designer
 - **Implementation**: frontend-specialist, backend-specialist, database-specialist
 - **Quality**: test-engineer, code-reviewer, security-auditor, performance-optimizer
 - **Operations**: devops-engineer, technical-writer
 - **Maintenance**: refactoring-specialist, migration-specialist
-- **Analytics**: data-analyst
 - **AI Expertise**: ai-llm-expert
 
 Each agent has specialized tools, domain knowledge, and triggers for automatic invocation based on task requirements.
@@ -297,7 +299,7 @@ ai-toolkit/
     └── ai-toolkit/                # AI Toolkit plugin
         ├── .claude-plugin/
         │   └── plugin.json
-        ├── commands/              # 24 slash commands
+        ├── commands/              # 26 slash commands
         ├── agents/                # 21 specialized agents
         ├── templates/             # Bundled project templates
         │   └── starter/           # 39 template files
