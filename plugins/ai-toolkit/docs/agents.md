@@ -1,6 +1,6 @@
 # AI Agent Index and Directory
 
-**Total Agents**: 18 | **Coverage**: Complete development workflow
+**Total Agents**: 21 | **Coverage**: Complete development workflow
 
 Comprehensive catalog of specialized AI agents optimized for modern development workflows.
 
@@ -58,6 +58,23 @@ AI agents are specialized experts that automatically activate based on your work
   - _Capabilities_: LLM architecture design, prompt engineering, context management, AI integration patterns
   - _Best For_: AI/ML decision analysis, LLM implementation guidance, AI architecture optimization
   - _Model_: opus | _Color_: green | _Auto-Invoked_: AI/ML architecture decisions
+
+#### **Cloud Platform Experts**
+
+- **[aws-expert](../agents/aws-expert.md)** - AWS cloud architecture and implementation
+  - _Capabilities_: AWS service selection, architecture design, cost optimization, security best practices, Well-Architected Framework
+  - _Best For_: AWS solution design, cloud migration to AWS, multi-cloud comparison, AWS cost optimization
+  - _Model_: opus | _Color_: orange | _Auto-Invoked_: AWS architecture and implementation tasks
+
+- **[azure-expert](../agents/azure-expert.md)** - Azure cloud architecture and implementation
+  - _Capabilities_: Azure service selection, architecture design, cost optimization, Microsoft ecosystem integration, Azure Well-Architected Framework
+  - _Best For_: Azure solution design, hybrid cloud scenarios, Microsoft ecosystem integration, Azure cost optimization
+  - _Model_: opus | _Color_: blue | _Auto-Invoked_: Azure architecture and implementation tasks
+
+- **[gcp-expert](../agents/gcp-expert.md)** - Google Cloud architecture and implementation
+  - _Capabilities_: GCP service selection, architecture design, data analytics (BigQuery), AI/ML (Vertex AI), Kubernetes (GKE), cost optimization
+  - _Best For_: GCP solution design, data-intensive workloads, AI/ML on GCP, Kubernetes-native applications
+  - _Model_: opus | _Color_: green | _Auto-Invoked_: GCP architecture and implementation tasks
 
 #### **Design & User Experience**
 
@@ -157,20 +174,23 @@ These agents activate automatically based on context and task requirements:
 7. **code-reviewer** - Post-implementation quality reviews
 8. **technical-writer** - After code changes affecting documentation
 
-### **On-Demand Specialists** (10 agents)
+### **On-Demand Specialists** (13 agents)
 
 These are invoked for specific domains or specialized work:
 
 1. **brief-strategist** - Product brief and strategic planning
 2. **code-architect** - Architectural decisions and system design
 3. **ai-llm-expert** - AI/LLM architecture and implementation guidance
-4. **ui-ux-designer** - Design decisions, mockups, and design systems
-5. **api-designer** - API architecture and endpoint design
-6. **security-auditor** - Security audits and compliance validation
-7. **devops-engineer** - Infrastructure and deployment automation
-8. **performance-optimizer** - Performance analysis and optimization
-9. **refactoring-specialist** - Code improvement and technical debt reduction
-10. **migration-specialist** - Version upgrades and framework migrations
+4. **aws-expert** - AWS cloud architecture and implementation
+5. **azure-expert** - Azure cloud architecture and implementation
+6. **gcp-expert** - Google Cloud architecture and implementation
+7. **ui-ux-designer** - Design decisions, mockups, and design systems
+8. **api-designer** - API architecture and endpoint design
+9. **security-auditor** - Security audits and compliance validation
+10. **devops-engineer** - Infrastructure and deployment automation
+11. **performance-optimizer** - Performance analysis and optimization
+12. **refactoring-specialist** - Code improvement and technical debt reduction
+13. **migration-specialist** - Version upgrades and framework migrations
 
 ### By Task Complexity
 
@@ -178,6 +198,9 @@ These are invoked for specific domains or specialized work:
 
 - **code-architect** - System architecture and technology decisions
 - **ai-llm-expert** - AI/LLM architecture and implementation optimization
+- **aws-expert** - AWS cloud architecture and cost optimization
+- **azure-expert** - Azure cloud architecture and Microsoft ecosystem integration
+- **gcp-expert** - Google Cloud architecture and data/AI workloads
 - **project-manager** - Multi-agent orchestration and complex coordination
 - **security-auditor** - Critical security analysis and compliance
 - **technical-writer** - Comprehensive documentation creation and maintenance

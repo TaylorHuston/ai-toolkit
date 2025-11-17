@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.25.0] - 2025-11-17
+
+### Added
+
+- **Cloud platform expert agents** - three new specialized agents for cloud architecture guidance
+  - **aws-expert** - AWS Solutions Architect specialist for AWS service selection, architecture design, cost optimization, and security best practices following AWS Well-Architected Framework
+  - **azure-expert** - Azure Solutions Architect specialist for Azure services, Microsoft ecosystem integration, hybrid cloud scenarios, and Azure Well-Architected Framework
+  - **gcp-expert** - Google Cloud Solutions Architect specialist for GCP services, data analytics (BigQuery), AI/ML (Vertex AI), Kubernetes (GKE), and Google Cloud Architecture Framework
+  - **Use cases**: Multi-cloud comparison, platform-specific implementation guidance, cost optimization, architecture design, migration planning
+  - **Model**: claude-opus-4-1 (all three) for critical architectural decisions
+  - **Agent count**: 18 → 21 agents
+
 ### Changed
 
 - **Agent standardization** - aligned all 18 agents with agent-template.md format
