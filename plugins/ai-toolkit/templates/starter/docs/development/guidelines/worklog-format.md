@@ -155,7 +155,7 @@ Files: [key/files/changed.js]
 ### Required Elements
 
 - **Timestamp**: Always run `date '+%Y-%m-%d %H:%M'` - never estimate
-- **Agent identifier**: Name of the agent (or @username for humans via `/comment`)
+- **Agent identifier**: Name of the agent (or @username for humans via `/worklog`)
 - **Arrow notation**: Use `→` for handoffs to show work flow
 - **Brief summary**: What YOU did (not entire phase history) - keep scannable
 - **Gotchas/Lessons**: Only if significant (don't force it)
@@ -188,7 +188,7 @@ Status:
 - ✅ PLAN.md checkbox updated
 ```
 
-**Human comment entry** (via `/comment`):
+**Human comment entry** (via `/worklog`):
 ```markdown
 ## 2025-01-15 10:15 - [AUTHOR: @alice]
 
@@ -745,7 +745,7 @@ Files: convex/users.ts (initial implementation)
 ### Commands Using Standard Format
 
 - **`/implement`**: HANDOFF and COMPLETE entries for phase work
-- **`/comment`**: Manual entries by humans with @username
+- **`/worklog`**: Manual entries by humans with @username
 - **All agents**: Handoff entries during multi-agent workflows
 - **`/quality`**: Review entries with quality scores
 - **`code-reviewer`**: REVIEW APPROVED and REVIEW REQUIRES CHANGES entries

@@ -8,7 +8,7 @@ references_guidelines:
   - docs/development/guidelines/worklog-format.md  # WORKLOG format and work documentation standards
 ---
 
-# /comment Command
+# /worklog Command
 
 **WHAT**: Add timestamped work log entries to track manual changes and communicate with AI.
 
@@ -19,9 +19,9 @@ references_guidelines:
 ## Usage
 
 ```bash
-/comment "Added login button to header"
-/comment "Fixed dark mode - using --color-grey-dark (#2d2d2d)"
-/comment "Don't use jsonwebtoken - jose has better TS support"
+/worklog "Added login button to header"
+/worklog "Fixed dark mode - using --color-grey-dark (#2d2d2d)"
+/worklog "Don't use jsonwebtoken - jose has better TS support"
 ```
 
 ## How It Works
@@ -89,25 +89,25 @@ Choose (1/2/3): _
 
 **Styling work:**
 ```bash
-/comment "Tweaked button padding to 12px/24px for mobile"
+/worklog "Tweaked button padding to 12px/24px for mobile"
 # → Added to WORKLOG, no plan updates needed
 ```
 
 **Feature addition:**
 ```bash
-/comment "Added email validation to login form"
+/worklog "Added email validation to login form"
 # → Added to WORKLOG, AI asks: "Mark phase 1.3 complete? (y/n)"
 ```
 
 **Gotcha documentation:**
 ```bash
-/comment "Don't use setTimeout for token refresh - use setInterval"
+/worklog "Don't use setTimeout for token refresh - use setInterval"
 # → Added to WORKLOG, documented for future reference
 ```
 
 **API change:**
 ```bash
-/comment "API changed - login endpoint now /api/v2/auth/login"
+/worklog "API changed - login endpoint now /api/v2/auth/login"
 # → Added to WORKLOG, AI asks: "Update phase 3.1 description? (y/n)"
 ```
 

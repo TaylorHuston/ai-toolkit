@@ -171,7 +171,7 @@ Output structured advice document for user to follow.
 User follows this flow (see development-loop.md for collaborative mode details):
 
 1. **Code** - Implement following guidance, ask questions naturally as needed
-2. **Document** - Use `/comment` to log work and AI assistance received
+2. **Document** - Use `/worklog` to log work and AI assistance received
 3. **Complete** - Mark phase checkbox in PLAN.md manually
 4. **Commit** - Follow phase commit workflow (see pm-guide.md)
 5. **Review** (optional) - Ask naturally: "Can you review my implementation in [file]?"

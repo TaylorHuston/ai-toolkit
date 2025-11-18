@@ -172,7 +172,7 @@ The AI Toolkit provides **14 commands** for structured development:
 ### Development Support
 - `/branch` - Branch operations (create, merge, delete, switch, status)
 - `/commit` - Branch-aware git commits with automatic issue references
-- `/comment` - Add timestamped work log entries
+- `/worklog` - Add timestamped work log entries
 
 ### Documentation & Status
 - `/docs` - Unified documentation management

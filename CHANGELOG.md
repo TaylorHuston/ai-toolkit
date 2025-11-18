@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.29.0] - 2025-11-17
+
+### Changed
+
+- **Command rename: `/comment` → `/worklog`** - Renamed for clarity about what the command does
+  - Command writes WORKLOG entries, so `/worklog` is more descriptive than `/comment`
+  - Updated all references across documentation and templates
+  - **Breaking**: Users must use `/worklog` instead of `/comment` (functionality unchanged)
+
 ## [0.28.0] - 2025-11-17
 
 ### Changed
@@ -466,7 +475,7 @@ find docs/development/guidelines/ -type f -name "*.md" -exec sed -i 's/epic/feat
     - `/troubleshoot`: Reads worklog-format.md instead of development-loop.md
     - `/plan`: Reads plan-structure.md for review requirements and phase patterns
     - `/implement`: Reads plan-structure.md, worklog-format.md, development-loop.md
-    - `/comment`: References worklog-format.md for WORKLOG format
+    - `/worklog`: References worklog-format.md for WORKLOG format
     - `/epic`: References both issue-management.md and pm-guidelines.md
     - Commands now load only relevant content (e.g., `/implement` reads 3 focused files vs 1 monolithic file)
   - **Benefit**: Easier maintenance, focused loading, single responsibility per file
@@ -582,7 +591,7 @@ find docs/development/guidelines/ -type f -name "*.md" -exec sed -i 's/epic/feat
   - **Interactive mode**: AI analyzes WORKLOG entries, git commits, and existing Jira comments to suggest contextual updates
   - **Direct mode**: User provides comment text, AI shows preview and asks for approval before posting
   - **Context-aware**: Synthesizes recent work into concise, professional updates for stakeholders
-  - **External only**: Works with PROJ-### issues, not local TASK-### or BUG-### (use `/comment` for those)
+  - **External only**: Works with PROJ-### issues, not local TASK-### or BUG-### (use `/worklog` for those)
   - **Always requires approval**: Never auto-posts to Jira, user confirms before any comment is added
 
 ### Changed
@@ -1095,8 +1104,8 @@ This represents a substantial rewrite to this project, with a heavy emphasis on 
   - **Preserves customizations**: Never overwrites without user consent
   - **Use cases**: After plugin updates, periodic drift checks, selective file resets
 
-- **`/comment` command**: Human-AI collaboration through timestamped work log entries
-  - Add manual work notes to WORKLOG.md (e.g., `/comment "Added login button to header"`)
+- **`/worklog` command**: Human-AI collaboration through timestamped work log entries
+  - Add manual work notes to WORKLOG.md (e.g., `/worklog "Added login button to header"`)
   - AI offers to update task plan based on human comments
   - Bidirectional communication channel between developers and AI agents
   - Accurate timestamps via `date` command (no date estimation)
@@ -1131,7 +1140,7 @@ This represents a substantial rewrite to this project, with a heavy emphasis on 
   - **Entry order**: Reverse chronological (newest first for easy scanning)
   - **Accurate timestamps**: Uses `date '+%Y-%m-%d %H:%M'` command (no date estimation)
   - **Content**: Summary + Gotchas/Lessons + Files changed (helps AI remember context)
-  - **Bidirectional**: Both AI agents (via `/implement`) and humans (via `/comment`) add entries
+  - **Bidirectional**: Both AI agents (via `/implement`) and humans (via `/worklog`) add entries
   - **Purpose**: Solves "AI forgets context" problem with implementation insights, not just metadata
   - **Migration**: HANDOFF.yml was never fully adopted, clean break for alpha/beta plugin
   - **Files**: TASK.md (WHAT), WORKLOG.md (HOW + lessons), RESEARCH.md (WHY)
@@ -1145,10 +1154,10 @@ This represents a substantial rewrite to this project, with a heavy emphasis on 
   - **New behavior**: Compare templates, offer selective updates
   - **Flags added**: `--force` (overwrite all), `--dry-run` (preview only)
 
-- **BREAKING: Command consolidation** - 21 → 14 commands (added `/comment`)
+- **BREAKING: Command consolidation** - 21 → 14 commands (added `/worklog`)
   - Consolidated: `/docs-*` (5 commands) → `/docs` (natural language)
   - Removed: `/review` (→ `/quality`), `/refresh` (→ `/status`), `/design` (redundant), `/improve` (obsolete)
-  - Added: `/comment` for human work log entries
+  - Added: `/worklog` for human work log entries
 
 - **BREAKING: Scripts removed** - Deleted entire `scripts/` directory (44 files)
   - Pure AI-driven approach replaces bash/js script enforcement

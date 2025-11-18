@@ -17,7 +17,7 @@ Add AI-suggested comments to external Jira issues by analyzing local work contex
 ## WHY
 Keeps stakeholders informed with professional progress updates synthesized from actual work, without manual comment composition.
 
-**Scope:** External issues only (PROJ-###). Use `/comment` for local issues (TASK-###, BUG-###).
+**Scope:** External issues only (PROJ-###). Use `/worklog` for local issues (TASK-###, BUG-###).
 
 ## HOW
 
@@ -183,7 +183,7 @@ Possible: Doesn't exist, no permission, wrong project key.
 - Not for every commit (too frequent)
 
 ### Related
-- `/comment` - Local WORKLOG entry (not Jira)
+- `/worklog` - Local WORKLOG entry (not Jira)
 - `/import-issue` - Import Jira issue to local
 - `/plan PROJ-###` - Create implementation plan
 - `/implement PROJ-### 1.1` - Execute work

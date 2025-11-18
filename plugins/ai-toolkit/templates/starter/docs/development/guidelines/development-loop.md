@@ -78,7 +78,7 @@ complexity_scoring:
 
 # Development Loop Guidelines
 
-**Referenced by Commands:** `/implement`, `/plan`, `/quality`, `/troubleshoot`, `/comment`
+**Referenced by Commands:** `/implement`, `/plan`, `/quality`, `/troubleshoot`, `/worklog`
 
 ## Quick Reference
 

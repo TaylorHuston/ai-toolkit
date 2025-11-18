@@ -106,7 +106,7 @@ The AI Toolkit plugin provides a complete development workflow system with **26 
 
 - `/branch` - Unified branch operations (create, merge, delete, switch, status) with git-workflow enforcement
 - `/commit` - Branch-aware git commits with automatic issue references and quality checks
-- `/comment` - Add timestamped work log entries for human-AI collaboration
+- `/worklog` - Add timestamped work log entries for human-AI collaboration
 - `/sync-progress` - Analyze git changes, update plan to reflect progress, and document in WORKLOG
 - `/refresh` - Silently refresh AI context by reading project configuration and guidelines
 
