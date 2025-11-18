@@ -5,11 +5,11 @@ argument-hint: "PROJ-###"
 allowed-tools: ["Read", "Write", "Bash", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/jira-integration.md  # Jira integration and import workflow
-  - docs/development/guidelines/pm-guide.md  # Core PM workflows and file formats
+  - docs/development/misc/jira-integration.md  # Jira integration and import workflow
+  - docs/development/workflows/pm-workflows.md  # Core PM workflows and file formats
 ---
 
-# /import-issue Command
+# /jira-import Command
 
 ## WHAT
 Import Jira issue into local structure, creating directory for implementation artifacts and displaying requirements.
@@ -23,7 +23,7 @@ Enables AI-assisted implementation of PM/stakeholder-created issues with local a
 
 ### Usage
 ```bash
-/import-issue PROJ-123    # Import specific Jira issue (or epic with bulk import)
+/jira-import PROJ-123    # Import specific Jira issue (or epic with bulk import)
 ```
 
 ### Pre-Execution Context
@@ -143,7 +143,7 @@ Continue: /plan PROJ-456 or /implement PROJ-456 1.1
 
 **Workflow position:**
 ```
-Jira (PM creates) → /import-issue PROJ-456 → /plan PROJ-456 → /implement
+Jira (PM creates) → /jira-import PROJ-456 → /plan PROJ-456 → /implement
 ```
 
 **Alternative (auto-import):**
@@ -151,7 +151,7 @@ Jira (PM creates) → /import-issue PROJ-456 → /plan PROJ-456 → /implement
 Jira (PM creates) → /plan PROJ-456 (auto-imports) → /implement
 ```
 
-**Use /import-issue when:**
+**Use /jira-import when:**
 - Preview before planning
 - Verify access/existence
 - See acceptance criteria upfront

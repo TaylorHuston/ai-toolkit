@@ -543,8 +543,3 @@ escalation_hierarchy:
 - `security-guidelines.md` - Security standards and OWASP compliance
 - `architectural-principles.md` - ADR patterns and architectural principles
 - `git-workflow.md` - Branch merge gates and deployment validation
-
-**Agent References:**
-- All domain specialist agents reference this guideline
-- Quality agents (code-reviewer, test-engineer, security-auditor) enforce rules from here
-- Strategic agents (code-architect, project-manager) coordinate based on patterns here

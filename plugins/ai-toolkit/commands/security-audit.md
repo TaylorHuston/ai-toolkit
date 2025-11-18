@@ -5,7 +5,7 @@ argument-hint: "[--scope SCOPE] [--depth DEPTH] [--compliance FRAMEWORK] [--outp
 allowed-tools: ["Read", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-opus-4-1
 references_guidelines:
-  - docs/development/guidelines/security-guidelines.md  # Security practices and compliance requirements
+  - docs/development/conventions/security-guidelines.md  # Security practices and compliance requirements
 ---
 
 # /security-audit Command

@@ -5,10 +5,10 @@ argument-hint: "TASK-### PHASE | TASK-### --next | --next"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/pm-guide.md  # Phase structure, quality gates, completion protocol
-  - docs/development/guidelines/worklog-format.md  # ADVICE entry format
-  - docs/development/guidelines/development-loop.md  # Quality gates, collaborative mode
-  - docs/development/guidelines/agent-coordination.md  # Advisory mode agent coordination
+  - docs/development/workflows/pm-workflows.md  # Phase structure, quality gates, completion protocol
+  - docs/development/workflows/worklog-format.md  # ADVICE entry format
+  - docs/development/workflows/development-loop.md  # Quality gates, collaborative mode
+  - docs/development/workflows/agent-coordination.md  # Advisory mode agent coordination
 ---
 
 # /advise Command
@@ -23,182 +23,58 @@ references_guidelines:
 
 ```bash
 /advise TASK-001 1.2        # Get guidance for Phase 1.2
-/advise BUG-003 2.1         # Get guidance for bug fix phase
-/advise PROJ-123 1.3        # Get guidance for Jira issue phase
 /advise TASK-001 --next     # Smart: find and advise on next uncompleted phase
 /advise --next              # Auto-detect current task, advise next phase
 ```
 
-**Modes**:
-- **Specific phase**: Provide guidance for exact phase number
-- **Next phase**: Auto-detect next uncompleted phase from PLAN.md
-- **Auto next**: Detect current task from git branch, advise next phase
+## Execution Flow
 
-**Related commands**:
-- `/implement` - Automated mode (AI writes code)
-- `/advise` - Collaborative mode (you write code, AI guides)
-- `/plan` - Create phase breakdown first
+**Before you start**: Read pm-guide.md for phase requirements and completion protocol. Read development-loop.md for collaborative implementation mode. Read agent-coordination.md for advisory mode patterns.
 
----
+### High-Level Steps
 
-## Pre-Execution Context
+1. **Parse & Locate**
+   - Parse issue ID and phase number (or auto-detect next)
+   - Locate issue directory: pm/issues/{ISSUE-ID}-*/
+   - Read TASK.md/BUG.md, PLAN.md
 
-**Load workflow rules** (read before proceeding):
+2. **Analyze Context**
+   - Read CLAUDE.md, coding-standards.md, architecture-overview.md
+   - Grep existing code patterns in codebase
+   - Understand phase requirements and project constraints
 
-```bash
-Read: docs/development/guidelines/pm-guide.md
-Read: docs/development/guidelines/worklog-format.md
-Read: docs/development/guidelines/development-loop.md
-Read: docs/development/guidelines/coding-standards.md
-```
+3. **Invoke Advisory Agents**
+   - code-architect: Architectural approach, patterns, integration points
+   - security-auditor: Security considerations (if applicable)
+   - test-engineer: Test strategy and scenarios
+   - **All agents in advisory mode**: No code generation, guidance only
 
-**pm-guide.md contains**:
-- Phase structure patterns
-- Quality gate requirements
-- Completion protocol (applies to manual implementation too)
+4. **Compile Guidance Document**
+   - Suggested approach (high-level strategy)
+   - Implementation details (signatures, types, patterns)
+   - Files to create/modify
+   - Security considerations (if applicable)
+   - Testing strategy
+   - Code examples (minimal scaffolding)
 
-**development-loop.md contains**:
-- Collaborative implementation mode workflow
-- Quality gates for manual implementation
+5. **Create WORKLOG Entry**
+   - Write ADVICE entry per worklog-format.md
+   - Document guidance provided
+   - Mark phase as advised
 
-**worklog-format.md contains**:
-- ADVICE entry format for documenting guidance
+6. **Present to User**
+   - Output structured advice for manual implementation
+   - User implements following guidance
+   - User marks phase complete in PLAN.md
+   - Same quality gates apply as /implement
 
----
-
-## Execution Steps
-
-### 1. Parse Parameters and Locate Phase
-
-```bash
-# Parse issue ID and phase number (or detect next phase)
-# Locate issue directory: pm/issues/{ISSUE-ID}-*/
-Read: TASK.md/BUG.md
-Read: PLAN.md
-```
-
-**Smart next mode** (TASK-001 --next):
-- Read PLAN.md, find first uncompleted phase
-- Show phase to user, ask confirmation
-- Continue to step 2
-
-**Auto next mode** (--next only):
-- Detect current task from git branch or recent WORKLOG
-- Read PLAN.md, find first uncompleted phase
-- Show phase to user, ask confirmation
-- Continue to step 2
-
-### 2. Analyze Context
-
-```bash
-Read: CLAUDE.md
-Read: docs/development/guidelines/coding-standards.md
-Read: docs/project/architecture-overview.md
-Grep: Existing code patterns in codebase
-```
-
-**Analyze**:
-- Phase requirements from PLAN.md
-- Existing code patterns and conventions
-- Related implementations in codebase
-- Project architectural constraints
-
-### 3. Invoke Agents in Advisory Mode
-
-**Use Task tool** to invoke agents in advisory mode (no code generation):
-
-**code-architect** (always):
-- Review phase requirements
-- Suggest architectural approach
-- Identify integration points
-- Recommend patterns
-- **Output**: Structural guidance only
-
-**security-auditor** (if phase matches security keywords/patterns):
-- Identify security considerations
-- Suggest secure patterns
-- List vulnerabilities to avoid
-- Provide security testing guidance
-- **Output**: Security recommendations only
-
-**test-engineer** (always):
-- Suggest test strategy
-- Propose test cases
-- Recommend test structure
-- **Output**: Testing guidance only
-
-### 4. Compile Structured Guidance
-
-**Generate advice document** with sections:
-1. **Suggested Approach** - High-level strategy
-2. **Implementation Details** - Technical specifics (signatures, types, patterns)
-3. **Files to Create/Modify** - Explicit file-level guidance
-4. **Security Considerations** - OWASP vulnerabilities to avoid (if applicable)
-5. **Testing Strategy** - Test scenarios and edge cases
-6. **Code Examples** - Minimal scaffolding (interfaces, signatures)
-7. **Related Documentation** - Links to guidelines
-
-**Keep it actionable**: Specific enough to guide, general enough to allow creativity.
-
-### 5. Create WORKLOG Entry
-
-```bash
-Write: pm/issues/{ISSUE-ID}-*/WORKLOG.md
-```
-
-**ADVICE entry format**:
-```markdown
-## YYYY-MM-DD HH:MM - [ADVICE: Phase X.Y]
-
-Provided implementation guidance for [brief phase description].
-
-**Approach**: [High-level strategy]
-**Files**: [Key files to create/modify]
-**Security**: [Security considerations if applicable]
-**Testing**: [Test strategy summary]
-
-→ User will implement phase manually
-```
-
-### 6. Present Guidance to User
-
-Output structured advice document for user to follow.
-
----
-
-## After Receiving Guidance
-
-User follows this flow (see development-loop.md for collaborative mode details):
-
-1. **Code** - Implement following guidance, ask questions naturally as needed
-2. **Document** - Use `/worklog` to log work and AI assistance received
-3. **Complete** - Mark phase checkbox in PLAN.md manually
-4. **Commit** - Follow phase commit workflow (see pm-guide.md)
-5. **Review** (optional) - Ask naturally: "Can you review my implementation in [file]?"
-
-**Quality gates apply**: Same per-phase gates as `/implement` (see development-loop.md).
-
----
+**See development-loop.md "Collaborative Implementation Mode" for complete workflow and examples.**
 
 ## Mode Comparison
 
-| Aspect | /implement (Automated) | /advise (Collaborative) |
-|--------|----------------------|------------------------|
-| Code writing | AI writes all code | User writes code |
-| Speed | Fast | Slower (manual) |
-| Learning | Less hands-on | More hands-on |
-| Control | AI controls details | User controls details |
-| Best for | Boilerplate, standard patterns | Complex logic, learning |
+**`/implement`** (Automated): AI writes code, fast, best for boilerplate/standard patterns
+**`/advise`** (Collaborative): User writes code with AI guidance, hands-on learning, best for complex logic
 
-**Hybrid approach** (recommended):
-```bash
-/implement TASK-001 1.1  # AI: boilerplate
-/advise TASK-001 1.2     # User: complex logic
-/implement TASK-001 1.3  # AI: testing
-```
+**Hybrid approach** (recommended): `/implement` for boilerplate → `/advise` for complex logic → `/implement` for tests
 
----
-
-## Examples
-
-See development-loop.md "Collaborative Implementation Mode" for complete examples and workflow patterns.
+See development-loop.md for complete workflow patterns and examples.

@@ -5,7 +5,7 @@ argument-hint: "create ISSUE-ID | merge [target] | delete branch-name | switch b
 allowed-tools: ["Bash", "Read", "Edit", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/git-workflow.md  # Source of truth for branching rules, merge validation, naming patterns
+  - docs/development/workflows/git-workflow.md  # Source of truth for branching rules, merge validation, naming patterns
 ---
 
 # /branch Command
@@ -16,7 +16,7 @@ references_guidelines:
 
 **HOW**: See git-workflow.md for branching rules, merge validation requirements, and naming patterns.
 
-**CRITICAL**: Always read `docs/development/guidelines/git-workflow.md` FIRST for project-specific rules.
+**CRITICAL**: Always read `docs/development/workflows/git-workflow.md` FIRST for project-specific rules.
 
 ## Usage
 
@@ -73,7 +73,7 @@ references_guidelines:
 
 ## Configuration
 
-Reads `docs/development/guidelines/git-workflow.md` YAML frontmatter:
+Reads `docs/development/workflows/git-workflow.md` YAML frontmatter:
 
 ```yaml
 ---
@@ -119,7 +119,7 @@ See `git-workflow.md` for complete rules and rationale.
 Task: "Execute Git branch operation following project workflow rules.
 
 CRITICAL:
-1. FIRST: Read docs/development/guidelines/git-workflow.md
+1. FIRST: Read docs/development/workflows/git-workflow.md
    - Extract YAML frontmatter
    - Understand strategy, patterns, merge rules
    - Use as source of truth

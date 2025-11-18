@@ -1,8 +1,22 @@
-# Sync Progress Command
+---
+tags: ["workflow", "manual-changes", "planning"]
+description: "Sync project state after manual changes via git diff analysis"
+argument-hint: ""
+allowed-tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "TodoWrite"]
+model: claude-sonnet-4-5
+references_guidelines:
+  - docs/development/workflows/pm-workflows.md  # Plan structure and phase management
+  - docs/development/workflows/worklog-format.md  # WORKLOG entry formats
+  - docs/development/workflows/git-workflow.md  # Git diff analysis
+---
 
-**Purpose**: Automatically sync project state when user makes manual changes - analyzes git diff, updates plan to reflect progress, and documents changes in WORKLOG.
+# /sync-progress Command
 
-**Use when**: You've made manual code changes and want AI to catch up without manually explaining everything.
+**WHAT**: Automatically sync project state when user makes manual changes.
+
+**WHY**: Analyzes git diff, updates plan to reflect progress, and documents changes in WORKLOG without manual explanation.
+
+**HOW**: See pm-guide.md for plan/phase management, worklog-format.md for entry structure, git-workflow.md for git analysis.
 
 ---
 

@@ -5,7 +5,7 @@ argument-hint: "[message] [--files FILES] [--amend] [--no-verify] [--interactive
 allowed-tools: ["Bash", "Read", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/git-workflow.md  # Commit conventions, type inference, branch naming
+  - docs/development/workflows/git-workflow.md  # Commit conventions, type inference, branch naming
 ---
 
 # /commit Command

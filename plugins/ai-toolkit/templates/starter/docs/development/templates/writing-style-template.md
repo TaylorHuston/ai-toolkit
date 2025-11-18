@@ -1,10 +1,8 @@
 ---
 # === Metadata ===
 template_type: "documentation"
-version: "0.1.0"
 created: "2025-10-30"
 last_updated: "2025-10-30"
-status: "Optional"
 target_audience: ["AI Assistants", "Content Team", "Development Team"]
 description: "Writing style and content guidelines for UI copy, documentation, and user-facing text."
 title: "Writing Style Guide"

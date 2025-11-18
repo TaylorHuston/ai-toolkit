@@ -5,7 +5,9 @@ argument-hint: "[\"optional context or topic\"]"
 allowed-tools: ["Read", "Write", "Edit", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-opus-4-1
 references_guidelines:
-  - docs/development/guidelines/architectural-principles.md  # Design principles and patterns to consider
+  - docs/development/conventions/architectural-principles.md  # Design principles and patterns to consider
+  - docs/development/templates/adr-template.md  # ADR template structure
+  - docs/development/templates/architecture-overview-template.md  # Architecture overview template structure
 ---
 
 # /adr Command
@@ -76,7 +78,7 @@ AI: Great! Creating ADR-001-use-postgresql-supabase.md
 ## Files Read Before Conversation
 
 - `docs/project/adrs/README.md` - Best practices, quality standards
-- `docs/project/adrs/adr-template.md` - Required sections (YAML frontmatter)
+- `docs/development/templates/adr-template.md` - Template structure (YAML frontmatter)
 - `docs/project/adrs/ADR-*.md` - Existing ADRs (decision history, patterns, conflicts)
 - `docs/project/architecture-overview.md` - Current architecture state
 - `docs/project-brief.md`, `CLAUDE.md` - Project context
@@ -110,12 +112,13 @@ CRITICAL MINDSET:
 - Explore edge cases before committing
 
 PROCESS:
-1. BEFORE: Read README.md, adr-template.md, ALL ADR-*.md, architecture-overview.md,
-   project-brief.md, CLAUDE.md
+1. BEFORE: Read docs/project/adrs/README.md, docs/development/templates/adr-template.md,
+   ALL docs/project/adrs/ADR-*.md, docs/project/architecture-overview.md,
+   docs/project-brief.md, CLAUDE.md
 2. DURING: Ask ONE question at a time, wait for answer, leverage specialist agents
    via Task tool
-3. AFTER: Determine ADR number, create ADR-###-<kebab-case>.md, update
-   architecture-overview.md, link from epic if relevant
+3. AFTER: Determine ADR number, create docs/project/adrs/ADR-###-<kebab-case>.md, update
+   docs/project/architecture-overview.md, link from epic if relevant
 
 ADR CONTENT:
 - Context: Why matters, forces at play, honest problem framing
@@ -144,7 +147,7 @@ Output ADR documenting conversation and decision."
 ## Workflow Integration
 
 ```
-/project-brief → /adr → /epic → /plan → /implement
+/project-brief → /adr → /jira-epic → /plan → /implement
                    ↓
           docs/project/adrs/
                    ↓
@@ -153,8 +156,8 @@ Output ADR documenting conversation and decision."
 
 **Use `/adr`**:
 - After `/project-brief` - Foundational decisions
-- Before `/epic` - Establish patterns
-- During `/epic` - Epic-specific technical decisions
+- Before `/jira-epic` - Establish patterns
+- During `/jira-epic` - Epic-specific technical decisions
 - Before `/plan` - Document technical approach
 
 ## ADR Maintenance
@@ -169,6 +172,6 @@ Output ADR documenting conversation and decision."
 ## Related Commands
 
 - `/project-brief` - Project vision informing decisions
-- `/epic` - References ADRs in Dependencies
+- `/jira-epic` - References ADRs in Dependencies
 - `/plan` - References ADRs for context
 - `/docs` - Generate architecture docs from ADRs

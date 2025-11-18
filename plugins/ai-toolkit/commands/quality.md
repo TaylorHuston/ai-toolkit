@@ -5,7 +5,7 @@ argument-hint: "[assess|validate|audit|fix] [--scope SCOPE] [--depth DEPTH] [--f
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/development-loop.md  # Quality dimensions, quality gates, thresholds
+  - docs/development/workflows/development-loop.md  # Quality dimensions, quality gates, thresholds
 ---
 
 # /quality Command
@@ -107,7 +107,7 @@ Agent-guided issue resolution.
 
 ## Quality Dimensions
 
-Configuration in `docs/development/guidelines/development-loop.md` (YAML frontmatter).
+Configuration in `docs/development/workflows/development-loop.md` (YAML frontmatter).
 
 **Default Dimensions** (customizable):
 - **code_quality** - Complexity, maintainability (code-reviewer)

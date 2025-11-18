@@ -5,7 +5,7 @@ aliases: ["update-changelog"]
 allowed-tools: ["Read", "Edit", "Bash", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/versioning-and-releases.md  # CHANGELOG format, categories, writing style
+  - docs/development/conventions/versioning-and-releases.md  # CHANGELOG format, categories, writing style
 ---
 
 # /changelog Command

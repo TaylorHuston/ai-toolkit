@@ -5,7 +5,7 @@ argument-hint: "\"your comment text\""
 allowed-tools: ["Read", "Write", "Edit", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/worklog-format.md  # WORKLOG format and work documentation standards
+  - docs/development/workflows/worklog-format.md  # WORKLOG format and work documentation standards
 ---
 
 # /worklog Command

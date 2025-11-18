@@ -1,88 +1,20 @@
 ---
 # === Metadata ===
 template_type: "guideline"
-created: "2025-11-13"
-last_updated: "2025-11-13"
+created: "2025-11-18"
+last_updated: "2025-11-18"
 status: "Active"
 target_audience: ["AI Assistants", "Developers"]
-description: "Core PM workflows and plan execution methodology for local project management"
+description: "PM workflows for spec creation, task creation, and plan execution"
 ---
 
-# PM Guide - Core Workflows & Execution
+# PM Workflows
 
 **Referenced by Commands:** `/spec`, `/plan`, `/implement`, `/advise`
 
 ## Overview
 
-This guide defines core project management workflows for creating and executing work. It is **Jira-agnostic** and works entirely with local files.
-
-### File Types
-
-**Specs** (`pm/specs/SPEC-###-name.md`):
-- Feature-level initiatives containing multiple tasks
-- Created by `/spec` command
-- Structure defined in `pm/templates/spec.md` template
-- Format: YAML frontmatter + Description + Acceptance Scenarios + Definition of Done + Tasks
-
-**Tasks** (`pm/issues/TASK-###-name/TASK.md`):
-- Implementation work for features or enhancements
-- Created by `/spec` command or standalone
-- Structure defined in `pm/templates/task.md` template
-- Format: YAML frontmatter + Description + Acceptance Criteria + Technical Notes
-
-**Bugs** (`pm/issues/BUG-###-name/BUG.md`):
-- Defect tracking and fixes
-- Created by `/spec` command or standalone
-- Structure defined in `pm/templates/bug.md` template
-- Format: YAML frontmatter + Description + Reproduction Steps + Environment
-
-**Plans** (`pm/issues/TASK-###-name/PLAN.md`):
-- AI-managed implementation breakdown for tasks/bugs
-- Created by `/plan` command
-- Structure defined in `pm/templates/plan.md` template
-- Format: YAML frontmatter + Overview + Phases + Scenario Coverage + Complexity Analysis
-- Stays separate from TASK.md/BUG.md (which may sync with external PM tools)
-
-**Templates are Source of Truth:** See `pm/templates/*.md` for complete file structure definitions.
-
-### Directory Structure
-
-```
-pm/
-├── specs/
-│   └── SPEC-###-kebab-name.md          # Feature specs
-├── issues/
-│   ├── TASK-###-kebab-name/
-│   │   ├── TASK.md                     # What to build
-│   │   ├── PLAN.md                     # How to build (AI-managed)
-│   │   └── WORKLOG.md                  # What happened (AI-managed)
-│   └── BUG-###-kebab-name/
-│       ├── BUG.md                      # Bug description
-│       ├── PLAN.md                     # Fix approach
-│       └── WORKLOG.md                  # Fix history
-└── templates/
-    ├── spec.md                         # Spec template
-    ├── task.md                         # Task template
-    ├── bug.md                          # Bug template
-    └── plan.md                         # Plan template
-```
-
-### Naming Conventions
-
-**Kebab-case:** All file and directory names use lowercase-kebab-case
-- Good: `user-authentication-system`, `fix-login-timeout`
-- Bad: `UserAuthenticationSystem`, `fix_login_timeout`
-
-**Numbering:** Sequential global per type
-- SPEC-001, SPEC-002, SPEC-003 (feature specs)
-- TASK-001, TASK-002, TASK-003 (tasks, across all specs)
-- BUG-001, BUG-002, BUG-003 (bugs, across all specs)
-
-Numbers are never reused, even if items are deleted. Gaps in sequence are normal.
-
-### External Integration
-
-**Jira Mode:** For projects using Jira, see `jira-integration.md` for dual-mode behavior and promotion workflows.
+This guide defines workflows for creating and executing project management work. For file structure and naming conventions, see **pm-file-formats.md**.
 
 ---
 
@@ -138,23 +70,6 @@ The `/spec` command uses natural conversation to gather:
    - External factors
 
 **Philosophy:** Natural on surface, structured underneath. Commands handle structure; users describe intent.
-
-### Number Assignment Logic
-
-**Algorithm:**
-1. Scan `pm/specs/` directory
-2. Parse all `SPEC-###-*` filenames
-3. Find highest number (e.g., SPEC-004)
-4. Increment by 1 (next: SPEC-005)
-5. Assign to new spec
-
-**Important:** Numbers continue sequence, they don't fill gaps.
-
-**Example:**
-```
-Existing: SPEC-001, SPEC-002, SPEC-004 (SPEC-003 was deleted)
-Next: SPEC-005 (continues sequence)
-```
 
 ### Task Suggestion Strategy
 
@@ -245,32 +160,11 @@ AI: "Create another? (yes/no)"
 
 **Detection:** Commands infer type from conversation, but users can specify explicitly.
 
-### Number Assignment Logic
-
-**Algorithm (per issue type):**
-1. Scan `pm/issues/` for all `[TYPE]-###-*` directories
-2. Find highest number for this type
-3. Increment by 1
-4. Assign to new issue
-
-**Important:** Numbering is GLOBAL per type, not per-spec.
-
-**Example:**
-```
-Existing issues:
-- TASK-001 (spec: SPEC-001)
-- TASK-002 (spec: SPEC-001)
-- TASK-003 (spec: SPEC-002)
-
-Creating task for SPEC-003:
-Next: TASK-004 (continues global sequence)
-```
-
 ### Template-Driven Creation
 
 **Process:**
 1. Determine issue type (TASK, BUG, etc.)
-2. Read corresponding template (`pm/templates/[type].md`)
+2. Read corresponding template (templates/[type].md)
 3. Parse template YAML frontmatter for required sections
 4. Gather details conversationally
 5. Create `pm/issues/[TYPE]-###-name/[TYPE].md` following template
@@ -610,28 +504,6 @@ Relevant Files: [filtered list for backend domain]
 
 ---
 
-## Status Management
-
-### Spec Status Values
-
-- `planning` - Spec defined, tasks not yet created or planned
-- `in_progress` - At least one task started
-- `completed` - All tasks complete, Definition of Done satisfied
-- `on_hold` - Blocked or deprioritized
-
-**Updates:** Manual in spec frontmatter, or inferred from task status.
-
-### Task/Bug Status Values
-
-- `todo` - Created, not started
-- `in_progress` - Implementation underway
-- `completed` - All acceptance criteria met
-- `blocked` - Waiting on dependency or decision
-
-**Updates:** `/implement` updates automatically, or manual in frontmatter.
-
----
-
 ## Common Patterns
 
 ### Pattern: Phased Delivery Spec
@@ -675,20 +547,21 @@ SPEC-003: "Real-time Notifications"
 3. TASK-009: Implement chosen solution
 ```
 
-**Approach:** Research tasks before implementation tasks. (Requires custom SPIKE issue type - see pm/templates/README.md for adding custom types.)
+**Approach:** Research tasks before implementation tasks. (Requires custom SPIKE issue type - see templates/README.md for adding custom types.)
 
 ---
 
 ## Related Documentation
 
-**Templates (Source of Truth for File Structure):**
-- `pm/templates/spec.md` - Feature spec template with YAML config
-- `pm/templates/task.md` - Task template with YAML config
-- `pm/templates/bug.md` - Bug template with YAML config
-- `pm/templates/plan.md` - Plan template with YAML config
+**File Formats:**
+- `pm-file-formats.md` - File structure, naming conventions, directory organization
 
-**User Guides:**
-- `pm/README.md` - Overview of PM directory for developers
+**Templates (Source of Truth for File Structure):**
+- `templates/spec.md` - Feature spec template with YAML config
+- `templates/task.md` - Task template with YAML config
+- `templates/bug.md` - Bug template with YAML config
+- `templates/plan.md` - Plan template with YAML config
+- `templates/README.md` - Template usage guide and custom types
 
 **Workflow Guides:**
 - `development-loop.md` - Implementation workflow and quality gates

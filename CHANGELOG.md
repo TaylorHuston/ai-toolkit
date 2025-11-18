@@ -6,6 +6,77 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Removed
+
+- **`/refresh-schema` command** - Field cache now auto-refreshes automatically
+  - Jira field cache refreshes on discovery failures
+  - No manual cache management needed
+  - Reduces command count from 26 to 25
+
+### Changed
+
+- **Jira command naming** - Renamed 4 commands with `jira-` prefix for clarity
+  - `/epic` → `/jira-epic`
+  - `/import-issue` → `/jira-import`
+  - `/promote` → `/jira-promote`
+  - `/comment-issue` → `/jira-comment`
+  - **Why**: Makes Jira requirement immediately clear
+  - **Breaking**: Users must update to new command names
+
+- **Command bloat reduction** - Refactored 6 commands following "commands orchestrate, guidelines configure" principle
+  - Reduced 6 commands from 1,815 → 662 lines (64% reduction)
+  - Moved implementation details to referenced guidelines
+  - Kept only high-level orchestration flow
+  - Commands: `/implement`, `/plan`, `/jira-epic`, `/spec`, `/jira-promote`, `/advise`
+  - **Goal**: Faster loading, easier maintenance, clearer purpose
+
+- **WORKLOG review entry requirement** - Made mandatory review agent entries explicit
+  - **worklog-format.md**: Added MANDATORY markers for code-reviewer and security-auditor entries
+  - **development-loop.md "Code Review Process"**: Emphasized code-reviewer MUST write separate WORKLOG entry
+  - **development-loop.md "Per-Phase Gates"**: Added quality gates #4 and #7 for review WORKLOG entries
+  - **Phase loop updated**: code-reviewer writes entry BEFORE commit, implementation agent writes after
+  - **Why**: Creates audit trail, provides detailed feedback for future agents, documents quality decisions
+  - **What changed**: Implementation agents should NOT write review results - reviewers document their own findings
+  - **Goal**: Ensure every phase has detailed review documentation in WORKLOG, not just score mentions
+
+- **Guideline reorganization** - Reorganized docs/development/guidelines/ into 4 focused directories
+  - **New structure**:
+    - `conventions/` (7 files) - Project conventions and rules for both AI and humans
+    - `workflows/` (9 files) - Concrete step-by-step AI execution protocols
+    - `misc/` (4 files) - Command/agent reference docs, integration guides, and MCP server documentation
+    - `templates/` (12 files) - All PM templates + documentation templates
+  - **Template consolidation**:
+    - Moved PM templates from `pm/templates/` to `docs/development/templates/`
+    - Moved project-brief template from `docs/project-brief.md` to `docs/development/templates/project-brief.md`
+    - Moved ADR template from `docs/project/adrs/adr-template.md` to `docs/development/templates/adr-template.md`
+    - Moved and renamed architecture overview: `docs/project/architecture-overview.md` → `docs/development/templates/architecture-overview-template.md`
+    - Moved and renamed design overview: `docs/project/design-overview.md` → `docs/development/templates/design-overview-template.md`
+    - Moved and renamed writing style: `docs/project/writing-style.md` → `docs/development/templates/writing-style-template.md`
+    - Project brief file still lives at `docs/project-brief.md` (created from template by `/toolkit-init`)
+    - ADR instances still live in `docs/project/adrs/` (created from template by `/adr`)
+    - Architecture overview instance still lives at `docs/project/architecture-overview.md` (created from template by `/toolkit-init`)
+    - Design overview instance still lives at `docs/project/design-overview.md` (created from template by `/toolkit-init`)
+    - Writing style instance still lives at `docs/project/writing-style.md` (created from template by `/toolkit-init`)
+  - **Reference docs moved to user projects**:
+    - Moved `commands.md` from `plugins/ai-toolkit/docs/` to `docs/development/misc/`
+    - Moved `agents.md` from `plugins/ai-toolkit/docs/` to `docs/development/misc/`
+    - Moved `optional-mcp-servers.md` from `plugins/ai-toolkit/docs/` to `docs/development/misc/`
+    - Users can now reference command/agent docs and discover optional MCP servers directly in their projects
+  - **File splits** - Split 4 oversized files to keep all under 500 lines:
+    - `worklog-format.md` (797) → `worklog-format.md` (339) + `worklog-examples.md` (420)
+    - `pm-guide.md` (706) → `pm-file-formats.md` (308) + `pm-workflows.md` (579)
+    - `development-loop.md` (833) → `development-loop.md` (623) + `quality-gates.md` (333)
+    - `agent-coordination.md` (550) → kept as-is (only 50 lines over limit)
+  - **Path updates**: Updated all 25 command files with new guideline paths
+  - **Why**: Clearer purpose separation, easier navigation, manageable file sizes, all templates in one location
+  - **Breaking**: Guideline paths changed (automated in /toolkit-init)
+
+### Fixed
+
+- **`/sync-progress` missing YAML frontmatter** - Added complete frontmatter metadata
+  - Command now properly discoverable in `/help`
+  - Metadata: tags, description, allowed-tools, references
+
 ## [0.30.0] - 2025-11-17
 
 ### Added

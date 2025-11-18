@@ -39,13 +39,14 @@
 
 ### Initial Structure (After /toolkit-init)
 
-The starter template provides **37 files** organized for clarity:
+The starter template provides **49 files** organized for clarity:
 
 ```
 your-project/
 ├── CLAUDE.md                      # Project context for AI (customize with your tech stack)
 ├── README.md                      # This file
 ├── GETTING-STARTED.md             # AI Toolkit usage guide
+├── CHANGELOG.md                   # Version history
 ├── .gitignore                     # Standard ignores
 │
 ├── docs/                          # Documentation hub
@@ -54,43 +55,73 @@ your-project/
 │   │
 │   ├── project/                   # Project-specific docs (created by AI as you work)
 │   │   ├── README.md              # Project docs guide
+│   │   ├── architecture-overview.md    # High-level architecture (from template)
+│   │   ├── design-overview.md          # Design system and UI patterns (from template)
+│   │   ├── writing-style.md            # Documentation writing standards (from template)
 │   │   ├── adrs/                  # Architecture Decision Records
-│   │   │   └── README.md          # ADR guide
-│   │   └── design/                # Design assets and specs
-│   │       └── README.md          # Design docs guide
+│   │   │   ├── README.md          # ADR guide
+│   │   │   └── adr-template.md    # ADR template (instance, created from template)
+│   │   ├── design-assets/         # Design files and assets
+│   │   │   └── README.md          # Design assets guide
+│   │   └── ui-designs/            # UI mockups and prototypes
+│   │       ├── README.md          # UI designs guide
+│   │       └── components/        # Component library mockups
+│   │           └── README.md      # Components guide
 │   │
-│   └── development/               # Development guidelines (customize as needed)
+│   └── development/               # Development guidelines and templates
 │       ├── README.md              # Guidelines system overview
-│       └── guidelines/            # 8 customizable guideline templates
-│           ├── development-loop.md          # AI-assisted workflow (quality gates, TDD)
-│           ├── api-guidelines.md            # API patterns (TBD by default)
-│           ├── testing-standards.md         # Testing approach (TBD by default)
-│           ├── git-workflow.md              # Three-branch workflow (pre-configured)
-│           ├── coding-standards.md          # Code style (TBD by default)
-│           ├── security-guidelines.md       # Security practices (TBD by default)
-│           └── architectural-principles.md  # Design philosophy (TBD by default)
+│       │
+│       ├── conventions/           # Project conventions (7 files)
+│       │   ├── api-guidelines.md
+│       │   ├── architectural-principles.md
+│       │   ├── coding-standards.md
+│       │   ├── security-guidelines.md
+│       │   ├── testing-standards.md
+│       │   ├── ui-design-guidelines.md
+│       │   └── versioning-and-releases.md
+│       │
+│       ├── workflows/             # AI execution protocols (9 files)
+│       │   ├── agent-coordination.md
+│       │   ├── development-loop.md
+│       │   ├── git-workflow.md
+│       │   ├── pm-file-formats.md
+│       │   ├── pm-workflows.md
+│       │   ├── quality-gates.md
+│       │   ├── troubleshooting.md
+│       │   ├── worklog-examples.md
+│       │   └── worklog-format.md
+│       │
+│       ├── templates/             # PM and doc templates (12 files)
+│       │   ├── README.md
+│       │   ├── spec.md
+│       │   ├── task.md
+│       │   ├── bug.md
+│       │   ├── note.md
+│       │   ├── plan.md
+│       │   ├── adr-template.md
+│       │   ├── architecture-overview-template.md
+│       │   ├── data-model-template.md
+│       │   ├── design-overview-template.md
+│       │   ├── project-brief.md
+│       │   └── writing-style-template.md
+│       │
+│       └── misc/                  # Reference docs and guides (4 files)
+│           ├── commands.md        # Complete command reference
+│           ├── agents.md          # Agent catalog
+│           ├── optional-mcp-servers.md  # Optional integrations
+│           └── jira-integration.md      # Jira setup guide
 │
 └── pm/                            # Project management
     ├── README.md                  # PM guide
-    │
     ├── specs/                     # Feature specs (created by /spec)
     │   └── .gitkeep
-    │
-    ├── issues/                    # Tasks and bugs (created by /spec and /plan)
-    │   └── .gitkeep
-    │
-    └── templates/                 # Issue templates
-        ├── README.md              # Template customization guide
-        ├── spec.md                # Epic template
-        ├── task.md                # Task template
-        ├── bug.md                 # Bug template
-        └── resources/
-            └── .gitkeep
+    └── issues/                    # Tasks and bugs (created by /spec and /plan)
+        └── .gitkeep
 ```
 
-**37 files breakdown:**
-- **9 core files**: CLAUDE.md, README.md, GETTING-STARTED.md, CHANGELOG.md, .gitignore, 5 top-level README files
-- **28 structure files**: 8 guidelines, 5 templates (spec, task, bug, plan, adr), 9 documentation READMEs, 6 .gitkeep placeholders
+**49 files breakdown:**
+- **5 core files**: CLAUDE.md, README.md, GETTING-STARTED.md, CHANGELOG.md, .gitignore
+- **44 structure files**: 16 guidelines (7 conventions + 9 workflows), 12 templates, 4 misc docs, 10 README files, 2 .gitkeep placeholders
 
 ### Active Project Structure (After Development)
 
@@ -112,14 +143,22 @@ your-project/
 │   │       └── api-specification.md
 │   │
 │   └── development/
-│       └── guidelines/            # Customize as you make decisions
-│           ├── development-loop.md          # ✅ Pre-configured
-│           ├── api-guidelines.md            # Fill in via /adr decisions
-│           ├── testing-standards.md         # Define your testing approach
-│           ├── git-workflow.md              # ✅ Pre-configured (three-branch)
-│           ├── coding-standards.md          # Fill in as conventions emerge
-│           ├── security-guidelines.md       # Fill in via /security-audit
-│           └── architectural-principles.md  # Fill in via /adr decisions
+│       ├── conventions/           # Customize as you make decisions
+│       │   ├── api-guidelines.md            # Fill in via /adr decisions
+│       │   ├── architectural-principles.md  # Fill in via /adr decisions
+│       │   ├── coding-standards.md          # Fill in as conventions emerge
+│       │   ├── security-guidelines.md       # Fill in via /security-audit
+│       │   ├── testing-standards.md         # Define your testing approach
+│       │   ├── ui-design-guidelines.md      # Design tokens and UI patterns
+│       │   └── versioning-and-releases.md   # ✅ Pre-configured
+│       │
+│       ├── workflows/             # AI execution protocols
+│       │   ├── development-loop.md          # ✅ Pre-configured
+│       │   ├── git-workflow.md              # ✅ Pre-configured (three-branch)
+│       │   └── [other workflow files]       # Pre-configured
+│       │
+│       └── templates/             # PM and documentation templates
+│           └── [template files]             # Used by AI commands
 │
 ├── pm/
 │   ├── specs/                     # Created by /spec
@@ -150,35 +189,48 @@ your-project/
 
 ## Available Commands
 
-The AI Toolkit provides **14 commands** for structured development:
+The AI Toolkit provides **25 commands** for structured development:
 
 ### Setup & Strategy
 - `/toolkit-init` - Initialize project structure (you've already run this!)
 - `/project-brief` - Create/update project vision through interactive Q&A
 
-### Epic & Planning
-- `/spec` - Create new specs or refine existing ones
-- `/adr` - Make architecture decisions and create ADRs
+### Spec & Epic Management
+- `/spec` - Create feature specs with acceptance criteria
+- `/jira-epic` - Create epics in Jira (requires Jira integration)
+- `/jira-import` - Import Jira issues for local work
 
-### Core Workflow
+### Planning & Implementation
+- `/adr` - Make architecture decisions and create ADRs
 - `/plan TASK-###` - Add implementation plan to tasks/bugs
 - `/implement TASK-### PHASE` - Execute specific phases with specialized agents
+- `/advise TASK-### PHASE` - Get implementation guidance without code generation
 
 ### Quality & Security
 - `/quality` - Multi-dimensional quality analysis
 - `/security-audit` - OWASP-compliant security assessment
-- `/test-fix` - Automated test failure detection and resolution
+- `/troubleshoot` - Structured 5-step troubleshooting workflow
+- `/sanity-check` - Mid-work validation and alignment check
 
 ### Development Support
 - `/branch` - Branch operations (create, merge, delete, switch, status)
 - `/commit` - Branch-aware git commits with automatic issue references
 - `/worklog` - Add timestamped work log entries
+- `/sync-progress` - Sync project state after manual changes
 
 ### Documentation & Status
 - `/docs` - Unified documentation management
 - `/project-status` - Project status dashboard with intelligent context
+- `/changelog` - Check and update CHANGELOG.md
+- `/release` - Release new version following semantic versioning
 
-See `GETTING-STARTED.md` for detailed workflow guide and command usage examples.
+### Utilities
+- `/refresh` - Silently refresh AI context
+- `/ui-design` - Create HTML UI mockups with parallel variants
+- `/jira-comment` - Add AI-suggested comments to Jira issues
+- `/jira-promote` - Promote local exploration issues to Jira
+
+See `docs/development/misc/commands.md` for complete command reference with usage examples.
 
 ## Contributing
 

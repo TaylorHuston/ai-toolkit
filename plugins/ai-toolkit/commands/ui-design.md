@@ -5,7 +5,7 @@ aliases: ["mockup", "prototype"]
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/ui-design-guidelines.md  # Design tokens, breakpoints, accessibility
+  - docs/development/conventions/ui-design-guidelines.md  # Design tokens, breakpoints, accessibility
   - docs/project/ui-designs/design-overview.md  # Synthesis of approved designs
 ---
 
@@ -43,7 +43,7 @@ references_guidelines:
 ### 2. Load Context
 
 ```bash
-Read: docs/development/guidelines/ui-design-guidelines.md  # Tokens, breakpoints, a11y
+Read: docs/development/conventions/ui-design-guidelines.md  # Tokens, breakpoints, a11y
 Read: docs/project/ui-designs/design-overview.md           # Existing patterns
 Glob: docs/project/ui-designs/{name}-v*.html               # Determine next version
 ```

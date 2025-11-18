@@ -5,8 +5,8 @@ argument-hint: "[--force | --dry-run]"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Glob", "AskUserQuestion"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/pm-guide.md  # PM structure and directory organization
-  - docs/development/guidelines/development-loop.md  # Development workflow structure
+  - docs/development/workflows/pm-workflows.md  # PM structure and directory organization
+  - docs/development/workflows/development-loop.md  # Development workflow structure
 ---
 
 # /toolkit-init
@@ -94,8 +94,8 @@ PLUGIN_VERSION=$(grep "version" "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.jso
 CURRENT_DATE=$(date '+%Y-%m-%d')
 ```
 
-**Files customized**:
-- **docs/project-brief.md**: Insert {app-name}, {description} in Overview section
+**Files customized** (copied from templates and personalized):
+- **docs/project-brief.md**: Copy from docs/development/templates/project-brief.md, insert {app-name}, {description} in Overview section
 - **CLAUDE.md**: Insert {app-name}, {description}, {toolkit-version}, {last-updated}
 - **README.md**: Insert {app-name}, {description}
 
@@ -120,7 +120,7 @@ CURRENT_DATE=$(date '+%Y-%m-%d')
 
 Next steps:
 1. /project-brief (complete brief)
-2. /epic (create features)
+2. /jira-epic (create features)
 ```
 
 ## Update/Sync Flow (Existing Projects)
@@ -161,10 +161,10 @@ find "${CLAUDE_PLUGIN_ROOT}/templates/starter" -type f
 
 **Drift report**:
 ```
-✅ Identical (3): .gitignore, pm/templates/epic.md, task.md
-🔧 Customized (4): CLAUDE.md, README.md, project-brief.md, bug.md
-❌ Missing (1): git-workflow.md
-➕ New in Plugin (2): adrs/README.md, pm/README.md
+✅ Identical (3): .gitignore, docs/development/templates/spec.md, task.md
+🔧 Customized (4): CLAUDE.md, README.md, docs/project-brief.md, docs/development/templates/bug.md
+❌ Missing (1): docs/development/workflows/git-workflow.md
+➕ New in Plugin (2): docs/project/adrs/README.md, pm/README.md
 ```
 
 ### 3. Interactive Decisions
@@ -198,9 +198,9 @@ Choose (1-5): _
 
 **Summary output**:
 ```
-✅ Updated (2): pm/README.md, adrs/README.md
+✅ Updated (2): pm/README.md, docs/project/adrs/README.md
 🔀 Merged (1): CLAUDE.md
-⏭️  Kept (3): README.md, project-brief.md, bug.md
+⏭️  Kept (3): README.md, docs/project-brief.md, docs/development/templates/bug.md
 ```
 
 ### 5. Update Version Tracking
@@ -222,7 +222,7 @@ sed -i "s/Last Updated\*\*: .*/Last Updated**: $(date '+%Y-%m-%d')/" CLAUDE.md
 
 **Workflow position**:
 ```
-/toolkit-init → /project-brief → /epic → /plan → /implement
+/toolkit-init → /project-brief → /jira-epic → /plan → /implement
 ```
 
 **Update cycle**:

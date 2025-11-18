@@ -5,7 +5,7 @@ aliases: ["version", "tag-release"]
 allowed-tools: ["Read", "Edit", "Bash", "Grep", "AskUserQuestion"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/versioning-and-releases.md
+  - docs/development/conventions/versioning-and-releases.md
 ---
 
 # /release Command
@@ -152,4 +152,4 @@ Manual tag: git tag -a v{version} -m "Release v{version}"
 ### Related
 - `/changelog` - Document changes before release
 - `/commit` - Commit changes before release
-- Guideline: `docs/development/guidelines/versioning-and-releases.md`
+- Guideline: `docs/development/conventions/versioning-and-releases.md`

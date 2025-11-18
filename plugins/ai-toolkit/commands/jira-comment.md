@@ -5,11 +5,11 @@ argument-hint: "PROJ-###"
 allowed-tools: ["Read", "Write", "Bash", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/jira-integration.md  # Jira integration patterns
-  - docs/development/guidelines/worklog-format.md  # WORKLOG format for context gathering
+  - docs/development/misc/jira-integration.md  # Jira integration patterns
+  - docs/development/workflows/worklog-format.md  # WORKLOG format for context gathering
 ---
 
-# /comment-issue Command
+# /jira-comment Command
 
 ## WHAT
 Add AI-suggested comments to external Jira issues by analyzing local work context (WORKLOG, commits, existing comments).
@@ -23,8 +23,8 @@ Keeps stakeholders informed with professional progress updates synthesized from 
 
 ### Usage
 ```bash
-/comment-issue PROJ-123              # AI suggests comment based on context
-/comment-issue PROJ-123 "text"       # Add specific comment text
+/jira-comment PROJ-123              # AI suggests comment based on context
+/jira-comment PROJ-123 "text"       # Add specific comment text
 ```
 
 ### Pre-Execution Context
@@ -127,7 +127,7 @@ Next steps:
 ```
 Error: TASK-001 is a local issue.
 Use /comment for local issues.
-/comment-issue only works with PROJ-###.
+/jira-comment only works with PROJ-###.
 ```
 
 **Jira not enabled:**
@@ -151,7 +151,7 @@ Warning: No local work context for PROJ-456.
 - No WORKLOG entries
 - No git commits mentioning issue
 
-Use direct mode: /comment-issue PROJ-456 "text"
+Use direct mode: /jira-comment PROJ-456 "text"
 Or start working: /plan PROJ-456
 ```
 
@@ -172,7 +172,7 @@ Possible: Doesn't exist, no permission, wrong project key.
 
 **Workflow position:**
 ```
-/implement PROJ-456 1.2 → /comment-issue PROJ-456 → /implement PROJ-456 1.3
+/implement PROJ-456 1.2 → /jira-comment PROJ-456 → /implement PROJ-456 1.3
 ```
 
 **When to use:**

@@ -5,8 +5,7 @@ argument-hint: "[BUG-XXX | TASK-XXX]"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "WebSearch", "WebFetch", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/troubleshooting.md  # 5-step loop, debug logging, WORKLOG format
-  - docs/development/guidelines/research-documentation.md  # Research-first approach and documentation
+  - docs/development/workflows/troubleshooting.md  # 5-step loop, debug logging, WORKLOG format
 ---
 
 # /troubleshoot
@@ -29,8 +28,8 @@ references_guidelines:
 
 ```bash
 Read: CLAUDE.md
-Read: docs/development/guidelines/troubleshooting.md
-Read: docs/development/guidelines/worklog-format.md
+Read: docs/development/workflows/troubleshooting.md
+Read: docs/development/workflows/worklog-format.md
 ```
 
 **If working on existing issue**:

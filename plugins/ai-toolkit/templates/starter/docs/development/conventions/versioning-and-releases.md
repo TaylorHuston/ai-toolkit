@@ -393,7 +393,3 @@ git push origin develop
 - [Development Loop](./development-loop.md) - Implementation workflow
 - Project [CHANGELOG.md](../../../CHANGELOG.md) - Version history
 
----
-
-**Last Updated**: 2025-11-13
-**Next Review**: After first production release or annually

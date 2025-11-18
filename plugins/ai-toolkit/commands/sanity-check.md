@@ -5,7 +5,7 @@ argument-hint: ""
 allowed-tools: ["Read", "Grep", "Glob", "Bash", "mcp__plugin_ai-toolkit_sequential-thinking__sequentialthinking"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/development-loop.md  # Work standards, quality gates, agent coordination
+  - docs/development/workflows/development-loop.md  # Work standards, quality gates, agent coordination
 ---
 
 # /sanity-check Command
@@ -49,7 +49,7 @@ Read: WORKLOG.md
 
 # Standards and architecture
 Read: CLAUDE.md
-Read: docs/development/guidelines/development-loop.md
+Read: docs/development/workflows/development-loop.md
 Read: docs/project/architecture-overview.md
 Read: docs/project/design-overview.md
 

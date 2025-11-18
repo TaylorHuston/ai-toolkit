@@ -5,7 +5,9 @@ argument-hint: "TASK-### | BUG-### | PROJ-###"
 allowed-tools: ["Read", "Write", "Edit", "Grep", "Glob", "TodoWrite", "Task", "mcp__plugin_ai-toolkit_sequential-thinking__sequentialthinking", "mcp__plugin_ai-toolkit_context7__resolve-library-id", "mcp__plugin_ai-toolkit_context7__get-library-docs", "WebSearch", "WebFetch"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/guidelines/pm-guide.md  # Plan execution methodology, complexity scoring, test-first patterns
+  - docs/development/workflows/pm-workflows.md  # Plan structure, complexity scoring, scoping principles, review requirements
+  - docs/development/templates/architecture-overview-template.md  # Architecture overview template for reference
+  - docs/development/templates/design-overview-template.md  # Design overview template for reference
 ---
 
 # /plan Command
@@ -14,7 +16,7 @@ references_guidelines:
 
 **WHY**: Planning is critical—spending 3-5 minutes upfront prevents costly mistakes during implementation.
 
-**HOW**: See pm-guide.md for complexity scoring, plan structure, test-first patterns, and review requirements.
+**HOW**: See pm-guide.md for plan structure, complexity scoring, scoping validation, strategic vs tactical planning, and mandatory review requirements.
 
 ## Usage
 
@@ -24,238 +26,115 @@ references_guidelines:
 /plan PROJ-123    # Jira: Fetches from Jira, creates PLAN.md locally
 ```
 
-## Pre-Execution Context
+## Execution Flow
 
-**Load project context** (read before proceeding):
+**Before you start**: Read pm-guide.md, architecture-overview.md, design-overview.md for complete planning methodology.
 
-```bash
-Read: CLAUDE.md
-Read: docs/development/guidelines/pm-guide.md
-Read: docs/project/architecture-overview.md
-Read: docs/project/design-overview.md
-```
+### High-Level Steps
 
-## Execution Steps
+1. **Locate & Load**
+   - Parse issue ID (TASK/BUG/PROJ)
+   - Read TASK.md/BUG.md or fetch from Jira
+   - If TASK has parent spec: Read SPEC-###.md acceptance scenarios
 
-### 1. Locate Issue and Load Context
+2. **Validate Scoping**
+   - Check if task is deployable unit (per pm-guide.md scoping principles)
+   - Warn if underscoped (too small to deploy independently)
+   - Get user confirmation if needed
 
-```bash
-# Parse issue ID from arguments
-# If local (TASK/BUG): Glob pm/issues/{ISSUE-ID}-*/
-# If Jira (PROJ): Fetch via MCP, create local directory
-Read: TASK.md/BUG.md or Jira description
+3. **Deep Analysis**
+   - Use sequential-thinking for problem analysis
+   - Identify research needs (libraries, patterns, best practices)
+   - Determine approach options and trade-offs
 
-# If TASK.md has `spec: SPEC-###` in frontmatter:
-#   Read parent spec: pm/specs/SPEC-###-*.md
-#   Extract: Acceptance Scenarios section
-#   Note: Which scenarios are relevant to this task?
-```
+4. **Research**
+   - Library docs via Context7 (latest patterns and examples)
+   - Best practices via web search (recent guides, common pitfalls)
+   - Synthesize with architecture and design guidelines
 
-**Output**: Task requirements + relevant feature scenarios (if spec exists)
+5. **Generate Phase Breakdown**
+   - Create test-first phases (per pm-guide.md structure)
+   - Strategic WHAT, not tactical HOW (agents decide implementation)
+   - Map acceptance scenarios to test phases (if spec exists)
+   - Apply complexity scoring (pm-guide.md)
 
-### 1.5. Validate Task Scoping
+6. **Mandatory Reviews**
+   - code-architect: Architectural alignment (always required)
+   - security-auditor: Security review (conditional per pm-guide.md)
 
-**CRITICAL:** Check if task is properly scoped before planning.
+7. **Present Plan**
+   - Show phase breakdown
+   - Scenario coverage mapping (if spec)
+   - Research summary
+   - Review signoffs
+   - Complexity estimate
 
-```bash
-# Read: docs/development/guidelines/pm-guide.md
-# Review: "Task and Phase Scoping Principles" section
+**See pm-guide.md "Planning Methodology" for complete step-by-step details.**
 
-# Validate task scope:
-Is this task independently deployable?
-Does it represent a complete feature/fix that can merge to main?
-Is it 1-3 days of work, not 1-3 hours?
+## Strategic vs Tactical Planning
 
-# If task seems too small (examples):
-- "Create user model" → Should be part of "Implement user authentication"
-- "Add dependency" → Should be part of feature that uses it
-- "Write tests for X" → Should be part of implementing X
+**CRITICAL**: Plans describe **WHAT** to build (objectives), NOT **HOW** to build it.
 
-# Action if underscoped:
-Warn user: "This task appears too small to deploy independently.
-Consider combining with related work to create a deployable change.
-Examples: [suggest larger scope]"
+✅ **Strategic** (correct):
+- "1.2 Implement user authentication with password hashing"
+- "2.1 Create REST API for user management"
 
-Ask: "Should we proceed anyway or rescope?"
-```
+❌ **Tactical** (wrong):
+- "1.2 Create User class with bcrypt.hash() using 10 salt rounds"
+- "2.1 Use Express Router with /api/users endpoint, body-parser middleware"
 
-**Output**: Scoping validation (pass/warn) + user confirmation if needed
-
-### 2. Deep Thinking Phase (Sequential Reasoning)
-
-```bash
-# Use sequential-thinking tool
-Analyze:
-- Problem understanding
-- Technical approach options
-- Research needs (libraries, patterns, best practices)
-- Acceptance scenarios from parent spec (if available)
-  - How will we validate each scenario?
-  - What test setup is needed?
-  - Are there edge cases beyond the scenarios?
-```
-
-**Output**: Research requirements, approach direction, and scenario coverage strategy.
-
-### 3. Library Research (Context7)
-
-```bash
-# For each library/framework mentioned:
-Resolve library ID via Context7
-Fetch latest documentation
-Extract relevant patterns and examples
-```
-
-**Output**: Library-specific implementation guidance.
-
-### 4. Best Practices Research (Web Search)
-
-```bash
-# Web search for:
-Recent guides (2024-2025)
-Common patterns
-Known pitfalls
-```
-
-**Output**: Current best practices and anti-patterns.
-
-### 5. Synthesize Context
-
-Combine:
-- Deep thinking insights
-- Library documentation findings
-- Web research best practices
-- Architecture overview decisions
-- Design patterns (from design-overview.md)
-
-### 6. Generate Phase Breakdown
-
-**Phase scoping guidance** (from pm-guide.md):
-- Phases = commit points within the task
-- Each phase should be testable, reviewable, committable
-- Typical size: 1-4 hours of focused work
-- Aim for 3-8 phases per task (if more, task may be too large)
-
-**CRITICAL - Strategic, Not Tactical:**
-- Describe **WHAT** to build (objectives, outcomes), NOT **HOW**
-- Specialist agents decide implementation details based on current codebase
-- Agents leverage WORKLOG for lessons learned and context
-- Avoid prescriptive code-level instructions
-
-**Examples:**
-- ✅ Strategic: "1.2 Implement user model with password hashing"
-- ❌ Tactical: "1.2 Create User class with bcrypt.hash() in setPassword method using 10 salt rounds"
-
-**Why Strategic:**
-- Codebase evolves during implementation
-- WORKLOG provides real-time context (e.g., "switched from bcrypt to argon2")
-- Specialist agents adapt to current state, not stale prescriptions
+**Why strategic:**
+- Agents adapt to current codebase state
+- WORKLOG provides real-time context and lessons learned
 - Flexibility for better approaches discovered during work
 
-**Complexity scoring**: See pm-guide.md for point values and thresholds.
+See pm-guide.md "Strategic vs Tactical Planning" for complete guidance.
 
-```bash
-Write: pm/issues/{ISSUE-ID}-*/PLAN.md
+## Example
+
 ```
+User: /plan TASK-001
 
-Structure per pm-guide.md:
-- Phase breakdown (test-first)
-  - If parent spec has acceptance scenarios: generate test phases covering scenarios
-  - If no parent spec: generate tests from TASK.md acceptance criteria
-- Scenario Coverage section (if spec exists)
-  - Map which phases validate which scenarios
-  - Explicit traceability from spec → plan → tests
-- Acceptance criteria checkboxes
-- Complexity estimates
+AI: Creating plan for TASK-001: User Login Flow
+    ✓ Loaded parent spec SPEC-001 (3 acceptance scenarios)
+    ✓ Research: JWT patterns, security best practices
 
-### 7. Mandatory Reviews
+    Phase breakdown (test-first):
+    1.1 Design authentication architecture
+    1.2 Implement user model with secure password storage
+    1.3 Create login endpoint with JWT generation
+    1.4 Write integration tests (covers all 3 scenarios)
 
-**Code-architect review** (always required):
-```bash
-Task: Spawn code-architect agent
-# Agent reviews architectural alignment
-# Provides signoff or revision requests
+    Reviews:
+    ✓ code-architect: Approved
+    ✓ security-auditor: Approved (suggested httpOnly cookies)
+
+    Complexity: 8 points (Medium)
+
+    Next: /implement TASK-001 1.1
 ```
-
-**Security-auditor review** (conditional):
-```bash
-# Detection criteria: See pm-guide.md "Security Detection"
-# If security-relevant: Spawn security-auditor agent
-# Reviews security implications
-```
-
-### 8. Present Plan
-
-Display:
-- Phase breakdown
-- Scenario coverage mapping (if spec exists)
-  - Show which scenarios are validated by which phases
-  - Highlight any uncovered scenarios
-- Research summary (libraries used, key findings)
-- Review signoffs
-- Estimated complexity
 
 ## Agent Coordination
 
 **Primary**: project-manager (analysis), test-engineer (testing strategy)
-**Mandatory**: code-architect (architectural review)
-**Conditional**: security-auditor (if security-relevant per pm-guide.md)
+**Mandatory**: code-architect (architectural review - always)
+**Conditional**: security-auditor (security review - auto-detected per pm-guide.md)
 
 ## Error Handling
 
-- **Issue not found**: "Issue {ID} not found in pm/issues/"
-- **PLAN.md exists**: Ask to overwrite or append
-- **Jira fetch fails**: "Cannot fetch PROJ-{ID} - check MCP"
-- **Context files missing**: Warning but continue (use defaults)
-
-## Example Output
-
-```
-Creating implementation plan for TASK-001...
-
-✓ Loaded TASK-001: User Login Flow
-✓ Loaded parent spec SPEC-001: User Authentication
-✓ Found 3 acceptance scenarios in SPEC-001
-
-Research completed:
-- Library: express-jwt (latest patterns)
-- Best practices: JWT rotation, httpOnly cookies
-
-Phase breakdown:
-## Phase 1: Authentication Backend
-- [ ] 1.1 Design JWT token structure
-- [ ] 1.2 Implement user model with bcrypt
-- [ ] 1.3 Create login endpoint (/api/auth/login)
-- [ ] 1.4 Add JWT generation and validation
-- [ ] 1.5 Write authentication integration tests
-
-## Scenario Coverage
-
-✓ SPEC-001 Scenario 1: "User logs in successfully"
-  → Covered by Phase 1.5 (integration tests validate successful login flow)
-
-✓ SPEC-001 Scenario 2: "Invalid password attempt"
-  → Covered by Phase 1.5 (error handling tests for invalid credentials)
-
-✓ SPEC-001 Scenario 3: "Inactive account login"
-  → Covered by Phase 1.3 (account status checks before token generation)
-
-All scenarios covered ✓
-
-Reviews:
-✓ code-architect: Architectural alignment confirmed
-✓ security-auditor: JWT approach approved, suggested httpOnly cookies
-
-Estimated complexity: 13 points (Medium)
-
-Next: /implement TASK-001 1.1
-```
+- **Issue not found**: Check `pm/issues/{ID}-*/` exists
+- **PLAN.md exists**: Ask to overwrite or create new version
+- **Jira unavailable**: Check MCP connection and CLAUDE.md config
+- **Context files missing**: Warning but proceed with defaults
 
 ## Integration
 
+**Workflow position**:
 ```
-/spec → /plan TASK-### → /implement TASK-### 1.1
+/spec SPEC-### → /plan TASK-### → /implement TASK-### 1.1
 ```
 
 **Creates**: `pm/issues/{ISSUE-ID}-*/PLAN.md`
-**Next step**: `/implement {ISSUE-ID} 1.1`
+**Next step**: `/implement {ISSUE-ID} 1.1` to start execution
+
+See pm-guide.md for complete workflow integration.

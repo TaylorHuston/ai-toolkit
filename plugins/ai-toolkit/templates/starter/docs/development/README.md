@@ -40,16 +40,33 @@ For general testing best practices, Claude has extensive knowledge...
 
 ## Your Guidelines
 
-### Core Guidelines (6 files)
+### Organized in 4 Directories
 
+**Conventions** (`conventions/` - 7 files):
 1. **api-guidelines.md** - API patterns (REST/GraphQL/tRPC), structure, auth
-2. **testing-standards.md** - Testing frameworks, coverage, strategy
-3. **git-workflow.md** - Branching, commits, PRs, releases
-4. **coding-standards.md** - Naming, formatting, file organization
-5. **security-guidelines.md** - Auth, data protection, vulnerabilities
-6. **architectural-principles.md** - Design philosophy (DRY, SOLID, etc.)
+2. **architectural-principles.md** - Design philosophy (DRY, SOLID, etc.)
+3. **coding-standards.md** - Naming, formatting, file organization
+4. **security-guidelines.md** - Auth, data protection, vulnerabilities
+5. **testing-standards.md** - Testing frameworks, coverage, strategy
+6. **ui-design-guidelines.md** - Design tokens, breakpoints, accessibility
+7. **versioning-and-releases.md** - Semantic versioning, releases, CHANGELOG
 
-Each guideline starts with TBD placeholders and gets filled in as you make decisions.
+**Workflows** (`workflows/` - 9 files):
+- **agent-coordination.md** - How specialized agents work together
+- **development-loop.md** - AI-assisted workflow and quality gates
+- **git-workflow.md** - Branching, commits, PRs, releases
+- **pm-file-formats.md** - SPEC.md, TASK.md, PLAN.md formats
+- **pm-workflows.md** - Planning and implementation workflows
+- **quality-gates.md** - Quality standards and gates
+- **troubleshooting.md** - Debugging workflows
+- **worklog-examples.md** - WORKLOG.md examples
+- **worklog-format.md** - WORKLOG.md structure
+
+**Templates** (`templates/` - 12 files): PM and documentation templates used by commands
+
+**Misc** (`misc/` - 4 files): Command/agent references and integration guides
+
+Most guidelines start with TBD placeholders and get filled in as you make decisions.
 
 ## How Guidelines Evolve
 
@@ -126,18 +143,18 @@ Auth middleware: src/server/middleware/auth.ts
 Commands read guidelines before executing:
 
 **`/implement TASK-001 1.1`**
-1. Reads `testing-standards.md` → knows to use Vitest
-2. Reads `coding-standards.md` → knows file naming conventions
-3. Reads `api-guidelines.md` → knows API patterns (if building API)
+1. Reads `conventions/testing-standards.md` → knows to use Vitest
+2. Reads `conventions/coding-standards.md` → knows file naming conventions
+3. Reads `conventions/api-guidelines.md` → knows API patterns (if building API)
 4. Implements following your project's patterns
 
 **`/quality`**
-1. Reads `quality-standards.md` → knows your quality bar
-2. Reads `security-guidelines.md` → checks security requirements
-3. Reads `testing-standards.md` → verifies test coverage
+1. Reads `workflows/quality-gates.md` → knows your quality bar
+2. Reads `conventions/security-guidelines.md` → checks security requirements
+3. Reads `conventions/testing-standards.md` → verifies test coverage
 
 **`/commit`**
-1. Reads `git-workflow.md` → knows commit convention
+1. Reads `workflows/git-workflow.md` → knows commit convention
 2. Formats commit message accordingly
 
 ## Guideline Versioning

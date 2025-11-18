@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-Comprehensive AI-assisted development workflow system for Claude Code with 23 commands, 18 specialized agents, and intelligent state management.
+Comprehensive AI-assisted development workflow system for Claude Code with 25 commands, 21 specialized agents, and intelligent state management.
 
 ## Quick Start
 
@@ -16,18 +16,18 @@ cd my-project
 
 # 3. Start developing
 /project-brief
-/epic
+/spec SPEC-001
 /plan TASK-001
 /implement TASK-001 1.1
 ```
 
 ## What You Get
 
-- **23 Workflow Commands** - Complete `/project-brief` → `/epic` → `/plan` → `/implement` cycle + utilities
-- **18 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
+- **25 Workflow Commands** - Complete `/project-brief` → `/spec` → `/plan` → `/implement` cycle + utilities
+- **21 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
 - **3 Bundled MCP Servers** - Auto-configured tools (context7, sequential-thinking, playwright)
-- **Starter Template** - 37 files (9 core + 28 structure) for organized project initialization
-- **File-Based State** - Session continuity via EPIC.md, TASK.md, WORKLOG.md, RESEARCH.md
+- **Starter Template** - 49 files for organized project initialization
+- **File-Based State** - Session continuity via SPEC.md, TASK.md, WORKLOG.md
 - **Technology Agnostic** - Works with any tech stack
 
 ## Bundled MCP Servers
@@ -40,7 +40,7 @@ This plugin automatically configures essential MCP servers:
 
 No manual MCP configuration required! These tools are ready immediately after plugin installation.
 
-**Optional MCP Servers**: For larger codebases (20+ files), consider adding [Serena](./docs/OPTIONAL-MCP-SERVERS.md) for semantic code analysis.
+**Optional MCP Servers**: For larger codebases (20+ files), see `/docs/development/misc/optional-mcp-servers.md` in your project after `/toolkit-init` for additional integrations like Serena for semantic code analysis.
 
 ## Model Selection Philosophy
 
@@ -55,7 +55,7 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 **Used For**:
 - **All specialist agents**: frontend, backend, database, devops, api, performance, ui-ux, data, migration, refactoring
 - **Code-focused agents**: code-architect, test-engineer, code-reviewer, technical-writer
-- **Execution commands**: /implement, /plan, /quality, /branch, /commit, /docs, /project-status, /toolkit-init, /worklog, /changelog, /release, /troubleshoot, /sanity-check, /refresh, /comment-issue, /promote, /refresh-schema, /import-issue, /ui-design
+- **Execution commands**: /implement, /plan, /quality, /branch, /commit, /docs, /project-status, /toolkit-init, /worklog, /changelog, /release, /troubleshoot, /sanity-check, /refresh, /jira-comment, /jira-promote, /jira-import, /ui-design, /sync-progress
 
 **Why**: Sonnet 4.5 excels at coding, code generation, documentation, and autonomous operation. Its superior performance at lower cost makes it ideal for hands-on development work.
 
@@ -67,7 +67,7 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 
 **Used For**:
 - **Strategic agents**: project-manager (orchestration), security-auditor (safety-critical), brief-strategist (product strategy), ai-llm-expert (meta-reasoning)
-- **Planning commands**: /project-brief, /epic, /adr, /security-audit
+- **Planning commands**: /project-brief, /spec, /jira-epic, /adr, /security-audit
 
 **Why**: Opus 4.1's extended reasoning (64K thinking tokens) and superior safety make it ideal for high-stakes decisions, strategic planning, security analysis, and complex orchestration.
 
@@ -146,29 +146,29 @@ my-project/
 
 ```bash
 /project-brief                     # Define project vision (interactive)
-/epic                              # Create epic with optional initial tasks
-/epic EPIC-001                     # Refine epic, add more tasks (iterative)
+/spec SPEC-001                     # Create feature spec with acceptance criteria
 /plan TASK-001                     # Add implementation plan to task
 /implement TASK-001 1.1            # Execute specific phase with agents
 ```
 
-## All Commands (14 Total)
+## All Commands (25 Total)
 
 **Setup & Strategy**: `/toolkit-init`, `/project-brief`
-**Epic Management**: `/epic`
-**Workflow**: `/adr`, `/plan`, `/implement`
-**Quality**: `/quality`, `/security-audit`, `/troubleshoot`
-**Development**: `/branch`, `/commit`, `/worklog`
-**Documentation & Status**: `/docs`, `/project-status`
+**Spec & Epic Management**: `/spec`, `/jira-epic`, `/jira-import`
+**Workflow**: `/adr`, `/plan`, `/implement`, `/advise`
+**Quality**: `/quality`, `/security-audit`, `/troubleshoot`, `/sanity-check`
+**Development**: `/branch`, `/commit`, `/worklog`, `/sync-progress`
+**Documentation & Status**: `/docs`, `/project-status`, `/changelog`, `/release`
+**Utilities**: `/refresh`, `/ui-design`, `/jira-comment`, `/jira-promote`
 
-See `docs/COMMANDS.md` for complete command reference.
+See `/docs/development/misc/commands.md` in your project after `/toolkit-init` for complete command reference.
 
 ## Documentation
 
-**Plugin Documentation:**
-- `docs/COMMANDS.md` - Complete command reference with workflow guidance
-- `docs/AGENTS.md` - Agent catalog with system overview
-- `docs/OPTIONAL-MCP-SERVERS.md` - Optional MCP servers for larger projects
+After running `/toolkit-init`, find complete documentation in your project:
+- `/docs/development/misc/commands.md` - Complete command reference with workflow guidance
+- `/docs/development/misc/agents.md` - Agent catalog with system overview
+- `/docs/development/misc/optional-mcp-servers.md` - Optional MCP servers for larger projects
 
 ## Updates
 

@@ -3,46 +3,15 @@
 A comprehensive AI-assisted development workflow system for Claude Code, providing intelligent task orchestration, specialized agent coordination, and file-based state management.
 
 ## IMPORTANT
-This is very much an alpha/experiment at this point. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and massively changing things as I go.
-
-## What's New in v0.26.0
-
-**Latest additions:**
-- 🔄 **`/sync-progress` command** - Automatically sync project state after manual changes
-  - Analyzes git diff to understand uncommitted/staged changes
-  - Updates PLAN.md to reflect completed phases or new direction
-  - Documents in WORKLOG with inferred intent and context
-  - Suggests next steps based on remaining plan
-  - Perfect for when you make manual changes offline and want AI to catch up
-
-**Recent additions (v0.25.0):**
-- ☁️ **Cloud platform expert agents** - Three new specialized agents for cloud architecture
-  - **aws-expert** - AWS Solutions Architect (Well-Architected Framework, cost optimization)
-  - **azure-expert** - Azure Solutions Architect (Microsoft ecosystem, hybrid cloud)
-  - **gcp-expert** - Google Cloud Solutions Architect (Kubernetes, BigQuery, Vertex AI)
-  - Multi-cloud comparison and platform-specific implementation guidance
-  - All use claude-opus-4-1 for critical architectural decisions
-
-**Recent additions (v0.24.0):**
-- 🔧 **Agent standardization** - All 21 agents aligned with agent-template.md format
-  - Universal Rules section added (CLAUDE.md + WORKLOG protocols)
-  - Condensed verbose agents to meet 350-line limit
-  - Enhanced Context7 integration references
-
-**Recent additions (v0.23.0):**
-- 🔄 **Epic → Feature Spec terminology pivot** - Aligned with spec-driven development trends (BREAKING CHANGE)
-- ✨ **`/spec` command** - Create and manage local feature specifications with bidirectional Jira integration
-- 🔧 **`/epic` command refactored** - Now Jira-only (requires integration enabled)
-
-See [CHANGELOG.md](CHANGELOG.md) for complete release history.
+This is very much an alpha/experiment at this point. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and frequently changing things as I use it in more real world scenarios.
 
 ## What's Included
 
 This marketplace contains:
 
-- **AI Toolkit Plugin** - Complete workflow system with 26 commands, 21 specialized agents, and intelligent automation
-- **Starter Template** - 39 essential files for clean project initialization via `/toolkit-init`
-- **Guideline Templates** - 8 customizable guideline templates (project configuration files, not plugin docs)
+- **AI Toolkit Plugin** - Complete workflow system with 25 commands, 21 specialized agents, and intelligent automation
+- **Starter Template** - 49 essential files for clean project initialization via `/toolkit-init`
+- **Development Guidelines** - 30+ customizable files organized in 4 directories (conventions, workflows, misc, templates)
 
 ## Quick Start
 
@@ -65,21 +34,45 @@ cd your-project
 
 The `/toolkit-init` command scaffolds your project with:
 - Customized CLAUDE.md (your tech stack and links)
-- Structured template (37 files: docs/, pm/, guidelines, templates)
+- Structured template (49 files: docs/, pm/, development guidelines, templates)
 - GETTING-STARTED.md guide
 - Documentation framework (AI creates content as you work)
 - Interactive setup with smart conflict resolution
 
+### Intended Workflow
+
+1. **`/project-brief`** - Create your Project Brief through an interactive session. This is the high-level, relatively non-technical overview of your project: the problem you're solving, your target audience, core features. Think "One Pager" or "Elevator Pitch" - the guiding direction for everything else.
+
+2. **`/adr`** - Create Architecture Decision Records for technical decisions ("What database should I use?", "Deploy to Vercel or Netlify?"). ADRs are intended to be static once approved - if something needs changing, create a new ADR to supersede it.
+
+3. **`/spec`** - Create a Spec Document (the heart of the workflow). A Spec is a concrete plan for a body of related work - similar in scope to an Epic in Agile or a PRD. Written for easy parsing by Claude Code with clear requirements, acceptance criteria, and definition of done. Unlike ADRs, Specs are living documents that adapt as you discover hiccups and make adjustments during implementation.
+
+4. **`/plan TASK-###`** - Create a thorough implementation plan with all steps needed to complete the task. In the default configuration, this breaks work into discrete Phases (each a logical commit with strict TDD workflow), but you can customize to your specifications.
+
+5. **`/implement TASK-### PHASE`** - Start implementing. Execute a single phase or let Claude complete the entire task end-to-end. Quality gates and workflows make autonomous execution both possible and safe, but you're always in control.
+
+> **Next Steps**: For technical architecture details, see [Core 3-Phase Workflow](#-core-3-phase-workflow). For file-based project management, see [Local Project Management](#local-project-management).
+
+## Customizable Commands and Workflows
+
+The AI Toolkit provides **25+ commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
+
+**Why file-based configuration?** Commands are intentionally minimal - they read your project's guideline files to adapt behavior. Baseline versions come with the toolkit, but keeping them as files in your repo means you can customize them to fit your team's specific workflow and conventions.
+
+**Full command reference**: See `docs/development/misc/commands.md` in your project after running `/toolkit-init`. 
+
 ## AI Toolkit Plugin
 
-The AI Toolkit plugin provides a complete development workflow system with **26 commands** organized around a 3-phase development cycle:
+The AI Toolkit plugin provides a complete development workflow system with **25 commands** organized around a 3-phase development cycle.
+
+> **New to the workflow?** See [Intended Workflow](#intended-workflow) above for a beginner-friendly walkthrough.
 
 ### 🚀 Setup & Initialization
 
 - `/toolkit-init` - Initialize project structure with templates and smart conflict resolution
 - `/project-brief` - Create and refine project brief through conversational Q&A
 - `/spec` - Create and manage feature specs (local files) through natural language
-- `/epic` - Create and manage Jira epics (requires Jira integration)
+- `/jira-epic` - Create and manage Jira epics (requires optional Jira integration)
 
 ### 🌟 Core 3-Phase Workflow
 
@@ -112,10 +105,9 @@ The AI Toolkit plugin provides a complete development workflow system with **26 
 
 ### 🔗 Jira Integration
 
-- `/import-issue` - Import Jira issues for local work with automatic PLAN.md creation
-- `/promote` - Promote local exploration issues to Jira for team visibility
-- `/comment-issue` - Add AI-suggested comments to Jira issues based on work context
-- `/refresh-schema` - Refresh Jira field schema cache when requirements change
+- `/jira-import` - Import Jira issues for local work with automatic PLAN.md creation
+- `/jira-promote` - Promote local exploration issues to Jira for team visibility
+- `/jira-comment` - Add AI-suggested comments to Jira issues based on work context
 
 ### 📚 Documentation & Project Management
 
@@ -149,7 +141,9 @@ Each agent has specialized tools, domain knowledge, and triggers for automatic i
 
 The AI Toolkit provides a complete file-based project management system for teams working entirely locally (no external PM tool required).
 
-_Note that this probably doesn't scale well across larger teams, and is not intended to be a replacement for Jira/Linear/etc._
+> **How does this fit in?** This section shows the file-based implementation of the [Intended Workflow](#intended-workflow) - where specs, tasks, and plans are stored as local files in your repository.
+
+_Note: This approach works best for individuals and small teams. For larger teams, consider Jira or some other dedicated project management tool. More integrations planned._
 
 #### Quick Start
 
@@ -198,61 +192,43 @@ pm/
 
 #### Benefits
 
-- ✅ **Fully local** - Works offline, no external dependencies
-- ✅ **Version controlled** - All planning in git with your code
-- ✅ **AI-optimized** - Files structured for AI context understanding
-- ✅ **Flexible** - Customize templates in `pm/templates/`
-- ✅ **Portable** - Self-contained, no vendor lock-in
+- **Fully local** - Works offline, no external dependencies
+- **Version controlled** - All planning in git with your code
+- **AI-optimized** - Files structured for AI context understanding
+- **Flexible** - Customize templates in `docs/development/templates/`
+- **Portable** - Self-contained, no vendor lock-in
+
+#### Cons
+
+- **No syncing** - No real way to sync task creation and progress across teams outside of just committing the the repo, which could lead to weird merge conflicts
+- **May not scale** - Unsure how well this system will hold up when you have hundreds or even thousands of tasks, may need to implement some kind of an archival process
 
 #### Customization
 
 Customize the workflow by editing templates:
-- `pm/templates/spec.md` - Feature spec structure and prompts
-- `pm/templates/task.md` - Task requirements template
-- `pm/templates/bug.md` - Bug report template
+- `docs/development/templates/spec.md` - Feature spec structure and prompts
+- `docs/development/templates/task.md` - Task requirements template
+- `docs/development/templates/bug.md` - Bug report template
 
-See `pm/templates/README.md` for customization guide.
-
-### 🔗 Project Management Integrations
-
-The AI Toolkit supports both **local file-based project management** and **external PM tool integrations**.
-
-#### Local PM (Built-in)
-
-File-based specs and tasks in `pm/` directory:
-- ✅ Works offline, fully version controlled
-- ✅ Perfect for individuals and small teams
-- ✅ No external dependencies
-- See [Local Project Management](#local-project-management) section above
+See `docs/development/templates/README.md` for customization guide.
 
 #### Jira Integration (Optional)
 
 Bidirectional sync with Atlassian Jira:
-- Import Jira issues: `/import-issue PROJ-123`
-- Create Jira issues from local work: `/promote TASK-001`
-- Add AI-suggested comments: `/comment-issue PROJ-123`
-- Create Jira epics from local specs: `/epic --spec SPEC-001`
+- Import Jira issues: `/jira-import PROJ-123`
+- Create Jira issues from local work: `/jira-promote TASK-001`
+- Add AI-suggested comments: `/jira-comment PROJ-123`
+- Create Jira epics from local specs: `/jira-epic --spec SPEC-001`
 
-**Setup & Usage**: See [docs/jira-integration.md](plugins/ai-toolkit/docs/jira-integration.md)
+**Setup & Usage**: See `docs/development/misc/jira-integration.md` in your project after running `/toolkit-init`
 
 **Status**: Minimal integration. Tested with one Jira project. No automated workflow transitions.
 
+By keeping Jira, or something else, as the source of truth for issues you can remediate some of the syncing and scaling issues mentioned above.
+
 #### Future Integrations
 
-Planned support for:
-- Linear
-- Notion
-- GitHub Projects
-- Azure DevOps
-
-### File-Based State Management
-
-Seamless session continuity through structured files:
-
-- **SPEC.md** - Feature spec context and progress
-- **TASK-###-*/TASK.md** - Task-specific implementation details
-- **WORKLOG.md** - Narrative work history with lessons learned
-- **RESEARCH.md** - Investigation findings and technical decisions
+Planned support for Linear, Notion, GitHub Projects, and Azure DevOps.
 
 ## Local Development
 
@@ -299,11 +275,11 @@ ai-toolkit/
     └── ai-toolkit/                # AI Toolkit plugin
         ├── .claude-plugin/
         │   └── plugin.json
-        ├── commands/              # 26 slash commands
+        ├── commands/              # 25 slash commands
         ├── agents/                # 21 specialized agents
         ├── templates/             # Bundled project templates
-        │   └── starter/           # 39 template files
-        ├── docs/                  # Plugin documentation
+        │   └── starter/           # 49 template files
+        ├── docs/                  # Plugin documentation (minimal)
         └── README.md
 ```
 

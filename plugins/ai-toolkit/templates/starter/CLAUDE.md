@@ -113,22 +113,22 @@ When Jira integration is enabled, epics can be created and managed in Jira throu
 
 **Creating Epics:**
 ```bash
-/spec  # Creates SPEC-001 locally
-/epic  # Creates PROJ-100 in Jira (requires Jira integration)
+/spec       # Creates SPEC-001 locally
+/jira-epic  # Creates PROJ-100 in Jira (requires Jira integration)
 ```
 
 **Working with Issues:**
 ```bash
-/import-issue PROJ-123    # Import Jira issue for local work
-/plan PROJ-123            # Create implementation plan (fetches from Jira)
-/implement PROJ-123 1.1   # Execute phase
+/jira-import PROJ-123    # Import Jira issue for local work
+/plan PROJ-123           # Create implementation plan (fetches from Jira)
+/implement PROJ-123 1.1  # Execute phase
 ```
 
 **Exploration Workflow:**
 ```bash
-/plan TASK-001            # Quick local spike
-/implement TASK-001 1.1   # Prototype
-/promote TASK-001         # Promote to Jira when validated
+/plan TASK-001             # Quick local spike
+/implement TASK-001 1.1    # Prototype
+/jira-promote TASK-001     # Promote to Jira when validated
 ```
 
 ### What Syncs
@@ -141,9 +141,7 @@ When Jira integration is enabled, epics can be created and managed in Jira throu
 
 ### Field Discovery
 
-The AI automatically discovers which fields are required in your Jira instance (including custom fields) and prompts for them conversationally during epic/issue creation. Field schemas are cached locally in `.ai-toolkit/jira-field-cache.json` for performance.
-
-Run `/refresh-schema` if Jira administrators change required fields.
+The AI automatically discovers which fields are required in your Jira instance (including custom fields) and prompts for them conversationally during epic/issue creation.
 
 ## Product Vision
 
@@ -212,7 +210,7 @@ main (production)         # Live environment - ONLY from develop
 
 **Emergency Hotfixes:** Document in ADR, use hotfix/* prefix, backport to develop
 
-See `docs/development/guidelines/git-workflow.md` for complete workflow rules and `docs/development/guidelines/versioning-and-releases.md` for semantic versioning, release process, and git tagging strategy.
+See `docs/development/workflows/git-workflow.md` for complete workflow rules and `docs/development/conventions/versioning-and-releases.md` for semantic versioning, release process, and git tagging strategy.
 
 ### CHANGELOG Maintenance
 
@@ -244,20 +242,35 @@ See `docs/development/guidelines/git-workflow.md` for complete workflow rules an
 - Bug fix description with issue reference
 ```
 
-**See** `docs/development/guidelines/versioning-and-releases.md` for complete semantic versioning strategy, release process, and detailed CHANGELOG guidelines.
+**See** `docs/development/conventions/versioning-and-releases.md` for complete semantic versioning strategy, release process, and detailed CHANGELOG guidelines.
 
 ## Development Guidelines
 
-Your project includes **8 customizable guideline templates** in `docs/development/guidelines/`:
+Your project includes **16 customizable guideline files** organized in 4 directories:
 
-- `development-loop.md` - AI-assisted development workflow and quality gates
+**Conventions** (`docs/development/conventions/` - 7 files):
 - `api-guidelines.md` - API patterns and structure
-- `testing-standards.md` - Testing approach
-- `git-workflow.md` - Branching and commits
-- `versioning-and-releases.md` - Semantic versioning, release process, and CHANGELOG maintenance
+- `architectural-principles.md` - Design philosophy
 - `coding-standards.md` - Code style and conventions
 - `security-guidelines.md` - Security practices
-- `architectural-principles.md` - Design philosophy
+- `testing-standards.md` - Testing approach
+- `ui-design-guidelines.md` - Design tokens and UI patterns
+- `versioning-and-releases.md` - Semantic versioning, releases, CHANGELOG
+
+**Workflows** (`docs/development/workflows/` - 9 files):
+- `agent-coordination.md` - How specialized agents work together
+- `development-loop.md` - AI-assisted development workflow and quality gates
+- `git-workflow.md` - Branching and commits
+- `pm-file-formats.md` - SPEC.md, TASK.md, PLAN.md formats
+- `pm-workflows.md` - Planning and implementation workflows
+- `quality-gates.md` - Quality standards and gates
+- `troubleshooting.md` - Debugging workflows
+- `worklog-examples.md` - WORKLOG.md examples
+- `worklog-format.md` - WORKLOG.md structure
+
+**Templates** (`docs/development/templates/` - 12 files): PM and documentation templates
+
+**Misc** (`docs/development/misc/` - 4 files): Command/agent references and integration guides
 
 These guidelines:
 - **Start with TBD placeholders** (filled in as you make decisions)
