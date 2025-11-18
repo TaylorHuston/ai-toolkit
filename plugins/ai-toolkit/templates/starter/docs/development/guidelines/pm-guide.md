@@ -199,6 +199,39 @@ AI: "Create another? (yes/no)"
 
 **Pattern Used by `/spec` During Task Creation**
 
+### Task and Phase Scoping Principles
+
+**CRITICAL:** Proper scoping ensures smooth development flow and clean git history.
+
+**Task Scope = Deployable Change:**
+- A task should represent work that gets **merged to main as a complete unit**
+- Think: "What's the smallest valuable change I can deploy?"
+- Tasks should be **independently deployable** (can merge without breaking main)
+- Typical size: 1-3 days of focused work, 3-8 phases
+
+**Examples of Properly Scoped Tasks:**
+- ✅ "Implement user login with JWT authentication" (complete feature, deployable)
+- ✅ "Add password reset flow with email notifications" (end-to-end feature)
+- ✅ "Create admin dashboard with role-based access" (deployable admin capability)
+
+**Examples of Tasks That Are Too Small:**
+- ❌ "Create user model" (not deployable alone)
+- ❌ "Add bcrypt to dependencies" (not a feature)
+- ❌ "Write login endpoint tests" (part of larger work)
+
+**Phase Scope = Logical Commit Point:**
+- A phase represents work that gets **committed as a logical unit**
+- Each phase should be **testable, reviewable, and committable**
+- Phases are steps within a task, not standalone work items
+- Typical size: 1-4 hours of focused work
+
+**Examples of Properly Scoped Phases:**
+- ✅ "1.1 Implement user model with password hashing"
+- ✅ "1.2 Create login endpoint with JWT generation"
+- ✅ "1.3 Write authentication integration tests"
+
+**Key Question:** If a task feels too small to deploy, it's probably a phase within a larger task.
+
 ### When to Create Tasks vs Bugs
 
 **Tasks:**

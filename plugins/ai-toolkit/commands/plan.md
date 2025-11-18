@@ -53,7 +53,35 @@ Read: TASK.md/BUG.md or Jira description
 
 **Output**: Task requirements + relevant feature scenarios (if spec exists)
 
-### 2. Deep Thinking Phase
+### 1.5. Validate Task Scoping
+
+**CRITICAL:** Check if task is properly scoped before planning.
+
+```bash
+# Read: docs/development/guidelines/pm-guide.md
+# Review: "Task and Phase Scoping Principles" section
+
+# Validate task scope:
+Is this task independently deployable?
+Does it represent a complete feature/fix that can merge to main?
+Is it 1-3 days of work, not 1-3 hours?
+
+# If task seems too small (examples):
+- "Create user model" → Should be part of "Implement user authentication"
+- "Add dependency" → Should be part of feature that uses it
+- "Write tests for X" → Should be part of implementing X
+
+# Action if underscoped:
+Warn user: "This task appears too small to deploy independently.
+Consider combining with related work to create a deployable change.
+Examples: [suggest larger scope]"
+
+Ask: "Should we proceed anyway or rescope?"
+```
+
+**Output**: Scoping validation (pass/warn) + user confirmation if needed
+
+### 2. Deep Thinking Phase (Sequential Reasoning)
 
 ```bash
 # Use sequential-thinking tool
@@ -69,7 +97,7 @@ Analyze:
 
 **Output**: Research requirements, approach direction, and scenario coverage strategy.
 
-### 3. Library Research
+### 3. Library Research (Context7)
 
 ```bash
 # For each library/framework mentioned:
@@ -80,7 +108,7 @@ Extract relevant patterns and examples
 
 **Output**: Library-specific implementation guidance.
 
-### 4. Best Practices Research
+### 4. Best Practices Research (Web Search)
 
 ```bash
 # Web search for:
@@ -101,6 +129,12 @@ Combine:
 - Design patterns (from design-overview.md)
 
 ### 6. Generate Phase Breakdown
+
+**Phase scoping guidance** (from pm-guide.md):
+- Phases = commit points within the task
+- Each phase should be testable, reviewable, committable
+- Typical size: 1-4 hours of focused work
+- Aim for 3-8 phases per task (if more, task may be too large)
 
 **Complexity scoring**: See pm-guide.md for point values and thresholds.
 

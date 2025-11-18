@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **PM workflow scoping clarity** - Emphasized task/phase scoping principles across documentation and templates
+  - **Task scope = Deployable change**: Tasks should be independently deployable to main (1-3 days, 3-8 phases)
+  - **Phase scope = Commit point**: Phases are testable, reviewable, committable steps within tasks (1-4 hours)
+  - **pm-guide.md**: Added "Task and Phase Scoping Principles" section with examples of properly/improperly scoped work
+  - **`/plan` command**: Added scoping validation step to warn if task appears too small to deploy independently
+  - **task.md template**: Added scoping hint emphasizing deployable changes
+  - **spec.md template**: Updated task breakdown guidance to emphasize independently deployable tasks
+  - **Goal**: Prevent overly granular tasks that should be phases within larger deployable work
+
 ## [0.26.0] - 2025-11-17
 
 ### Added
