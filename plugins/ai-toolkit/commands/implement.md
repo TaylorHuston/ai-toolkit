@@ -13,11 +13,11 @@ references_guidelines:
 
 # /implement Command
 
-**WHAT**: Execute implementation phases with intelligent agent coordination and progress tracking.
+**WHAT**: Execute implementation phases with mandatory test-first loop enforcement and intelligent agent coordination.
 
-**WHY**: Structured execution ensures quality gates, test-first approach, and complete context handoffs.
+**WHY**: Structured execution with strict quality gates ensures robust code, prevents regressions, and maintains clean git history.
 
-**HOW**: See pm-guide.md for phase execution, test-first guidance, progress tracking, and agent briefing. See worklog-format.md for WORKLOG entry formats. See development-loop.md for quality gates.
+**HOW**: See pm-guide.md for mandatory "Test-First Phase Loop" (tests → code → review → commit → worklog → next phase), agent briefing, and progress tracking. See worklog-format.md for WORKLOG entry formats. See development-loop.md for quality gates.
 
 ## Usage
 
@@ -137,7 +137,7 @@ Provide agent with:
 - Agent adapts to current code patterns and conventions
 - Agent is NOT following prescriptive step-by-step instructions
 
-**Test-first guidance**: See pm-guide.md "Test-First Guidance Protocol".
+**Test-first loop enforcement**: Agent MUST follow pm-guide.md "Test-First Phase Loop" (tests → code → review → commit → worklog → next phase).
 
 Spawn agent via Task tool:
 ```
@@ -166,13 +166,11 @@ Required entry format (per guideline):
 
 ### 6. Quality Gates
 
-**Per-phase validation**: See development-loop.md "Quality Gates" for thresholds.
+**Enforce mandatory phase loop**: See development-loop.md "Per-Phase Gates" for complete quality gate requirements and enforcement protocol.
 
-Required checks:
-- Tests pass (if test-first phase)
-- Code review score ≥ 90 (invoke code-reviewer agent)
-- Security approval (if security-relevant per pm-guide.md criteria)
-- Documentation updated (if user-facing changes)
+**Loop**: tests (red) → code (green) → review (≥90) → commit → worklog → next phase
+
+All quality gates MUST pass before marking phase complete.
 
 ### 7. Post-Phase Review and Adaptation
 

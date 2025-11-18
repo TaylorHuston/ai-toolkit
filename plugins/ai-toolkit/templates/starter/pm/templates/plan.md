@@ -27,7 +27,7 @@ sections:
     prompt: "Phase-based breakdown with checkboxed implementation steps"
     required: true
     format: structured-checklist
-    hint: "Organized phases with numbered checkboxes (e.g., '- [ ] 1.1 Write user model tests'). STRATEGIC, NOT TACTICAL: Describe WHAT to build, not HOW. Implementation details decided by specialist agents based on current codebase state and WORKLOG lessons. Test-first patterns embedded."
+    hint: "Organized phases with numbered checkboxes (e.g., '- [ ] 1.1 Write user model tests'). STRATEGIC, NOT TACTICAL: Describe WHAT to build, not HOW. Implementation details decided by specialist agents based on current codebase state and WORKLOG lessons. Each phase MUST follow mandatory test-first loop: tests → code → review → commit → worklog → next phase (see pm-guide.md)."
   - name: Scenario Coverage
     prompt: "Mapping of which phases validate which acceptance scenarios from parent spec"
     required: false
@@ -86,11 +86,14 @@ sections:
 
 **Note**: Phases are suggestions. Code reviews, security audits, and implementation discoveries may require plan updates.
 
-**Alternative Patterns**:
-- **Strict TDD**: Red-Green-Refactor cycle visible in every step
-- **BDD Scenarios**: Define Given/When/Then → Implement tests → Build features
-- **Test Pyramid**: Heavy unit, moderate integration, light E2E
-- **Pragmatic**: Spike/explore → Write tests → Implement production code
+**Mandatory Phase Execution**:
+Each phase MUST follow strict test-first loop (see pm-guide.md "Test-First Phase Loop"):
+1. Write tests (must fail - red)
+2. Write code (make tests pass - green)
+3. Code review (must pass ≥90)
+4. Only when ALL pass: commit, update WORKLOG, move to next phase
+
+No shortcuts. Tests → Code → Review → Commit → Next.
 
 ## Complexity Analysis
 

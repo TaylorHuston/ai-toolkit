@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.28.0] - 2025-11-17
+
+### Changed
+
+- **Mandatory test-first phase loop** - Enforced strict test-first loop for all phase execution
+  - **pm-guide.md "Test-First Phase Loop"**: Replaced flexible "Alternative Patterns" with mandatory enforcement of tests → code → review → commit → worklog → next phase
+  - **Quality gates (ALL required)**: Tests written and initially failing (red), tests passing after implementation (green), code review score ≥90
+  - **`/implement` command**: Updated to enforce mandatory loop with quality gate validation before phase completion
+  - **plan.md template**: Added "Mandatory Phase Execution" section referencing pm-guide.md loop protocol
+  - **Progress Tracking Protocol**: Updated to require all quality gates pass before proceeding to next phase
+  - **Example loop**: Phase 1.1 → Write tests (red) → Write code (green) → Code review (≥90) → Commit → WORKLOG → Phase 1.2
+  - **Goal**: Ensure robust code quality, prevent regressions, maintain clean git history with tested incremental commits
+  - **No shortcuts**: Tests cannot be skipped, code review cannot be skipped, phases cannot be combined
+
 ## [0.27.0] - 2025-11-17
 
 ### Changed

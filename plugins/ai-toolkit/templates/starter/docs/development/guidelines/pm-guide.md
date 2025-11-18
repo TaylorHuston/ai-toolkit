@@ -469,36 +469,78 @@ Next: /implement TASK-001 1.1
 
 **Flexibility:** If no parent spec exists, generate tests from TASK.md acceptance criteria instead.
 
-### Test-First Patterns
+### Test-First Phase Loop
 
-**Default Approach:** Test-first methodology embedded in phases
+**MANDATORY:** Every phase follows strict test-first loop
 
-**Phase Pattern:**
+**Phase Execution Loop:**
 ```
-Phase 1: Feature Name
-- [ ] 1.1 Write tests for core functionality
-- [ ] 1.2 Implement core functionality (make tests pass)
-- [ ] 1.3 Refactor for clarity/performance
+For each phase:
+  1. Write tests for phase (MUST fail - red)
+  2. Write code to pass tests (green)
+  3. Run code review (MUST pass ≥90)
+  4. Only when ALL pass:
+     - Commit phase changes
+     - Update WORKLOG entry
+     - Move to next phase
 ```
 
-**Alternative Patterns (noted in PLAN.md):**
-- **Strict TDD:** Red-Green-Refactor cycle visible in every step
-- **BDD Scenarios:** Define Given/When/Then → Implement tests → Build features
-- **Test Pyramid:** Heavy unit, moderate integration, light E2E
-- **Pragmatic:** Spike/explore → Write tests → Implement production code
+**Quality Gates (all MUST pass before proceeding):**
+- ✅ Tests written and initially failing (confirms tests are valid)
+- ✅ Tests passing after implementation
+- ✅ Code review score ≥90
 
-**Choice:** Teams can adapt to their preferred approach. Phases are suggestions.
+**Loop Example:**
+```
+Phase 1.1: Implement user model with password hashing
+
+Step 1 - Write Tests (Red):
+  - Create test file: user.test.ts
+  - Write tests for user creation, password hashing, validation
+  - Run tests → MUST FAIL (red)
+  - If tests pass immediately, they're not testing anything new
+
+Step 2 - Write Code (Green):
+  - Implement User model
+  - Implement password hashing
+  - Run tests → MUST PASS (green)
+
+Step 3 - Code Review:
+  - Run code-reviewer agent
+  - Score MUST be ≥90
+  - Address any critical issues before proceeding
+
+Step 4 - Commit & Document:
+  - Commit: "feat: implement user model with bcrypt password hashing"
+  - WORKLOG entry: What was done, decisions made, lessons learned
+  - Mark phase 1.1 complete in PLAN.md
+
+Only then → Move to Phase 1.2
+```
+
+**Why This Loop:**
+- **Tests fail first**: Proves tests are testing something real
+- **Code review mandatory**: Catches issues before they compound
+- **Commit per phase**: Clean git history, easy rollback
+- **WORKLOG per phase**: Context for future phases and developers
+
+**No Shortcuts:** Do not skip tests, do not skip code review, do not combine phases.
 
 ### Progress Tracking Protocol
 
 **Used by `/implement` command during execution:**
 
-**After Each Phase:**
-1. Update PLAN.md checkboxes (mark completed steps with `[x]`)
-2. Add WORKLOG.md entry (what was done, decisions made)
-3. Verify tests pass
-4. Run code reviews if needed
-5. Proceed to next phase
+**Phase Completion Checklist (ALL required):**
+1. ✅ Tests written and initially failing (red)
+2. ✅ Tests passing after implementation (green)
+3. ✅ Code review completed with score ≥90
+4. ✅ Phase changes committed to git
+5. ✅ WORKLOG.md entry added (what was done, decisions made, lessons learned)
+6. ✅ PLAN.md checkboxes updated (mark completed steps with `[x]`)
+
+**Only then:** Proceed to next phase
+
+**Enforcement:** `/implement` command enforces this loop. If any quality gate fails, phase is not considered complete.
 
 **Visibility:** Updated PLAN.md shows real-time progress to team.
 

@@ -572,14 +572,31 @@ complexity_scoring:
 
 ### Per-Phase Gates
 
-**Required before marking phase complete:**
+**MANDATORY: Every phase follows strict test-first loop** (see pm-guide.md "Test-First Phase Loop"):
 
-1. **Functional**: All acceptance criteria met
-2. **Tests**: All tests pass, coverage ≥ 95%
-3. **Coding Standards**: Implementation follows coding-standards.md conventions
-4. **Quality**: Code review score ≥ 90
-5. **Security**: Security-auditor review passes (if security-relevant phase)
-6. **Documentation**: Inline docs for public APIs
+**Phase Execution Loop:**
+1. **Write tests** (must fail - red) - Proves tests are testing something real
+2. **Write code** (make tests pass - green) - Minimal implementation
+3. **Code review** (must pass ≥90) - Catches issues before they compound
+4. **Only when ALL pass:**
+   - Commit phase changes to git
+   - Update WORKLOG.md entry
+   - Mark phase complete in PLAN.md
+   - Proceed to next phase
+
+**Quality gates** (ALL required):
+1. ✅ **Tests written and initially failing** (red) - Validates tests are legitimate
+2. ✅ **Tests passing after implementation** (green) - Confirms functionality works
+3. ✅ **Code review score ≥90** - Ensures maintainability and quality
+4. ✅ **Coding Standards** - Implementation follows coding-standards.md conventions
+5. ✅ **Security approval** - Security-auditor review passes (if security-relevant phase)
+6. ✅ **Test coverage ≥95%** - Ensures adequate test coverage
+7. ✅ **Acceptance criteria met** - Phase objectives achieved
+8. ✅ **Documentation** - Inline docs for public APIs
+
+**No shortcuts**: Tests cannot be skipped, code review cannot be skipped, phases cannot be combined.
+
+**Enforcement**: `/implement` command enforces this loop. If any quality gate fails, phase is not considered complete.
 
 **Coding Standards Gate** (enforced before phase completion):
 - Implementation agents read `coding-standards.md` BEFORE writing code
