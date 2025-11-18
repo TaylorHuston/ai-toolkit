@@ -69,7 +69,7 @@ references_guidelines:
 
 ## Modes
 
-**Specific phase**: `/implement TASK-001 1`
+**Specific phase**: `/implement TASK-001 1.1`
 - Execute single phase
 - User specifies exact phase number
 
@@ -89,7 +89,7 @@ references_guidelines:
 ```
 User: /implement TASK-001 --next
 
-AI: Next uncompleted phase: 2 - Implement authentication logic
+AI: Next uncompleted phase: 1.2 - Implement authentication logic
     Proceed? (yes/no)
 
 User: yes
@@ -127,7 +127,7 @@ See agent-coordination.md for complete handoff patterns and agent selection crit
 
 **Workflow position**:
 ```
-/plan TASK-### → /implement TASK-### 1 ... → /commit
+/plan TASK-### → /implement TASK-### 1.1 → /implement TASK-### 1.2 → ... → /commit
 ```
 
 **Progress tracking**: Updates PLAN.md checkboxes and WORKLOG.md entries per pm-guide.md
