@@ -1,4 +1,4 @@
-# AI Workflow Marketplace
+# AI Toolkit - Claude Plugin
 
 A comprehensive AI-assisted development workflow system for Claude Code, providing intelligent task orchestration, specialized agent coordination, and file-based state management.
 
