@@ -27,7 +27,7 @@ sections:
     prompt: "Phase-based breakdown with checkboxed implementation steps"
     required: true
     format: structured-checklist
-    hint: "Organized phases with numbered checkboxes (e.g., '- [ ] 1.1 Write user model tests'). Test-first patterns embedded."
+    hint: "Organized phases with numbered checkboxes (e.g., '- [ ] 1.1 Write user model tests'). STRATEGIC, NOT TACTICAL: Describe WHAT to build, not HOW. Implementation details decided by specialist agents based on current codebase state and WORKLOG lessons. Test-first patterns embedded."
   - name: Scenario Coverage
     prompt: "Mapping of which phases validate which acceptance scenarios from parent spec"
     required: false
@@ -42,7 +42,7 @@ sections:
     prompt: "Implementation guidance, warnings, and context"
     required: false
     format: paragraph
-    hint: "Phases are suggestions. Complexity notes. Decomposition recommendations."
+    hint: "LIVING DOCUMENT: Plans evolve during implementation. Update when discoveries in one phase affect later phases. Complexity notes. Decomposition recommendations. Reference WORKLOG for lessons learned."
 ---
 
 # Implementation Plan: {task_id} {task_name}
@@ -70,7 +70,21 @@ sections:
 
 ---
 
-**Note**: Phases are suggestions. See pm-guide.md "Agile Plan Updates" for guidance on updating phases during implementation based on code reviews and security audits.
+## Implementation Philosophy
+
+**STRATEGIC, NOT TACTICAL:**
+- This plan describes **WHAT** to build, not **HOW** to build it
+- Specialist agents (backend-specialist, frontend-specialist, etc.) decide implementation details
+- Agents leverage WORKLOG to understand what's been done and lessons learned
+- Agents adapt to current codebase state, not rigid prescriptive steps
+
+**LIVING DOCUMENT:**
+- Update plan when implementation reveals new insights
+- If Phase 1 uncovers complexity affecting Phase 2, update Phase 2
+- Document significant plan changes in WORKLOG with rationale
+- See pm-guide.md "Agile Plan Updates" for update protocol
+
+**Note**: Phases are suggestions. Code reviews, security audits, and implementation discoveries may require plan updates.
 
 **Alternative Patterns**:
 - **Strict TDD**: Red-Green-Refactor cycle visible in every step

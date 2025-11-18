@@ -531,14 +531,40 @@ Relevant Files: [filtered list for backend domain]
 - Security audits require changes
 - Complexity higher/lower than estimated
 - New requirements discovered
+- **Previous phase discoveries affect future phases**
+- **Implementation reveals better sequencing**
 
 **Protocol:**
-1. Update PLAN.md phases
-2. Add WORKLOG.md entry explaining why
-3. Continue implementation
+1. Read WORKLOG.md for context on what's been done and lessons learned
+2. Update PLAN.md phases (what changed and why)
+3. Add WORKLOG.md entry explaining plan update rationale
+4. Continue implementation with updated plan
+
+**Key Principles:**
+
+**Strategic, Not Tactical:**
+- PLAN.md describes **WHAT** to build (objectives, outcomes)
+- Specialist agents decide **HOW** to build it (implementation details)
+- Implementation details adapt to current codebase state
+- Agents leverage WORKLOG for lessons learned and context
+
+**Examples:**
+- ✅ Strategic: "1.2 Implement user model with password hashing"
+- ❌ Tactical: "1.2 Create User class with bcrypt.hash() in the setPassword method using 10 salt rounds"
+
+**Why Strategic Wins:**
+- Specialist agents see current code state and can adapt
+- WORKLOG provides context about what worked/didn't work
+- Flexibility for better approaches discovered during implementation
+- Avoids outdated prescriptive steps
+
+**WORKLOG Integration:**
+- Agents read WORKLOG before each phase to understand context
+- Past decisions, gotchas, and lessons inform current implementation
+- If Phase 1 revealed "bcrypt is too slow, switched to argon2", Phase 2 agent knows this
 
 **Note in PLAN.md template:**
-> "Phases are suggestions. Adapt based on code reviews and security audits."
+> "Phases are suggestions. Adapt based on code reviews, security audits, and implementation discoveries."
 
 ---
 

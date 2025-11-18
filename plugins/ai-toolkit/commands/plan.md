@@ -136,6 +136,22 @@ Combine:
 - Typical size: 1-4 hours of focused work
 - Aim for 3-8 phases per task (if more, task may be too large)
 
+**CRITICAL - Strategic, Not Tactical:**
+- Describe **WHAT** to build (objectives, outcomes), NOT **HOW**
+- Specialist agents decide implementation details based on current codebase
+- Agents leverage WORKLOG for lessons learned and context
+- Avoid prescriptive code-level instructions
+
+**Examples:**
+- ✅ Strategic: "1.2 Implement user model with password hashing"
+- ❌ Tactical: "1.2 Create User class with bcrypt.hash() in setPassword method using 10 salt rounds"
+
+**Why Strategic:**
+- Codebase evolves during implementation
+- WORKLOG provides real-time context (e.g., "switched from bcrypt to argon2")
+- Specialist agents adapt to current state, not stale prescriptions
+- Flexibility for better approaches discovered during work
+
 **Complexity scoring**: See pm-guide.md for point values and thresholds.
 
 ```bash

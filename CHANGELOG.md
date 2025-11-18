@@ -6,7 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.27.0] - 2025-11-17
+
 ### Changed
+
+- **Plan philosophy: Strategic vs Tactical** - Clarified that PLAN.md describes WHAT to build, not HOW
+  - **Strategic plans**: Describe objectives and outcomes (what to achieve)
+  - **Tactical implementation**: Specialist agents decide HOW based on current codebase state and WORKLOG
+  - **plan.md template**: Added "Implementation Philosophy" section emphasizing strategic approach and living document nature
+  - **pm-guide.md "Agile Plan Updates"**: Enhanced with strategic/tactical distinction, WORKLOG integration, and examples
+  - **`/plan` command**: Added guidance to generate strategic phases, not tactical prescriptive steps
+  - **`/implement` command**: Emphasized agents read WORKLOG for context and decide implementation approach autonomously
+  - **Example**: ✅ "Implement user model with password hashing" vs ❌ "Create User class with bcrypt.hash() using 10 salt rounds"
+  - **Goal**: Prevent outdated prescriptive plans; let specialist agents adapt to current code and lessons learned
 
 - **PM workflow scoping clarity** - Emphasized task/phase scoping principles across documentation and templates
   - **Task scope = Deployable change**: Tasks should be independently deployable to main (1-3 days, 3-8 phases)

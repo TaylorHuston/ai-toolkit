@@ -86,12 +86,19 @@ Read: docs/development/guidelines/git-workflow.md
 # Find and read task files
 Glob: pm/issues/{ISSUE-ID}-*/
 Read: PLAN.md (phase details, acceptance criteria)
-Read: WORKLOG.md (previous work context)
+Read: WORKLOG.md (CRITICAL - previous work context and lessons learned)
 Read: TASK.md or BUG.md (requirements)
 
 # Load epic context if linked
 Read: pm/epics/EPIC-###-*.md
 ```
+
+**WORKLOG is Critical:**
+- Contains lessons learned from previous phases
+- Documents what worked/didn't work (e.g., "switched from bcrypt to argon2 due to performance")
+- Provides context about current codebase state
+- Informs implementation approach for current phase
+- Agents MUST read WORKLOG before deciding HOW to implement phase
 
 ### 3. Branch Management
 
@@ -111,11 +118,24 @@ Bash: git branch --show-current
 
 **Context briefing**: See pm-guide.md "Agent Context Briefing" for filtering patterns.
 
+**CRITICAL - Strategic vs Tactical:**
+- PLAN.md provides **WHAT** to build (objectives, outcomes)
+- Specialist agent decides **HOW** to build it (implementation details)
+- Agent adapts to current codebase state, not rigid prescriptions
+- Agent reads WORKLOG for lessons learned and context
+
 Provide agent with:
-- Phase requirements (filtered from PLAN.md)
-- Relevant context only (not full PLAN.md)
+- Phase objective from PLAN.md (strategic goal, NOT implementation steps)
+- WORKLOG.md context (lessons learned, past decisions, gotchas)
+- Current codebase state (relevant files only)
 - Architecture decisions (from architecture-overview.md)
 - Design patterns (if frontend work)
+
+**Agent Autonomy:**
+- Agent decides specific implementation approach
+- Agent considers WORKLOG lessons (e.g., "bcrypt too slow, use argon2")
+- Agent adapts to current code patterns and conventions
+- Agent is NOT following prescriptive step-by-step instructions
 
 **Test-first guidance**: See pm-guide.md "Test-First Guidance Protocol".
 
@@ -123,7 +143,7 @@ Spawn agent via Task tool:
 ```
 Task(
   subagent_type: {domain-specialist},
-  prompt: {filtered context + phase requirements}
+  prompt: {strategic phase objective + WORKLOG context + current codebase state}
 )
 ```
 
