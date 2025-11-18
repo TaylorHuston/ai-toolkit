@@ -205,12 +205,6 @@ Use `/plan TASK-###` or `/plan BUG-###` to create implementation breakdown:
 - To generate scenario-driven test phases
 - To estimate complexity
 
-**Plans are optional but recommended for:**
-- Complex tasks (>5 story points estimated)
-- Tasks requiring architectural review
-- Tasks with parent spec acceptance scenarios
-- First-time implementations in a domain
-
 ### Plan Creation Process
 
 **Command:** `/plan TASK-001`

@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-Comprehensive AI-assisted development workflow system for Claude Code with 25 commands, 21 specialized agents, and intelligent state management.
+Comprehensive AI-assisted development workflow system for Claude Code with 24 commands, 21 specialized agents, and intelligent state management.
 
 ## Quick Start
 
@@ -23,7 +23,7 @@ cd my-project
 
 ## What You Get
 
-- **25 Workflow Commands** - Complete `/project-brief` → `/spec` → `/plan` → `/implement` cycle + utilities
+- **24 Workflow Commands** - Complete `/project-brief` → `/spec` → `/plan` → `/implement` cycle + utilities
 - **21 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
 - **3 Bundled MCP Servers** - Auto-configured tools (context7, sequential-thinking, playwright)
 - **Starter Template** - 49 files for organized project initialization

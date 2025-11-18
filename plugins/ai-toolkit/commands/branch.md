@@ -51,11 +51,6 @@ references_guidelines:
 3. If pass: merge and push
 4. If fail: block with clear error
 
-**Critical Rules:**
-- ❌ Work branches (feature/*, bugfix/*) CANNOT merge to main
-- ✅ Only develop can merge to main
-- ⚠️ Hotfix branches require ADR justification
-
 ### Delete
 1. Check if fully merged
 2. Confirm with user
@@ -88,25 +83,6 @@ merge_rules:
 ```
 
 **If missing**: Use defaults (three-branch: main ← develop ← work branches)
-
-## Validation Rules
-
-Defined in git-workflow.md, enforced by this command:
-
-**Merge to Develop (Staging)**:
-- ✅ Source: Any work branch (feature/*, bugfix/*)
-- ✅ Validation: All tests MUST pass
-- ❌ BLOCKS if tests fail
-
-**Merge to Main (Production)**:
-- ✅ Source: ONLY `develop` branch
-- ❌ BLOCKS work branches (feature/*, bugfix/*)
-- ✅ Validation: Staging health checks MUST pass
-- ⚠️ Exception: hotfix/* (requires ADR justification)
-
-**Branch Naming**: Follow configured pattern, auto-detect test framework
-
-See `git-workflow.md` for complete rules and rationale.
 
 ## Agent Coordination
 
@@ -147,10 +123,3 @@ CRITICAL:
 
 All rules defined in git-workflow.md - this command enforces them."
 ```
-
-## Related
-
-- `/implement` - Creates work branches automatically
-- `/commit` - Branch-aware commit messages
-- `/docs` - Workflow documentation reference
-- `git-workflow.md` - **Source of truth** for all branching rules

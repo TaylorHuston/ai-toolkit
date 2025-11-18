@@ -1,162 +1,124 @@
 ---
 tags: ["workflow", "quality", "assessment", "validation"]
 description: "Comprehensive quality assessment with multi-agent coordination"
-argument-hint: "[assess|validate|audit|fix] [--scope SCOPE] [--depth DEPTH] [--focus FOCUS]"
+argument-hint: "[--focus AREA]"
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/workflows/development-loop.md  # Quality dimensions, quality gates, thresholds
+  - docs/development/workflows/quality-gates.md  # Quality dimensions, thresholds, validation rules
 ---
 
 # /quality Command
 
-**WHAT**: Comprehensive quality assessment with multi-agent coordination across code, security, performance, and testing.
+**WHAT**: Comprehensive quality assessment across code quality, security, performance, testing, and documentation.
 
-**WHY**: Ensure quality throughout development lifecycle with automated validation, intelligent remediation, and progressive quality gates.
+**WHY**: Ensure consistent quality standards throughout development with multi-agent analysis and actionable recommendations.
 
-**HOW**: See development-loop.md for quality dimensions and gates. Multi-agent orchestration (assess/validate/audit/fix) with context-aware checks.
+**HOW**: Coordinate specialized agents (code-reviewer, security-auditor, performance-optimizer, test-engineer) to analyze the codebase and provide improvement recommendations.
 
 ## Usage
 
 ```bash
-/quality assess                      # Comprehensive quality assessment
-/quality validate --scope current-phase  # Phase-specific validation
-/quality audit --focus security      # Security-focused audit
-/quality fix --scope code-style      # Auto-fix quality issues
-/quality validate --scope commit-ready   # Pre-commit check
+/quality                        # Comprehensive quality assessment (all dimensions)
+/quality --focus security       # Focus on security analysis
+/quality --focus performance    # Focus on performance analysis
+/quality --focus testing        # Focus on test coverage and quality
 ```
 
-## Commands
+## How It Works
 
-### `assess` - Comprehensive Quality Assessment
-
-Multi-dimensional quality analysis using specialized agents.
-
-**Options:**
-- `--scope all|current|specific-files`
-- `--depth shallow|standard|deep`
-- `--focus code|security|performance|architecture`
-
-**Agents:**
-1. **code-reviewer** - Code quality, maintainability, best practices
-2. **security-auditor** - Security vulnerabilities, compliance
-3. **performance-optimizer** - Performance bottlenecks, optimization
-4. **test-engineer** - Test coverage, quality, effectiveness
-
-### `validate` - Quality Gate Validation
-
-Validates quality gates with automatic remediation suggestions.
-
-**Options:**
-- `--scope current-phase|all-phases|commit-ready`
-- `--auto-fix` - Auto-fix simple issues
-- `--report FORMAT` - Generate validation report
-
-**Validates:**
-- Multi-phase quality (P1, P2, P3)
-- Test coverage thresholds
-- Code quality metrics
-- Documentation completeness
-- Security compliance
-
-**Agents:**
-- **code-reviewer** - Code quality validation
-- **test-engineer** - Coverage analysis
-- **security-auditor** - Security compliance
-
-### `audit` - Security and Compliance Audit
-
-OWASP compliance and vulnerability assessment.
-
-**Options:**
-- `--focus security|compliance|vulnerabilities`
-- `--framework owasp|nist|custom`
-- `--severity low|medium|high|critical`
-
-**Checks:**
-- OWASP Top 10 compliance
-- Dependency vulnerabilities
-- Security code patterns
-- Infrastructure security
-
-**Agents:**
-- **security-auditor** (primary)
-- **code-reviewer** (code patterns)
-- **devops-engineer** (infrastructure)
-
-### `fix` - Automated Issue Resolution
-
-Agent-guided issue resolution.
-
-**Options:**
-- `--scope code-style|tests|security|documentation`
-- `--auto` - Auto-fix safe issues
-- `--interactive` - Interactive approval
-- `--dry-run` - Preview fixes
-
-**Fixes:**
-- Code style and formatting
-- Test failures
-- Documentation sync
-- Simple security issues
-
-**Agents:**
-- **refactoring-specialist** - Code improvements
-- **test-engineer** - Test fixes
-- **technical-writer** - Documentation fixes
+1. **Read Quality Configuration** - Load quality dimensions and thresholds from `docs/development/workflows/quality-gates.md`
+2. **Analyze Codebase** - Coordinate specialized agents based on focus area or run comprehensive analysis
+3. **Generate Report** - Provide actionable recommendations with priority levels
+4. **Suggest Improvements** - Offer specific fixes and refactoring suggestions
 
 ## Quality Dimensions
 
-Configuration in `docs/development/workflows/development-loop.md` (YAML frontmatter).
+**Default dimensions** (configured in `quality-gates.md`):
 
-**Default Dimensions** (customizable):
-- **code_quality** - Complexity, maintainability (code-reviewer)
-- **security** - Vulnerabilities, compliance (security-auditor)
-- **performance** - Speed, efficiency (performance-optimizer)
-- **testing** - Coverage, effectiveness (test-engineer)
-- **documentation** - Completeness, accuracy (technical-writer)
-- **architecture** - Design patterns (code-architect)
+- **Code Quality** - Maintainability, complexity, best practices (code-reviewer)
+- **Security** - Vulnerabilities, OWASP compliance (security-auditor)
+- **Performance** - Bottlenecks, optimization opportunities (performance-optimizer)
+- **Testing** - Coverage, test quality, effectiveness (test-engineer)
+- **Documentation** - Completeness, accuracy (technical-writer)
 
-**Customization**: Teams adjust based on priorities (startups drop docs, regulated industries add compliance)
+## Focus Areas
 
-## Workflow Integration
+Use `--focus` to target specific quality dimensions:
 
-Read `development-loop.md` for current quality gate configuration.
+- `security` - OWASP Top 10, vulnerabilities, auth/data protection
+- `performance` - N+1 queries, inefficient algorithms, bottlenecks
+- `testing` - Coverage analysis, test quality, missing tests
+- `code` - Code quality, complexity, maintainability
+- `docs` - Documentation completeness and accuracy
 
-**During `/implement`**: Auto-validation between phases, progressive gate enforcement
-**Pre-Commit**: Comprehensive check, fix suggestions, AI-driven remediation
-**Continuous**: Background monitoring, proactive detection, trend analysis
+**No flag = Comprehensive analysis across all dimensions**
 
-## Examples
+## When to Use
 
-**Comprehensive assessment:**
-```bash
-/quality assess --depth deep
-# → code-reviewer, security-auditor, performance-optimizer, test-engineer
+**During Development:**
+- Before merging to staging/production
+- After completing a task
+- When quality concerns arise
+
+**Regular Checks:**
+- Weekly quality reviews
+- Pre-release validation
+- After major refactoring
+
+**Targeted Analysis:**
+- Security review before auth changes
+- Performance check after data layer changes
+- Test coverage validation after feature addition
+
+## Example Output
+
 ```
+Quality Assessment Report
+=========================
 
-**Pre-commit check:**
-```bash
-/quality validate --scope commit-ready
-# → All quality gates validated, pass/fail with remediation
-```
+Code Quality: 87/100 ✅
+- 3 high-complexity functions identified
+- Recommendation: Refactor UserService.validateCredentials()
 
-**Security audit:**
-```bash
-/quality audit --focus security --framework owasp
-# → OWASP Top 10 compliance, vulnerability assessment
-```
+Security: 92/100 ✅
+- 1 medium-severity issue: SQL injection risk in search endpoint
+- Recommendation: Use parameterized queries
 
-**Auto-fix:**
-```bash
-/quality fix --scope code-style --auto
-# → Identify and apply safe formatting fixes
+Performance: 78/100 ⚠️
+- N+1 query detected in /api/users endpoint
+- Recommendation: Add eager loading for user.posts
+
+Testing: 85/100 ✅
+- Coverage: 82% (target: 80%)
+- 12 untested edge cases identified
+
+Documentation: 90/100 ✅
+- API endpoints documented
+- Missing: Error response examples
+
+Overall: 86/100 ✅
+Priority Actions:
+1. Fix SQL injection in search (CRITICAL)
+2. Optimize /api/users N+1 query (HIGH)
+3. Refactor high-complexity functions (MEDIUM)
 ```
 
 ## Benefits
 
-✅ **Unified Interface**: Single command for all quality concerns
-✅ **Intelligent Coordination**: Agents work together
-✅ **Context Awareness**: Understands project state
-✅ **Automated Remediation**: Intelligent fixes
-✅ **Progressive Quality**: Gates throughout development
+✅ **Single Command**: No complex subcommands or flags
+✅ **Comprehensive by Default**: Analyzes all quality dimensions
+✅ **Targeted When Needed**: Optional focus for specific concerns
+✅ **Actionable Output**: Specific recommendations with priority
+✅ **Multi-Agent Coordination**: Leverages specialized domain experts
+✅ **Configuration-Driven**: Adapts to your quality standards via quality-gates.md
+
+## Integration
+
+**With `/implement`**: Quality checks run automatically during implementation phases
+
+**With `/sanity-check`**: Use for quick quality validation mid-development
+
+**With `/security-audit`**: For deeper OWASP compliance and penetration testing
+
+**Before `/branch merge`**: Run comprehensive quality check before merging to staging/production

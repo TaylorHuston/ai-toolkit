@@ -14,7 +14,7 @@ references_guidelines:
 
 **WHY**: Keep CHANGELOG accurate and reduce pre-release work.
 
-**HOW**: See versioning-and-releases.md for format, categories, and writing style guidelines.
+**HOW**: See `docs/development/conventions/versioning-and-releases.md` for format, categories, and writing style guidelines.
 
 ## Usage
 
@@ -42,12 +42,6 @@ Bash: git describe --tags --abbrev=0
 Bash: git log v0.12.0..HEAD --oneline --no-merges
 Bash: git diff --name-only v0.12.0..HEAD
 ```
-
-**Focus on user-facing files:**
-- `commands/*.md` - New/changed commands
-- `agents/*.md` - New/changed agents
-- `templates/starter/*` - Template changes
-- `README.md`, `docs/*` - Documentation
 
 ### 3. Detect Undocumented Changes
 

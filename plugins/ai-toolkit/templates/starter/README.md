@@ -189,7 +189,7 @@ your-project/
 
 ## Available Commands
 
-The AI Toolkit provides **25 commands** for structured development:
+The AI Toolkit provides **24 commands** for structured development:
 
 ### Setup & Strategy
 - `/toolkit-init` - Initialize project structure (you've already run this!)

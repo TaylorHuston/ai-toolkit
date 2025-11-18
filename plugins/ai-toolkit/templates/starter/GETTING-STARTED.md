@@ -246,7 +246,7 @@ Most guidelines start with TBD placeholders - fill in via `/adr` decisions and c
 
 ## Command Reference
 
-**25 commands organized by workflow stage:**
+**24 commands organized by workflow stage:**
 
 ### Setup & Strategy
 | Command | Purpose |

@@ -9,7 +9,7 @@ This is very much an alpha/experiment at this point. Look at the commit history 
 
 This marketplace contains:
 
-- **AI Toolkit Plugin** - Complete workflow system with 25 commands, 21 specialized agents, and intelligent automation
+- **AI Toolkit Plugin** - Complete workflow system with 24 commands, 21 specialized agents, and intelligent automation
 - **Starter Template** - 49 essential files for clean project initialization via `/toolkit-init`
 - **Development Guidelines** - 30+ customizable files organized in 4 directories (conventions, workflows, misc, templates)
 
@@ -55,7 +55,7 @@ The `/toolkit-init` command scaffolds your project with:
 
 ## Customizable Commands and Workflows
 
-The AI Toolkit provides **25+ commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
+The AI Toolkit provides **24 commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
 
 **Why file-based configuration?** Commands are intentionally minimal - they read your project's guideline files to adapt behavior. Baseline versions come with the toolkit, but keeping them as files in your repo means you can customize them to fit your team's specific workflow and conventions.
 
@@ -63,7 +63,7 @@ The AI Toolkit provides **25+ commands** that follow workflows in your `docs/dev
 
 ## AI Toolkit Plugin
 
-The AI Toolkit plugin provides a complete development workflow system with **25 commands** organized around a 3-phase development cycle.
+The AI Toolkit plugin provides a complete development workflow system with **24 commands** organized around a 3-phase development cycle.
 
 > **New to the workflow?** See [Intended Workflow](#intended-workflow) above for a beginner-friendly walkthrough.
 

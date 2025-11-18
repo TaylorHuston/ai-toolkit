@@ -6,6 +6,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **`/quality` command simplification** - Removed subcommands and excessive flags
+  - Removed 4 subcommands (assess, validate, audit, fix) and 10+ flags
+  - Single command with optional `--focus` flag (security, performance, testing, code, docs)
+  - Comprehensive analysis by default, targeted analysis when needed
+  - 64% reduction in command complexity
+  - Follows "commands orchestrate, guidelines configure" principle
+
+- **`/release` command simplification** - Configuration-driven approach
+  - Removed embedded bash examples and version bump logic
+  - Delegated all rules to `docs/development/conventions/versioning-and-releases.md`
+  - Command reads files to update, version bump rules from convention
+  - 22% reduction in command file size
+  - Clearer separation: command orchestrates, convention configures
+
+- **`/spec` command enhancements** - Added update mode and automatic task creation
+  - **`--update SPEC-###` flag** - Review and sync spec with implementation reality
+    - Analyzes completed tasks and WORKLOG entries
+    - Reviews incomplete tasks for needed changes (modify, remove, split, merge)
+    - Updates spec based on development discoveries
+    - Run after task completion to keep specs aligned with code
+  - **Automatic task directory creation** - Creates full structure when tasks are selected
+    - Creates `pm/issues/TASK-###-name/` directory
+    - Creates `TASK.md` from template
+    - Links task ↔ spec bidirectionally
+    - Streamlines workflow (no manual directory creation needed)
+
+### Removed
+
+- `/security-audit` command - Functionality now covered by `/quality --focus security`
+  - Reduces command count from 25 to 24
+  - Simplifies quality assessment interface
+  - Most teams don't need formal OWASP compliance audits
+  - `/quality --focus security` covers 90% of security review use cases
+
 ## [0.31.0] - 2025-11-18
 
 ### Removed

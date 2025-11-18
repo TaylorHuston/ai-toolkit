@@ -80,6 +80,7 @@ AI: Great! Creating ADR-001-use-postgresql-supabase.md
 - `docs/project/adrs/README.md` - Best practices, quality standards
 - `docs/development/templates/adr-template.md` - Template structure (YAML frontmatter)
 - `docs/project/adrs/ADR-*.md` - Existing ADRs (decision history, patterns, conflicts)
+- `docs/project/conventions/*.md` - Codebase conventions
 - `docs/project/architecture-overview.md` - Current architecture state
 - `docs/project-brief.md`, `CLAUDE.md` - Project context
 
@@ -143,35 +144,3 @@ Output ADR documenting conversation and decision."
 **Location**: `docs/project/adrs/ADR-###-<kebab-case-title>.md`
 **Numbering**: Sequential (scan existing ADR-*.md files for next number)
 **Architecture Overview**: Living document - read at start, updated at end
-
-## Workflow Integration
-
-```
-/project-brief → /adr → /jira-epic → /plan → /implement
-                   ↓
-          docs/project/adrs/
-                   ↓
-        Referenced by epics/tasks
-```
-
-**Use `/adr`**:
-- After `/project-brief` - Foundational decisions
-- Before `/jira-epic` - Establish patterns
-- During `/jira-epic` - Epic-specific technical decisions
-- Before `/plan` - Document technical approach
-
-## ADR Maintenance
-
-**Status Transitions**:
-- Proposed → Accepted (finalized)
-- Accepted → Deprecated (no longer recommended)
-- Accepted → Superseded by ADR-### (replaced)
-
-**Superseding**: Create new ADR (don't edit old), link bidirectionally, explain why changed
-
-## Related Commands
-
-- `/project-brief` - Project vision informing decisions
-- `/jira-epic` - References ADRs in Dependencies
-- `/plan` - References ADRs for context
-- `/docs` - Generate architecture docs from ADRs

@@ -98,34 +98,6 @@ Continue to {next_section}? (yes/no)
 - Allow stop/resume anytime
 - Respect user pace
 
-### Brief Sections
-
-**1. Overview** (initialized by `/toolkit-init`)
-- One-paragraph app description
-
-**2. Problem**
-- What pain does this solve?
-- Who experiences it?
-- What's the impact/cost?
-
-**3. Solution**
-- How does the app solve it?
-- What's the approach?
-- Why does this work?
-
-**4. Target Audience**
-- Primary/secondary users
-- Characteristics
-- Specific needs
-
-**5. Key Features**
-- 3-5 core capabilities
-- What makes it valuable?
-
-**6. Success Metrics**
-- Measurable indicators
-- What does "winning" look like?
-
 ### Review Mode
 
 **When `--review` flag:**
@@ -170,9 +142,3 @@ Continue? (yes/no)
 ```
 
 **Purpose:** Foundation for feature planning, no tech stack (product vision only)
-
-### Related
-- `/toolkit-init` - Creates initial brief from template
-- `/jira-epic` - Create features aligned with brief
-- Project file: `docs/project-brief.md`
-- Template: `docs/development/templates/project-brief.md`

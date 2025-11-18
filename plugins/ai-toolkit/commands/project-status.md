@@ -1,7 +1,7 @@
 ---
 tags: ["workflow", "project-status", "analysis", "context", "dashboard"]
 description: "Enhanced project status dashboard with intelligent context analysis"
-argument-hint: "[--format FORMAT] [--scope SCOPE] [--ai-format] [--detailed]"
+argument-hint: "[--ai-format] [--detailed]"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
@@ -16,8 +16,6 @@ Enhanced project status dashboard with intelligent analysis - git state, project
 ## WHY
 Provides comprehensive project context through intelligent agent analysis, enabling informed decisions and workflow continuity.
 
-**Note**: Renamed from `/status` to avoid conflict with built-in Claude Code command.
-
 ## HOW
 
 ### Usage
@@ -25,8 +23,6 @@ Provides comprehensive project context through intelligent agent analysis, enabl
 /project-status                # Standard human-readable report
 /project-status --ai-format    # AI-optimized format
 /project-status --detailed     # Comprehensive analysis
-/project-status --scope git    # Specific scope (git/project/environment)
-/project-status --format json  # JSON output
 ```
 
 ### Pre-Execution Context
@@ -54,7 +50,7 @@ git log -10 --oneline
 git remote -v
 
 # PM structure
-glob: pm/epics/*/
+glob: pm/specs/*/
 glob: pm/issues/*/
 # Parse PLAN.md phases, WORKLOG.md entries
 
@@ -160,8 +156,3 @@ Showing git and environment status only.
 - During implementation: Check progress
 - Before commit: Validate state
 - AI context refresh: Preserve continuity
-
-### Related
-- `/refresh` - Simpler status check
-- PM structure: `pm/README.md`
-- Reference: CLAUDE.md for Jira config

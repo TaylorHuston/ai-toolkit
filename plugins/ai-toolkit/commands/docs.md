@@ -5,7 +5,7 @@ argument-hint: "[\"natural language instruction\"]"
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/README.md  # Documentation structure and organization
+  - docs/README.md  # Documentation structure and organization
 ---
 
 # /docs Command
@@ -14,7 +14,7 @@ references_guidelines:
 
 **WHY**: Maintain documentation accuracy, completeness, and freshness alongside code evolution.
 
-**HOW**: See docs/development/README.md for documentation structure. Natural language intent determines action (generate/validate/sync/update/analyze).
+**HOW**: See docs/README.md for documentation structure. Natural language intent determines action (generate/validate/sync/update/analyze).
 
 ## Philosophy
 
@@ -90,14 +90,6 @@ AI analyzes natural language and executes appropriate action:
 
 - **Project docs**: `docs/project/` - Architecture, decisions, features
 - **Development docs**: `docs/development/` - Guidelines, standards, setup
-- **AI toolkit docs**: `docs/ai-toolkit/` - Plugin docs (read-only from plugin)
-
-## Best Practices
-
-**Be Specific**: "Generate API docs for auth endpoints" vs. "make some docs"
-**Provide Context**: "Update database docs after schema migration" vs. "update docs"
-**Set Scope**: "Validate links in docs/project/" vs. "check everything"
-**Define Depth**: "Quick health check" vs. "comprehensive analysis with metrics"
 
 ## Examples
 
@@ -135,13 +127,6 @@ AI analyzes natural language and executes appropriate action:
 /docs "identify documentation gaps and missing content"
 /docs "create documentation metrics report"
 ```
-
-## Integration
-
-**Git**: Documentation changes tracked in version control
-**Code Analysis**: Analyzes actual codebase for accuracy
-**Standards**: Follows project documentation guidelines
-**Living Docs**: Evolves with the project
 
 ## Quality Standards
 

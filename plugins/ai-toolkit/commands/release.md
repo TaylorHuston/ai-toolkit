@@ -5,151 +5,116 @@ aliases: ["version", "tag-release"]
 allowed-tools: ["Read", "Edit", "Bash", "Grep", "AskUserQuestion"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/conventions/versioning-and-releases.md
+  - docs/development/conventions/versioning-and-releases.md  # Version bump rules, file update list, semver strategy
 ---
 
 # /release Command
 
-## WHAT
-Automate version releases with proper semver compliance, updating CHANGELOG.md, version files, and creating annotated git tags.
+**WHAT**: Automate version releases with CHANGELOG updates, version file synchronization, and annotated git tags.
 
-## WHY
-Ensures consistency across version management following semver 2.0.0 and project versioning guidelines.
+**WHY**: Ensure consistent version management across all project files following semantic versioning and project-specific guidelines.
 
-## HOW
+**HOW**: Read versioning convention, analyze changes, suggest version bump, update files, create git tag.
 
-### Usage
+## Usage
+
 ```bash
-/release                # Interactive: analyze and suggest version
-/release 0.13.0         # Release specific version
-/release patch|minor|major  # Release by bump type
+/release                    # Interactive: analyze changes and suggest version
+/release 0.13.0             # Release specific version
+/release patch              # Release patch version (bug fixes only)
+/release minor              # Release minor version (new features)
+/release major              # Release major version (breaking changes)
 ```
 
-### Pre-Execution Context
+## Workflow
 
-**Read and validate:**
-- CHANGELOG.md [Unreleased] section (must have content)
-- Git status (must be clean)
-- Current branch (develop/main for release type)
-- Current version from CHANGELOG/version files
-- Project-specific version files (detect from repo)
+1. **Read Convention** - Load version bump rules from `docs/development/conventions/versioning-and-releases.md`
+2. **Validate Preconditions**
+   - Git working directory must be clean
+   - CHANGELOG.md [Unreleased] section must have content
+   - Must be on appropriate branch (defined in convention)
+3. **Analyze Changes** - Parse CHANGELOG [Unreleased] to determine appropriate version bump
+4. **Get Confirmation** - Show suggested version with rationale, ask user to proceed
+5. **Update Files** - Synchronize version across all project files (list from convention)
+6. **Create Git Tag** - Annotated tag with release notes from CHANGELOG
+7. **Display Summary** - Show updated files, created tag, and next steps
 
-### Execution Steps
+## What Gets Updated
 
-**1. Analyze changes:**
-- Parse CHANGELOG [Unreleased] sections
-- Detect version bump type:
-  - MAJOR: Breaking changes, removed features (pre-1.0.0 → MINOR)
-  - MINOR: New features, enhancements
-  - PATCH: Bug fixes only
-- Suggest version with rationale
+The command reads `versioning-and-releases.md` to determine:
+- Which files contain version numbers
+- Version bump rules (pre-1.0.0 vs post-1.0.0)
+- Git tag format and content
+- Branch requirements for releases
 
-**2. Get confirmation:**
+**Common version files:**
+- CHANGELOG.md (transform [Unreleased] → [version] - date)
+- package.json, pyproject.toml, Cargo.toml (language-specific)
+- CLAUDE.md frontmatter (version, last_updated)
+- Plugin metadata files (for plugin projects)
+
+## Example Output
+
+```
+Release Analysis
+================
+Current version: 0.30.0
+
+Changes in [Unreleased]:
+- Added: 2 new features
+- Changed: 1 breaking change
+- Fixed: 1 bug fix
+
+Suggested version: 0.31.0 (MINOR)
+Reason: Breaking changes increment MINOR in pre-1.0.0
+
+Proceed with v0.31.0? (yes/no/custom): yes
+
+Updating files...
+✓ CHANGELOG.md
+✓ .claude-plugin/marketplace.json
+✓ plugins/ai-toolkit/.claude-plugin/plugin.json
+✓ CLAUDE.md
+
+Creating git tag...
+✓ Created annotated tag v0.31.0
+
+Next steps:
+  git push origin main --tags
+```
+
+## Error Prevention
+
+**Blocks release if:**
+- Uncommitted changes exist → Suggests `/commit` first
+- CHANGELOG.md [Unreleased] is empty → Suggests `/changelog` first
+- Version already exists → Suggests next available versions
+- Wrong branch for release type → Warns and asks for confirmation
+
+## Integration
+
+**Typical workflow:**
 ```bash
-# Interactive mode
-grep -A 20 "## \[Unreleased\]" CHANGELOG.md
-# Suggest version based on change analysis
-# Ask: "Proceed with v{version}? (yes/no/custom)"
-
-# Direct mode with version/keyword
-# Validate requested version
-# Show changes being released
-# Ask: "Confirm release? (yes/no)"
-```
-
-**3. Update files:**
-```bash
-# Transform CHANGELOG [Unreleased] → [version] - date
-# Update version in project files (detect which exist):
-# - .claude-plugin/marketplace.json (if ai-toolkit)
-# - plugins/ai-toolkit/.claude-plugin/plugin.json (if ai-toolkit)
-# - package.json (if Node.js)
-# - pyproject.toml (if Python)
-# - Cargo.toml (if Rust)
-# - README.md (version references)
-# - CLAUDE.md frontmatter (version, last_updated)
-```
-
-**4. Create git tag:**
-```bash
-# Extract CHANGELOG entries for this version
-sed -n '/^## \[{version}\]/,/^## \[/p' CHANGELOG.md | sed '1d;$d'
-
-# Create annotated tag with release notes
-git tag -a v{version} -m "Release v{version}
-
-{CHANGELOG_ENTRIES}
-
-🤖 Generated with Claude Code"
-```
-
-**5. Display summary:**
-- List updated files
-- Show created tag
-- Provide next steps (push commands)
-- Display release notes
-
-### Version Decision Logic
-
-**Pre-1.0.0:**
-- Breaking changes → MINOR
-- New features → MINOR
-- Bug fixes only → PATCH
-
-**Post-1.0.0:**
-- Breaking changes → MAJOR
-- New features → MINOR
-- Bug fixes only → PATCH
-
-### Error Handling
-
-**Uncommitted changes:**
-```
-Error: Uncommitted changes detected.
-Commit or stash changes before releasing.
-```
-
-**Empty [Unreleased]:**
-```
-Error: No changes to release.
-Run /changelog to document changes first.
-```
-
-**Wrong branch:**
-```
-Warning: On branch {branch}
-Development releases: 'develop'
-Production releases: 'main'
-Continue anyway? (yes/no)
-```
-
-**Version conflict:**
-```
-Error: Version {version} already exists.
-Available: {patch} (patch), {minor} (minor), {major} (major)
-```
-
-**Tag creation failure:**
-```
-Error: Failed to create git tag.
-Reason: {error}
-Files updated but tag not created.
-Manual tag: git tag -a v{version} -m "Release v{version}"
-```
-
-### Integration
-
-**Workflow position:**
-```
-/implement → /changelog → /commit → /release → git push --tags
+/implement TASK-001 --task    # Complete implementation
+/quality                       # Verify quality
+/changelog                     # Document changes
+/commit                        # Commit changes
+/release                       # Create release
+git push origin main --tags    # Push to remote
 ```
 
 **With CI/CD:**
-```
-/release → Push tag → Automated deploy
-```
+Pushing the tag triggers automated deployment (if configured).
 
-### Related
+## Related Commands
+
 - `/changelog` - Document changes before release
 - `/commit` - Commit changes before release
-- Guideline: `docs/development/conventions/versioning-and-releases.md`
+- `/project-status` - Review overall project state
+
+## Configuration
+
+All release rules, version bump logic, and file lists are defined in:
+`docs/development/conventions/versioning-and-releases.md`
+
+Edit that file to customize your project's versioning strategy.

@@ -131,10 +131,10 @@ AI: Creating plan for TASK-001: User Login Flow
 
 **Workflow position**:
 ```
-/spec SPEC-### → /plan TASK-### → /implement TASK-### 1.1
+/spec SPEC-### → /plan TASK-### → /implement TASK-### 1
 ```
 
 **Creates**: `pm/issues/{ISSUE-ID}-*/PLAN.md`
-**Next step**: `/implement {ISSUE-ID} 1.1` to start execution
+**Next step**: `/implement {ISSUE-ID} 1` to start execution
 
 See pm-guide.md for complete workflow integration.

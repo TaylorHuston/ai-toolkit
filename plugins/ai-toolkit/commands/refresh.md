@@ -44,8 +44,7 @@ If no guidelines found: Skip silently, continue.
 ### 3. Read Project Documentation
 
 ```bash
-Read: docs/project/architecture-overview.md
-Read: docs/project/design-overview.md
+Read: docs/project/*.md
 ```
 
 If files missing: Skip silently, continue.
