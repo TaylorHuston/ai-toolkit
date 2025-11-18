@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.30.0] - 2025-11-17
+
+### Added
+
+- **`/implement --task` flag** - Automated full-task execution until completion or blocked
+  - **Usage**: `/implement --task TASK-###` or `/implement --task` (auto-detect)
+  - **Behavior**: Executes all remaining phases in sequence following mandatory test-first loop
+  - **Continues until**: All phases complete, error occurs, or user input needed
+  - **Per-phase**: Tests (red) → Code (green) → Review (≥90) → Commit → WORKLOG → Next phase
+  - **Progress tracking**: Updates PLAN.md and WORKLOG.md after each phase completion
+  - **Blocking scenarios**: Test failures, code review below threshold, user decisions needed
+  - **Example**: Complete 4-phase task automatically with quality gates enforced at each step
+  - **Goal**: Enable hands-off execution of well-defined tasks while maintaining quality standards
+
 ## [0.29.0] - 2025-11-17
 
 ### Changed

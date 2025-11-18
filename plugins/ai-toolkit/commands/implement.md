@@ -1,7 +1,7 @@
 ---
 tags: ["workflow", "development", "execution"]
 description: "Execute specific implementation phases from task plans with test-first enforcement"
-argument-hint: "TASK-### PHASE | TASK-### --next | --next"
+argument-hint: "TASK-### PHASE | TASK-### --next | --next | TASK-### --task | --task"
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
@@ -27,6 +27,8 @@ references_guidelines:
 /implement PROJ-123 1.1    # Execute Jira issue phase
 /implement TASK-001 --next # Smart: find and execute next uncompleted phase
 /implement --next          # Auto-detect current task, execute next phase
+/implement TASK-001 --task # Execute all phases in task until complete or blocked
+/implement --task          # Auto-detect current task, execute all phases
 ```
 
 ## Pre-Execution Context
@@ -79,6 +81,23 @@ Read: docs/development/guidelines/git-workflow.md
 - Find first uncompleted phase
 - Show phase to user, ask confirmation
 - Continue to step 2
+
+**Full task mode** (TASK-001 --task):
+- Parse issue ID
+- Read PLAN.md
+- Show all uncompleted phases to user
+- Ask confirmation: "Execute all [N] remaining phases? (yes/no/specify)"
+- If yes: Execute phases in sequence following mandatory loop
+- Continue until: all phases complete, error occurs, or user input needed
+- After each phase: Update PLAN.md, WORKLOG.md, commit
+- If blocked: Report status, completed phases, and blocking issue
+
+**Auto full task mode** (--task only):
+- Detect current task from git branch or recent WORKLOG
+- Read PLAN.md
+- Show all uncompleted phases
+- Ask confirmation
+- Execute phases in sequence until complete or blocked
 
 ### 2. Load Task Context
 
@@ -316,6 +335,151 @@ User: specify 1.3
 AI: Switching to Phase 1.3 - Write integration tests
     Executing phase 1.3...
     [Standard workflow continues]
+```
+
+### --task Flag Examples
+
+**Example 1: Execute all remaining phases**
+```
+User: /implement TASK-001 --task
+
+AI: Checking TASK-001 plan...
+
+    Remaining phases:
+    - [ ] 1.2 - Implement authentication logic
+    - [ ] 1.3 - Write integration tests
+    - [ ] 2.1 - Create database schema
+    - [ ] 2.2 - Add migration scripts
+
+    Execute all 4 remaining phases? (yes/no/specify)
+
+User: yes
+
+AI: Starting full task execution...
+
+    Phase 1.2: Implement authentication logic
+    → Write tests (red)
+    → Write code (green)
+    → Code review (score: 92 ✓)
+    → Commit: "feat: implement JWT authentication"
+    → WORKLOG updated
+    ✓ Phase 1.2 complete
+
+    Phase 1.3: Write integration tests
+    → Write tests for login flow
+    → Tests pass (green)
+    → Code review (score: 94 ✓)
+    → Commit: "test: add authentication integration tests"
+    → WORKLOG updated
+    ✓ Phase 1.3 complete
+
+    Phase 2.1: Create database schema
+    → Write tests for user model
+    → Implement User model with validation
+    → Tests pass (green)
+    → Code review (score: 91 ✓)
+    → Commit: "feat: add user model and schema"
+    → WORKLOG updated
+    ✓ Phase 2.1 complete
+
+    Phase 2.2: Add migration scripts
+    → Write migration script
+    → Test migration up/down
+    → Code review (score: 93 ✓)
+    → Commit: "db: add user table migration"
+    → WORKLOG updated
+    ✓ Phase 2.2 complete
+
+    ✓ All phases completed!
+
+    Task completion checklist:
+    - [x] All PLAN.md phases complete
+    - [ ] All acceptance criteria satisfied
+    - [ ] Full test suite passing
+
+    Ready to run task completion validation?
+```
+
+**Example 2: Blocked by user input needed**
+```
+User: /implement TASK-001 --task
+
+AI: Starting full task execution...
+
+    Phase 1.2: Implement authentication logic
+    ✓ Phase 1.2 complete
+
+    Phase 1.3: Write integration tests
+
+    ⚠ Need user input:
+    Which authentication provider should integration tests use?
+    1. Mock provider (faster, isolated)
+    2. Test database (realistic, slower)
+    3. Both (comprehensive)
+
+    Pausing execution. Phases completed: 1 of 4
+
+User: 1
+
+AI: Continuing with mock provider...
+    ✓ Phase 1.3 complete
+
+    Phase 2.1: Create database schema
+    ✓ Phase 2.1 complete
+
+    Phase 2.2: Add migration scripts
+    ✓ Phase 2.2 complete
+
+    ✓ All phases completed!
+```
+
+**Example 3: Blocked by error**
+```
+User: /implement BUG-003 --task
+
+AI: Starting full task execution...
+
+    Phase 1.1: Write reproduction test
+    ✓ Phase 1.1 complete
+
+    Phase 1.2: Fix calculation bug
+    → Write fix for subtotal calculation
+    → Run tests
+
+    ❌ Error: Tests failing
+
+    Expected: 90.00
+    Actual: 100.00
+
+    Discount not being applied correctly. Need to investigate discount logic.
+
+    Execution stopped. Phases completed: 1 of 2
+    Blocking issue: Test failures in discount calculation
+
+    Next steps:
+    1. Review discount logic in calculateSubtotal()
+    2. Check if discount is being passed to calculation
+    3. Run /troubleshoot BUG-003 for systematic debugging
+```
+
+**Example 4: Auto-detect current task**
+```
+User: /implement --task
+
+AI: Detecting current task...
+    ✓ Found from branch: feature/TASK-001
+
+    Checking TASK-001 plan...
+
+    Remaining phases:
+    - [ ] 2.1 - Create database schema
+    - [ ] 2.2 - Add migration scripts
+
+    Execute all 2 remaining phases? (yes/no/specify)
+
+User: yes
+
+AI: [Executes phases in sequence until complete or blocked]
 ```
 
 ### Error Handling

@@ -1,5 +1,5 @@
 ---
-version: "0.29.0"
+version: "0.30.0"
 created: "2025-08-21"
 last_updated: "2025-11-17"
 status: "active"
