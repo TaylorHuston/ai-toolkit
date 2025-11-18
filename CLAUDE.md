@@ -1,7 +1,7 @@
 ---
-version: "0.30.0"
+version: "0.31.0"
 created: "2025-08-21"
-last_updated: "2025-11-17"
+last_updated: "2025-11-18"
 status: "active"
 target_audience: ["ai-assistants"]
 document_type: "specification"
