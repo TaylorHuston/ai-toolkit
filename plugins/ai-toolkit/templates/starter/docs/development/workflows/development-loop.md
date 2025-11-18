@@ -105,7 +105,7 @@ This guideline defines our AI-assisted development workflow, emphasizing test-fi
 
 **Pragmatic Test-First Approach**: Choose the right tool for the job.
 
-**✅ Test-First (Preferred) - When you know what to build:**
+**✅ Test-First (Highly Preferred) - When you know what to build:**
 - Feature has clear acceptance criteria from `/plan` output
 - Phase objectives specify expected behavior
 - Bug fix with reproducible failure scenario
@@ -353,7 +353,7 @@ code-reviewer:
 
 ### File Purposes
 
-Every issue directory (`pm/issues/TASK-###-name/` or `BUG-###-name/`) can contain up to four files:
+Every issue directory (`pm/issues/TASK-###-name/` or `BUG-###-name/`) should contain at least 3 files:
 
 **TASK.md / BUG.md** (WHAT to do):
 - Primary issue file with acceptance criteria

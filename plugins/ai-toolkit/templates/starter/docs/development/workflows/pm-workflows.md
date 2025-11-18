@@ -18,6 +18,163 @@ This guide defines workflows for creating and executing project management work.
 
 ---
 
+## File Purpose and Content Boundaries
+
+**Clear separation between PM artifacts (what/why) and implementation artifacts (how).**
+
+### SPEC.md - Feature Specification
+
+**Purpose:** Define WHAT feature/capability we're building and WHY it's valuable
+
+**Contains:**
+- Feature name and description (user perspective)
+- Acceptance scenarios (2-5 key scenarios in Given-When-Then BDD format)
+- Definition of done (completion criteria)
+- Out of scope (explicit boundaries)
+- Task list (references to TASK-### items)
+
+**Who creates:** Product/PM via `/spec` command or `/jira-epic` (Jira mode)
+**Who manages:** Product/PM (rarely edited during implementation)
+**Syncs with:** Jira (if Jira mode enabled)
+**Living document:** Yes - use `/spec --update SPEC-###` to sync with implementation reality
+
+**Key principle:** Describes the feature capability from user/business perspective, not implementation details
+
+**Example:**
+```markdown
+# SPEC-001: User Authentication
+
+## Description
+Enable users to securely log in, register, and reset passwords...
+
+## Acceptance Scenarios
+- Scenario: User logs in successfully...
+- Scenario: Invalid password attempt...
+```
+
+---
+
+### TASK.md / BUG.md - Work Item Definition
+
+**Purpose:** Define WHAT specific work needs to be done and WHY
+
+**Contains:**
+- Task/bug description (clear problem statement)
+- Acceptance criteria (specific, testable checklist)
+- Technical notes (constraints, gotchas, ADR references)
+- Parent spec reference (in YAML frontmatter: `spec: SPEC-001`)
+
+**Who creates:** PM/developers via `/spec` task creation or manual creation
+**Who manages:** PM (acceptance criteria rarely change during implementation)
+**Syncs with:** Jira/Linear/GitHub Issues (if external PM tool configured)
+**Living document:** No - acceptance criteria stay stable (update in spec instead)
+
+**Scope:** Deployable change (merged to main as complete unit), typically 1-3 days, 3-8 phases
+
+**Key principle:** Defines work item from PM perspective - WHAT needs to be built and acceptance criteria
+
+**Example:**
+```markdown
+# TASK-001: User Login Flow
+
+## Description
+Implement JWT-based login endpoint with session management...
+
+## Acceptance Criteria
+- [ ] User can log in with valid email/password
+- [ ] Invalid credentials return 401 error
+- [ ] JWT token includes user ID and role
+```
+
+---
+
+### PLAN.md - Implementation Breakdown
+
+**Purpose:** Define HOW the work will be implemented (strategic phases, not prescriptive steps)
+
+**Contains:**
+- Phase-based breakdown (Phase 1: Setup, Phase 2: Core logic, Phase 3: Tests)
+- Checkboxed implementation steps (strategic objectives, not tactical commands)
+- Scenario coverage mapping (which phases validate which acceptance scenarios)
+- Complexity analysis (score, indicators, decomposition recommendations)
+- Implementation philosophy (strategic vs tactical, living document reminders)
+
+**Who creates:** AI via `/plan TASK-###` or `/plan BUG-###` command
+**Who manages:** AI and developers during implementation (updated as discoveries are made)
+**Syncs with:** Nothing (purely local file, never synced to external PM tools)
+**Living document:** Yes - updated when phase discoveries affect later phases
+
+**Key principle:** Strategic plan (WHAT to build in each phase), not tactical prescription (HOW to code it)
+
+**Example:**
+```markdown
+# Implementation Plan: TASK-001 User Login Flow
+
+## Phase 1 - Authentication Backend
+- [ ] 1.1 Implement user model with password hashing
+- [ ] 1.2 Create login endpoint with JWT generation
+- [ ] 1.3 Write authentication integration tests
+
+## Scenario Coverage
+✓ SPEC-001 Scenario 1: "User logs in successfully"
+  → Covered by Phase 1.3 (integration tests)
+```
+
+---
+
+### Content Decision Matrix
+
+**Use this to decide where content belongs:**
+
+| Content Type | SPEC.md | TASK.md | PLAN.md |
+|-------------|---------|---------|---------|
+| Feature description (user perspective) | ✅ | ❌ | ❌ |
+| Acceptance scenarios (BDD format) | ✅ | ❌ | ❌ |
+| Work item description | ❌ | ✅ | ❌ |
+| Acceptance criteria (checklist) | ❌ | ✅ | ❌ |
+| Technical constraints/notes | ❌ | ✅ | ❌ |
+| Phase breakdown | ❌ | ❌ | ✅ |
+| Implementation steps (checkboxes) | ❌ | ❌ | ✅ |
+| Scenario coverage mapping | ❌ | ❌ | ✅ |
+| Complexity analysis | ❌ | ❌ | ✅ |
+| Parent spec reference | ❌ | ✅ | ✅ |
+
+**Key Distinctions:**
+
+1. **SPEC vs TASK:**
+   - SPEC = Feature-level (multi-task), user perspective, BDD scenarios
+   - TASK = Work-item-level (single deployable change), acceptance criteria checklist
+
+2. **TASK vs PLAN:**
+   - TASK = WHAT needs to be done (from PM perspective, stable)
+   - PLAN = HOW it will be done (from implementation perspective, evolves)
+
+3. **Syncing:**
+   - SPEC.md syncs with Jira epics (if Jira enabled)
+   - TASK.md syncs with Jira issues (if Jira enabled)
+   - PLAN.md NEVER syncs (purely local, AI-managed)
+
+4. **Living Documents:**
+   - SPEC.md: Yes (use `/spec --update` after task completion)
+   - TASK.md: No (acceptance criteria stay stable)
+   - PLAN.md: Yes (updated as implementation progresses)
+
+**Example Scenario:**
+
+```
+SPEC-001: User Authentication (feature-level)
+├── Acceptance Scenario: "User logs in successfully" (BDD format)
+├── TASK-001: User Login Flow (work item)
+│   ├── Acceptance Criteria: "User can log in with valid credentials"
+│   └── PLAN.md (implementation phases)
+│       ├── Phase 1: Backend (tests, model, endpoint)
+│       └── Scenario Coverage: Maps to SPEC-001 scenarios
+└── TASK-002: Password Reset Flow (work item)
+    └── PLAN.md (separate implementation plan)
+```
+
+---
+
 ## Spec Creation Workflow
 
 **Pattern Used by `/spec` Command**

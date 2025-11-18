@@ -41,7 +41,9 @@ references_guidelines:
 1. **Parse & Validate**
    - Parse issue ID and phase number (or auto-detect)
    - Locate issue directory: `pm/issues/{ISSUE-ID}-*/`
-   - Read TASK.md/BUG.md, PLAN.md, WORKLOG.md
+   - Read TASK.md/BUG.md, PLAN.md
+   - Create WORKLOG.md if doesn't exist (with Phase Commits section header)
+   - Read WORKLOG.md for context
 
 2. **Branch Management**
    - Check current branch
@@ -119,6 +121,7 @@ See agent-coordination.md for complete handoff patterns and agent selection crit
 
 - **Issue not found**: Check `pm/issues/{ID}-*/` directory exists
 - **PLAN.md missing**: Run `/plan {ID}` first to create plan
+- **WORKLOG.md missing**: Auto-created with Phase Commits section header on first execution
 - **Phase not found**: Verify phase number exists in PLAN.md
 - **Phase already complete**: Use `--next` to find next uncompleted phase
 - **Quality gate failure**: Agent iterates until all gates pass
