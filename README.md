@@ -313,3 +313,4 @@ Other projects that are also roughly trying to solve the same thing and I find i
 
 - [[Taskmaster AI]](https://github.com/eyaltoledano/claude-task-master)
 - [[GItHub Spec Kit]](https://github.com/github/spec-kit)
+- [[Tessl]](https://tessl.io)
