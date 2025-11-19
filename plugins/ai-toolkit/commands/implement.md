@@ -63,9 +63,10 @@ references_guidelines:
    - All 10 quality gates from development-loop.md must pass
 
 5. **Track Progress**
-   - Update PLAN.md checkbox
    - Write WORKLOG.md entry per worklog-format.md
    - Commit changes per git-workflow.md
+   - Update WORKLOG.md Phase Commits section with commit hash (for rollback tracking)
+   - Update PLAN.md checkbox
 
 **See pm-guide.md "Phase Execution Protocol" for complete step-by-step details.**
 

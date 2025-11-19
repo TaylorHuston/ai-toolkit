@@ -557,6 +557,7 @@ Step 3 - Code Review:
 
 Step 4 - Commit & Document:
   - Commit: "feat: implement user model with bcrypt password hashing"
+  - Update WORKLOG Phase Commits: "- Phase 1.1: abc123d - Implement user model with bcrypt"
   - WORKLOG entry: What was done, decisions made, lessons learned
   - Mark phase 1.1 complete in PLAN.md
 
@@ -580,8 +581,9 @@ Only then → Move to Phase 1.2
 2. ✅ Tests passing after implementation (green)
 3. ✅ Code review completed with score ≥90
 4. ✅ Phase changes committed to git
-5. ✅ WORKLOG.md entry added (what was done, decisions made, lessons learned)
-6. ✅ PLAN.md checkboxes updated (mark completed steps with `[x]`)
+5. ✅ WORKLOG.md Phase Commits section updated with commit hash (e.g., `- Phase 1.1: abc123d - Description`)
+6. ✅ WORKLOG.md entry added (what was done, decisions made, lessons learned)
+7. ✅ PLAN.md checkboxes updated (mark completed steps with `[x]`)
 
 **Only then:** Proceed to next phase
 

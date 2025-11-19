@@ -244,6 +244,60 @@ Most guidelines start with TBD placeholders - fill in via `/adr` decisions and c
 3. **Start Your First Feature** - Run `/spec`
 4. **Learn As You Go** - Commands guide you through the workflow
 
+## Keeping Templates Updated
+
+The AI Toolkit plugin regularly improves its guidelines, workflows, and templates. Keep your project in sync:
+
+### Check for Updates
+
+```bash
+# Preview what would change (safe, no modifications)
+/toolkit-init --dry-run
+```
+
+This shows:
+- New guideline files added
+- Improvements to existing templates
+- Bug fixes to workflows
+- New PM templates
+
+### Apply Updates
+
+```bash
+# Smart update - preserves your customizations
+/toolkit-init
+```
+
+**Preserved:**
+- ✅ Your customized guidelines
+- ✅ Your project-specific docs (ADRs, design docs, etc.)
+- ✅ All PM files (specs, tasks, bugs, plans, worklogs)
+- ✅ CLAUDE.md and README.md customizations
+
+**Updated:**
+- ✅ New guideline files you don't have yet
+- ✅ Baseline templates (you can re-customize)
+- ✅ Workflow improvements
+- ✅ Bug fixes
+
+### Complete Reset
+
+```bash
+# Nuclear option - overwrites ALL customizations
+/toolkit-init --force
+```
+
+⚠️ **Warning:** Only use `--force` if you want to completely reset to baseline templates. All customizations will be lost.
+
+### Best Practice
+
+After updating the AI Toolkit plugin:
+
+1. Run `/toolkit-init --dry-run` to preview changes
+2. Review what's new
+3. Run `/toolkit-init` to apply updates
+4. Re-apply any customizations if needed (compare with git diff)
+
 ## Command Reference
 
 **24 commands organized by workflow stage:**
@@ -251,7 +305,7 @@ Most guidelines start with TBD placeholders - fill in via `/adr` decisions and c
 ### Setup & Strategy
 | Command | Purpose |
 |---------|---------|
-| `/toolkit-init` | Initialize project structure |
+| `/toolkit-init` | Initialize project or sync latest templates (see "Keeping Templates Updated" above) |
 | `/project-brief` | Create/update project vision |
 
 ### Spec & Epic Management

@@ -35,6 +35,35 @@
 /implement TASK-001 1.1
 ```
 
+### Keeping Templates Updated
+
+When the AI Toolkit plugin is updated with improvements to guidelines, workflows, or templates:
+
+```bash
+# Preview changes without modifying files
+/toolkit-init --dry-run
+
+# Update templates while preserving your customizations
+/toolkit-init
+
+# Complete reset (overwrites all customizations)
+/toolkit-init --force
+```
+
+**What gets updated:**
+- New guideline files in `docs/development/`
+- Improved workflow templates
+- Bug fixes to templates
+- New PM templates
+
+**What's preserved:**
+- Your customized guidelines (unless using --force)
+- Your project-specific docs
+- All PM files (specs, tasks, ADRs)
+- CLAUDE.md, README.md customizations
+
+**Best practice:** Run `/toolkit-init --dry-run` after plugin updates to see what's new.
+
 ## Project Structure
 
 ### Initial Structure (After /toolkit-init)

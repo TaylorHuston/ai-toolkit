@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **PM file boundaries clarification** - Added comprehensive guide to pm-workflows.md
+  - Content decision matrix showing what belongs in SPEC.md, TASK.md, and PLAN.md
+  - Clear distinctions between PM artifacts (what/why) and implementation artifacts (how)
+  - Example hierarchy showing spec → task → plan relationships
+  - Helps teams understand file-based state management
+
+- **Phase Commits tracking (mandatory)** - Enhanced rollback capabilities
+  - Phase Completion Checklist now requires updating WORKLOG Phase Commits section
+  - Every phase commit must be logged with hash for easy rollback
+  - Format: `- Phase 1.1: abc123d - Description`
+  - Provides instant visual map of which commits implement which phases
+
+- **Template update workflow** - Added /toolkit-init update instructions
+  - README and GETTING-STARTED now document how to sync latest templates
+  - Use `--dry-run` to preview changes before applying
+  - Smart updates preserve customizations while adding improvements
+  - Guidance on when to use --force for complete reset
+
+- **WORKLOG auto-creation** - /implement command now creates WORKLOG.md automatically
+  - Creates file with Phase Commits header if missing on first execution
+  - Reduces friction when starting new tasks
+  - No manual WORKLOG.md setup needed
+
 ## [0.32.0] - 2025-11-18
 
 ### Changed

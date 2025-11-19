@@ -39,6 +39,35 @@ The `/toolkit-init` command scaffolds your project with:
 - Documentation framework (AI creates content as you work)
 - Interactive setup with smart conflict resolution
 
+### Keeping Templates Updated
+
+After plugin updates, sync your project with the latest templates:
+
+```bash
+# Preview changes without modifying files
+/toolkit-init --dry-run
+
+# Update templates while preserving your customizations
+/toolkit-init
+
+# Complete reset (overwrites all customizations - use carefully)
+/toolkit-init --force
+```
+
+**What gets updated:**
+- New guideline files in `docs/development/`
+- Improved workflow templates
+- Bug fixes to templates
+- New PM templates
+
+**What's preserved:**
+- Your customized guidelines
+- Your project-specific docs (ADRs, design assets)
+- All PM files (specs, tasks, bugs, plans, worklogs)
+- CLAUDE.md and README.md customizations
+
+**Best practice:** Run `/toolkit-init --dry-run` after plugin updates to see what's new.
+
 ### Intended Workflow
 
 1. **`/project-brief`** - Create your Project Brief through an interactive session. This is the high-level, relatively non-technical overview of your project: the problem you're solving, your target audience, core features. Think "One Pager" or "Elevator Pitch" - the guiding direction for everything else.

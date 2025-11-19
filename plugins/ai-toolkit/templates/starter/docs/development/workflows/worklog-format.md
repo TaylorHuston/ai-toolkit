@@ -101,13 +101,15 @@ entry_length: "500_chars_ideal"              # ~5-10 lines per entry
 ---
 ```
 
-**Workflow**:
-1. Complete phase → Update PLAN.md/TASK.md → Write WORKLOG entry → Commit
+**Workflow (MANDATORY after every phase commit)**:
+1. Complete phase → Write WORKLOG entry → Commit phase changes
 2. Get commit ID: `git rev-parse --short HEAD`
-3. Add one line to "Phase Commits" section: `- Phase X.Y: \`commit-id\` - Brief description`
-4. Commit reference: `git add WORKLOG.md && git commit -m "docs(TASK-001): add phase X.Y commit reference"`
+3. Update "Phase Commits" section in WORKLOG.md: `- Phase X.Y: \`commit-id\` - Brief description`
+4. Commit the reference: `git add WORKLOG.md && git commit --amend --no-edit` (amend) or make separate docs commit
 
-**Benefit**: Instant visual rollback map, no chicken-and-egg problem with commit IDs
+**Why mandatory**: Provides instant rollback map for each phase - critical for debugging and reverting specific changes
+
+**Benefit**: Know exactly which commit to revert if a phase needs rollback
 
 ---
 
