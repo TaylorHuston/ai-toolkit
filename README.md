@@ -91,7 +91,6 @@ The AI Toolkit plugin provides a complete development workflow system with **24 
 ### 🔍 Quality & Validation
 
 - `/quality` - Multi-dimensional quality assessment using specialized agents
-- `/security-audit` - OWASP-compliant security assessment with vulnerability remediation
 - `/troubleshoot` - Systematic debugging with research-first approach (replaces ad-hoc test fixing)
 - `/sanity-check` - Mid-work validation with deep reflection to catch drift early
 
