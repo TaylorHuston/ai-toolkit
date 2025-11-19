@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **Script location guidelines** - Added clear guidance on task-specific vs universal scripts
+  - Task-specific scripts go in `pm/issues/TASK-###/scripts/` for easy cleanup
+  - Root `scripts/` directory reserved for universal utilities only
+  - Documented in /implement and /troubleshoot commands
+  - Prevents root directory clutter and makes debugging scripts easier to find
+
 ## [0.33.0] - 2025-11-18
 
 ### Changed
