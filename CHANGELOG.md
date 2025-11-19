@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.33.1] - 2025-11-19
+
 ### Changed
 
 - **Script location guidelines** - Added clear guidance on task-specific vs universal scripts

@@ -13,7 +13,7 @@
       "name": "ai-toolkit",
       "description": "Comprehensive AI-assisted development workflow system with 24 orchestrated commands, 21 specialized agents, and intelligent file-based state management",
       "source": "./plugins/ai-toolkit",
-      "version": "0.33.0",
+      "version": "0.33.1",
       "author": {
         "name": "Taylor Huston",
         "email": "taylor.a.huston@gmail.com",
