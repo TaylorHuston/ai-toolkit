@@ -1,6 +1,6 @@
-# AI Toolkit - Claude Plugin
+# Claude SDD
 
-A comprehensive AI-assisted development workflow system for Claude Code, providing intelligent task orchestration, specialized agent coordination, and file-based state management.
+A lightweight, fully customizable framework to enable Spec Driven Development with Claude Code.
 
 ## IMPORTANT
 This is very much an alpha/experiment at the moment. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and frequently changing things as I use it in more "real world" scenarios.
