@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.33.0] - 2025-11-18
+
 ### Changed
 
 - **PM file boundaries clarification** - Added comprehensive guide to pm-workflows.md
