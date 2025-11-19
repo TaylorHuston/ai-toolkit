@@ -84,6 +84,26 @@ Edit: [files from hypothesis]
 
 **Reference**: See troubleshooting.md for debug logging examples and best practices.
 
+**Debug/investigation scripts:**
+
+If you need scripts for debugging, place them in the task directory:
+
+```
+pm/issues/BUG-007-session-timeout/
+└── scripts/
+    ├── reproduce-issue.sh       # Script to reproduce the bug
+    ├── test-session-edge-cases.js  # Edge case testing
+    └── debug-session-cleanup.js    # Debug session lifecycle
+```
+
+**Why task-specific scripts?**
+- Keep debugging context with the bug investigation
+- Easy to find when reviewing WORKLOG later
+- Clean up when bug is resolved
+- Don't pollute root scripts/ directory with temporary debug scripts
+
+**Root scripts/** should only contain universal utilities, not bug-specific debug scripts.
+
 ### 4. Test & Confirm
 
 **Validate thoroughly:**

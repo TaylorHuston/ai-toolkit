@@ -70,6 +70,42 @@ references_guidelines:
 
 **See pm-guide.md "Phase Execution Protocol" for complete step-by-step details.**
 
+## Task-Specific Scripts
+
+**When you need temporary scripts during implementation:**
+
+**Use task directory** (`pm/issues/TASK-###-name/scripts/`):
+- ✅ One-off database migration scripts
+- ✅ Test data generation scripts
+- ✅ Debug/investigation scripts
+- ✅ Setup scripts specific to this task
+- ✅ Temporary automation for this feature
+
+**Use root scripts directory** (`scripts/` at project root):
+- ✅ Universal utilities used across multiple tasks
+- ✅ Build/deployment scripts
+- ✅ Database seeding for all environments
+- ✅ CI/CD helper scripts
+- ✅ Scripts that will be maintained long-term
+
+**Why task-specific scripts?**
+- Easy cleanup after task completion
+- Clear context (script tied to specific task)
+- No root directory clutter
+- Easy to find debugging scripts later
+
+**Example structure:**
+```
+pm/issues/TASK-001-user-auth/
+├── TASK.md
+├── PLAN.md
+├── WORKLOG.md
+└── scripts/
+    ├── generate-test-users.sh      # Create test data
+    ├── migrate-passwords.js        # One-time migration
+    └── debug-jwt-validation.js     # Debug script
+```
+
 ## Modes
 
 **Specific phase**: `/implement TASK-001 1.1`
