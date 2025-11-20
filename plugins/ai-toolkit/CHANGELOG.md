@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.35.0] - 2025-11-20
+
 ### Changed
 
 - **Planning quality improvements** - Enhanced `/plan` command and templates for consistently high-quality plans
