@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **Planning quality improvements** - Enhanced `/plan` command and templates for consistently high-quality plans
+  - Added "Find Similar Work" step to leverage patterns from completed tasks
+  - Enhanced plan-template.md with Comparative Context and Domain/Business Context sections
+  - Added 3-level phase hierarchy guidance (Phase → Major Steps → Specific Validations)
+  - Enhanced test description standards with "strategically tactical" approach
+  - Added detailed Scenario Coverage format with explanatory "because" clauses
+  - Refined "Strategic vs Tactical" guidance distinguishing helpful hints from prescriptions
+  - Added Error Scenario Enumeration section to testing-standards.md
+  - Added Test Count Estimates to Complexity Analysis
+  - These changes enable plans that provide context richness, not just structure
+
+- **Agent coordination clarity** - Updated agent-coordination.md to reflect actual practice
+  - Domain specialists (backend-specialist, frontend-specialist) write domain-specific tests
+  - test-engineer provides test strategy, framework setup, and complex cross-domain scenarios
+  - Removed redundant "Agent Coordination" section from `/plan` command (externalized to agent-coordination.md)
+  - Aligns documentation with efficient workflow and industry best practices
+
 ## [0.34.0] - 2025-11-20
 
 ### Added

@@ -23,16 +23,26 @@ sections:
     required: false
     format: paragraph
     hint: "High-level context for the phases below. 1-2 sentences explaining the approach."
+  - name: Comparative Context
+    prompt: "How this task relates to previous similar work"
+    required: false
+    format: structured-list
+    hint: "Reference similar completed tasks. Compare complexity (simpler/more complex due to X). List patterns to reuse (TASK-### WORKLOG). Note key differences. Example: 'Simpler than TASK-003 (no child relationships)', 'Similar to TASK-003 Pattern (single foreign key)', 'Agent will leverage TASK-003 WORKLOG for patterns'."
+  - name: Domain/Business Context
+    prompt: "Domain-specific considerations and business rules"
+    required: false
+    format: list
+    hint: "Business rules affecting implementation (e.g., 'ADRs rarely deleted, use DEPRECATED status'). Domain patterns. Historical importance. Document focus. These inform implementation decisions beyond acceptance criteria."
   - name: Phases
     prompt: "Phase-based breakdown with checkboxed implementation steps"
     required: true
     format: structured-checklist
-    hint: "Organized phases with numbered checkboxes (e.g., '- [ ] 1.1 Write user model tests'). STRATEGIC, NOT TACTICAL: Describe WHAT to build, not HOW. Implementation details decided by specialist agents based on current codebase state and WORKLOG lessons. Each phase MUST follow mandatory test-first loop: tests → code → review → commit → worklog → next phase (see pm-guide.md)."
+    hint: "3-level hierarchy: Phase (objective) → Major Steps (2-4 per phase) → Specific Validations (3-6 per step). Test descriptions should be strategically tactical: ✅ 'Test workspace scoping (ADRs from workspace A not in workspace B)' ❌ 'Test workspace scoping' (too vague) ❌ 'Use beforeEach to create workspaces...' (too prescriptive). Include helpful hints: '(note: lowercase model names in Prisma)' when gotchas exist. Enumerate error scenarios: 'Test invalid workspaceId (Prisma P2003 foreign key error)'. Each phase MUST follow mandatory test-first loop: tests → code → review → commit → worklog → next phase (see pm-guide.md)."
   - name: Scenario Coverage
     prompt: "Mapping of which phases validate which acceptance scenarios from parent spec"
     required: false
     format: structured-list
-    hint: "Only present when TASK references parent SPEC with acceptance scenarios. Shows traceability from spec scenarios to plan phases."
+    hint: "Only present when TASK references parent SPEC with acceptance scenarios. For each scenario: (1) Which phases cover it, (2) HOW those phases validate it (specific tests), (3) WHY that structure was chosen. The explanatory 'because' clause connects requirements to implementation."
   - name: Alternative Patterns
     prompt: "Optional testing/development patterns that could be used"
     required: false
@@ -49,24 +59,47 @@ sections:
 
 {overview}
 
+## Comparative Context
+
+### Similar Tasks
+{comparative_context}
+
+### Key Differences
+{key_differences}
+
+### Patterns to Reuse
+{patterns_to_reuse}
+
+## Domain/Business Context
+
+{domain_context}
+
+---
+
 ## Phases
 
 ### Phase 1 - {phase_1_name}
-- [ ] 1.1 {step_description}
-  - [ ] 1.1.1 {step_description}
-- [ ] 1.2 {step_description}
+- [ ] 1.1 {major_step_description}
+  - [ ] 1.1.1 {specific_validation}
+  - [ ] 1.1.2 {specific_validation}
+- [ ] 1.2 {major_step_description}
+  - [ ] 1.2.1 {specific_validation}
 
 ### Phase 2 - {phase_2_name}
-- [ ] 2.1 {step_description}
-- [ ] 2.2 {step_description}
+- [ ] 2.1 {major_step_description}
+  - [ ] 2.1.1 {specific_validation}
+- [ ] 2.2 {major_step_description}
 
 ### Phase 3 - {phase_3_name}
-- [ ] 3.1 {step_description}
-- [ ] 3.2 {step_description}
+- [ ] 3.1 {major_step_description}
+- [ ] 3.2 {major_step_description}
 
 ## Scenario Coverage
 
-{scenario_coverage}
+### SPEC-{spec_id} Scenario {n}: {scenario_title}
+- **Given/When/Then**: {scenario_summary}
+- **Coverage Mapping**: Phase {x.y} {implements_or_validates} {what} **because** {explanation}
+- **Test Strategy**: {which_tests_validate}
 
 ---
 
@@ -101,5 +134,12 @@ No shortcuts. Tests → Code → Review → Commit → Next.
 
 **Indicators**:
 {complexity_indicators}
+
+**Test Count Estimate**: ~{min}-{max} total tests
+- Phase 1: ~{count} tests ({test_types})
+- Phase 2: ~{count} tests ({test_types})
+- Phase 3: ~{count} tests ({test_types})
+
+**Comparison**: Similar to TASK-{similar_task_id} ({similar_test_count} tests) but [simpler/more complex] due to {reason}
 
 **Recommendation**: {decomposition_recommendation}

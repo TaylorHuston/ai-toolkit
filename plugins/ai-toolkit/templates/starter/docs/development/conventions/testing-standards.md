@@ -59,6 +59,63 @@ Example patterns:
 - Separate: tests/** matching src/**
 ```
 
+## Error Scenario Enumeration
+
+For comprehensive test coverage, explicitly enumerate expected error types with specific error codes/classes for each operation.
+
+### Format
+
+**Pattern:** "Test [operation] [error condition] ([specific error code/type])"
+
+### Why This Matters
+
+- **Ensures comprehensive error handling coverage** - Forces thinking through all failure modes
+- **Makes test intent crystal clear** - Reviewers immediately understand what's being validated
+- **Prevents missed edge cases** - Explicit enumeration reveals gaps in error handling
+- **Documents expected behavior** - Tests serve as specification for error handling
+
+### Examples by Error Type
+
+**Database Errors (Prisma):**
+- "Test invalid workspaceId (Prisma P2003 foreign key constraint error)"
+- "Test update non-existent ADR (Prisma P2025 record not found)"
+- "Test duplicate unique field (Prisma P2002 unique constraint violation)"
+
+**Validation Errors:**
+- "Test invalid title (ZodError validation failure - empty string)"
+- "Test invalid email format (ValidationError - malformed email)"
+- "Test missing required field (ValidationError - workspaceId required)"
+
+**Cascade Behavior:**
+- "Test CASCADE DELETE from workspace (workspace deletion removes all ADRs)"
+- "Test CASCADE DELETE from parent (parent deletion removes children)"
+- "Test SET NULL on foreign key (deletion sets reference to null)"
+
+**Authentication/Authorization:**
+- "Test unauthenticated access (401 Unauthorized)"
+- "Test unauthorized access (403 Forbidden - insufficient permissions)"
+- "Test expired token (401 Unauthorized - token expired)"
+
+**Business Logic:**
+- "Test status transition validation (cannot transition from DEPRECATED to PROPOSED)"
+- "Test workspace quota exceeded (BusinessRuleError - max ADRs reached)"
+
+### Integration with Plans
+
+When creating PLAN.md files, test phases should enumerate specific error scenarios:
+
+```markdown
+### Phase 2 - Create Mutation
+- [ ] 2.1 Write tests for ADR creation
+  - [ ] 2.1.1 Test successful creation with valid workspaceId
+  - [ ] 2.1.2 Test creation with minimal fields
+  - [ ] 2.1.3 Test invalid workspaceId (Prisma P2003 foreign key error)
+  - [ ] 2.1.4 Test invalid title (ZodError - empty string)
+  - [ ] 2.1.5 Test missing required fields (ZodError - workspaceId required)
+```
+
+**See also:** `pm-workflows.md` "Test Description Quality Standards" for more on writing effective test descriptions.
+
 ## Running Tests
 
 ```bash

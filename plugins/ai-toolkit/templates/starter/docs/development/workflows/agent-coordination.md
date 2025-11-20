@@ -45,7 +45,8 @@ quality_gates:
   minimum_score: 90  # Per-phase threshold (configurable in development-loop.md)
   review_frequency: "per_phase"  # Every phase reviewed before completion
 
-  test_coverage_agent: "test-engineer"
+  test_coverage_agent: "domain_specialists"  # backend-specialist, frontend-specialist write domain tests
+  test_strategy_agent: "test-engineer"  # Provides strategy, framework setup, complex scenarios
   minimum_coverage: 95  # Percentage (configurable in development-loop.md)
   test_strategy: "test_first"  # TDD/BDD encouraged
 
@@ -75,7 +76,7 @@ escalation_hierarchy:
 collaboration_patterns:
   parallel_work:
     - [frontend-specialist, backend-specialist]  # Can work simultaneously on features
-    - [test-engineer, domain_specialists]  # TDD: tests written alongside implementation
+    - [domain_specialists, code-reviewer]  # Domain specialists write tests alongside implementation
 
   sequential_handoff:
     - [domain_specialists, code-reviewer]  # Implementation reviewed after completion
@@ -303,9 +304,10 @@ Code-reviewer: "This module has high cyclomatic complexity across 15 functions"
 - API-designer can facilitate contract definition
 
 **Test-Engineer + Domain Specialists:**
-- TDD: test-engineer writes tests, domain specialist implements
-- Parallel: tests and implementation developed together
-- Continuous: test-engineer provides ongoing guidance
+- Domain specialists write domain-specific tests (backend-specialist writes backend tests, frontend-specialist writes frontend tests)
+- test-engineer provides test strategy, framework setup, and architecture guidance
+- test-engineer handles complex cross-cutting test scenarios and test infrastructure
+- Continuous: test-engineer available for test architecture questions and best practices
 
 ### Sequential Handoff Patterns
 
@@ -323,8 +325,9 @@ Code-reviewer: "This module has high cyclomatic complexity across 15 functions"
 ### Continuous Collaboration Patterns
 
 **Domain Specialists + Test-Engineer:**
-- Ongoing test-first guidance throughout implementation
-- test-engineer available for test strategy questions
+- Domain specialists write domain-specific tests as part of implementation
+- test-engineer available for test strategy, framework, and architecture questions
+- test-engineer provides guidance on complex test scenarios and test infrastructure
 - Continuous feedback on test coverage and quality
 
 **Domain Specialists + Security-Auditor:**

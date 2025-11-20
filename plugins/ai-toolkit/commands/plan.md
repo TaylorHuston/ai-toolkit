@@ -40,34 +40,47 @@ references_guidelines:
    - Read TASK.md/BUG.md or fetch from Jira
    - If TASK has parent spec: Read SPEC-###.md acceptance scenarios
 
-2. **Validate Scoping**
+2. **Find Similar Completed Tasks**
+   - Glob: `pm/issues/*/WORKLOG.md` to find completed work
+   - Grep for keywords from current task description
+   - Read 2-3 most relevant WORKLOGs
+   - Extract: patterns used, gotchas encountered, test counts
+   - Note: This informs deep analysis with real-world context
+
+3. **Deep Analysis**
+   - Use sequential-thinking for problem analysis (informed by similar work)
+   - Identify research needs (libraries, patterns, best practices)
+   - Determine approach options and trade-offs
+   - Consider how this task compares to similar completed tasks
+
+4. **Validate Scoping**
    - Check if task is deployable unit (per pm-guide.md scoping principles)
    - Warn if underscoped (too small to deploy independently)
    - Get user confirmation if needed
 
-3. **Deep Analysis**
-   - Use sequential-thinking for problem analysis
-   - Identify research needs (libraries, patterns, best practices)
-   - Determine approach options and trade-offs
-
-4. **Research**
+5. **Research**
    - Library docs via Context7 (latest patterns and examples)
    - Best practices via web search (recent guides, common pitfalls)
    - Synthesize with architecture and design guidelines
 
-5. **Generate Phase Breakdown**
+6. **Generate Phase Breakdown**
    - Create test-first phases (per pm-guide.md structure)
-   - Strategic WHAT, not tactical HOW (agents decide implementation)
-   - Map acceptance scenarios to test phases (if spec exists)
-   - Apply complexity scoring (pm-guide.md)
+   - Strategic WHAT with tactical specificity (see pm-guide.md "Strategic vs Tactical - The Nuance")
+   - Map acceptance scenarios to test phases with explanations (if spec exists)
+   - Apply complexity scoring with test count estimates (pm-guide.md)
+   - Create comparative context section (vs similar tasks)
+   - Add domain/business context if relevant
 
-6. **Mandatory Reviews**
+7. **Mandatory Reviews**
    - code-architect: Architectural alignment (always required)
    - security-auditor: Security review (conditional per pm-guide.md)
 
-7. **Present Plan**
-   - Show phase breakdown
-   - Scenario coverage mapping (if spec)
+8. **Present Plan**
+   - Show phase breakdown (3-level hierarchy)
+   - Comparative context (vs similar tasks)
+   - Domain/business context (if relevant)
+   - Scenario coverage mapping with explanations (if spec)
+   - Test count estimates
    - Research summary
    - Review signoffs
    - Complexity estimate
@@ -165,12 +178,6 @@ AI: Creating plan for TASK-001: User Login Flow
 
     Next: /implement TASK-001 1.1
 ```
-
-## Agent Coordination
-
-**Primary**: project-manager (analysis), test-engineer (testing strategy)
-**Mandatory**: code-architect (architectural review - always)
-**Conditional**: security-auditor (security review - auto-detected per pm-guide.md)
 
 ## Error Handling
 

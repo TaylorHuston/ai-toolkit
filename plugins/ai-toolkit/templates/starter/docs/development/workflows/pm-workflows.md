@@ -591,6 +591,98 @@ Next: /implement TASK-001 1.1
 
 **Flexibility:** If no parent spec exists, generate tests from TASK.md acceptance criteria instead.
 
+### Scenario Coverage Format
+
+When TASK references parent SPEC with acceptance scenarios, create detailed coverage mapping:
+
+**Format for Each Scenario:**
+
+```markdown
+### SPEC-{spec_id} Scenario {n}: {scenario_title}
+- **Given/When/Then**: {Brief summary of scenario}
+- **Coverage Mapping**: Phase {x.y} {implements_or_validates} {what} **because** {explanation}
+- **Test Strategy**: {Which specific tests validate this scenario}
+```
+
+**Example:**
+
+```markdown
+### SPEC-001 Scenario 4: Create and view ADR
+- **Given**: Workspace exists
+- **When**: Developer creates ADR with title and description
+- **Then**: ADR is saved to database with status
+- **And**: ADR appears in the ADRs list
+
+**Coverage Mapping**:
+- Phase 2.1 validates ADR creation with workspaceId foreign key **because** the scenario requires "ADR saved to database"
+- Phase 3 `getAll({ workspaceId })` enables UI to list ADRs **because** the scenario requires "ADR appears in ADRs list"
+
+**Test Strategy**:
+- Phase 2.1 tests validate all status enum values (PROPOSED, ACCEPTED, etc.)
+- Phase 3 tests verify workspace scoping isolation
+```
+
+**Key Elements:**
+- The **because** clause explains WHY that phase structure was chosen
+- Connects spec requirements to implementation decisions
+- Shows which tests validate the scenario
+- Makes traceability explicit and meaningful
+
+### Phase Structure Standards
+
+**3-Level Hierarchy:**
+- **Phase**: High-level objective (e.g., "Phase 2 - Create Mutation")
+- **Major Steps**: 2-4 per phase (e.g., "2.1 Write tests", "2.2 Implement mutation")
+- **Specific Validations**: 3-6 per major step (e.g., "2.1.1 Test successful creation with valid workspaceId")
+
+**Example:**
+```markdown
+### Phase 2 - Create Mutation
+- [ ] 2.1 Write tests for ADR creation
+  - [ ] 2.1.1 Test successful creation with valid workspaceId
+  - [ ] 2.1.2 Test creation with minimal fields (status defaults to PROPOSED)
+  - [ ] 2.1.3 Test invalid workspaceId (Prisma P2003 foreign key error)
+- [ ] 2.2 Implement create mutation
+  - [ ] 2.2.1 Create `adrRouter` with `createTRPCRouter`
+  - [ ] 2.2.2 Use `ctx.db.adr.create()` for database insert (note: lowercase 'adr' in Prisma client)
+```
+
+**Benefits:**
+- Granular progress tracking
+- Clear validation criteria
+- Easy to identify blockers
+- Natural commit points
+
+### Test Description Quality Standards
+
+Quality test descriptions make implementation intent crystal clear:
+
+**Standards:**
+1. **Be specific about validation target** - What exactly are you testing?
+2. **Include expected outcomes/error codes** - What should happen?
+3. **Show data isolation requirements** - What test data setup is needed? (e.g., "workspace A vs B")
+4. **Mention relevant constraints** - What technical constraints apply? (foreign keys, validations)
+
+**Examples:**
+
+✅ **Good - Strategically Tactical:**
+- "Test CASCADE DELETE from workspace (workspace deletion removes all ADRs)"
+- "Test invalid workspaceId (Prisma P2003 foreign key error)"
+- "Test workspace scoping (ADRs from workspace A not visible in workspace B's getAll query)"
+- "Test status transitions (PROPOSED → ACCEPTED → DEPRECATED)"
+
+❌ **Too Vague:**
+- "Test cascade delete"
+- "Test error handling"
+- "Test workspace scoping"
+- "Test status changes"
+
+❌ **Too Prescriptive:**
+- "Use beforeEach to create two workspaces and test that getAll filters correctly"
+- "Mock the database and assert that delete is called with correct params"
+
+**Why this matters:** Specific descriptions guide implementation without prescribing HOW, making plans strategically tactical.
+
 ### Test-First Phase Loop
 
 **MANDATORY:** Every phase follows strict test-first loop
@@ -708,21 +800,59 @@ Relevant Files: [filtered list for backend domain]
 
 **Key Principles:**
 
-**Strategic, Not Tactical:**
-- PLAN.md describes **WHAT** to build (objectives, outcomes)
-- Specialist agents decide **HOW** to build it (implementation details)
-- Implementation details adapt to current codebase state
-- Agents leverage WORKLOG for lessons learned and context
+**Strategic vs Tactical - The Nuance:**
 
-**Examples:**
-- ✅ Strategic: "1.2 Implement user model with password hashing"
-- ❌ Tactical: "1.2 Create User class with bcrypt.hash() in the setPassword method using 10 salt rounds"
+Plans describe **WHAT** to build with sufficient specificity that implementers know exactly what success looks like, without prescribing **HOW** to implement.
 
-**Why Strategic Wins:**
-- Specialist agents see current code state and can adapt
-- WORKLOG provides context about what worked/didn't work
+**Test Descriptions - Strategically Tactical:**
+
+The sweet spot is strategic objectives with tactical specificity:
+
+✅ **Good - Strategic with Tactical Specificity:**
+- "Test workspace scoping (ADRs from workspace A not visible in workspace B's getAll query)"
+- "Test invalid workspaceId (Prisma P2003 foreign key error)"
+- "Test CASCADE DELETE from workspace (workspace deletion removes all child ADRs)"
+- "Test status transitions (PROPOSED → ACCEPTED → DEPRECATED lifecycle)"
+
+❌ **Too Vague - Purely Strategic:**
+- "Test workspace scoping" - What does success look like?
+- "Test error handling" - Which errors? What outcomes?
+- "Test cascade delete" - What should cascade? To what?
+
+❌ **Too Prescriptive - Purely Tactical:**
+- "Use beforeEach to create two workspaces, insert ADRs with different workspaceIds, then assert getAll filters correctly"
+- "Mock Prisma client, call create with invalid CUID, catch P2003, verify error message contains 'Foreign key constraint'"
+
+**Implementation Steps - Strategic with Helpful Hints:**
+
+✅ **Good Examples:**
+- "1.2 Implement user model with password hashing"
+- "2.2 Use `ctx.db.adr.create()` for database insert (note: lowercase 'adr' in Prisma client)"
+- "5.2 Use `ctx.db.adr.delete()` (simple delete - no cascade concerns at this level)"
+
+❌ **Too Prescriptive:**
+- "1.2 Create User class with bcrypt.hash() in the setPassword method using 10 salt rounds"
+- "2.2 Import createTRPCRouter from @trpc/server, define publicProcedure with input validation using z.object..."
+
+**Implementation Hints - When to Include:**
+
+Helpful hints are facts about APIs/gotchas, NOT implementation prescriptions:
+
+✅ **Helpful Hints (Include These):**
+- "(note: lowercase model names in Prisma client)" - API fact
+- "(note: CASCADE DELETE from workspace automatically removes ADRs)" - behavior fact
+- "(note: status defaults to PROPOSED if not specified)" - default behavior
+
+❌ **Implementation Prescriptions (Avoid These):**
+- "(note: use bcrypt.hash() with 10 salt rounds)" - dictates implementation approach
+- "(note: wrap in try-catch and return TRPCError)" - prescribes error handling pattern
+
+**Why This Nuance Matters:**
+- Specialist agents see current code state and can adapt implementation approach
+- WORKLOG provides context about what worked/didn't work in previous phases
+- Tactical specificity in tests ensures validation is comprehensive
+- Helpful hints prevent wasted time on gotchas without constraining approach
 - Flexibility for better approaches discovered during implementation
-- Avoids outdated prescriptive steps
 
 **WORKLOG Integration:**
 - Agents read WORKLOG before each phase to understand context
