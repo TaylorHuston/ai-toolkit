@@ -5,7 +5,7 @@ argument-hint: "[--review] [--force]"
 allowed-tools: ["Read", "Write", "Edit", "Task", "TodoWrite"]
 model: claude-opus-4-1
 references_guidelines:
-  - docs/development/templates/project-brief.md  # Template structure
+  - docs/development/templates/project-brief-template.md  # Template structure
 ---
 
 # /project-brief Command
@@ -29,7 +29,7 @@ Establishes clear product vision and strategy as foundation for feature planning
 
 **Read existing brief:**
 - Project brief lives at: `docs/project-brief.md`
-- Template structure at: `docs/development/templates/project-brief.md`
+- Template structure at: `docs/development/templates/project-brief-template.md`
 - 6 sections: Overview, Problem, Solution, Target Audience, Key Features, Success Metrics
 - Analyze completeness: empty (<10 chars), weak (<50 chars), needs_detail (vague), complete
 - Identify gaps to fill
@@ -54,7 +54,7 @@ Establishes clear product vision and strategy as foundation for feature planning
 Task: "Complete project brief through gap-driven conversation.
 
 1. Read project brief at docs/project-brief.md
-   - Reference template structure from docs/development/templates/project-brief.md if needed
+   - Reference template structure from docs/development/templates/project-brief-template.md if needed
 2. For each incomplete section (in order):
    - Ask open question about topic
    - Listen, ask clarifying question

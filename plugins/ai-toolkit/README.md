@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-Comprehensive AI-assisted development workflow system for Claude Code with 24 commands, 21 specialized agents, and intelligent state management.
+Comprehensive AI-assisted development workflow system for Claude Code with 26 commands, 21 specialized agents, and intelligent state management.
 
 ## Quick Start
 
@@ -23,7 +23,7 @@ cd my-project
 
 ## What You Get
 
-- **24 Workflow Commands** - Complete `/project-brief` → `/spec` → `/plan` → `/implement` cycle + utilities
+- **25 Workflow Commands** - Complete `/project-brief` → `/spec` → `/spike` → `/plan` → `/implement` cycle + utilities
 - **21 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
 - **3 Bundled MCP Servers** - Auto-configured tools (context7, sequential-thinking, playwright)
 - **Starter Template** - 49 files for organized project initialization
@@ -46,7 +46,7 @@ No manual MCP configuration required! These tools are ready immediately after pl
 
 The AI Toolkit uses different Claude models strategically based on task requirements:
 
-### Sonnet 4.5 - Primary Workhorse (13 agents + 20 commands)
+### Sonnet 4.5 - Primary Workhorse (13 agents + 21 commands)
 
 **Performance**: Best coding model in the world (77.2% SWE-bench), strongest for agents (30+ hours autonomous), best computer use (61.4% OSWorld)
 
@@ -55,7 +55,7 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 **Used For**:
 - **All specialist agents**: frontend, backend, database, devops, api, performance, ui-ux, data, migration, refactoring
 - **Code-focused agents**: code-architect, test-engineer, code-reviewer, technical-writer
-- **Execution commands**: /implement, /plan, /quality, /branch, /commit, /docs, /project-status, /toolkit-init, /worklog, /changelog, /release, /troubleshoot, /sanity-check, /refresh, /jira-comment, /jira-promote, /jira-import, /ui-design, /sync-progress
+- **Execution commands**: /implement, /spike, /plan, /quality, /branch, /commit, /docs, /project-status, /toolkit-init, /worklog, /changelog, /release, /troubleshoot, /sanity-check, /refresh, /jira-comment, /jira-promote, /jira-import, /ui-design, /sync-progress
 
 **Why**: Sonnet 4.5 excels at coding, code generation, documentation, and autonomous operation. Its superior performance at lower cost makes it ideal for hands-on development work.
 
@@ -67,7 +67,7 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 
 **Used For**:
 - **Strategic agents**: project-manager (orchestration), security-auditor (safety-critical), brief-strategist (product strategy), ai-llm-expert (meta-reasoning)
-- **Planning commands**: /project-brief, /spec, /jira-epic, /adr, /security-audit
+- **Planning commands**: /project-brief, /spec, /jira-epic, /adr
 
 **Why**: Opus 4.1's extended reasoning (64K thinking tokens) and superior safety make it ideal for high-stakes decisions, strategic planning, security analysis, and complex orchestration.
 
@@ -155,7 +155,7 @@ my-project/
 
 **Setup & Strategy**: `/toolkit-init`, `/project-brief`
 **Spec & Epic Management**: `/spec`, `/jira-epic`, `/jira-import`
-**Workflow**: `/adr`, `/plan`, `/implement`, `/advise`
+**Workflow**: `/adr`, `/spike`, `/plan`, `/implement`, `/advise`
 **Quality**: `/quality`, `/security-audit`, `/troubleshoot`, `/sanity-check`
 **Development**: `/branch`, `/commit`, `/worklog`, `/sync-progress`
 **Documentation & Status**: `/docs`, `/project-status`, `/changelog`, `/release`

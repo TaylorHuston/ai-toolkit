@@ -9,7 +9,7 @@ This is very much an alpha/experiment at the moment. Look at the commit history 
 
 This marketplace contains:
 
-- **AI Toolkit Plugin** - Complete workflow system with 24 commands, 21 specialized agents, and intelligent automation
+- **AI Toolkit Plugin** - Complete workflow system with 26 commands, 21 specialized agents, and intelligent automation
 - **Starter Template** - 49 essential files for clean project initialization via `/toolkit-init`
 - **Development Guidelines** - 30+ customizable files organized in 4 directories (conventions, workflows, misc, templates)
 
@@ -84,7 +84,7 @@ After plugin updates, sync your project with the latest templates:
 
 ## Customizable Commands and Workflows
 
-The AI Toolkit provides **24 commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
+The AI Toolkit provides **26 commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
 
 **Why file-based configuration?** Commands are intentionally minimal - they read your project's guideline files to adapt behavior. Baseline versions come with the toolkit, but keeping them as files in your repo means you can customize them to fit your team's specific workflow and conventions.
 
@@ -92,7 +92,7 @@ The AI Toolkit provides **24 commands** that follow workflows in your `docs/deve
 
 ## AI Toolkit Plugin
 
-The AI Toolkit plugin provides a complete development workflow system with **24 commands** organized around a 3-phase development cycle.
+The AI Toolkit plugin provides a complete development workflow system with **26 commands** organized around a 3-phase development cycle.
 
 > **New to the workflow?** See [Intended Workflow](#intended-workflow) above for a beginner-friendly walkthrough.
 
@@ -109,6 +109,10 @@ The AI Toolkit plugin provides a complete development workflow system with **24 
 - `/adr` - Make technical architecture decisions with Quick Mode (5-10 min) or Deep Mode (20+ min)
 
 **Phase 2: Planning**
+- `/spike` - Time-boxed technical exploration to answer "Can we?" or "Which approach?" questions
+  - Creates SPIKE.md with questions to answer
+  - Generates multiple exploration plans (PLAN-1.md, PLAN-2.md) for comparing approaches
+  - Produces SPIKE-SUMMARY.md with findings and recommendation
 - `/plan` - Break down tasks into test-first implementation phases with deep analysis and research
   - Uses deep thinking, Context7 library docs, and web research for best practices
   - Takes 3-5 minutes for thorough planning with mandatory context review
@@ -234,9 +238,9 @@ pm/
 #### Customization
 
 Customize the workflow by editing templates:
-- `docs/development/templates/spec.md` - Feature spec structure and prompts
-- `docs/development/templates/task.md` - Task requirements template
-- `docs/development/templates/bug.md` - Bug report template
+- `docs/development/templates/spec-template.md` - Feature spec structure and prompts
+- `docs/development/templates/task-template.md` - Task requirements template
+- `docs/development/templates/bug-template.md` - Bug report template
 
 See `docs/development/templates/README.md` for customization guide.
 

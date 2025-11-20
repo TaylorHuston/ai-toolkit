@@ -95,7 +95,7 @@ CURRENT_DATE=$(date '+%Y-%m-%d')
 ```
 
 **Files customized** (copied from templates and personalized):
-- **docs/project-brief.md**: Copy from docs/development/templates/project-brief.md, insert {app-name}, {description} in Overview section
+- **docs/project-brief.md**: Copy from docs/development/templates/project-brief-template.md, insert {app-name}, {description} in Overview section
 - **CLAUDE.md**: Insert {app-name}, {description}, {toolkit-version}, {last-updated}
 - **README.md**: Insert {app-name}, {description}
 
@@ -161,8 +161,8 @@ find "${CLAUDE_PLUGIN_ROOT}/templates/starter" -type f
 
 **Drift report**:
 ```
-✅ Identical (3): .gitignore, docs/development/templates/spec.md, task.md
-🔧 Customized (4): CLAUDE.md, README.md, docs/project-brief.md, docs/development/templates/bug.md
+✅ Identical (3): .gitignore, docs/development/templates/spec-template.md, task-template.md
+🔧 Customized (4): CLAUDE.md, README.md, docs/project-brief.md, docs/development/templates/bug-template.md
 ❌ Missing (1): docs/development/workflows/git-workflow.md
 ➕ New in Plugin (2): docs/project/adrs/README.md, pm/README.md
 ```
@@ -200,7 +200,7 @@ Choose (1-5): _
 ```
 ✅ Updated (2): pm/README.md, docs/project/adrs/README.md
 🔀 Merged (1): CLAUDE.md
-⏭️  Kept (3): README.md, docs/project-brief.md, docs/development/templates/bug.md
+⏭️  Kept (3): README.md, docs/project-brief.md, docs/development/templates/bug-template.md
 ```
 
 ### 5. Update Version Tracking

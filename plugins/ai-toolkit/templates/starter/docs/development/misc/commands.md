@@ -7,7 +7,7 @@ tags: ["claude-code", "commands", "workflow", "reference"]
 
 # Claude Code Command Reference
 
-Streamlined catalog of 26 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
+Streamlined catalog of 25 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
 
 ## How Commands Work Together
 
@@ -20,7 +20,7 @@ The AI Toolkit provides a flexible workflow that adapts to your needs:
 3. **Architecture**: `/adr` - Make technical decisions and create ADRs
 4. **Tasks**: `/plan TASK-###` - Break down implementation into phases
 5. **Build**: `/implement TASK-### PHASE` (automated) or `/advise TASK-### PHASE` (collaborative)
-6. **Quality**: `/quality`, `/troubleshoot`, `/security-audit` - Ensure excellence
+6. **Quality**: `/quality`, `/troubleshoot` - Ensure excellence
 
 ### Commands Are Conversational
 
@@ -35,7 +35,7 @@ Each command guides you through its workflow:
 
 You don't have to follow a strict sequence:
 - Jump straight to `/adr` for technical decisions
-- Use `/implement` to quickly build a spike
+- Use `/spike` to explore technical approaches before planning
 - Run `/quality` whenever you want a comprehensive review
 - Invoke `/docs` to generate or validate documentation
 
@@ -160,6 +160,14 @@ Commands use different parameter paradigms because **different workflows need di
 - _Usage_: `/adr [--epic EPIC-###] | [--foundation] | [--infrastructure] | [--deep] | [--question "text"]`
 - _Workflow Phase_: **1. Architecture** - Technical decisions, ADRs, Fast Track vs comprehensive analysis
 
+### 🔬 **/spike** - Technical Exploration
+
+- _Purpose_: Time-boxed exploration to answer "Can we?" or "Which approach?" questions before implementation
+- _Usage_: `/spike "question" | /spike --complete SPIKE-###`
+- _Workflow Phase_: **2. Exploration** - Answer technical feasibility questions, compare alternatives
+- _Output_: Creates `pm/issues/SPIKE-###/` with multiple PLAN-N.md files and SPIKE-SUMMARY.md with recommendation
+- _Examples_: `/spike "GraphQL vs REST?"`, `/spike --complete SPIKE-001`
+
 ### 📋 **/plan** - Task Implementation Planning
 
 - _Purpose_: Create PLAN.md file with phase-based breakdown for individual tasks and bugs
@@ -187,7 +195,6 @@ Commands use different parameter paradigms because **different workflows need di
 ### **Quality & Security**
 
 - **[/quality](./quality.md)** - Multi-dimensional quality analysis using specialized agents
-- **[/security-audit](./security-audit.md)** - OWASP-compliant security assessment with vulnerability remediation
 - **[/troubleshoot](../commands/troubleshoot.md)** - Systematic debugging with research-first approach, hypothesis testing, and rollback safety
 - **[/sanity-check](../commands/sanity-check.md)** - Mid-work validation with deep reflection to catch drift before it becomes expensive
 
@@ -226,6 +233,7 @@ Commands use different parameter paradigms because **different workflows need di
 | `/project-brief` | Interactive project vision | `[--force] [--review]` |
 | `/epic` | Unified epic management | `[EPIC-###]` (optional) |
 | `/adr` | Technical architecture | Various flags for modes |
+| `/spike` | Technical exploration | `"question"` or `--complete SPIKE-###` |
 | `/plan` | Task implementation planning | `TASK-###` or `BUG-###` |
 | `/implement` | Automated phase execution | `TASK-### PHASE` or `--next` |
 | `/advise` | Collaborative phase guidance | `TASK-### PHASE` or `--next` |

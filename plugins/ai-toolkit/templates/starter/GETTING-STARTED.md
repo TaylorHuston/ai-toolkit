@@ -31,9 +31,11 @@ your-project/
 
 3. **`/spec`** - Create a Spec Document (the heart of the workflow). A Spec is a concrete plan for a body of related work - similar in scope to an Epic in Agile or a PRD. Written for easy parsing by Claude Code with clear requirements, acceptance criteria, and definition of done. Unlike ADRs, Specs are living documents that adapt as you discover hiccups and make adjustments during implementation.
 
-4. **`/plan TASK-###`** - Create a thorough implementation plan with all steps needed to complete the task. In the default configuration, this breaks work into discrete Phases (each a logical commit with strict TDD workflow), but you can customize to your specifications.
+4. **`/spike "question"`** (Optional) - If technical approach is uncertain, create a time-boxed exploration to compare alternatives ("GraphQL vs REST?", "Which library performs better?"). Spikes produce findings and recommendations, not production code. Skip if approach is clear.
 
-5. **`/implement TASK-### PHASE`** - Start implementing. Execute a single phase or let Claude complete the entire task end-to-end. Quality gates and workflows make autonomous execution both possible and safe, but you're always in control.
+5. **`/plan TASK-###`** - Create a thorough implementation plan with all steps needed to complete the task. In the default configuration, this breaks work into discrete Phases (each a logical commit with strict TDD workflow), but you can customize to your specifications.
+
+6. **`/implement TASK-### PHASE`** - Start implementing. Execute a single phase or let Claude complete the entire task end-to-end. Quality gates and workflows make autonomous execution both possible and safe, but you're always in control.
 
 ## Commands, Workflows and Conventions
 
@@ -102,10 +104,10 @@ Multiple quality gates ensure high standards:
 
 ### Autonomous Execution
 
-With `--task` flag, `/implement` can execute all phases autonomously:
+With `--full` flag, `/implement` can execute all phases autonomously:
 
 ```bash
-/implement --task TASK-001
+/implement --full TASK-001
 # → Executes phase 1, reviews, tests
 # → If passes, automatically starts phase 2
 # → Continues until all phases complete or failure
@@ -199,6 +201,7 @@ Each command is conversational and guides you through its workflow:
 - `/project-brief` asks questions to fill in your vision
 - `/spec` helps structure features with acceptance criteria
 - `/adr` explores options and creates ADRs
+- `/spike` compares technical approaches through exploration (when uncertain)
 - `/plan` breaks work into testable phases
 - `/implement` executes with domain-specific agents
 
@@ -300,7 +303,7 @@ After updating the AI Toolkit plugin:
 
 ## Command Reference
 
-**24 commands organized by workflow stage:**
+**26 commands organized by workflow stage:**
 
 ### Setup & Strategy
 | Command | Purpose |

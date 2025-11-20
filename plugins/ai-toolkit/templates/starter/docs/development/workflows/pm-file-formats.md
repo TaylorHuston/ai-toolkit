@@ -25,25 +25,25 @@ For workflow details (spec creation, task creation, plan execution), see **pm-wo
 **Specs** (`pm/specs/SPEC-###-name.md`):
 - Feature-level initiatives containing multiple tasks
 - Created by `/spec` command
-- Structure defined in templates/spec.md template
+- Structure defined in templates/spec-template.md template
 - Format: YAML frontmatter + Description + Acceptance Scenarios + Definition of Done + Tasks
 
 **Tasks** (`pm/issues/TASK-###-name/TASK.md`):
 - Implementation work for features or enhancements
 - Created by `/spec` command or standalone
-- Structure defined in templates/task.md template
+- Structure defined in templates/task-template.md template
 - Format: YAML frontmatter + Description + Acceptance Criteria + Technical Notes
 
 **Bugs** (`pm/issues/BUG-###-name/BUG.md`):
 - Defect tracking and fixes
 - Created by `/spec` command or standalone
-- Structure defined in templates/bug.md template
+- Structure defined in templates/bug-template.md template
 - Format: YAML frontmatter + Description + Reproduction Steps + Environment
 
 **Plans** (`pm/issues/TASK-###-name/PLAN.md`):
 - AI-managed implementation breakdown for tasks/bugs
 - Created by `/plan` command
-- Structure defined in templates/plan.md template
+- Structure defined in templates/plan-template.md template
 - Format: YAML frontmatter + Overview + Phases + Scenario Coverage + Complexity Analysis
 - Stays separate from TASK.md/BUG.md (which may sync with external PM tools)
 
@@ -289,10 +289,10 @@ status: in_progress
 ## Related Documentation
 
 **Templates (Source of Truth for File Structure):**
-- `templates/spec.md` - Feature spec template with YAML config
-- `templates/task.md` - Task template with YAML config
-- `templates/bug.md` - Bug template with YAML config
-- `templates/plan.md` - Plan template with YAML config
+- `templates/spec-template.md` - Feature spec template with YAML config
+- `templates/task-template.md` - Task template with YAML config
+- `templates/bug-template.md` - Bug template with YAML config
+- `templates/plan-template.md` - Plan template with YAML config
 - `templates/README.md` - Template usage guide and custom types
 
 **Workflow Guides:**

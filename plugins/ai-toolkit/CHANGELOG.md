@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.34.0] - 2025-11-20
+
+### Added
+
+- **`/spike` command** - Create time-boxed technical explorations to answer feasibility and approach questions
+  - Structured workflow for exploring multiple approaches within time limits
+  - File-based tracking: SPIKE.md, PLAN-N.md, WORKLOG-N.md, SPIKE-SUMMARY.md
+  - Integration with `/plan` and `/implement` commands
+  - Complete methodology documentation in spike-workflow.md
+  - Brings total command count to 26 commands
+
+### Changed
+
+- **Template naming convention** - All PM templates now use `-template.md` suffix
+  - Renamed 7 templates: bug, note, plan, project-brief, spec, spike, task
+  - Clearer distinction between templates and instance files
+  - Updated 27+ references across commands and documentation
+  - **BREAKING**: Customizations referencing old template names need updating
+
+- **`/implement` flag clarity** - Renamed `--task` to `--full` for broader applicability
+  - Makes it obvious the flag works for any issue type (TASK, BUG, SPIKE)
+  - Updated usage examples and documentation across 6 files
+  - Old: `/implement TASK-001 --task`
+  - New: `/implement TASK-001 --full`
+  - **BREAKING**: Scripts using `--task` flag need updating
+
+- **Issue type consistency** - TASK, BUG, and SPIKE now work and feel similar
+  - All three types have template files in `docs/development/templates/`
+  - Identical YAML frontmatter structure and section formatting
+  - Consistent workflow patterns and file structures
+  - Parallel documentation in pm-workflows.md
+
 ## [0.33.1] - 2025-11-19
 
 ### Changed

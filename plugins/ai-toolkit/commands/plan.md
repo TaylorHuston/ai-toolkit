@@ -21,9 +21,12 @@ references_guidelines:
 ## Usage
 
 ```bash
-/plan TASK-001    # Local: Creates pm/issues/TASK-001-*/PLAN.md
-/plan BUG-003     # Local: Creates pm/issues/BUG-003-*/PLAN.md
-/plan PROJ-123    # Jira: Fetches from Jira, creates PLAN.md locally
+/plan TASK-001       # Local: Creates pm/issues/TASK-001-*/PLAN.md
+/plan BUG-003        # Local: Creates pm/issues/BUG-003-*/PLAN.md
+/plan PROJ-123       # Jira: Fetches from Jira, creates PLAN.md locally
+
+# Spike exploration plans
+/plan --spike SPIKE-001  # Creates multiple PLAN-N.md files for each approach
 ```
 
 ## Execution Flow
@@ -70,6 +73,55 @@ references_guidelines:
    - Complexity estimate
 
 **See pm-guide.md "Planning Methodology" for complete step-by-step details.**
+
+## Spike Planning (--spike flag)
+
+**When to use:** `/plan --spike SPIKE-001` for creating exploration plans when technical approach is uncertain.
+
+**Behavior with --spike flag:**
+
+1. **Read SPIKE.md**
+   - Load questions to answer
+   - Load approaches to explore (numbered)
+   - AI suggests number of plans based on approaches defined
+
+2. **Create Multiple PLAN-N.md Files**
+   - Creates numbered exploration plans: PLAN-1.md, PLAN-2.md, etc.
+   - Each plan explores a different technical approach
+   - Example: PLAN-1.md (GraphQL), PLAN-2.md (REST)
+
+3. **PLAN-N.md Structure**
+   - Adds spike reminder at top:
+   ```markdown
+   > **⚠️ SPIKE EXPLORATION**
+   > This is exploratory work. Code will NOT be committed to production.
+   > Use `/implement --spike SPIKE-001 --plan 1` to execute.
+   ```
+   - Phases focus on answering questions, not building features
+   - Success criteria = questions answered, not features delivered
+
+4. **Interactive Planning**
+   - AI: "SPIKE.md defines 2 approaches. Create 2 exploration plans?"
+   - For each approach: Generate phases to explore that approach
+   - Phases: Setup → Prototype → Benchmark → Evaluate
+
+**Example:**
+```bash
+/plan --spike SPIKE-001
+# AI reads SPIKE-001.md
+# AI: "I see 2 approaches: GraphQL and REST. Create 2 exploration plans?"
+# Creates PLAN-1.md (GraphQL exploration phases)
+# Creates PLAN-2.md (REST exploration phases)
+```
+
+**Differences from regular planning:**
+- Multiple PLAN-N.md files (not single PLAN.md)
+- Exploration phases (not implementation phases)
+- No test-first enforcement (exploratory code)
+- No complexity scoring (time-boxed exploration)
+- No mandatory reviews (throwaway prototypes)
+
+**See:** spike-workflow.md for complete spike planning workflows and templates.
 
 ## Strategic vs Tactical Planning
 

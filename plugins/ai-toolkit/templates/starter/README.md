@@ -218,7 +218,7 @@ your-project/
 
 ## Available Commands
 
-The AI Toolkit provides **24 commands** for structured development:
+The AI Toolkit provides **26 commands** for structured development:
 
 ### Setup & Strategy
 - `/toolkit-init` - Initialize project structure (you've already run this!)
@@ -231,6 +231,7 @@ The AI Toolkit provides **24 commands** for structured development:
 
 ### Planning & Implementation
 - `/adr` - Make architecture decisions and create ADRs
+- `/spike` - Time-boxed technical exploration for "Can we?" or "Which approach?" questions
 - `/plan TASK-###` - Add implementation plan to tasks/bugs
 - `/implement TASK-### PHASE` - Execute specific phases with specialized agents
 - `/advise TASK-### PHASE` - Get implementation guidance without code generation

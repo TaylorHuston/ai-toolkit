@@ -95,7 +95,7 @@ Next steps:
 
 **Typical workflow:**
 ```bash
-/implement TASK-001 --task    # Complete implementation
+/implement TASK-001 --full    # Complete implementation
 /quality                       # Verify quality
 /changelog                     # Document changes
 /commit                        # Commit changes

@@ -10,7 +10,7 @@ description: "PM workflows for spec creation, task creation, and plan execution"
 
 # PM Workflows
 
-**Referenced by Commands:** `/spec`, `/plan`, `/implement`, `/advise`
+**Referenced by Commands:** `/spec`, `/spike`, `/plan`, `/implement`, `/advise`
 
 ## Overview
 
@@ -122,22 +122,84 @@ Implement JWT-based login endpoint with session management...
 
 ---
 
+### SPIKE.md - Technical Exploration
+
+**Purpose:** Answer "Can we?" or "Which approach?" questions through time-boxed exploration
+
+**Contains:**
+- Questions to answer
+- Time box and deadline
+- Approaches to explore (numbered)
+- Success criteria
+- SPIKE-SUMMARY.md with findings and recommendation
+
+**Who creates:** Developers via `/spike` command when technical uncertainty exists
+**Who manages:** Developers during exploration, AI during completion
+**Syncs with:** Nothing (purely local exploration, can reference in ADRs/specs)
+**Living document:** No - spike completes with findings summary
+
+**Scope:** Time-boxed research (4-8 hours typical), produces multiple PLAN-N.md files for different approaches
+
+**Key principle:** Produces knowledge and findings, NOT production code. Code is exploratory and often discarded.
+
+**When to use:**
+- ✅ Technical approach is uncertain (GraphQL vs REST)
+- ✅ Need to compare 2+ alternatives (Library A vs B)
+- ✅ Feasibility is unknown ("Can we even do this?")
+- ❌ Approach is clear from requirements
+- ❌ Just need to read documentation
+
+**Example:**
+```markdown
+# SPIKE-001: Should we use GraphQL or REST?
+
+## Questions to Answer
+1. Performance difference for our use case?
+2. Caching characteristics?
+3. Team learning curve?
+
+## Approaches to Explore
+### Approach 1: GraphQL with Apollo Server
+PLAN: PLAN-1.md, WORKLOG: WORKLOG-1.md
+
+### Approach 2: REST with Express
+PLAN: PLAN-2.md, WORKLOG: WORKLOG-2.md
+
+## SPIKE-SUMMARY.md (created after exploration)
+Recommendation: Use REST (simpler setup, adequate performance)
+```
+
+**Workflow:**
+1. `/spike "question"` → creates SPIKE.md
+2. `/plan --spike SPIKE-001` → creates PLAN-1.md, PLAN-2.md
+3. `/implement --spike SPIKE-001 --plan 1` → explore approach 1 (no commits)
+4. `/implement --spike SPIKE-001 --plan 2` → explore approach 2 (no commits)
+5. `/spike --complete SPIKE-001` → generates SPIKE-SUMMARY.md with recommendation
+
+**See:** spike-workflow.md for complete workflows, templates, and integration patterns
+
+---
+
 ### Content Decision Matrix
 
 **Use this to decide where content belongs:**
 
-| Content Type | SPEC.md | TASK.md | PLAN.md |
-|-------------|---------|---------|---------|
-| Feature description (user perspective) | ✅ | ❌ | ❌ |
-| Acceptance scenarios (BDD format) | ✅ | ❌ | ❌ |
-| Work item description | ❌ | ✅ | ❌ |
-| Acceptance criteria (checklist) | ❌ | ✅ | ❌ |
-| Technical constraints/notes | ❌ | ✅ | ❌ |
-| Phase breakdown | ❌ | ❌ | ✅ |
-| Implementation steps (checkboxes) | ❌ | ❌ | ✅ |
-| Scenario coverage mapping | ❌ | ❌ | ✅ |
-| Complexity analysis | ❌ | ❌ | ✅ |
-| Parent spec reference | ❌ | ✅ | ✅ |
+| Content Type | SPEC.md | TASK.md | SPIKE.md | PLAN.md |
+|-------------|---------|---------|----------|---------|
+| Feature description (user perspective) | ✅ | ❌ | ❌ | ❌ |
+| Acceptance scenarios (BDD format) | ✅ | ❌ | ❌ | ❌ |
+| Work item description | ❌ | ✅ | ❌ | ❌ |
+| Acceptance criteria (checklist) | ❌ | ✅ | ❌ | ❌ |
+| Technical constraints/notes | ❌ | ✅ | ❌ | ❌ |
+| Questions to answer | ❌ | ❌ | ✅ | ❌ |
+| Approaches to explore | ❌ | ❌ | ✅ | ❌ |
+| Time box and deadline | ❌ | ❌ | ✅ | ❌ |
+| Findings and recommendation | ❌ | ❌ | ✅ | ❌ |
+| Phase breakdown | ❌ | ❌ | ❌ | ✅ |
+| Implementation steps (checkboxes) | ❌ | ❌ | ❌ | ✅ |
+| Scenario coverage mapping | ❌ | ❌ | ❌ | ✅ |
+| Complexity analysis | ❌ | ❌ | ❌ | ✅ |
+| Parent spec reference | ❌ | ✅ | ❌ | ✅ |
 
 **Key Distinctions:**
 
@@ -145,18 +207,29 @@ Implement JWT-based login endpoint with session management...
    - SPEC = Feature-level (multi-task), user perspective, BDD scenarios
    - TASK = Work-item-level (single deployable change), acceptance criteria checklist
 
-2. **TASK vs PLAN:**
+2. **SPIKE vs TASK:**
+   - SPIKE = Exploration (answers questions), time-boxed, produces findings
+   - TASK = Implementation (delivers features), scope-driven, produces code
+
+3. **TASK vs PLAN:**
    - TASK = WHAT needs to be done (from PM perspective, stable)
    - PLAN = HOW it will be done (from implementation perspective, evolves)
 
-3. **Syncing:**
+4. **SPIKE vs PLAN:**
+   - SPIKE = Multiple PLAN-N.md files (one per approach to explore)
+   - TASK/BUG = Single PLAN.md (implementation phases)
+   - SPIKE PLAN.md has reminder: "This is exploration - code won't be committed"
+
+5. **Syncing:**
    - SPEC.md syncs with Jira epics (if Jira enabled)
    - TASK.md syncs with Jira issues (if Jira enabled)
+   - SPIKE.md NEVER syncs (purely local exploration)
    - PLAN.md NEVER syncs (purely local, AI-managed)
 
-4. **Living Documents:**
+6. **Living Documents:**
    - SPEC.md: Yes (use `/spec --update` after task completion)
    - TASK.md: No (acceptance criteria stay stable)
+   - SPIKE.md: No (completes with SPIKE-SUMMARY.md)
    - PLAN.md: Yes (updated as implementation progresses)
 
 **Example Scenario:**
@@ -164,6 +237,10 @@ Implement JWT-based login endpoint with session management...
 ```
 SPEC-001: User Authentication (feature-level)
 ├── Acceptance Scenario: "User logs in successfully" (BDD format)
+├── SPIKE-001: OAuth vs JWT (technical exploration - if needed)
+│   ├── PLAN-1.md (explore OAuth)
+│   ├── PLAN-2.md (explore JWT)
+│   └── SPIKE-SUMMARY.md (recommendation: JWT simpler for our needs)
 ├── TASK-001: User Login Flow (work item)
 │   ├── Acceptance Criteria: "User can log in with valid credentials"
 │   └── PLAN.md (implementation phases)
@@ -710,10 +787,10 @@ SPEC-003: "Real-time Notifications"
 - `pm-file-formats.md` - File structure, naming conventions, directory organization
 
 **Templates (Source of Truth for File Structure):**
-- `templates/spec.md` - Feature spec template with YAML config
-- `templates/task.md` - Task template with YAML config
-- `templates/bug.md` - Bug template with YAML config
-- `templates/plan.md` - Plan template with YAML config
+- `templates/spec-template.md` - Feature spec template with YAML config
+- `templates/task-template.md` - Task template with YAML config
+- `templates/bug-template.md` - Bug template with YAML config
+- `templates/plan-template.md` - Plan template with YAML config
 - `templates/README.md` - Template usage guide and custom types
 
 **Workflow Guides:**

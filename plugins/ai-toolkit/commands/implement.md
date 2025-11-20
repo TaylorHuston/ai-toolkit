@@ -1,7 +1,7 @@
 ---
 tags: ["workflow", "development", "execution"]
 description: "Execute specific implementation phases from task plans with test-first enforcement"
-argument-hint: "TASK-### PHASE | TASK-### --next | --next | TASK-### --task | --task"
+argument-hint: "TASK-### PHASE | TASK-### --next | --next | TASK-### --full | --full"
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
@@ -28,8 +28,12 @@ references_guidelines:
 /implement PROJ-123 1.1    # Execute Jira issue phase
 /implement TASK-001 --next # Auto-find next uncompleted phase
 /implement --next          # Auto-detect task + next phase
-/implement TASK-001 --task # Execute all remaining phases
-/implement --task          # Auto-detect task + execute all
+/implement TASK-001 --full # Execute all remaining phases
+/implement --full          # Auto-detect task + execute all
+
+# Spike exploration (no commits)
+/implement --spike SPIKE-001 --plan 1  # Execute spike exploration plan 1
+/implement --spike SPIKE-001 --next    # Auto-find next spike plan
 ```
 
 ## Execution Flow
@@ -69,6 +73,53 @@ references_guidelines:
    - Update PLAN.md checkbox
 
 **See pm-guide.md "Phase Execution Protocol" for complete step-by-step details.**
+
+### Spike Exploration (--spike flag)
+
+**When to use:** `/implement --spike SPIKE-001 --plan 1` for exploring technical approaches without committing code.
+
+**Behavior differences with --spike flag:**
+
+1. **NO Git Commits**
+   - All code changes tracked in WORKLOG-N.md only
+   - Phase Commits section tracks prototype commits locally
+   - No branch creation/switching
+   - Reminder displayed: "⚠️ SPIKE EXPLORATION - Code will NOT be committed"
+
+2. **Prototype Directory**
+   - Code goes in `pm/issues/SPIKE-###/prototype/` directory
+   - Organized by approach (e.g., `prototype/graphql/`, `prototype/rest/`)
+   - All code is exploratory - may be discarded after spike
+
+3. **WORKLOG Tracking**
+   - Uses WORKLOG-N.md (numbered by plan: WORKLOG-1.md, WORKLOG-2.md)
+   - Tracks discoveries, not deliverables
+   - Documents setup time, surprises, questions surfaced
+   - Performance data and complexity observations
+
+4. **Quality Gates**
+   - Test-first loop NOT enforced (exploration code)
+   - Code review NOT required (throwaway prototypes)
+   - Focus on answering questions, not production quality
+
+5. **PLAN.md Reminder**
+   - SPIKE PLAN-N.md files include reminder at top:
+   ```markdown
+   > **⚠️ SPIKE EXPLORATION**
+   > This is exploratory work. Code will NOT be committed to production.
+   > Use `/implement --spike SPIKE-001 --plan 1` to execute.
+   ```
+
+**Example workflow:**
+```bash
+/implement --spike SPIKE-001 --plan 1  # Explore GraphQL approach
+# ... prototype GraphQL server, document findings in WORKLOG-1.md
+/implement --spike SPIKE-001 --plan 2  # Explore REST approach
+# ... prototype REST server, document findings in WORKLOG-2.md
+/spike --complete SPIKE-001            # Generate SPIKE-SUMMARY.md
+```
+
+**See:** spike-workflow.md for complete spike exploration workflows and templates.
 
 ## Task-Specific Scripts
 
@@ -117,7 +168,7 @@ pm/issues/TASK-001-user-auth/
 - Show phase to user, ask confirmation
 - Execute single phase
 
-**Full task**: `/implement TASK-001 --task` or `/implement --task`
+**Full execution**: `/implement TASK-001 --full` or `/implement --full`
 - Execute all remaining phases sequentially
 - Follow test-first loop for each phase
 - Stop on: error, user input needed, or all complete

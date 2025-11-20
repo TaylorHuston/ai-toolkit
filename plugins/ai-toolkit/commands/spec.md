@@ -39,7 +39,7 @@ references_guidelines:
    - --update SPEC-###: Review mode (analyze recent development and update spec)
 
 2. **Load Context**
-   - Read pm/templates/spec.md for structure
+   - Read docs/development/templates/spec-template.md for structure
    - Glob pm/specs/SPEC-*.md for next number
    - If --epic: Fetch from Jira via Atlassian MCP
 
@@ -47,7 +47,7 @@ references_guidelines:
    - Main goal, primary users
    - Acceptance scenarios (2-5 Given-When-Then)
    - Success criteria, OUT of scope
-   - Follow pm/templates/spec.md structure
+   - Follow spec-template.md structure
 
 4. **Create Spec File**
    - Write pm/specs/SPEC-###-<name>.md
@@ -58,7 +58,7 @@ references_guidelines:
    - Interactive loop: Which to create? (yes/all/custom/stop)
    - For each selected task:
      - Create `pm/issues/TASK-###-name/` directory
-     - Create `TASK.md` from `templates/task.md` template
+     - Create `TASK.md` from `templates/task-template.md` template
      - Link task → spec (frontmatter: `spec: SPEC-###`)
      - Update spec → task reference (Tasks section)
    - Per pm-workflows.md task suggestion strategy
@@ -140,7 +140,7 @@ User: "2"
 
 **Integration with Workflow:**
 ```bash
-/implement TASK-001 --task  # Complete task
+/implement TASK-001 --full  # Complete task
 /quality                     # Verify quality
 /spec --update SPEC-001      # Sync spec with reality
 /plan TASK-002              # Plan next task with updated context
