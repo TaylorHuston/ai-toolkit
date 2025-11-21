@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.36.0] - 2025-11-20
+
 ### Changed
 
 - **WORKLOG format enhancements** - Increased entry detail for better agent handoffs
