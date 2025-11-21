@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **WORKLOG format enhancements** - Increased entry detail for better agent handoffs
+  - Changed philosophy from "brief entries" to "information-complete handoffs"
+  - Updated entry length from ~5-10 lines to 10-20 lines average
+  - Enhanced all entry templates with structured sections for findings and gotchas
+  - Added "Information density test" - can next agent continue without re-reading code?
+  - Emphasized that 40-60% of entry should focus on discoveries and issues encountered
+  - Updated best practices with 11 concrete guidelines focusing on context richness
+  - Agents now provide complete context needed for effective handoffs
+
 ## [0.35.0] - 2025-11-20
 
 ### Changed

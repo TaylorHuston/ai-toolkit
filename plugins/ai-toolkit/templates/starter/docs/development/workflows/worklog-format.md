@@ -9,15 +9,17 @@ description: "WORKLOG entry format definitions for standard workflow, troublesho
 
 # === Configuration ===
 worklog_ordering: "reverse_chronological"    # Newest entries at TOP
-entry_philosophy: "stream_not_summarize"     # Write at handoffs, not after completion
-entry_length: "500_chars_ideal"              # ~5-10 lines per entry
+entry_philosophy: "context_rich_handoffs"    # Provide all context next agent needs
+entry_length: "information_complete"         # 10-20 lines average, focus on findings/gotchas
 ---
 
 # WORKLOG Format Guidelines
 
-**Purpose**: Document work flow between agents and across workflows with brief, scannable entries
+**Purpose**: Provide complete context for the next agent to continue work effectively
 
-**Philosophy**: Stream, don't summarize. Write entries as work happens (cross-agent handoffs), not retrospective summaries after phases complete.
+**Philosophy**: Context-rich handoffs. Each entry should contain ALL information the next agent needs - nothing more, nothing less. Focus heavily on key findings, gotchas, and lessons learned.
+
+**Entry Length**: Average 10-20 lines per entry. Brief entries miss critical context; overly long entries become noise. The test: "Can the next agent continue without re-reading code or re-discovering issues?"
 
 **Entry Ordering**: **CRITICAL** - Always maintain **reverse chronological order** (newest entries at the TOP).
 
@@ -44,7 +46,7 @@ entry_length: "500_chars_ideal"              # ~5-10 lines per entry
 - Implementation agents should NOT write review results in their entries - reviewers document their own findings
 - Review entries provide detailed feedback, scores, and context for future work
 
-**Key principle**: Newest entries at TOP, brief (~500 chars), focus on insights
+**Key principle**: Newest entries at TOP, information-complete (10-20 lines), emphasize findings and gotchas
 
 ---
 
@@ -124,13 +126,32 @@ entry_length: "500_chars_ideal"              # ~5-10 lines per entry
 ```markdown
 ## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] → [NEXT: next-agent]
 
-Brief summary of what was done (5-10 lines max).
+**Completed**: [What was accomplished in this phase - 2-3 lines]
 
-Gotcha: [critical issues encountered, if any]
-Lesson: [key insights, if any]
-Files: [key/files/changed.js]
+**Implementation approach**:
+- [Key decision 1 and rationale]
+- [Key decision 2 and rationale]
+- [Pattern/library used and why]
 
-→ Passing to {next-agent} for {reason}
+**Key findings**:
+- [Discovery 1 that affects future work]
+- [Discovery 2 that changes understanding]
+- [Unexpected behavior observed]
+
+**Gotchas encountered**:
+- [Issue 1]: [How it manifested] → [Solution/workaround]
+- [Issue 2]: [Root cause discovered] → [Fix applied]
+
+**Testing status**:
+- [Test results summary]
+- [Edge cases validated]
+- [Known limitations]
+
+**Files modified**: [key/files/changed.js, other/important.ts]
+
+**Next agent context**: [Specific information next-agent needs to continue]
+
+→ Passing to {next-agent} for {specific-reason}
 ```
 
 #### COMPLETE Entry (phase fully done, no more handoffs)
@@ -138,14 +159,36 @@ Files: [key/files/changed.js]
 ```markdown
 ## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] (Phase X.Y COMPLETE)
 
-Phase complete summary (5-10 lines).
+**Phase objective**: [What this phase was meant to accomplish]
 
-Status:
-- ✅ Tests passing
-- ✅ Quality gates met
-- ✅ PLAN.md updated
+**Implementation summary**:
+- [Approach taken and why]
+- [Key architectural decisions]
+- [Libraries/patterns used]
 
-Files: [key/files/changed.js]
+**Key findings**:
+- [Discovery 1 that affects future phases]
+- [Discovery 2 about system behavior]
+- [Performance/security insights]
+
+**Gotchas for future phases**:
+- [Issue 1]: [Context] → [How we solved it / How to avoid]
+- [Issue 2]: [Root cause] → [Lesson learned]
+
+**Test coverage**:
+- Unit: [X/Y tests, coverage %]
+- Integration: [test scenarios covered]
+- Edge cases validated: [list]
+
+**Quality gates**:
+- ✅ Tests passing (all X tests green)
+- ✅ Code review score: [score/100]
+- ✅ Coverage target met: [%]
+- ✅ PLAN.md checkboxes updated
+
+**Files modified**: [key/files/changed.js, tests/added.test.ts]
+
+**Notes for future work**: [Anything next phases should know]
 ```
 
 #### REVIEW APPROVED Entry (code/security review passed)
@@ -153,18 +196,29 @@ Files: [key/files/changed.js]
 ```markdown
 ## YYYY-MM-DD HH:MM - [AUTHOR: code-reviewer|security-auditor] (Review Approved)
 
-Reviewed: [Phase/feature/files reviewed]
-Scope: [Quality/Security/Performance - which aspects reviewed]
-Verdict: ✅ Approved [clean / with minor notes]
+**Reviewed**: [Phase X.Y / Feature name / Specific implementation]
+**Scope**: [Quality/Security/Performance/Architecture - what was examined]
+**Score**: [92/100] ✅ Approved
+**Verdict**: Clean approval [or: Approved with minor notes]
 
-Strengths:
-- [Key positive aspect 1]
-- [Key positive aspect 2]
+**Strengths observed**:
+- [Positive pattern 1 - why it's good]
+- [Positive pattern 2 - impact on codebase]
+- [Well-handled edge case or design decision]
 
-[Optional] Notes:
-- [Minor suggestion or observation]
+**Code quality highlights**:
+- [Test coverage aspect - specific number]
+- [Error handling approach - why effective]
+- [Performance consideration - measurement]
 
-Files: [files reviewed]
+**Minor observations** (non-blocking):
+- [Suggestion 1 for future consideration]
+- [Pattern that could be improved later]
+- [Documentation enhancement opportunity]
+
+**Files reviewed**: [src/file1.ts, src/file2.ts, tests/file.test.ts]
+
+**Recommendation**: Approved for merge. [Additional context if relevant]
 ```
 
 #### REVIEW REQUIRES CHANGES Entry (issues found, passing back)
@@ -172,22 +226,41 @@ Files: [files reviewed]
 ```markdown
 ## YYYY-MM-DD HH:MM - [AUTHOR: code-reviewer|security-auditor] → [NEXT: implementation-agent]
 
-Reviewed: [Phase/feature/files reviewed]
-Scope: [Quality/Security/Performance]
-Verdict: ⚠️ Requires Changes
+**Reviewed**: [Phase X.Y / Feature name / Specific implementation]
+**Scope**: [Quality/Security/Performance/Architecture]
+**Score**: [78/100] ⚠️ Requires Changes
+**Verdict**: Issues must be addressed before merge
 
-Critical:
-- [Issue description] @ file.ts:line - [Fix needed]
+**Critical issues** (blocking):
+1. [Issue description and impact] @ file.ts:123
+   - **Problem**: [What's wrong and why it's critical]
+   - **Fix needed**: [Specific action required]
+   - **Context**: [Why this matters / What breaks without fix]
 
-[Optional] Major:
-- [Issue description] @ file.ts:line - [Fix needed]
+2. [Security/correctness issue] @ file.ts:456
+   - **Problem**: [Vulnerability or bug description]
+   - **Fix needed**: [Remediation approach]
+   - **Reference**: [OWASP category / pattern to use]
 
-[Optional] Minor:
-- [Issue description] - [Suggestion]
+**Major issues** (should fix):
+- [Issue with significant impact] @ file.ts:789
+  - **Problem**: [What's suboptimal]
+  - **Recommendation**: [Better approach]
+  - **Benefit**: [Why this improves the code]
 
-Files: [files reviewed]
+**Minor suggestions** (optional):
+- [Enhancement opportunity]
+- [Documentation clarification]
 
-→ Passing back to {agent-name} for fixes
+**What works well**:
+- [Positive aspect to preserve]
+- [Good pattern used]
+
+**Files reviewed**: [src/file1.ts (5 issues), src/file2.ts (2 issues)]
+
+**Estimated fix time**: [15 minutes / 1 hour / etc.]
+
+→ Passing back to {agent-name} for fixes. Focus on critical issues first.
 ```
 
 #### PLAN CHANGES Entry (documenting adaptations after reviews)
@@ -216,10 +289,20 @@ Files: [files reviewed]
 - **Timestamp**: Always run `date '+%Y-%m-%d %H:%M'` - never estimate
 - **Agent identifier**: Name of the agent (or @username for humans via `/worklog`)
 - **Arrow notation**: Use `→` for handoffs to show work flow
-- **Brief summary**: What YOU did (not entire phase history) - keep scannable
-- **Gotchas/Lessons**: Only if significant (don't force it)
-- **Files**: Key files modified (helps locate changes via diff)
-- **Handoff note**: Who receives work and why (for handoffs only)
+- **Completed/Objective**: What was accomplished or reviewed (context setter)
+- **Implementation approach**: Key decisions and rationale (helps next agent understand choices)
+- **Key findings**: Discoveries that affect future work (critical context)
+- **Gotchas encountered**: Issues hit and solutions found (prevent re-discovery)
+- **Testing/Quality status**: Results and coverage (confidence level)
+- **Files modified**: Key files changed (helps locate implementation)
+- **Next agent context**: Specific info handoff recipient needs (direct handoff)
+
+**Information density test**: Can the next agent continue effectively without:
+- Re-reading the code to understand what was done?
+- Re-discovering the same issues you encountered?
+- Asking clarifying questions about your decisions?
+
+If any answer is "no", add more context to the entry.
 
 ---
 
@@ -354,14 +437,41 @@ Recommendation: [Suggest alternative approach, ask domain expert, try different 
 
 **Apply to all formats (standard, troubleshooting, investigation, reviews)**:
 
-1. **Keep entries scannable**: ~500 chars is ideal, can be longer for critical gotchas
-2. **Focus on insights**: Document WHY things were done certain ways, not just WHAT
-3. **Capture alternatives**: "Tried X but Y worked better because..." helps future work
-4. **Reference decisions**: For architecture decisions, use `/adr` command to create ADR
-5. **Write for the future**: Developers reading weeks/months later need context
-6. **Newest first**: Always add new entries at the TOP of WORKLOG.md (reverse chronological)
-7. **Be honest about failures**: Failed attempts are valuable documentation
-8. **Review specificity**: For review entries, always include file:line references for issues
+1. **Information completeness over brevity**: 10-20 lines average. Include all context next agent needs. Brief entries save time writing but cost time during handoffs.
+
+2. **Emphasize findings and gotchas**: These are gold for future work. Spend 40-60% of entry on:
+   - What you discovered that wasn't obvious
+   - Issues you hit and how you solved them
+   - Behavior that surprised you
+   - Patterns that worked/didn't work
+
+3. **Document WHY, not just WHAT**:
+   - Good: "Used bcrypt with cost 12 (not 10) because auth testing showed 10 was too fast for our security requirements"
+   - Bad: "Added password hashing"
+
+4. **Capture attempted alternatives**:
+   - "Tried X approach but switched to Y because [specific reason]" prevents re-attempting failed approaches
+
+5. **Quantify when possible**:
+   - "Test coverage: 94% (127/135 lines)"
+   - "Performance improved 40% (200ms → 120ms)"
+   - "Code review score: 92/100"
+
+6. **File:line references for issues**: Always include specific locations for problems
+   - "SQL injection risk @ src/auth.ts:45 in login query"
+   - "Memory leak @ src/cache.ts:123 when clearing expired entries"
+
+7. **Reference decisions**: For architecture decisions, use `/adr` command to create ADR
+
+8. **Write for the future**: Developers reading weeks/months later need full context
+
+9. **Newest first**: Always add new entries at the TOP of WORKLOG.md (reverse chronological)
+
+10. **Be honest about failures**: Failed attempts with lessons learned are more valuable than success stories without context
+
+11. **Review specificity**: Review entries need extra detail - include reasoning, not just findings
+
+**Quality check**: Before writing entry, ask: "If I read only this entry tomorrow, could I continue the work effectively?" If no, add more detail.
 
 ### When to Mix Formats
 
