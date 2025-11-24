@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- **Review agent output format** - Removed conflicting "saved as separate file" instructions
+  - code-reviewer and security-auditor agents now write ALL results to WORKLOG.md
+  - Removed "Full Code Review Report" and "Full Security Audit Report" sections that instructed creating separate files
+  - Added explicit "CRITICAL" notice that all review output must go in WORKLOG.md
+  - Prevents creation of separate review files (e.g., REVIEW-PHASE-X.md, SECURITY-AUDIT-PHASE-X.md)
+  - Aligns agent behavior with WORKLOG format guidelines
+
 ## [0.36.0] - 2025-11-20
 
 ### Changed

@@ -192,50 +192,9 @@ trivy image myimage:latest
 
 ## Output Format
 
-### Full Security Audit Report (for comprehensive audits, saved as separate file)
-```markdown
-## Security Audit Results
+**CRITICAL**: All security review results MUST be written to WORKLOG.md. Never create separate security audit files (e.g., SECURITY-AUDIT-PHASE-X.md).
 
-**Overall Risk**: [Low / Medium / High / Critical]
-
-### Vulnerabilities Found
-
-#### Critical Issues (Immediate Action Required)
-- **[Vulnerability Type]** (OWASP A##): [Description]
-  - **Location**: [File:Line]
-  - **Impact**: [Description]
-  - **Remediation**: [Specific fix]
-  - **Priority**: Critical
-
-#### High Risk Issues
-[Same format as Critical]
-
-#### Medium Risk Issues
-[Same format as Critical]
-
-#### Low Risk Issues / Recommendations
-[Same format as Critical]
-
-### Compliance Status
-- ✅ GDPR: [Compliant / Issues Found / Not Applicable]
-- ✅ OWASP Top 10: [X/10 Passed]
-- ⚠️ [Other Standards]: [Status]
-
-### Security Best Practices Review
-- ✅ Input validation implemented
-- ✅ Output encoding applied
-- ⚠️ [Specific improvement needed]
-
-### Recommended Actions
-1. **Immediate**: [Critical fixes]
-2. **Short-term**: [High-risk fixes]
-3. **Long-term**: [Improvements and hardening]
-
-**Approval**: [Approved / Requires Fixes / Blocked]
-**Reviewed by**: security-auditor + [Gemini cross-validation if used]
-```
-
-### WORKLOG Entry (always create in WORKLOG.md)
+### WORKLOG Entry Format
 
 **See**: `docs/development/guidelines/worklog-format.md` for complete Review entry formats
 

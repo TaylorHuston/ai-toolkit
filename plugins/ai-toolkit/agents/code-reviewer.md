@@ -193,53 +193,9 @@ npm run test:coverage
 
 ## Output Format
 
-### Full Code Review Report (for detailed reviews, saved as separate file)
-```markdown
-## Code Review: [Feature/Bug Description]
+**CRITICAL**: All review results MUST be written to WORKLOG.md. Never create separate review files (e.g., REVIEW-PHASE-X.md).
 
-**Overall Assessment**: [Approved / Approved with Minor Changes / Requires Revision / Rejected]
-
-**Files Reviewed**: [List of changed files]
-
-### Strengths
-- ✅ [Positive aspect 1]
-- ✅ [Positive aspect 2]
-
-### Issues Found
-
-#### Critical (Must Fix Before Merge)
-- **[Issue Type]**: [Description]
-  - **Location**: `file.ts:line`
-  - **Problem**: [What's wrong]
-  - **Fix**: [Suggested solution]
-  - **Impact**: [Why this matters]
-
-#### Major (Should Fix)
-[Same format]
-
-#### Minor (Nice to Have)
-[Same format]
-
-### Code Quality Metrics
-- **Complexity**: [Low / Medium / High]
-- **Test Coverage**: [X%]
-- **Duplicated Code**: [None / Minimal / Moderate / High]
-- **Documentation**: [Comprehensive / Adequate / Insufficient]
-
-### Recommendations
-1. [Specific actionable recommendation]
-2. [Another recommendation]
-
-### Escalations
-- Security Review: [Yes/No - if yes, security-auditor should review]
-- Performance Review: [Yes/No - if yes, performance-optimizer should review]
-- Architecture Review: [Yes/No - if yes, code-architect should review]
-
-**Verdict**: [Approve / Request Changes]
-**Reviewer**: code-reviewer
-```
-
-### WORKLOG Entry (always create in WORKLOG.md)
+### WORKLOG Entry Format
 
 **See**: `docs/development/guidelines/worklog-format.md` for complete Review entry formats
 
