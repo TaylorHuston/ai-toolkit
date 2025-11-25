@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.37.0] - 2025-11-24
+
 ### Changed
 
 - **Model upgrade to Opus 4.5** - Updated all Opus 4.1 references to Opus 4.5
