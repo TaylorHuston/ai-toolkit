@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.37.1] - 2025-11-24
+
 ### Changed
 
 - **Documentation metadata standardization** - Simplified YAML frontmatter across all 33 guideline files
