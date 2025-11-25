@@ -1,13 +1,8 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-10-30"
 last_updated: "2025-10-30"
-status: "Optional"
-target_audience: ["AI Assistants", "Test Engineers", "Development Team"]
 description: "Testing approach, frameworks, and conventions - fill in via /adr decisions"
 
-# === Testing Configuration (Machine-readable for AI agents) ===
+# === Testing Configuration ===
 testing_framework: "TBD"      # vitest, jest, mocha, etc.
 e2e_framework: "TBD"          # playwright, cypress, etc.
 test_location: "TBD"          # tests/, src/**/*.test.ts, etc.

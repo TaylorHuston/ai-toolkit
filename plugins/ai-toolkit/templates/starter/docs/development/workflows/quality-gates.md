@@ -1,13 +1,8 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-11-18"
 last_updated: "2025-11-18"
-status: "Active"
-target_audience: ["AI Assistants", "Development Team"]
 description: "Quality gate configuration and enforcement for per-phase, per-task, and per-spec validation"
 
-# === Quality Dimensions Configuration ===
+# === Quality Configuration ===
 quality_dimensions:
   enabled:
     - code_quality      # Complexity, maintainability, readability, duplication

@@ -1,13 +1,6 @@
 ---
-# === Metadata ===
-template_type: "documentation"
-created: "2025-10-30"
 last_updated: "2025-10-30"
-target_audience: ["AI Assistants", "Content Team", "Development Team"]
-description: "Writing style and content guidelines for UI copy, documentation, and user-facing text."
-title: "Writing Style Guide"
-category: "Content"
-tags: ["content", "copywriting", "microcopy", "voice-tone"]
+description: "Writing style and content guidelines for UI copy, documentation, and user-facing text"
 ---
 
 # Writing Style Guide

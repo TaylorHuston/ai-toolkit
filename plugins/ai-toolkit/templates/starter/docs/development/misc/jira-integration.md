@@ -1,10 +1,5 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-11-13"
 last_updated: "2025-11-13"
-status: "Active"
-target_audience: ["AI Assistants"]
 description: "Jira integration patterns for dual-mode PM (local + external PM tool)"
 ---
 

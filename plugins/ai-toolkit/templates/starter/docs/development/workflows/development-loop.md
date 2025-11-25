@@ -1,13 +1,8 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-10-30"
 last_updated: "2025-11-13"
-status: "Active"
-target_audience: ["AI Assistants", "Development Team"]
 description: "AI-assisted development workflow with test-first approach, continuous code review, and agent coordination"
 
-# === Development Loop Configuration (Machine-readable for AI agents) ===
+# === Development Loop Configuration ===
 loop_approach: "pragmatic-test-first" # pragmatic-test-first, strict-test-first, code-first
 code_review_threshold: 90             # Minimum score to proceed (0-100)
 test_coverage_target: 95              # Coverage percentage goal
@@ -15,65 +10,7 @@ review_frequency: "per-phase"         # per-phase, per-task, on-demand
 worklog_required: true                # Require WORKLOG entries from agents
 agent_handoff_protocol: "worklog"     # worklog, inline, none
 quality_gate_enforcement: "strict"    # strict, flexible, advisory
-
-# Quality Dimensions Configuration
-quality_dimensions:
-  enabled:
-    - code_quality      # Complexity, maintainability, readability, duplication
-    - security          # Vulnerabilities, compliance, secure coding practices
-    - performance       # Speed, efficiency, resource usage, scalability
-    - testing           # Coverage, effectiveness, reliability
-    - documentation     # Completeness, accuracy, clarity
-    - architecture      # Design patterns, separation of concerns, scalability
-
-  # Dimension Details (what each dimension measures and which agent handles it)
-  code_quality:
-    metrics: [complexity, maintainability, readability, duplication]
-    agent: code-reviewer
-    approach: "Static analysis with AI-driven code quality assessment"
-
-  security:
-    metrics: [vulnerabilities, compliance, secure_coding, dependency_security]
-    agent: security-auditor
-    approach: "OWASP compliance checking with vulnerability scanning"
-
-  performance:
-    metrics: [speed, efficiency, resource_usage, scalability]
-    agent: performance-optimizer
-    approach: "Performance profiling with bottleneck analysis"
-
-  testing:
-    metrics: [coverage, effectiveness, reliability]
-    agent: test-engineer
-    approach: "AI-driven test analysis with coverage tool integration"
-
-  documentation:
-    metrics: [completeness, accuracy, clarity]
-    agent: technical-writer
-    approach: "Documentation completeness and accuracy validation"
-
-  architecture:
-    metrics: [design_patterns, separation_of_concerns, scalability, maintainability]
-    agent: code-architect
-    approach: "Architectural review with pattern compliance checking"
-
-# Complexity Scoring Configuration (for task decomposition)
-complexity_scoring:
-  # Point values for complexity indicators
-  indicators:
-    multi_domain_integration: 3    # API + database, frontend + backend, UI + server
-    security_implementation: 2     # Authentication, authorization, encryption, permissions
-    database_schema_changes: 2     # Migrations, schema modifications, data transformations
-    external_integrations: 2       # Third-party APIs, service connections, webhooks
-    performance_optimization: 2    # Scaling, optimization, performance tuning
-    ui_ux_implementation: 1        # Component creation, interface design, responsive work
-    testing_requirements: 1        # Test creation, validation, quality assurance
-
-  # Decomposition thresholds
-  thresholds:
-    high_complexity: 5      # ≥5 points: Suggest breaking into subtasks
-    medium_complexity: 3    # 3-4 points: Consider decomposition based on timeline
-    # ≤2 points: Task appropriately scoped
+# Note: quality_dimensions and complexity_scoring are in quality-gates.md
 ---
 
 # Development Loop Guidelines

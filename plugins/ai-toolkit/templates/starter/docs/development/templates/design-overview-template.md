@@ -1,3 +1,8 @@
+---
+last_updated: "2025-11-24"
+description: "Living documentation synthesizing approved UI designs and extracted patterns"
+---
+
 # Design Overview
 
 Living documentation synthesizing approved UI designs and extracted patterns.

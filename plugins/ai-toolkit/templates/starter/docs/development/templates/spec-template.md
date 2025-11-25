@@ -1,11 +1,6 @@
 ---
-# === Metadata ===
-template_type: "pm-template"
-created: "2025-10-30"
 last_updated: "2025-11-13"
-status: "Active"
-target_audience: ["AI Assistants", "Project Management"]
-description: "Feature Spec template with users/actors, BDD acceptance scenarios, scope boundaries, and success metrics for agent-optimized planning"
+description: "Feature Spec template with users/actors, BDD acceptance scenarios, scope boundaries, and success metrics"
 
 # === Template Configuration ===
 type: spec

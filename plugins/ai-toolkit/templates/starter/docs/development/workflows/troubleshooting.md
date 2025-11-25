@@ -1,13 +1,8 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-11-05"
 last_updated: "2025-11-06"
-status: "Active"
-target_audience: ["AI Assistants", "Developers"]
 description: "Structured troubleshooting methodology with 5-step loop and debug logging practices"
 
-# === Configuration ===
+# === Troubleshooting Configuration ===
 troubleshooting_approach: "research_first"     # Research → Hypothesize → Implement → Test → Document
 hypothesis_limit: 1                            # Test one hypothesis at a time
 validation_required: true                      # Never claim "fixed" without proof

@@ -1,11 +1,5 @@
 ---
-# === Metadata ===
-template_type: "pm-template"
-version: "1.0.0"
-created: "2025-10-30"
 last_updated: "2025-10-30"
-status: "Active"
-target_audience: ["AI Assistants", "Code Architects"]
 description: "Architecture Decision Record template following ADR format"
 
 # === Template Configuration ===

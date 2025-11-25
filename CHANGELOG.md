@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **Documentation metadata standardization** - Simplified YAML frontmatter across all 33 guideline files
+  - Removed `target_audience` field from all files (minimalist approach)
+  - Removed extraneous metadata: `title`, `category`, `tags`, `priority`, `status`, `template_type`, `document_type`, `created`
+  - Standardized to minimal format: `last_updated` + `description` only
+  - Standardized configuration section headers to `# === [Domain] Configuration ===`
+  - Added missing frontmatter to 4 files (spike-workflow.md, design-overview-template.md, agents.md, optional-mcp-servers.md)
+
+### Fixed
+
+- **YAML syntax error** - Fixed `=last_updated` in architectural-principles.md (removed extra leading equals sign)
+- **Duplicate configuration** - Removed `quality_dimensions` and `complexity_scoring` from development-loop.md
+  - quality-gates.md is now the single source of truth for these configurations
+  - development-loop.md now references quality-gates.md with a comment
+
 ## [0.37.0] - 2025-11-24
 
 ### Changed

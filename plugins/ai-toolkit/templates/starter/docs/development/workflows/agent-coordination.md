@@ -1,13 +1,8 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-11-02"
 last_updated: "2025-11-02"
-status: "Active"
-target_audience: ["AI Assistants"]
 description: "Agent coordination patterns, governance rules, and collaboration protocols"
 
-# === Machine-readable Configuration (for AI agents) ===
+# === Agent Coordination Configuration ===
 
 # Architectural Governance
 architectural_governance:

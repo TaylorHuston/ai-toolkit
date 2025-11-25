@@ -1,13 +1,8 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-10-30"
 last_updated: "2025-10-30"
-status: "Active"
-target_audience: ["AI Assistants", "Development Team"]
 description: "Three-branch Git workflow with automated merge validation and production safety rules"
 
-# === Git Configuration (Machine-readable for AI agents) ===
+# === Git Configuration ===
 branching_strategy: "three-branch"     # main, develop, work branches
 main_branch: "main"                    # production
 develop_branch: "develop"              # staging

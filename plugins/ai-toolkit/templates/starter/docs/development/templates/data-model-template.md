@@ -1,13 +1,6 @@
 ---
-# === Metadata ===
-template_type: "documentation"
-last_updated: "{current-date}"
-status: "Active"
-target_audience: ["AI Assistants", "Development Team", "Database Engineers"]
+last_updated: "2025-11-24"
 description: "Complete database schema reference with ER diagrams, cascade behavior, index strategy, and query patterns"
-title: "Data Model Documentation"
-category: "Database"
-tags: ["database-schema", "data-model", "entity-relationships", "orm"]
 ---
 
 # Data Model Documentation

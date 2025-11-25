@@ -1,14 +1,8 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-10-30"
 last_updated: "2025-11-06"
-status: "Active"
-enforcement: "automated"
-target_audience: ["AI Assistants", "Development Team"]
 description: "Code style, naming conventions, and file organization standards - enforced during implementation"
 
-# === Coding Configuration (Machine-readable for AI agents) ===
+# === Coding Configuration ===
 language: "TBD"                # javascript, typescript, python, go, etc.
 file_naming: "kebab-case"      # kebab-case, camelCase, snake_case, PascalCase
 directory_structure: "TBD"      # feature-based, layer-based, etc.

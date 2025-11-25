@@ -1,10 +1,5 @@
 ---
-# === Metadata ===
-template_type: "pm-template"
-created: "2025-11-20"
 last_updated: "2025-11-20"
-status: "Active"
-target_audience: ["AI Assistants", "Project Management"]
 description: "Spike template for time-boxed technical explorations to answer feasibility and approach questions"
 
 # === Template Configuration ===

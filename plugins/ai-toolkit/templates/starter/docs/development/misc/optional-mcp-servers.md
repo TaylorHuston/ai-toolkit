@@ -1,3 +1,8 @@
+---
+last_updated: "2025-11-24"
+description: "Additional MCP servers to enhance Claude Code capabilities as projects grow"
+---
+
 # Optional MCP Servers
 
 This plugin automatically bundles essential MCP servers (context7, sequential-thinking, playwright). This document covers additional MCP servers you may want to add as your project grows.

@@ -1,9 +1,6 @@
 ---
-title: UI Design Guidelines
-created: "2025-11-02"
 last_updated: "2025-11-02"
-status: "Active"
-purpose: "Configuration for /ui-design command - design tokens, breakpoints, accessibility requirements"
+description: "Configuration for /ui-design command - design tokens, breakpoints, accessibility requirements"
 ---
 
 # UI Design Guidelines

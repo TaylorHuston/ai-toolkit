@@ -1,10 +1,5 @@
 ---
-# === Metadata ===
-template_type: "pm-template"
-created: "2025-10-30"
 last_updated: "2025-10-30"
-status: "Active"
-target_audience: ["AI Assistants", "Project Management"]
 description: "Bug report template with reproduction steps and environment details"
 
 # === Template Configuration ===

@@ -1,8 +1,6 @@
 ---
-target_audience: ["ai-assistants", "development-team"]
-document_type: "reference"
-priority: "high"
-tags: ["claude-code", "commands", "workflow", "reference"]
+last_updated: "2025-11-24"
+description: "Catalog of 25 Claude Code slash commands for the development workflow"
 ---
 
 # Claude Code Command Reference

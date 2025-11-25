@@ -1,17 +1,9 @@
 ---
-# === Metadata ===
-template_type: "pm-template"
-created: "2025-10-30"
 last_updated: "2025-11-09"
-status: "Active"
-target_audience: ["AI Assistants"]
 description: "AI-managed implementation plan separate from PM-tool-synced TASK.md/BUG.md"
 
 # === Template Configuration ===
 type: plan
-purpose: "AI-managed implementation breakdown that stays separate from PM-tool-synced TASK.md/BUG.md"
-auto_generated: true
-created_by: "/plan command"
 sections:
   - name: Metadata
     prompt: "Frontmatter with task reference, complexity score, timestamps"

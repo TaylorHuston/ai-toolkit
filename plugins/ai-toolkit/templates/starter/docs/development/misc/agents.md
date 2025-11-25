@@ -1,3 +1,8 @@
+---
+last_updated: "2025-11-24"
+description: "Catalog of 21 specialized AI agents for development workflows"
+---
+
 # AI Agent Index and Directory
 
 **Total Agents**: 21 | **Coverage**: Complete development workflow

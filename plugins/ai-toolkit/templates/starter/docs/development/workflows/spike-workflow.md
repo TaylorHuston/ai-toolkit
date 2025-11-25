@@ -1,3 +1,8 @@
+---
+last_updated: "2025-11-24"
+description: "Time-boxed technical exploration workflow to answer feasibility and approach questions"
+---
+
 # Spike Workflow
 
 Time-boxed technical exploration to answer "Can we?" or "Which approach?" questions before implementation.

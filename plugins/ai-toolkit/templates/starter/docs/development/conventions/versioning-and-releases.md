@@ -1,13 +1,8 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-11-03"
 last_updated: "2025-11-13"
-status: "Active"
-target_audience: ["Development Team", "AI Assistants"]
 description: "Semantic versioning strategy, release process, and CHANGELOG maintenance"
 
-# === Configuration ===
+# === Release Configuration ===
 versioning_scheme: "semver"  # Semantic Versioning 2.0.0
 pre_release_phase: true      # Currently in 0.x.y (pre-1.0.0)
 changelog_format: "keep-a-changelog"

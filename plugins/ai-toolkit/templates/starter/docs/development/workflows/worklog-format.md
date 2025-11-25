@@ -1,13 +1,8 @@
 ---
-# === Metadata ===
-template_type: "guideline"
-created: "2025-11-05"
 last_updated: "2025-11-18"
-status: "Active"
-target_audience: ["AI Assistants", "Developers"]
 description: "WORKLOG entry format definitions for standard workflow, troubleshooting, and investigation contexts"
 
-# === Configuration ===
+# === Worklog Configuration ===
 worklog_ordering: "reverse_chronological"    # Newest entries at TOP
 entry_philosophy: "context_rich_handoffs"    # Provide all context next agent needs
 entry_length: "information_complete"         # 10-20 lines average, focus on findings/gotchas
