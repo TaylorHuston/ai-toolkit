@@ -2,7 +2,7 @@
 name: security-auditor
 description: "**AUTOMATICALLY INVOKED for security-relevant tasks.** Proactively reviews authentication, authorization, data protection, and compliance. **Use immediately when** implementing auth systems, handling sensitive data, or making security-critical changes. Focus on OWASP Top 10, compliance standards, and secure architecture validation."
 tools: Read, Grep, Glob, Bash, TodoWrite, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking, mcp__gemini-cli__prompt, mcp__serena__find_symbol, mcp__serena__find_referencing_symbols
-model: claude-opus-4-1
+model: claude-opus-4-5
 color: red
 coordination:
   hands_off_to: [devops-engineer, backend-specialist, technical-writer]

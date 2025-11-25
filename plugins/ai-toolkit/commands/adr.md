@@ -3,7 +3,7 @@ tags: ["workflow", "architecture", "decisions", "adr"]
 description: "Create Architecture Decision Records through interactive conversation"
 argument-hint: "[\"optional context or topic\"]"
 allowed-tools: ["Read", "Write", "Edit", "Grep", "Glob", "TodoWrite", "Task"]
-model: claude-opus-4-1
+model: claude-opus-4-5
 references_guidelines:
   - docs/development/conventions/architectural-principles.md  # Design principles and patterns to consider
   - docs/development/templates/adr-template.md  # ADR template structure

@@ -3,7 +3,7 @@ tags: ["workflow", "strategy", "project-brief", "vision", "planning", "collabora
 description: "Fill and improve project brief through gap-driven conversation"
 argument-hint: "[--review] [--force]"
 allowed-tools: ["Read", "Write", "Edit", "Task", "TodoWrite"]
-model: claude-opus-4-1
+model: claude-opus-4-5
 references_guidelines:
   - docs/development/templates/project-brief-template.md  # Template structure
 ---

@@ -3,7 +3,7 @@ tags: ["workflow", "spec", "feature-spec", "project-management", "conversational
 description: "Create local feature specifications through natural language conversation"
 argument-hint: "[SPEC-### | --epic PROJ-### | --update SPEC-###]"
 allowed-tools: ["Read", "Write", "Edit", "Glob", "Grep", "Task", "TodoWrite"]
-model: claude-opus-4-1
+model: claude-opus-4-5
 references_guidelines:
   - docs/development/workflows/pm-workflows.md  # Spec creation workflows and file formats
   - docs/development/misc/jira-integration.md  # Jira mode (if enabled in CLAUDE.md)

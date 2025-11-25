@@ -547,7 +547,7 @@ performance_metrics:
 
 | Model | Agents | Justification |
 |-------|--------|---------------|
-| **Opus 4.1** | project-manager, security-auditor, brief-strategist, ai-llm-expert | Extended reasoning (64K thinking tokens), strategic orchestration, safety-critical decisions, meta-reasoning |
+| **Opus 4.5** | project-manager, security-auditor, brief-strategist, ai-llm-expert, aws-expert, azure-expert, gcp-expert | Extended reasoning, strategic orchestration, safety-critical decisions, cloud architecture, meta-reasoning |
 | **Sonnet 4.5** | code-architect, technical-writer, ui-ux-designer, frontend-specialist, backend-specialist, database-specialist, api-designer, test-engineer, code-reviewer, devops-engineer, performance-optimizer, refactoring-specialist, migration-specialist | Best coding model (77.2% SWE-bench), superior documentation, cost-effective execution |
 | **Haiku** | context-analyzer | Fast analysis and investigation, optimized for speed |
 

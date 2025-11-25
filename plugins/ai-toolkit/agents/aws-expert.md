@@ -2,7 +2,7 @@
 name: aws-expert
 description: "**AUTOMATICALLY INVOKED for AWS cloud architecture and implementation.** Expert AWS Solutions Architect with deep knowledge of AWS services, architectures, and best practices. Use for AWS service selection, architecture design, cost optimization, security best practices, and implementation guidance. Provides authoritative guidance on AWS-specific solutions and patterns."
 tools: Read, Write, Edit, Grep, Glob, TodoWrite, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking, WebSearch, WebFetch
-model: claude-opus-4-1
+model: claude-opus-4-5
 color: orange
 coordination:
   hands_off_to: [devops-engineer, backend-specialist, security-auditor, technical-writer]

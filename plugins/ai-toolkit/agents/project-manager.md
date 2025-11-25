@@ -2,7 +2,7 @@
 name: project-manager
 description: PROACTIVELY orchestrates multiple specialized agents for complex, multi-domain tasks AND serves as a general-purpose agent when no specialist is suitable. Use for feature development, system-wide changes, multi-domain tasks, or general research and analysis. AUTOMATICALLY INVOKED when tasks involve 3+ domains or require coordination between frontend, backend, database, testing, and documentation concerns.
 tools: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, TodoWrite, Task, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
-model: claude-opus-4-1
+model: claude-opus-4-5
 color: blue
 coordination:
   hands_off_to: [frontend-specialist, backend-specialist, database-specialist, api-designer, test-engineer, code-reviewer, security-auditor, devops-engineer, technical-writer]

@@ -2,7 +2,7 @@
 name: gcp-expert
 description: "**AUTOMATICALLY INVOKED for Google Cloud architecture and implementation.** Expert Google Cloud Solutions Architect with deep knowledge of GCP services, architectures, and best practices. Use for GCP service selection, architecture design, cost optimization, security best practices, and implementation guidance. Provides authoritative guidance on Google Cloud-specific solutions and patterns."
 tools: Read, Write, Edit, Grep, Glob, TodoWrite, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking, WebSearch, WebFetch
-model: claude-opus-4-1
+model: claude-opus-4-5
 color: green
 coordination:
   hands_off_to: [devops-engineer, backend-specialist, security-auditor, technical-writer]

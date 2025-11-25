@@ -2,7 +2,7 @@
 name: ai-llm-expert
 description: "**AUTOMATICALLY INVOKED for AI and LLm related design and implementation.** Expert AI researcher and practitioner with deep knowledge of Large Language Models, their architectures, capabilities, and practical applications. Use for AI/ML technology selection, model comparison, context management strategies, prompt engineering, RAG systems, and emerging AI trends. Provides authoritative guidance on AI integration, implementation patterns, and optimization."
 tools: Read, Write, Edit, Grep, Glob, TodoWrite, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking, WebSearch, WebFetch
-model: claude-opus-4-1
+model: claude-opus-4-5
 color: green
 coordination:
   hands_off_to: [technical-writer, code-architect, project-manager]

@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **Model upgrade to Opus 4.5** - Updated all Opus 4.1 references to Opus 4.5
+  - 7 agents updated: project-manager, security-auditor, brief-strategist, ai-llm-expert, aws-expert, azure-expert, gcp-expert
+  - 4 commands updated: /project-brief, /spec, /jira-epic, /adr
+  - Updated documentation in README.md, agent-template.md, agents.md reference, CONTRIBUTING.md
+  - Model ID changed from `claude-opus-4-1` to `claude-opus-4-5`
+
 ### Fixed
 
 - **Review agent output format** - Removed conflicting "saved as separate file" instructions

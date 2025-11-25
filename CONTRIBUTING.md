@@ -87,7 +87,7 @@ This project is optimized for AI-assisted development using Claude Code:
   - Implementation: frontend-specialist, backend-specialist, database-specialist, etc.
   - Quality: code-reviewer, test-engineer, technical-writer
 - **Context Management**: Agents read project guidelines automatically
-- **Multi-Model**: Strategic decisions use Opus 4.1, implementation uses Sonnet 4.5
+- **Multi-Model**: Strategic decisions use Opus 4.5, implementation uses Sonnet 4.5
 
 ### Best Practices
 

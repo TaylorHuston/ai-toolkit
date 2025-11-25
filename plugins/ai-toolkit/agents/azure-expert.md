@@ -2,7 +2,7 @@
 name: azure-expert
 description: "**AUTOMATICALLY INVOKED for Azure cloud architecture and implementation.** Expert Azure Solutions Architect with deep knowledge of Microsoft Azure services, architectures, and best practices. Use for Azure service selection, architecture design, cost optimization, security best practices, and implementation guidance. Provides authoritative guidance on Azure-specific solutions and patterns."
 tools: Read, Write, Edit, Grep, Glob, TodoWrite, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking, WebSearch, WebFetch
-model: claude-opus-4-1
+model: claude-opus-4-5
 color: blue
 coordination:
   hands_off_to: [devops-engineer, backend-specialist, security-auditor, technical-writer]

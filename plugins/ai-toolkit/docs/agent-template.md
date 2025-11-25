@@ -12,7 +12,7 @@
 name: agent-name
 description: "**[INVOCATION TRIGGER].** [Core purpose in 1-2 sentences]. **Use [when/proactively/immediately]** [specific conditions]. [Focus areas]."
 tools: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, TodoWrite, [MCP tools as needed]
-model: claude-sonnet-4-5  # or claude-opus-4-1 for critical agents, claude-3-5-haiku-latest for fast agents
+model: claude-sonnet-4-5  # or claude-opus-4-5 for critical agents, claude-3-5-haiku-latest for fast agents
 color: [color-name]
 coordination:
   hands_off_to: [agent1, agent2, agent3]
@@ -59,7 +59,7 @@ Choose ONE based on agent role:
 ### Model Selection Guidelines
 
 - **claude-sonnet-4-5** (default): Most agents
-- **claude-opus-4-1**: Critical decision-making (security-auditor, brief-strategist, project-manager, ai-llm-expert)
+- **claude-opus-4-5**: Critical decision-making (security-auditor, brief-strategist, project-manager, ai-llm-expert, aws-expert, azure-expert, gcp-expert)
 - **claude-3-5-haiku-latest**: Fast analysis (context-analyzer)
 
 ### Coordination Block Guidelines

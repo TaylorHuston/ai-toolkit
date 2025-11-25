@@ -59,17 +59,17 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 
 **Why**: Sonnet 4.5 excels at coding, code generation, documentation, and autonomous operation. Its superior performance at lower cost makes it ideal for hands-on development work.
 
-### Opus 4.1 - Strategic Reasoning (4 agents + 4 commands)
+### Opus 4.5 - Strategic Reasoning (7 agents + 4 commands)
 
-**Performance**: 64K extended thinking tokens, 98.76% safety refusal rate, exceptional multi-step reasoning
+**Performance**: Extended thinking tokens, exceptional multi-step reasoning, superior strategic analysis
 
 **Cost**: $15/$75 per million tokens (premium pricing)
 
 **Used For**:
-- **Strategic agents**: project-manager (orchestration), security-auditor (safety-critical), brief-strategist (product strategy), ai-llm-expert (meta-reasoning)
+- **Strategic agents**: project-manager (orchestration), security-auditor (safety-critical), brief-strategist (product strategy), ai-llm-expert (meta-reasoning), aws-expert, azure-expert, gcp-expert (cloud architecture)
 - **Planning commands**: /project-brief, /spec, /jira-epic, /adr
 
-**Why**: Opus 4.1's extended reasoning (64K thinking tokens) and superior safety make it ideal for high-stakes decisions, strategic planning, security analysis, and complex orchestration.
+**Why**: Opus 4.5's extended reasoning and superior strategic capabilities make it ideal for high-stakes decisions, strategic planning, security analysis, cloud architecture, and complex orchestration.
 
 ### Haiku - Fast Analysis (1 agent)
 
@@ -89,11 +89,12 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 - Multi-file refactoring
 - Test creation and execution
 
-**Choose Opus 4.1 when:**
+**Choose Opus 4.5 when:**
 - Strategic planning (epics, briefs, ADRs)
 - Security-critical decisions
 - Complex orchestration across multiple agents
 - High-stakes architecture decisions
+- Cloud architecture and infrastructure design
 - Extended multi-step reasoning needed
 
 **Choose Haiku when:**
@@ -103,10 +104,10 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 
 ### Cost Optimization
 
-Using Sonnet 4.5 for execution work (coding, testing, documentation) while reserving Opus 4.1 for strategic decisions provides optimal cost/performance:
+Using Sonnet 4.5 for execution work (coding, testing, documentation) while reserving Opus 4.5 for strategic decisions provides optimal cost/performance:
 
 - **90% of work**: Sonnet 4.5 at $3/$15 (coding, implementation, documentation)
-- **10% of work**: Opus 4.1 at $15/$75 (planning, strategy, security)
+- **10% of work**: Opus 4.5 at $15/$75 (planning, strategy, security, cloud architecture)
 - **Result**: ~5x cost savings while maintaining quality where it matters
 
 **Users can override model selection** in command/agent frontmatter if their use case requires different allocation.

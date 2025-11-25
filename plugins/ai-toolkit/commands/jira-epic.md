@@ -3,7 +3,7 @@ tags: ["workflow", "epic", "jira", "project-management", "conversational"]
 description: "Create Jira epics through natural language conversation (requires Jira integration)"
 argument-hint: "[PROJ-### | --spec SPEC-###]"
 allowed-tools: ["Read", "Write", "Edit", "Glob", "Grep", "Task", "TodoWrite"]
-model: claude-opus-4-1
+model: claude-opus-4-5
 references_guidelines:
   - docs/development/misc/jira-integration.md  # Jira setup, field discovery, epic creation workflow
   - docs/development/workflows/pm-workflows.md  # Core PM workflows and epic structure
