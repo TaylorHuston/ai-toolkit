@@ -6,7 +6,7 @@ allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
   - docs/development/conventions/ui-design-guidelines.md  # Design tokens, breakpoints, accessibility
-  - docs/project/ui-designs/design-overview.md  # Synthesis of approved designs
+  - docs/project/design-overview.md  # Synthesis of approved designs (created by /toolkit-init)
 ---
 
 # /ui-design

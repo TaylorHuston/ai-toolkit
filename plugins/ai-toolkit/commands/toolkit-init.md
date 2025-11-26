@@ -11,7 +11,7 @@ references_guidelines:
 
 # /toolkit-init
 
-**WHAT**: Initialize project with complete ai-toolkit structure (37 files) or intelligently sync updates after plugin upgrades.
+**WHAT**: Initialize project with complete ai-toolkit structure (54 files) or intelligently sync updates after plugin upgrades.
 
 **WHY**: 30-second setup for new projects; preserve customizations while benefiting from template improvements in existing projects.
 
@@ -54,191 +54,208 @@ if not exists: ERROR "Template directory not found"
 
 **No other questions**. Tech stack, links, infrastructure = filled in later.
 
-### 3. Copy Template (37 Files)
+### 3. Copy Template Files (51 Files)
 
-**Structure created** (pm/, docs/ with nested guidelines/adrs/design/, root files):
-
+**Copy all template files**:
 ```bash
-# Copy all template files
 TEMPLATE_DIR="${CLAUDE_PLUGIN_ROOT}/templates/starter"
 
-# Prefer rsync (handles hidden files, nested dirs)
+# Use rsync if available (handles hidden files, nested dirs)
 rsync -av "$TEMPLATE_DIR"/ . --exclude='.git'
 
-# Fallback: cp with explicit hidden file handling
+# OR use cp with explicit hidden file handling
 cp -r "$TEMPLATE_DIR"/* .
 cp "$TEMPLATE_DIR"/.gitignore .
 ```
 
-**CRITICAL**: Must copy ALL 37 files including:
-- .gitkeep files (preserve empty dirs)
-- .gitignore (hidden file)
-- All nested subdirectories (guidelines/, adrs/, design/)
+**CRITICAL**: Must copy ALL 51 template files including:
+- `.gitkeep` files (preserve empty dirs in pm/specs/, pm/issues/, pm/notes/)
+- `.gitignore` (hidden file)
+- All nested subdirectories
 
-**Verification** (mandatory):
+### 4. Generate Project Docs from Templates
+
+**Create 3 project-specific files from templates**:
+
+| Generated File | Source Template | Customization |
+|----------------|-----------------|---------------|
+| `docs/project/architecture-overview.md` | `docs/development/templates/architecture-overview-template.md` | Copy as-is |
+| `docs/project/design-overview.md` | `docs/development/templates/design-overview-template.md` | Copy as-is |
+| `docs/project/writing-style.md` | `docs/development/templates/writing-style-template.md` | Copy as-is |
+
+These provide starter structure for project-specific documentation that users fill in as the project develops.
+
+**Note**: `docs/project-brief.md` is created by `/project-brief` command on first run, not by `/toolkit-init`.
+
+### 5. Customize Existing Files
+
+**Get plugin metadata**:
 ```bash
-# Count files (should be 37)
-find . -type f | grep -v ".git" | wc -l
-
-# Check critical dirs exist
-[ -d "docs/development/guidelines" ]
-[ -d "docs/project/adrs" ]
-[ -d "docs/project/design" ]
-```
-
-### 4. Customize Key Files
-
-**Placeholder replacements** (get plugin version, current date):
-```bash
-PLUGIN_VERSION=$(grep "version" "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json")
+PLUGIN_VERSION=$(grep '"version"' "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json" | sed 's/.*: *"\([^"]*\)".*/\1/')
 CURRENT_DATE=$(date '+%Y-%m-%d')
 ```
 
-**Files customized** (copied from templates and personalized):
-- **docs/project-brief.md**: Copy from docs/development/templates/project-brief-template.md, insert {app-name}, {description} in Overview section
-- **CLAUDE.md**: Insert {app-name}, {description}, {toolkit-version}, {last-updated}
-- **README.md**: Insert {app-name}, {description}
+**Update files with placeholders**:
+- **CLAUDE.md**: Replace {app-name}, {description}, {toolkit-version}, {last-updated}
+- **README.md**: Replace {app-name}, {description}
 
-**Brief structure** (6 sections):
-```markdown
-# {app-name} - Project Brief
-## Overview
-{description}
-## Problem
-[Empty - fill via /project-brief]
-## Solution / Key Features / Target Audience / Success Metrics
-[Empty sections]
+### 6. Verification
+
+```bash
+# Count files (should be 54: 51 template + 3 generated)
+find . -type f | grep -v ".git" | wc -l
+
+# Verify critical directories exist
+[ -d "docs/development/conventions" ]
+[ -d "docs/development/workflows" ]
+[ -d "docs/development/templates" ]
+[ -d "docs/project/adrs" ]
+[ -d "docs/project/design-assets" ]
+[ -d "pm/specs" ]
+[ -d "pm/issues" ]
 ```
 
-### 5. Success Output
+### 7. Success Output
 
 ```
-✓ Created 37 files
-✓ pm/ (5 files: templates for epic/task/bug)
-✓ docs/ (20+ files: guidelines, adrs, design dirs)
-✓ Customized: project-brief.md, CLAUDE.md, README.md
+✓ Created 54 files
+
+Structure:
+├── pm/ (4 files)
+├── docs/development/ (34 files: conventions, workflows, templates, misc)
+├── docs/project/ (6 files: READMEs + generated docs)
+└── root (10 files: CLAUDE.md, README.md, etc.)
+
+Generated from templates:
+├── docs/project/architecture-overview.md
+├── docs/project/design-overview.md
+└── docs/project/writing-style.md
 
 Next steps:
-1. /project-brief (complete brief)
-2. /jira-epic (create features)
+1. /project-brief (complete your project vision)
+2. /spec (create your first feature spec)
 ```
 
 ## Update/Sync Flow (Existing Projects)
 
-### 1. Version Detection & CHANGELOG
+### 1. Version Detection
 
 ```bash
 # Extract versions
-PROJECT_VERSION=$(grep "Plugin Version:" CLAUDE.md)
-PLUGIN_VERSION=$(grep "version" "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json")
-
-# If versions differ, parse CHANGELOG.md sections between versions
-# Display Added/Changed/Removed/Breaking with affected files
+PROJECT_VERSION=$(grep "Plugin Version" CLAUDE.md | sed 's/.*: *//')
+PLUGIN_VERSION=$(grep '"version"' "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json" | sed 's/.*: *"\([^"]*\)".*/\1/')
 ```
 
-**Display changes summary**:
+**Display version comparison**:
 ```
-Your project: v0.11.0
-Current plugin: v0.11.2
+Your project: v0.37.0
+Current plugin: v0.38.0
 
-Changes in v0.11.1:
-Added: PM Guidelines, Agent Coordination
-Affected: pm-guidelines.md (NEW), agent-coordination.md (NEW)
-
-Changes in v0.11.2:
-Changed: WORKLOG Stream Pattern
-Affected: development-loop.md (UPDATED)
+Checking for template changes...
 ```
 
-### 2. Scan & Display Drift
+### 2. Scan & Categorize Files
 
-```bash
-# Compare each template file with project file
-find "${CLAUDE_PLUGIN_ROOT}/templates/starter" -type f
+**Compare each template file with project file**:
 
-# File status: ✅ Identical | 🔧 Customized | ❌ Missing | ➕ New in Plugin | 📄 Extra
+| Status | Meaning |
+|--------|---------|
+| ✅ Identical | No changes needed |
+| 🔧 Customized | User modified (offer merge options) |
+| ❌ Missing | Template file not in project (will add) |
+| ➕ New in Plugin | New template file (will add) |
+
+**Example drift report**:
 ```
-
-**Drift report**:
-```
-✅ Identical (3): .gitignore, docs/development/templates/spec-template.md, task-template.md
-🔧 Customized (4): CLAUDE.md, README.md, docs/project-brief.md, docs/development/templates/bug-template.md
-❌ Missing (1): docs/development/workflows/git-workflow.md
-➕ New in Plugin (2): docs/project/adrs/README.md, pm/README.md
+✅ Identical (40): .gitignore, most workflow files...
+🔧 Customized (5): CLAUDE.md, README.md, docs/project-brief.md, testing-standards.md, git-workflow.md
+❌ Missing (1): docs/development/workflows/spike-workflow.md
+➕ New in Plugin (2): docs/development/misc/new-feature.md
 ```
 
 ### 3. Interactive Decisions
 
-**For each non-identical file**:
+**For each customized file**:
 ```
 CLAUDE.md is customized.
 
 Options:
-  1. Keep your version
-  2. Update to template
-  3. Smart merge (recommended)
+  1. Keep your version (no changes)
+  2. Replace with template (lose customizations)
+  3. Smart merge (keep your content, add new sections)
   4. Show diff
-  5. Skip
+  5. Skip for now
 
 Choose (1-5): _
 ```
 
-**Smart merge** (option 3):
-- Parse sections (by markdown headers)
-- Keep user-added content
-- Add new template sections
-- Preserve customizations
+**Smart merge strategy**:
+- Parse markdown by headers (## sections)
+- Keep user-added content in existing sections
+- Add new template sections that don't exist
+- Preserve YAML frontmatter customizations
 
-### 4. Apply Updates & Summary
+### 4. Handle Generated Project Docs
+
+**For docs/project/ files (architecture-overview.md, design-overview.md, writing-style.md)**:
+- If file exists and is customized → Keep (these are user content)
+- If file is missing → Offer to generate from template
+- If template changed significantly → Notify user (don't auto-update)
+
+### 5. Apply Updates
 
 ```bash
-# Execute choices (keep/update/merge/skip)
-# Track: UPDATED=() KEPT=() MERGED=() SKIPPED=()
+# Execute user choices
+# Track results: UPDATED=(), KEPT=(), MERGED=(), ADDED=()
 ```
 
 **Summary output**:
 ```
-✅ Updated (2): pm/README.md, docs/project/adrs/README.md
+✅ Updated (3): spike-workflow.md, new-feature.md, agent-coordination.md
 🔀 Merged (1): CLAUDE.md
-⏭️  Kept (3): README.md, docs/project-brief.md, docs/development/templates/bug-template.md
+⏭️  Kept (4): README.md, testing-standards.md, git-workflow.md, project-brief.md
+➕ Added (1): docs/development/misc/new-feature.md
 ```
 
-### 5. Update Version Tracking
+### 6. Update Version Tracking
 
 ```bash
-# Auto-update CLAUDE.md with new plugin version and date
+# Update CLAUDE.md with new plugin version
 sed -i "s/Plugin Version\*\*: .*/Plugin Version**: $PLUGIN_VERSION/" CLAUDE.md
 sed -i "s/Last Updated\*\*: .*/Last Updated**: $(date '+%Y-%m-%d')/" CLAUDE.md
 ```
 
 ## Error Handling
 
-- **Template directory not found**: "Cannot find template at {path} - reinstall plugin"
-- **Copy fails**: "Failed to copy templates - check permissions"
-- **Diff unavailable**: Treat as customized, prompt for manual review
-- **Merge conflict**: Show both versions, ask user to choose
+| Error | Message | Resolution |
+|-------|---------|------------|
+| Template not found | "Cannot find template at {path}" | Reinstall plugin |
+| Copy fails | "Failed to copy templates" | Check permissions |
+| Diff unavailable | - | Treat as customized, prompt for review |
+| Merge conflict | - | Show both versions, ask user to choose |
 
 ## Integration
 
 **Workflow position**:
 ```
-/toolkit-init → /project-brief → /jira-epic → /plan → /implement
+/toolkit-init → /project-brief → /spec → /plan → /implement
 ```
 
 **Update cycle**:
 ```
-/plugin update ai-toolkit → /toolkit-init (sync templates) → Review merged files
+/plugin update ai-toolkit → /toolkit-init (sync) → Review changes
 ```
 
 **When to run update/sync**:
-- After plugin updates (new features)
-- Before major releases (template alignment)
-- Periodic drift detection (optional)
+- After plugin updates
+- Before major releases (ensure template alignment)
+- Periodically to detect drift
 
 ## Notes
 
-- **37 files copied**: pm/ (5), docs/ (20+), root files (12)
-- **2 questions only**: App name + description (everything else later)
-- **Smart merge**: Parse markdown sections, preserve customizations
-- **Dry run mode**: Preview changes with --dry-run flag
-- **Version tracking**: Auto-updates CLAUDE.md with plugin version/date
+- **54 files total**: 51 template files + 3 generated from templates
+- **2 questions only**: App name + description
+- **Smart merge**: Preserves user customizations while adding new content
+- **Dry run**: Use `--dry-run` to preview all changes safely
+- **Force mode**: Use `--force` only for complete reset (loses customizations)
+- **Version tracking**: CLAUDE.md automatically tracks plugin version

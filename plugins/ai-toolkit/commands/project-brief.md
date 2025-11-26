@@ -41,7 +41,16 @@ Establishes clear product vision and strategy as foundation for feature planning
 
 ### Execution Steps
 
-**1. Gap analysis:**
+**1. File check and creation:**
+```bash
+# Check if docs/project-brief.md exists
+if not exists "docs/project-brief.md":
+    # Create from template
+    cp docs/development/templates/project-brief-template.md docs/project-brief.md
+    # Inform user: "Created docs/project-brief.md from template"
+```
+
+**2. Gap analysis:**
 ```bash
 # Parse sections
 # Categorize each: empty, weak, needs_detail, complete
@@ -49,7 +58,7 @@ Establishes clear product vision and strategy as foundation for feature planning
 # Show status summary
 ```
 
-**2. Invoke brief-strategist agent:**
+**3. Invoke brief-strategist agent:**
 ```
 Task: "Complete project brief through gap-driven conversation.
 
@@ -68,7 +77,7 @@ Task: "Complete project brief through gap-driven conversation.
 Be conversational, not formal. User controls pace."
 ```
 
-**3. Conversational flow per section:**
+**4. Conversational flow per section:**
 ```
 {Section Name}
 
@@ -93,7 +102,7 @@ Does this capture it? (yes/edit/skip)
 Continue to {next_section}? (yes/no)
 ```
 
-**4. Progress tracking:**
+**5. Progress tracking:**
 - Use TodoWrite for section completion
 - Allow stop/resume anytime
 - Respect user pace

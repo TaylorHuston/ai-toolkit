@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **`/toolkit-init` command rewrite** - Fixed multiple issues and improved clarity
+  - Now generates 3 project docs from templates: `architecture-overview.md`, `design-overview.md`, `writing-style.md`
+  - Fixed file count: 54 total (51 template + 3 generated)
+  - Fixed directory verification paths (`guidelines/` → `conventions/`, `design/` → `design-assets/`)
+  - Fixed workflow reference (`/jira-epic` → `/spec`)
+  - Added clear table showing generated files and their source templates
+  - Improved Update/Sync flow to handle generated project docs
+
+### Fixed
+
+- **`/ui-design` guideline reference** - Changed from non-existent template to generated file `docs/project/design-overview.md`
+- **`/project-brief` file creation** - Now creates `docs/project-brief.md` from template if it doesn't exist (first run after `/toolkit-init`)
+
 ## [0.38.0] - 2025-11-26
 
 ### Changed
