@@ -1,5 +1,5 @@
 ---
-version: "0.37.1"
+version: "0.39.0"
 last_updated: "2025-11-26"
 target_audience: ["ai-assistants"]
 tags: ["plugin-development", "workflow", "standards"]
