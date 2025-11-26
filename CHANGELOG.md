@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **`/docs` command enhancement** - Added flag-based interface for common operations
+  - `--sync` flag to sync docs with recent code changes
+  - `--validate` flag to check links and references
+  - `--health` flag for coverage and quality metrics
+  - `--update` flag to update stale information
+  - `--generate TARGET` flag to generate docs for specific targets
+  - Natural language still supported for specific requests
+  - Introduces new "Flags with Optional Natural Language" command pattern
+
+### Fixed
+
+- **Documentation accuracy** - Corrected counts and references across all documentation
+  - Fixed command count: 26 → 25 (25 actual commands)
+  - Fixed template file count: 49 → 51 files
+  - Fixed workflow count: 9 → 10 files
+  - Added missing `/advise` command to all documentation
+  - Removed references to non-existent `/security-audit` command
+  - Corrected Jira command names to current format (`/jira-import`, `/jira-epic`, etc.)
+  - Fixed agent model assignments (code-architect, technical-writer, context-analyzer use Sonnet 4.5)
+  - Fixed typo in root CLAUDE.md (`is last_updated` → `last_updated`)
+
 ## [0.37.1] - 2025-11-24
 
 ### Changed

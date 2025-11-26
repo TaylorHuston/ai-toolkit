@@ -246,7 +246,7 @@ See `docs/development/workflows/git-workflow.md` for complete workflow rules and
 
 ## Development Guidelines
 
-Your project includes **16 customizable guideline files** organized in 4 directories:
+Your project includes **34 customizable guideline files** organized in 4 directories:
 
 **Conventions** (`docs/development/conventions/` - 7 files):
 - `api-guidelines.md` - API patterns and structure
@@ -257,18 +257,19 @@ Your project includes **16 customizable guideline files** organized in 4 directo
 - `ui-design-guidelines.md` - Design tokens and UI patterns
 - `versioning-and-releases.md` - Semantic versioning, releases, CHANGELOG
 
-**Workflows** (`docs/development/workflows/` - 9 files):
+**Workflows** (`docs/development/workflows/` - 10 files):
 - `agent-coordination.md` - How specialized agents work together
 - `development-loop.md` - AI-assisted development workflow and quality gates
 - `git-workflow.md` - Branching and commits
 - `pm-file-formats.md` - SPEC.md, TASK.md, PLAN.md formats
 - `pm-workflows.md` - Planning and implementation workflows
 - `quality-gates.md` - Quality standards and gates
+- `spike-workflow.md` - Time-boxed technical exploration workflow
 - `troubleshooting.md` - Debugging workflows
 - `worklog-examples.md` - WORKLOG.md examples
 - `worklog-format.md` - WORKLOG.md structure
 
-**Templates** (`docs/development/templates/` - 12 files): PM and documentation templates
+**Templates** (`docs/development/templates/` - 13 files): PM and documentation templates
 
 **Misc** (`docs/development/misc/` - 4 files): Command/agent references and integration guides
 

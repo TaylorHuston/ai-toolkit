@@ -1,11 +1,7 @@
 ---
 version: "0.37.1"
-created: "2025-08-21"
-last_updated: "2025-11-24"
-status: "active"
+last_updated: "2025-11-26"
 target_audience: ["ai-assistants"]
-document_type: "specification"
-priority: "critical"
 tags: ["plugin-development", "workflow", "standards"]
 ---
 
@@ -16,15 +12,15 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
 ## Project Context
 
 - **Repository Type**: Claude Code plugin marketplace
-- **Main Plugin**: AI Toolkit (26 commands, 21 agents, starter templates)
+- **Main Plugin**: AI Toolkit (25 commands, 21 agents, starter templates)
 - **Purpose**: Develop and maintain plugin code, documentation, and templates
 - **Repository Structure**:
   - `.claude-plugin/marketplace.json` - Marketplace metadata
   - `plugins/ai-toolkit/` - Plugin source code
   - `plugins/ai-toolkit/.claude-plugin/plugin.json` - Plugin metadata
-  - `plugins/ai-toolkit/commands/` - 26 command files (.md)
+  - `plugins/ai-toolkit/commands/` - 25 command files (.md)
   - `plugins/ai-toolkit/agents/` - 21 agent files (.md)
-  - `plugins/ai-toolkit/templates/starter/` - Project templates (49 files)
+  - `plugins/ai-toolkit/templates/starter/` - Project templates (51 files)
   - `plugins/ai-toolkit/docs/` - Plugin documentation (minimal, most moved to starter template)
 
 ## Core Development Principles
@@ -103,8 +99,7 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
   - **Command**: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
 - **README.md**: Marketplace overview, accurate counts (commands, agents, files)
 - **plugins/ai-toolkit/README.md**: Plugin documentation and usage
-- **plugins/ai-toolkit/docs/COMMANDS.md**: Command reference
-- **plugins/ai-toolkit/docs/AGENTS.md**: Agent reference
+- **Starter template docs**: Command/agent references are in `plugins/ai-toolkit/templates/starter/docs/development/misc/`
 - **STATUS.md**: Current development status and priorities
 
 ### Documentation Accuracy
@@ -137,7 +132,7 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
 
 1. Create `.md` file in `plugins/ai-toolkit/commands/`
 2. Update command count in README.md, plugin.json
-3. Update `plugins/ai-toolkit/docs/COMMANDS.md`
+3. Update `plugins/ai-toolkit/templates/starter/docs/development/misc/commands.md`
 4. Update root CHANGELOG.md (add to `[Unreleased] > Added`)
 5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
 6. Test locally
@@ -147,7 +142,7 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
 
 1. Create `.md` file in `plugins/ai-toolkit/agents/`
 2. Update agent count in README.md
-3. Update `plugins/ai-toolkit/docs/AGENTS.md`
+3. Update `plugins/ai-toolkit/templates/starter/docs/development/misc/agents.md`
 4. Update root CHANGELOG.md (add to `[Unreleased] > Added`)
 5. Copy CHANGELOG: `cp CHANGELOG.md plugins/ai-toolkit/CHANGELOG.md`
 6. Test agent invocation

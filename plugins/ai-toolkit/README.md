@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-Comprehensive AI-assisted development workflow system for Claude Code with 26 commands, 21 specialized agents, and intelligent state management.
+Comprehensive AI-assisted development workflow system for Claude Code with 25 commands, 21 specialized agents, and intelligent state management.
 
 ## Quick Start
 
@@ -26,7 +26,7 @@ cd my-project
 - **25 Workflow Commands** - Complete `/project-brief` → `/spec` → `/spike` → `/plan` → `/implement` cycle + utilities
 - **21 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
 - **3 Bundled MCP Servers** - Auto-configured tools (context7, sequential-thinking, playwright)
-- **Starter Template** - 49 files for organized project initialization
+- **Starter Template** - 51 files for organized project initialization
 - **File-Based State** - Session continuity via SPEC.md, TASK.md, WORKLOG.md
 - **Technology Agnostic** - Works with any tech stack
 
@@ -46,7 +46,7 @@ No manual MCP configuration required! These tools are ready immediately after pl
 
 The AI Toolkit uses different Claude models strategically based on task requirements:
 
-### Sonnet 4.5 - Primary Workhorse (13 agents + 21 commands)
+### Sonnet 4.5 - Primary Workhorse (14 agents + 21 commands)
 
 **Performance**: Best coding model in the world (77.2% SWE-bench), strongest for agents (30+ hours autonomous), best computer use (61.4% OSWorld)
 
@@ -54,7 +54,7 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 
 **Used For**:
 - **All specialist agents**: frontend, backend, database, devops, api, performance, ui-ux, data, migration, refactoring
-- **Code-focused agents**: code-architect, test-engineer, code-reviewer, technical-writer
+- **Code-focused agents**: code-architect, test-engineer, code-reviewer, technical-writer, context-analyzer
 - **Execution commands**: /implement, /spike, /plan, /quality, /branch, /commit, /docs, /project-status, /toolkit-init, /worklog, /changelog, /release, /troubleshoot, /sanity-check, /refresh, /jira-comment, /jira-promote, /jira-import, /ui-design, /sync-progress
 
 **Why**: Sonnet 4.5 excels at coding, code generation, documentation, and autonomous operation. Its superior performance at lower cost makes it ideal for hands-on development work.
@@ -71,15 +71,6 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 
 **Why**: Opus 4.5's extended reasoning and superior strategic capabilities make it ideal for high-stakes decisions, strategic planning, security analysis, cloud architecture, and complex orchestration.
 
-### Haiku - Fast Analysis (1 agent)
-
-**Performance**: Fastest Claude model, optimized for speed
-
-**Used For**:
-- **context-analyzer**: Quick investigation, bug diagnosis, evidence gathering
-
-**Why**: When speed matters more than depth, Haiku provides rapid analysis for initial investigation and context gathering.
-
 ### Selection Criteria
 
 **Choose Sonnet 4.5 when:**
@@ -88,6 +79,7 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 - Building features autonomously
 - Multi-file refactoring
 - Test creation and execution
+- Context analysis and investigation
 
 **Choose Opus 4.5 when:**
 - Strategic planning (epics, briefs, ADRs)
@@ -97,18 +89,13 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 - Cloud architecture and infrastructure design
 - Extended multi-step reasoning needed
 
-**Choose Haiku when:**
-- Quick context analysis
-- Fast investigation
-- Initial bug triage
-
 ### Cost Optimization
 
 Using Sonnet 4.5 for execution work (coding, testing, documentation) while reserving Opus 4.5 for strategic decisions provides optimal cost/performance:
 
-- **90% of work**: Sonnet 4.5 at $3/$15 (coding, implementation, documentation)
-- **10% of work**: Opus 4.5 at $15/$75 (planning, strategy, security, cloud architecture)
-- **Result**: ~5x cost savings while maintaining quality where it matters
+- **~85% of work**: Sonnet 4.5 at $3/$15 (coding, implementation, documentation, analysis)
+- **~15% of work**: Opus 4.5 at $15/$75 (planning, strategy, security, cloud architecture)
+- **Result**: ~4x cost savings while maintaining quality where it matters
 
 **Users can override model selection** in command/agent frontmatter if their use case requires different allocation.
 
@@ -138,7 +125,7 @@ my-project/
 │   ├── project-brief.md  # Your project vision
 │   ├── project/          # Project-specific docs (created by AI)
 │   └── development/      # Links to plugin guidelines
-└── pm/pm/epics/                # Epic-based work (auto-created)
+└── pm/                   # Project management (specs, issues)
 ```
 
 **AI creates structure as you work** - no empty placeholders or stale examples!
@@ -157,7 +144,7 @@ my-project/
 **Setup & Strategy**: `/toolkit-init`, `/project-brief`
 **Spec & Epic Management**: `/spec`, `/jira-epic`, `/jira-import`
 **Workflow**: `/adr`, `/spike`, `/plan`, `/implement`, `/advise`
-**Quality**: `/quality`, `/security-audit`, `/troubleshoot`, `/sanity-check`
+**Quality**: `/quality`, `/troubleshoot`, `/sanity-check`
 **Development**: `/branch`, `/commit`, `/worklog`, `/sync-progress`
 **Documentation & Status**: `/docs`, `/project-status`, `/changelog`, `/release`
 **Utilities**: `/refresh`, `/ui-design`, `/jira-comment`, `/jira-promote`

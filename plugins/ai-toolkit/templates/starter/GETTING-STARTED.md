@@ -224,17 +224,18 @@ Your project includes **16 customizable guideline files** organized in 4 directo
 - `ui-design-guidelines.md` - Design tokens and UI patterns
 - `versioning-and-releases.md` - Semantic versioning, releases, CHANGELOG
 
-**Workflows** (`docs/development/workflows/` - 9 files):
+**Workflows** (`docs/development/workflows/` - 10 files):
 - `agent-coordination.md` - How specialized agents work together
 - `development-loop.md` - AI-assisted workflow and quality gates
 - `git-workflow.md` - Branching, commits, PRs, releases
 - `pm-file-formats.md` - SPEC.md, TASK.md, PLAN.md formats
 - `pm-workflows.md` - Planning and implementation workflows
 - `quality-gates.md` - Quality standards and gates
+- `spike-workflow.md` - Time-boxed technical exploration workflow
 - `troubleshooting.md` - Debugging workflows
 - `worklog-examples.md`, `worklog-format.md` - WORKLOG.md structure
 
-**Templates** (`docs/development/templates/` - 12 files): PM and documentation templates
+**Templates** (`docs/development/templates/` - 13 files): PM and documentation templates
 
 **Misc** (`docs/development/misc/` - 4 files): Command/agent references and integration guides
 
@@ -303,7 +304,7 @@ After updating the AI Toolkit plugin:
 
 ## Command Reference
 
-**26 commands organized by workflow stage:**
+**25 commands organized by workflow stage:**
 
 ### Setup & Strategy
 | Command | Purpose |

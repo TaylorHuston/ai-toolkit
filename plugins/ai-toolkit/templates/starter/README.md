@@ -68,7 +68,7 @@ When the AI Toolkit plugin is updated with improvements to guidelines, workflows
 
 ### Initial Structure (After /toolkit-init)
 
-The starter template provides **49 files** organized for clarity:
+The starter template provides **51 files** organized for clarity:
 
 ```
 your-project/
@@ -109,29 +109,31 @@ your-project/
 │       │   ├── ui-design-guidelines.md
 │       │   └── versioning-and-releases.md
 │       │
-│       ├── workflows/             # AI execution protocols (9 files)
+│       ├── workflows/             # AI execution protocols (10 files)
 │       │   ├── agent-coordination.md
 │       │   ├── development-loop.md
 │       │   ├── git-workflow.md
 │       │   ├── pm-file-formats.md
 │       │   ├── pm-workflows.md
 │       │   ├── quality-gates.md
+│       │   ├── spike-workflow.md
 │       │   ├── troubleshooting.md
 │       │   ├── worklog-examples.md
 │       │   └── worklog-format.md
 │       │
-│       ├── templates/             # PM and doc templates (12 files)
+│       ├── templates/             # PM and doc templates (13 files)
 │       │   ├── README.md
-│       │   ├── spec.md
-│       │   ├── task.md
-│       │   ├── bug.md
-│       │   ├── note.md
-│       │   ├── plan.md
 │       │   ├── adr-template.md
 │       │   ├── architecture-overview-template.md
+│       │   ├── bug-template.md
 │       │   ├── data-model-template.md
 │       │   ├── design-overview-template.md
-│       │   ├── project-brief.md
+│       │   ├── note-template.md
+│       │   ├── plan-template.md
+│       │   ├── project-brief-template.md
+│       │   ├── spec-template.md
+│       │   ├── spike-template.md
+│       │   ├── task-template.md
 │       │   └── writing-style-template.md
 │       │
 │       └── misc/                  # Reference docs and guides (4 files)
@@ -148,9 +150,9 @@ your-project/
         └── .gitkeep
 ```
 
-**49 files breakdown:**
+**51 files breakdown:**
 - **5 core files**: CLAUDE.md, README.md, GETTING-STARTED.md, CHANGELOG.md, .gitignore
-- **44 structure files**: 16 guidelines (7 conventions + 9 workflows), 12 templates, 4 misc docs, 10 README files, 2 .gitkeep placeholders
+- **46 structure files**: 17 guidelines (7 conventions + 10 workflows), 13 templates, 4 misc docs, 10 README files, 2 .gitkeep placeholders
 
 ### Active Project Structure (After Development)
 
@@ -218,7 +220,7 @@ your-project/
 
 ## Available Commands
 
-The AI Toolkit provides **26 commands** for structured development:
+The AI Toolkit provides **25 commands** for structured development:
 
 ### Setup & Strategy
 - `/toolkit-init` - Initialize project structure (you've already run this!)

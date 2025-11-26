@@ -1,5 +1,5 @@
 ---
-last_updated: "2025-11-24"
+last_updated: "2025-11-26"
 description: "Catalog of 21 specialized AI agents for development workflows"
 ---
 
@@ -46,7 +46,7 @@ AI agents are specialized experts that automatically activate based on your work
 
   - _Capabilities_: System architecture, feature-level design patterns, API design
   - _Best For_: Feature architecture decisions, implementation patterns, technical design
-  - _Model_: opus | _Color_: purple | _Auto-Invoked_: Feature architectural tasks
+  - _Model_: sonnet | _Color_: purple | _Auto-Invoked_: Feature architectural tasks
 
 - **[project-manager](../agents/project-manager.md)** - Project coordination and orchestration
 
@@ -162,7 +162,7 @@ AI agents are specialized experts that automatically activate based on your work
 
   - _Capabilities_: Documentation creation, updates, synchronization, maintenance, link validation, technical writing
   - _Best For_: All documentation needs - creation, updates, maintenance, API docs, user guides, tutorials
-  - _Model_: opus | _Color_: blue | _Auto-Invoked_: After code changes affecting documentation and documentation creation requests
+  - _Model_: sonnet | _Color_: blue | _Auto-Invoked_: After code changes affecting documentation and documentation creation requests
 
 ## Agent Usage Patterns
 
@@ -201,17 +201,18 @@ These are invoked for specific domains or specialized work:
 
 #### **High Complexity (Opus Model)**
 
-- **code-architect** - System architecture and technology decisions
 - **ai-llm-expert** - AI/LLM architecture and implementation optimization
 - **aws-expert** - AWS cloud architecture and cost optimization
 - **azure-expert** - Azure cloud architecture and Microsoft ecosystem integration
 - **gcp-expert** - Google Cloud architecture and data/AI workloads
 - **project-manager** - Multi-agent orchestration and complex coordination
 - **security-auditor** - Critical security analysis and compliance
-- **technical-writer** - Comprehensive documentation creation and maintenance
+- **brief-strategist** - Product strategy and business model design
 
 #### **Medium Complexity (Sonnet Model)**
 
+- **code-architect** - System architecture and technology decisions
+- **technical-writer** - Comprehensive documentation creation and maintenance
 - **ui-ux-designer** - UI/UX design and design system architecture
 - **frontend-specialist** - Modern frontend development and optimization
 - **backend-specialist** - Server-side implementation and business logic
@@ -224,10 +225,6 @@ These are invoked for specific domains or specialized work:
 - **performance-optimizer** - Performance analysis and optimization
 - **refactoring-specialist** - Code improvement and technical debt reduction
 - **migration-specialist** - Version upgrades and framework migrations
-
-#### **Low Complexity (Haiku Model)**
-
-- None currently - all agents upgraded to Sonnet or Opus models for better quality
 
 ### By Usage Frequency
 
@@ -370,7 +367,7 @@ task_type_mapping:
 #### **Feature Development**
 
 - frontend-specialist (UI components)
-- backend-engineer (API endpoints)
+- backend-specialist (API endpoints)
 - database-specialist (data models)
 - technical-writer (documentation)
 
@@ -425,7 +422,7 @@ agent_sequence:
   1. project-manager: "Break down requirements and create task plan"
   2. security-auditor: "Define security requirements and threat model"
   3. database-specialist: "Design user data schema"
-  4. backend-engineer: "Implement authentication API"
+  4. backend-specialist: "Implement authentication API"
   5. frontend-specialist: "Create login/signup UI components"
   6. code-reviewer: "Review implementation quality"
   7. technical-writer: "Document authentication flow"
@@ -438,7 +435,7 @@ scenario: "Optimize application performance"
 agent_sequence:
   1. performance-optimizer: "Identify bottlenecks and performance issues"
   2. database-specialist: "Optimize database queries and indexing"
-  3. backend-engineer: "Implement caching and API optimizations"
+  3. backend-specialist: "Implement caching and API optimizations"
   4. frontend-specialist: "Optimize bundle size and rendering"
   5. devops-engineer: "Configure production performance monitoring"
   6. code-reviewer: "Validate optimization implementations"
@@ -553,8 +550,7 @@ performance_metrics:
 | Model | Agents | Justification |
 |-------|--------|---------------|
 | **Opus 4.5** | project-manager, security-auditor, brief-strategist, ai-llm-expert, aws-expert, azure-expert, gcp-expert | Extended reasoning, strategic orchestration, safety-critical decisions, cloud architecture, meta-reasoning |
-| **Sonnet 4.5** | code-architect, technical-writer, ui-ux-designer, frontend-specialist, backend-specialist, database-specialist, api-designer, test-engineer, code-reviewer, devops-engineer, performance-optimizer, refactoring-specialist, migration-specialist | Best coding model (77.2% SWE-bench), superior documentation, cost-effective execution |
-| **Haiku** | context-analyzer | Fast analysis and investigation, optimized for speed |
+| **Sonnet 4.5** | code-architect, technical-writer, context-analyzer, ui-ux-designer, frontend-specialist, backend-specialist, database-specialist, api-designer, test-engineer, code-reviewer, devops-engineer, performance-optimizer, refactoring-specialist, migration-specialist | Best coding model (77.2% SWE-bench), superior documentation, cost-effective execution |
 
 ## Best Practices for Agent Management
 

@@ -1,7 +1,7 @@
 ---
 tags: ["documentation", "generation", "validation", "synchronization", "health"]
 description: "Unified documentation management - generate, validate, sync, update, and analyze documentation"
-argument-hint: "[\"natural language instruction\"]"
+argument-hint: "--sync | --validate | --health | --update | --generate TARGET | \"natural language\""
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
@@ -14,34 +14,41 @@ references_guidelines:
 
 **WHY**: Maintain documentation accuracy, completeness, and freshness alongside code evolution.
 
-**HOW**: See docs/README.md for documentation structure. Natural language intent determines action (generate/validate/sync/update/analyze).
-
-## Philosophy
-
-Natural language describes intent - AI determines action. No separate commands needed.
+**HOW**: Use flags for common operations, or natural language for specific requests.
 
 ## Usage
 
 ```bash
-# Generate
-/docs "generate API documentation for auth system"
-/docs "create technical architecture overview"
+# Quick flags for common operations
+/docs --sync                    # Sync docs with recent code changes
+/docs --validate                # Check links and references
+/docs --health                  # Documentation coverage and quality metrics
+/docs --update                  # Update stale information across all docs
+/docs --generate "auth system"  # Generate docs for specific target
 
-# Validate
-/docs "validate all documentation links"
-/docs "check for broken references and outdated content"
-
-# Sync with code
-/docs "update docs to reflect recent code changes"
+# Natural language for specific requests
+/docs "generate API documentation for the user service"
 /docs "sync API docs with latest endpoint changes"
+```
 
-# Update and maintain
-/docs "update outdated information across project docs"
-/docs "fix all cross-references"
+## Flags
 
-# Health analysis
-/docs "analyze documentation health and coverage"
-/docs "generate documentation metrics report"
+| Flag | Purpose |
+|------|---------|
+| `--sync` | Analyze recent git changes, update affected documentation |
+| `--validate` | Check all links, references, and code examples for accuracy |
+| `--health` | Generate coverage metrics, quality scores, freshness report |
+| `--update` | Review all docs, fix stale information and broken references |
+| `--generate TARGET` | Generate documentation for specified target (module, API, feature) |
+
+## Natural Language
+
+For more specific requests, use natural language:
+
+```bash
+/docs "generate database schema documentation with ER diagrams"
+/docs "validate only the API documentation"
+/docs "sync docs with changes from the last 5 commits"
 ```
 
 ## How It Works

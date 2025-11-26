@@ -9,9 +9,9 @@ This is very much an alpha/experiment at the moment. Look at the commit history 
 
 This marketplace contains:
 
-- **AI Toolkit Plugin** - Complete workflow system with 26 commands, 21 specialized agents, and intelligent automation
-- **Starter Template** - 49 essential files for clean project initialization via `/toolkit-init`
-- **Development Guidelines** - 30+ customizable files organized in 4 directories (conventions, workflows, misc, templates)
+- **AI Toolkit Plugin** - Complete workflow system with 25 commands, 21 specialized agents, and intelligent automation
+- **Starter Template** - 51 essential files for clean project initialization via `/toolkit-init`
+- **Development Guidelines** - 34 customizable files organized in 4 directories (conventions, workflows, templates, misc)
 
 ## Quick Start
 
@@ -34,7 +34,7 @@ cd your-project
 
 The `/toolkit-init` command scaffolds your project with:
 - Customized CLAUDE.md (your tech stack and links)
-- Structured template (49 files: docs/, pm/, development guidelines, templates)
+- Structured template (51 files: docs/, pm/, development guidelines, templates)
 - GETTING-STARTED.md guide
 - Documentation framework (AI creates content as you work)
 - Interactive setup with smart conflict resolution
@@ -84,7 +84,7 @@ After plugin updates, sync your project with the latest templates:
 
 ## Customizable Commands and Workflows
 
-The AI Toolkit provides **26 commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
+The AI Toolkit provides **25 commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
 
 **Why file-based configuration?** Commands are intentionally minimal - they read your project's guideline files to adapt behavior. Baseline versions come with the toolkit, but keeping them as files in your repo means you can customize them to fit your team's specific workflow and conventions.
 
@@ -92,7 +92,7 @@ The AI Toolkit provides **26 commands** that follow workflows in your `docs/deve
 
 ## AI Toolkit Plugin
 
-The AI Toolkit plugin provides a complete development workflow system with **26 commands** organized around a 3-phase development cycle.
+The AI Toolkit plugin provides a complete development workflow system with **25 commands** organized around a 3-phase development cycle.
 
 > **New to the workflow?** See [Intended Workflow](#intended-workflow) above for a beginner-friendly walkthrough.
 
@@ -120,6 +120,8 @@ The AI Toolkit plugin provides a complete development workflow system with **26 
 **Phase 3: Execution**
 - `/implement` - Execute specific phases with test-first enforcement and agent coordination
   - Supports `--next` flag to auto-detect and execute the next uncompleted phase
+- `/advise` - Get implementation guidance without automated code generation (collaborative mode)
+  - User implements manually following structured advice from AI agents
 
 ### 🔍 Quality & Validation
 
@@ -307,10 +309,10 @@ ai-toolkit/
     └── ai-toolkit/                # AI Toolkit plugin
         ├── .claude-plugin/
         │   └── plugin.json
-        ├── commands/              # 25 slash commands
+        ├── commands/              # 25 slash commands (see /help for list)
         ├── agents/                # 21 specialized agents
         ├── templates/             # Bundled project templates
-        │   └── starter/           # 49 template files
+        │   └── starter/           # 51 template files
         ├── docs/                  # Plugin documentation (minimal)
         └── README.md
 ```
