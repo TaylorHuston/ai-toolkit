@@ -1,5 +1,5 @@
 ---
-last_updated: "2025-11-09"
+last_updated: "2025-11-26"
 description: "AI-managed implementation plan separate from PM-tool-synced TASK.md/BUG.md"
 
 # === Template Configuration ===
@@ -26,10 +26,10 @@ sections:
     format: list
     hint: "Business rules affecting implementation (e.g., 'ADRs rarely deleted, use DEPRECATED status'). Domain patterns. Historical importance. Document focus. These inform implementation decisions beyond acceptance criteria."
   - name: Phases
-    prompt: "Phase-based breakdown with checkboxed implementation steps"
+    prompt: "Phase-based breakdown with TDD structure (RED/GREEN/REFACTOR) or simple phases"
     required: true
     format: structured-checklist
-    hint: "3-level hierarchy: Phase (objective) → Major Steps (2-4 per phase) → Specific Validations (3-6 per step). Test descriptions should be strategically tactical: ✅ 'Test workspace scoping (ADRs from workspace A not in workspace B)' ❌ 'Test workspace scoping' (too vague) ❌ 'Use beforeEach to create workspaces...' (too prescriptive). Include helpful hints: '(note: lowercase model names in Prisma)' when gotchas exist. Enumerate error scenarios: 'Test invalid workspaceId (Prisma P2003 foreign key error)'. Each phase MUST follow mandatory test-first loop: tests → code → review → commit → worklog → next phase (see pm-guide.md)."
+    hint: "Choose structure based on task type. TDD Phases (feature work): Phase = One Behavior = One RED/GREEN/REFACTOR cycle. Each phase has X.RED (write failing tests), X.GREEN (implement to pass), X.REFACTOR (clean up, loop until review ≥90). Simple Phases (infra/scaffolding): No TDD structure needed. Test descriptions should be strategically tactical: ✅ 'Test workspace scoping (ADRs from workspace A not in workspace B)' ❌ 'Test workspace scoping' (too vague) ❌ 'Use beforeEach to create workspaces...' (too prescriptive). Include helpful hints when gotchas exist. Enumerate error scenarios with specific error codes."
   - name: Scenario Coverage
     prompt: "Mapping of which phases validate which acceptance scenarios from parent spec"
     required: false
@@ -70,21 +70,63 @@ sections:
 
 ## Phases
 
-### Phase 1 - {phase_1_name}
-- [ ] 1.1 {major_step_description}
-  - [ ] 1.1.1 {specific_validation}
-  - [ ] 1.1.2 {specific_validation}
-- [ ] 1.2 {major_step_description}
-  - [ ] 1.2.1 {specific_validation}
+**Choose structure based on task type:**
+- **TDD Phases** (X.RED/X.GREEN/X.REFACTOR) - For feature work with testable behavior
+- **Simple Phases** - For infrastructure/scaffolding with no testable behavior
 
-### Phase 2 - {phase_2_name}
-- [ ] 2.1 {major_step_description}
-  - [ ] 2.1.1 {specific_validation}
-- [ ] 2.2 {major_step_description}
+---
 
-### Phase 3 - {phase_3_name}
-- [ ] 3.1 {major_step_description}
-- [ ] 3.2 {major_step_description}
+### Pattern A: TDD Phases (Feature Work)
+
+**Phase = One Behavior = One RED/GREEN/REFACTOR cycle**
+
+### Phase 1 - {behavior: e.g., "User can log in"}
+
+#### 1.RED - Write Failing Tests
+- [ ] 1.1 Write tests for {behavior}
+  - [ ] 1.1.1 Test happy path
+  - [ ] 1.1.2 Test error cases ({specific_error_code})
+- [ ] 1.2 [CHECKPOINT] Verify all tests FAIL
+
+#### 1.GREEN - Implement to Pass Tests
+- [ ] 1.3 Implement {behavior}
+  - [ ] 1.3.1 {specific_implementation}
+- [ ] 1.4 [CHECKPOINT] Verify all tests PASS
+
+#### 1.REFACTOR - Clean Up (loops until review >= 90)
+- [ ] 1.5 Refactor for maintainability
+- [ ] 1.6 [CHECKPOINT] Tests still pass (no regressions)
+- [ ] 1.7 Code review → if < 90, repeat 1.5-1.7
+- [ ] 1.8 [EXIT GATE] Review >= 90, commit phase
+
+### Phase 2 - {next behavior: e.g., "User can log out"}
+
+#### 2.RED - Write Failing Tests
+- [ ] 2.1 Write tests for {behavior}
+- [ ] 2.2 [CHECKPOINT] Verify all tests FAIL
+
+#### 2.GREEN - Implement to Pass Tests
+- [ ] 2.3 Implement {behavior}
+- [ ] 2.4 [CHECKPOINT] Verify all tests PASS
+
+#### 2.REFACTOR - Clean Up
+- [ ] 2.5 Refactor for maintainability
+- [ ] 2.6 [CHECKPOINT] Tests pass, review >= 90, commit
+
+---
+
+### Pattern B: Simple Phases (Infrastructure/Scaffolding)
+
+**For tasks with no testable behavior (infra, config, docs)**
+
+### Phase 1 - {infrastructure_objective}
+- [ ] 1.1 Set up {component}
+- [ ] 1.2 Configure {settings}
+- [ ] 1.3 Verify {component} works
+
+### Phase 2 - {infrastructure_objective}
+- [ ] 2.1 {step}
+- [ ] 2.2 {step}
 
 ## Scenario Coverage
 

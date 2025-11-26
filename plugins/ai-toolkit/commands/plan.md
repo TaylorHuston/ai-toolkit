@@ -64,9 +64,12 @@ references_guidelines:
    - Synthesize with architecture and design guidelines
 
 6. **Generate Phase Breakdown**
-   - Create test-first phases (per pm-guide.md structure)
+   - **Choose structure based on task type:**
+     - **TDD Phases** (feature work): Use X.RED/X.GREEN/X.REFACTOR sub-phases
+     - **Simple Phases** (infra/scaffolding): No TDD structure needed
+   - **Phase = One Behavior = One RED/GREEN/REFACTOR cycle**
    - Strategic WHAT with tactical specificity (see pm-guide.md "Strategic vs Tactical - The Nuance")
-   - Map acceptance scenarios to test phases with explanations (if spec exists)
+   - Map acceptance scenarios to phases with explanations (if spec exists)
    - Apply complexity scoring with test count estimates (pm-guide.md)
    - Create comparative context section (vs similar tasks)
    - Add domain/business context if relevant
@@ -163,12 +166,29 @@ User: /plan TASK-001
 AI: Creating plan for TASK-001: User Login Flow
     ✓ Loaded parent spec SPEC-001 (3 acceptance scenarios)
     ✓ Research: JWT patterns, security best practices
+    ✓ Task has testable behavior → Using TDD phase structure
 
-    Phase breakdown (test-first):
-    1.1 Design authentication architecture
-    1.2 Implement user model with secure password storage
-    1.3 Create login endpoint with JWT generation
-    1.4 Write integration tests (covers all 3 scenarios)
+    Phase breakdown (TDD: RED/GREEN/REFACTOR per behavior):
+
+    ### Phase 1 - User can log in with valid credentials
+    #### 1.RED - Write Failing Tests
+    - [ ] 1.1 Write login success tests
+    - [ ] 1.2 [CHECKPOINT] Verify tests FAIL
+    #### 1.GREEN - Implement to Pass
+    - [ ] 1.3 Implement login endpoint with JWT
+    - [ ] 1.4 [CHECKPOINT] Verify tests PASS
+    #### 1.REFACTOR - Clean Up
+    - [ ] 1.5 Refactor, review >= 90, commit
+
+    ### Phase 2 - Invalid credentials return error
+    #### 2.RED - Write Failing Tests
+    - [ ] 2.1 Write invalid password tests
+    - [ ] 2.2 [CHECKPOINT] Verify tests FAIL
+    #### 2.GREEN - Implement to Pass
+    - [ ] 2.3 Add credential validation
+    - [ ] 2.4 [CHECKPOINT] Verify tests PASS
+    #### 2.REFACTOR - Clean Up
+    - [ ] 2.5 Refactor, review >= 90, commit
 
     Reviews:
     ✓ code-architect: Approved
@@ -176,7 +196,7 @@ AI: Creating plan for TASK-001: User Login Flow
 
     Complexity: 8 points (Medium)
 
-    Next: /implement TASK-001 1.1
+    Next: /implement TASK-001 1.RED
 ```
 
 ## Error Handling

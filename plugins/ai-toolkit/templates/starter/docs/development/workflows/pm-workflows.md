@@ -1,5 +1,5 @@
 ---
-last_updated: "2025-11-18"
+last_updated: "2025-11-26"
 description: "PM workflows for spec creation, task creation, and plan execution"
 ---
 
@@ -625,28 +625,74 @@ When TASK references parent SPEC with acceptance scenarios, create detailed cove
 
 ### Phase Structure Standards
 
-**3-Level Hierarchy:**
-- **Phase**: High-level objective (e.g., "Phase 2 - Create Mutation")
-- **Major Steps**: 2-4 per phase (e.g., "2.1 Write tests", "2.2 Implement mutation")
-- **Specific Validations**: 3-6 per major step (e.g., "2.1.1 Test successful creation with valid workspaceId")
+**Choose structure based on task type:**
+
+**Pattern A: TDD Phases (Feature Work)**
+
+For tasks with testable behavior. **Phase = One Behavior = One RED/GREEN/REFACTOR cycle.**
+
+Each phase follows TDD structure with sub-phases:
+- **X.RED**: Write failing tests (tests MUST fail before proceeding)
+- **X.GREEN**: Implement to pass tests (minimal code to pass)
+- **X.REFACTOR**: Clean up (loops until code review ≥90)
 
 **Example:**
 ```markdown
-### Phase 2 - Create Mutation
-- [ ] 2.1 Write tests for ADR creation
-  - [ ] 2.1.1 Test successful creation with valid workspaceId
-  - [ ] 2.1.2 Test creation with minimal fields (status defaults to PROPOSED)
-  - [ ] 2.1.3 Test invalid workspaceId (Prisma P2003 foreign key error)
-- [ ] 2.2 Implement create mutation
-  - [ ] 2.2.1 Create `adrRouter` with `createTRPCRouter`
-  - [ ] 2.2.2 Use `ctx.db.adr.create()` for database insert (note: lowercase 'adr' in Prisma client)
+### Phase 1 - User Login {behavior}
+
+#### 1.RED - Write Failing Tests
+- [ ] 1.1 Write tests for user login
+  - [ ] 1.1.1 Test successful login with valid credentials
+  - [ ] 1.1.2 Test invalid password (401 error)
+  - [ ] 1.1.3 Test inactive account (403 error)
+- [ ] 1.2 [CHECKPOINT] Verify all tests FAIL
+
+#### 1.GREEN - Implement to Pass Tests
+- [ ] 1.3 Implement login endpoint
+  - [ ] 1.3.1 Create auth controller
+  - [ ] 1.3.2 Add JWT generation
+- [ ] 1.4 [CHECKPOINT] Verify all tests PASS
+
+#### 1.REFACTOR - Clean Up (loops until review >= 90)
+- [ ] 1.5 Refactor for maintainability
+- [ ] 1.6 [CHECKPOINT] Tests still pass (no regressions)
+- [ ] 1.7 Code review → if < 90, repeat 1.5-1.7
+- [ ] 1.8 [EXIT GATE] Review >= 90, commit phase
 ```
 
-**Benefits:**
+**Scoping Rule:** Each acceptance criterion from the SPEC becomes one phase with its own RED/GREEN/REFACTOR cycle.
+
+---
+
+**Pattern B: Simple Phases (Infrastructure/Scaffolding)**
+
+For tasks with no testable behavior (infra, config, docs):
+
+**Example:**
+```markdown
+### Phase 1 - Docker Setup
+- [ ] 1.1 Create Dockerfile
+- [ ] 1.2 Create docker-compose.yml
+- [ ] 1.3 Verify containers start correctly
+```
+
+---
+
+**Decision Criteria:**
+
+| Task Type | Phase Structure | TDD Required? |
+|-----------|-----------------|---------------|
+| Feature with testable behavior | TDD Phases (X.RED/X.GREEN/X.REFACTOR) | YES |
+| Bug fix with reproducible failure | TDD Phases | YES |
+| Infrastructure/scaffolding | Simple Phases | NO |
+| Documentation-only | Simple Phases | NO |
+
+**Benefits of TDD Phases:**
 - Granular progress tracking
-- Clear validation criteria
-- Easy to identify blockers
-- Natural commit points
+- Clear validation criteria at each checkpoint
+- Natural commit points (end of REFACTOR)
+- Code review loop ensures quality
+- Easy rollback (each phase is a commit)
 
 ### Test Description Quality Standards
 
@@ -678,63 +724,81 @@ Quality test descriptions make implementation intent crystal clear:
 
 **Why this matters:** Specific descriptions guide implementation without prescribing HOW, making plans strategically tactical.
 
-### Test-First Phase Loop
+### TDD Phase Execution (RED/GREEN/REFACTOR)
 
-**MANDATORY:** Every phase follows strict test-first loop
+**MANDATORY for tasks with testable behavior.** Each phase follows strict TDD cycle.
 
-**Phase Execution Loop:**
+**Phase Execution Flow:**
 ```
-For each phase:
-  1. Write tests for phase (MUST fail - red)
-  2. Write code to pass tests (green)
-  3. Run code review (MUST pass ≥90)
-  4. Only when ALL pass:
-     - Commit phase changes
-     - Update WORKLOG entry
-     - Move to next phase
-```
+For each TDD phase (Phase X - {behavior}):
 
-**Quality Gates (all MUST pass before proceeding):**
-- ✅ Tests written and initially failing (confirms tests are valid)
-- ✅ Tests passing after implementation
-- ✅ Code review score ≥90
+  X.RED - Write Failing Tests:
+    1. Write tests for the behavior
+    2. Run tests → MUST FAIL
+    3. [CHECKPOINT] If tests PASS → BLOCK (not testing new behavior)
+    4. [CHECKPOINT] If tests ERROR → BLOCK (fix test bugs first)
+    5. Document in WORKLOG: "RED: X tests failing - [reason]"
 
-**Loop Example:**
-```
-Phase 1.1: Implement user model with password hashing
+  X.GREEN - Implement to Pass:
+    1. Write minimal code to pass tests
+    2. Run tests → MUST PASS
+    3. [CHECKPOINT] All tests green
 
-Step 1 - Write Tests (Red):
-  - Create test file: user.test.ts
-  - Write tests for user creation, password hashing, validation
-  - Run tests → MUST FAIL (red)
-  - If tests pass immediately, they're not testing anything new
-
-Step 2 - Write Code (Green):
-  - Implement User model
-  - Implement password hashing
-  - Run tests → MUST PASS (green)
-
-Step 3 - Code Review:
-  - Run code-reviewer agent
-  - Score MUST be ≥90
-  - Address any critical issues before proceeding
-
-Step 4 - Commit & Document:
-  - Commit: "feat: implement user model with bcrypt password hashing"
-  - Update WORKLOG Phase Commits: "- Phase 1.1: abc123d - Implement user model with bcrypt"
-  - WORKLOG entry: What was done, decisions made, lessons learned
-  - Mark phase 1.1 complete in PLAN.md
-
-Only then → Move to Phase 1.2
+  X.REFACTOR - Clean Up (loops until review >= 90):
+    1. Refactor for maintainability
+    2. Run tests → MUST still pass (no regressions)
+    3. Run code review
+    4. If review < 90: repeat steps 1-3
+    5. [EXIT GATE] Review >= 90
+    6. Commit phase changes
+    7. Update WORKLOG Phase Commits
+    8. Move to next phase
 ```
 
-**Why This Loop:**
-- **Tests fail first**: Proves tests are testing something real
-- **Code review mandatory**: Catches issues before they compound
+**RED Checkpoint - BLOCKING Gates:**
+
+| Test Result | Action |
+|-------------|--------|
+| Tests FAIL (expected) | ✅ Proceed to GREEN |
+| Tests PASS | ❌ BLOCK - Not testing new behavior |
+| Tests ERROR | ❌ BLOCK - Fix test code bugs first |
+| No tests written | ❌ BLOCK - Write tests first |
+
+**Example Execution:**
+```
+Phase 1 - User Login
+
+1.RED - Write Failing Tests:
+  - Create test file: auth.test.ts
+  - Write tests for login, invalid password, inactive account
+  - Run tests → 3 tests FAIL (expected)
+  - WORKLOG: "RED: 3 tests failing - login endpoint not implemented"
+  ✓ RED checkpoint passed
+
+1.GREEN - Implement:
+  - Implement login endpoint with JWT
+  - Run tests → 3 tests PASS
+  ✓ GREEN checkpoint passed
+
+1.REFACTOR - Clean Up:
+  - Extract token generation to helper
+  - Run tests → still passing
+  - Code review → 85 (below 90)
+  - Fix naming issues
+  - Code review → 92 ✓
+  - Commit: "feat: implement user login with JWT"
+  - WORKLOG Phase Commits: "- Phase 1: abc123d - User login"
+  ✓ EXIT GATE passed → Move to Phase 2
+```
+
+**Why TDD Structure:**
+- **RED first**: Proves tests are testing something real
+- **GREEN minimal**: Avoid over-engineering
+- **REFACTOR loop**: Quality gate ensures maintainability
 - **Commit per phase**: Clean git history, easy rollback
-- **WORKLOG per phase**: Context for future phases and developers
+- **WORKLOG per phase**: Context for future phases
 
-**No Shortcuts:** Do not skip tests, do not skip code review, do not combine phases.
+**No Shortcuts:** Do not skip RED checkpoint, do not skip code review, do not combine phases.
 
 ### Progress Tracking Protocol
 

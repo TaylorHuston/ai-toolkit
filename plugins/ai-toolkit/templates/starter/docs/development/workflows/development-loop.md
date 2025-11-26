@@ -3,7 +3,7 @@ last_updated: "2025-11-13"
 description: "AI-assisted development workflow with test-first approach, continuous code review, and agent coordination"
 
 # === Development Loop Configuration ===
-loop_approach: "pragmatic-test-first" # pragmatic-test-first, strict-test-first, code-first
+loop_approach: "strict-test-first"    # strict-test-first for tasks, use /spike for exploration
 code_review_threshold: 90             # Minimum score to proceed (0-100)
 test_coverage_target: 95              # Coverage percentage goal
 review_frequency: "per-phase"         # per-phase, per-task, on-demand
@@ -25,10 +25,18 @@ This guideline defines our AI-assisted development workflow, emphasizing test-fi
 
 ## Our Development Philosophy
 
-**Pragmatic Test-First**: Test-first is the default when you know what to build (clear acceptance criteria, defined behavior). Code-first is appropriate when exploring unknowns (prototypes, unclear requirements, architecture scaffolding). The goal is confidence, not dogma.
+**Strict Test-First with Purposeful Paths**: We use three distinct workflow paths based on what we're building:
 
-**When You Know What to Build** → Write tests first (Red-Green-Refactor)
-**When You're Discovering** → Code first, add tests once the approach is validated
+| Situation | Workflow | TDD Required? |
+|-----------|----------|---------------|
+| Know what to build, clear acceptance criteria | TASK with TDD | YES - RED/GREEN/REFACTOR |
+| Exploring, don't know what tests to write yet | SPIKE first | NO - discovery mode |
+| Infrastructure, scaffolding, config | TASK (simple) | NO - no behavior to test |
+
+**Decision Rule:**
+- **Can you write a failing test?** → TASK with TDD phases (RED/GREEN/REFACTOR)
+- **Don't know what to test yet?** → SPIKE first, then TASK with TDD
+- **No testable behavior?** → TASK with simple phases (infra, config, docs)
 
 **Quality Over Speed**: Code review threshold of 90+ ensures maintainable, well-structured code. Take time to get it right.
 
@@ -38,35 +46,56 @@ This guideline defines our AI-assisted development workflow, emphasizing test-fi
 
 ## The Development Loop
 
-### 1. Start with Tests (When Applicable)
+### 1. Choose the Right Workflow
 
-**Pragmatic Test-First Approach**: Choose the right tool for the job.
+**Before starting any work, determine the appropriate workflow:**
 
-**✅ Test-First (Highly Preferred) - When you know what to build:**
-- Feature has clear acceptance criteria from `/plan` output
-- Phase objectives specify expected behavior
-- Bug fix with reproducible failure scenario
-- API endpoints or data transformations (clear inputs/outputs)
-- Refactoring existing code (tests prevent regressions)
+**✅ TDD Phases (RED/GREEN/REFACTOR) - Default for feature work:**
+- Features with clear acceptance criteria
+- Bug fixes with reproducible failure
+- API endpoints, data transformations
+- Any code with testable behavior
+- Business logic and domain rules
 
-**📝 Code-First (Acceptable) - When discovering what to build:**
-- Exploratory work or proof-of-concept (learning by doing)
-- Architecture setup or scaffolding (establishing patterns)
-- Initial project structure (no behavior to test yet)
-- Unclear requirements that need discovery (spike first, then decide)
-- Research tasks (document findings, then extract patterns)
+**🔍 SPIKE First - When you don't know what to test:**
+- Exploratory work discovering what's possible
+- Proof-of-concept before committing to approach
+- Unclear requirements needing investigation
+- Research tasks and technology evaluation
+- **Use `/spike` command, then create TASK with TDD when approach is clear**
 
-**⚠️ Code-First Commitment**: If you code-first, **add tests before marking phase complete**. The development loop requires test coverage regardless of approach - the only difference is timing.
+**⚙️ Simple Phases - No testable behavior:**
+- Infrastructure setup (Docker, CI/CD)
+- Project scaffolding
+- Configuration changes
+- Documentation-only tasks
 
-**Test-first process (Red-Green-Refactor):**
-```bash
-# Red: Write minimal failing tests that define success
-# Verify tests fail for the right reason
-# Green: Write minimal code to make tests pass
-# Refactor: Improve code while tests stay green
+**⚠️ Rule**: If you find yourself wanting to "code first and add tests later" for a TASK, you probably need a SPIKE first. Do the spike, learn what's possible, then create a TASK with proper TDD.
+
+### 2. TDD Process (RED/GREEN/REFACTOR)
+
+**For tasks with testable behavior, follow strict RED/GREEN/REFACTOR:**
+
+```
+Phase = One Behavior = One RED/GREEN/REFACTOR cycle
+
+#### X.RED - Write Failing Tests
+1. Write tests that define expected behavior
+2. Run tests - they MUST fail (RED checkpoint)
+3. If tests pass: STOP - you're not testing new behavior
+
+#### X.GREEN - Implement to Pass Tests
+4. Write minimal code to make tests pass
+5. Run tests - they MUST pass (GREEN checkpoint)
+
+#### X.REFACTOR - Clean Up (loops until review >= 90)
+6. Refactor for maintainability
+7. Run tests - must still pass (no regressions)
+8. Code review - if < 90, address feedback and repeat 6-8
+9. Review >= 90 - commit phase, move to next behavior
 ```
 
-### 2. Implement Minimal Code
+### 3. Implement Minimal Code
 
 Write only the code needed to pass the tests. Avoid:
 - Gold-plating (features not in acceptance criteria)
@@ -80,7 +109,7 @@ Write only the code needed to pass the tests. Avoid:
 - Proper error handling
 - Following project coding standards
 
-### 3. Run Tests
+### 4. Run Tests
 
 Execute full test suite appropriate for the phase:
 
@@ -99,7 +128,7 @@ npm test:e2e          # End-to-end tests
 
 See `testing-standards.md` for framework-specific commands and test organization.
 
-### 4. Code Review Process
+### 5. Code Review Process
 
 **Invoke code-reviewer agent** after implementation:
 
@@ -136,7 +165,7 @@ See `testing-standards.md` for framework-specific commands and test organization
 
 See `coding-standards.md` for specific style and quality expectations.
 
-### 5. Iterate Until Quality Gates Pass
+### 6. Iterate Until Quality Gates Pass
 
 **Quality gates** (all must pass):
 - ✅ All tests pass
@@ -152,7 +181,7 @@ See `coding-standards.md` for specific style and quality expectations.
 4. Request re-review if major changes
 5. Repeat until all gates pass
 
-### 6. Review and Adapt Plans (After Phase Completion)
+### 7. Review and Adapt Plans (After Phase Completion)
 
 **After completing each phase, conduct review cycle to adapt plans**:
 

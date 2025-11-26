@@ -8,6 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- **TDD workflow improvements** - Strict RED/GREEN/REFACTOR phase structure
+  - **Phase structure**: Each phase now follows `X.RED` → `X.GREEN` → `X.REFACTOR` sub-phases
+  - **Phase scoping**: Phase = One Behavior = One RED/GREEN/REFACTOR cycle
+  - **RED checkpoint**: BLOCKING gate - tests MUST fail before implementation
+    - Tests PASS → BLOCK (not testing new behavior)
+    - Tests ERROR → BLOCK (fix test bugs first)
+    - No tests → BLOCK (write tests first)
+  - **REFACTOR loop**: Iterates until code review >= 90
+  - **Three workflow paths**: TDD (features), SPIKE (exploration), Simple (infra)
+  - Removed "code-first acceptable" loophole from development-loop.md
+  - Updated: `development-loop.md`, `quality-gates.md`, `pm-workflows.md`, `plan-template.md`
+  - Updated: `/implement` command with RED checkpoint enforcement
+  - Updated: `/plan` command generates TDD sub-phases for feature work
+
 - **`/toolkit-init` command rewrite** - Fixed multiple issues and improved clarity
   - Now generates 3 project docs from templates: `architecture-overview.md`, `design-overview.md`, `writing-style.md`
   - Fixed file count: 54 total (51 template + 3 generated)

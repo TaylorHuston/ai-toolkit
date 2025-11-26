@@ -60,11 +60,14 @@ references_guidelines:
    - Agent decides HOW based on WORKLOG context and current codebase
    - **Mandatory**: Agent follows test-first loop from pm-guide.md
 
-4. **Enforce Quality Gates**
-   - Tests written and failing (red)
-   - Tests passing after implementation (green)
-   - Code review score ≥90
-   - All 10 quality gates from development-loop.md must pass
+4. **Enforce TDD Checkpoints** (for phases with testable behavior)
+   - **RED checkpoint**: Tests run and FAIL before implementation begins
+     - If tests PASS: BLOCK - not testing new behavior
+     - If tests ERROR: BLOCK - fix test bugs first
+     - Document in WORKLOG: "RED: X tests failing - [reason]"
+   - **GREEN checkpoint**: Tests PASS after implementation
+   - **REFACTOR loop**: Code review → if < 90, iterate → review ≥ 90 to exit
+   - All quality gates from quality-gates.md must pass
 
 5. **Track Progress**
    - Write WORKLOG.md entry per worklog-format.md
@@ -179,20 +182,59 @@ pm/issues/TASK-001-user-auth/
 ```
 User: /implement TASK-001 --next
 
-AI: Next uncompleted phase: 1.2 - Implement authentication logic
+AI: Next uncompleted phase: 1.RED - Write failing tests for user login
+    Proceed? (yes/no)
+
+User: yes
+
+AI: Spawning test-engineer...
+    Phase 1.RED: Write failing tests for user login
+    → Tests written (8 test cases)
+    → Running tests...
+    → [RED CHECKPOINT] 8 tests FAILED as expected ✓
+    ✓ Phase 1.RED complete
+
+    Next: /implement TASK-001 --next
+
+---
+
+User: /implement TASK-001 --next
+
+AI: Next uncompleted phase: 1.GREEN - Implement user login
     Proceed? (yes/no)
 
 User: yes
 
 AI: Spawning backend-specialist...
-    Phase 2: Implement authentication logic
-    → Tests written (20 tests, all failing)
+    Phase 1.GREEN: Implement user login
     → Implementation complete
-    → Tests passing (20/20)
-    → Code review: 92/100
-    ✓ Phase 2 complete
+    → Running tests...
+    → [GREEN CHECKPOINT] 8/8 tests PASS ✓
+    ✓ Phase 1.GREEN complete
 
     Next: /implement TASK-001 --next
+
+---
+
+User: /implement TASK-001 --next
+
+AI: Next uncompleted phase: 1.REFACTOR - Clean up user login
+    Proceed? (yes/no)
+
+User: yes
+
+AI: Spawning backend-specialist...
+    Phase 1.REFACTOR: Clean up user login
+    → Refactoring...
+    → Tests still passing (8/8) ✓
+    → Code review: 85/100 (needs error handling improvement)
+    → Addressing feedback...
+    → Tests still passing (8/8) ✓
+    → Code review: 92/100 ✓
+    → [EXIT GATE] Review ≥90, committing...
+    ✓ Phase 1.REFACTOR complete
+
+    Next: /implement TASK-001 --next (Phase 2.RED)
 ```
 
 ## Agent Coordination

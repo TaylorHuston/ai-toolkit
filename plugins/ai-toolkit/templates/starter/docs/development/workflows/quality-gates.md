@@ -188,22 +188,54 @@ complexity_scoring:
 
 ### Per-Phase Gates
 
-**MANDATORY: Every phase follows strict test-first loop** (see pm-guide.md "Test-First Phase Loop"):
+**MANDATORY: Every phase with testable behavior follows TDD** (RED/GREEN/REFACTOR):
 
-**Phase Execution Loop:**
-1. **Write tests** (must fail - red) - Proves tests are testing something real
-2. **Write code** (make tests pass - green) - Minimal implementation
-3. **Code review** (must pass ≥90) - Catches issues before they compound
-4. **Only when ALL pass:**
-   - code-reviewer writes WORKLOG entry (MANDATORY - separate from implementation agent)
-   - Commit phase changes to git
-   - Implementation agent writes WORKLOG entry (if needed)
-   - Mark phase complete in PLAN.md
-   - Proceed to next phase
+**Phase Execution with TDD Checkpoints:**
+
+```
+#### X.RED - Write Failing Tests
+1. Write tests defining expected behavior
+2. Run tests - MUST fail
+3. [RED CHECKPOINT] Document failure in WORKLOG
+   - If tests PASS: STOP - you're not testing new behavior
+   - If tests ERROR: STOP - fix test bugs first
+
+#### X.GREEN - Implement to Pass Tests
+4. Write minimal code to pass tests
+5. Run tests - MUST pass
+6. [GREEN CHECKPOINT] All tests now passing
+
+#### X.REFACTOR - Clean Up (loops until review >= 90)
+7. Refactor for maintainability
+8. Run tests - must still pass (no regressions)
+9. Code review - if < 90, address feedback and repeat 7-9
+10. [EXIT GATE] Review >= 90, commit phase
+```
+
+**RED Checkpoint Verification (BLOCKING):**
+
+Before implementation begins, verify RED checkpoint:
+- Tests exist and execute without errors
+- Tests FAIL for the expected reason (missing implementation)
+- Failure documented in WORKLOG: "RED: X tests failing - [reason]"
+
+**BLOCKS implementation if:**
+- Tests pass (not testing new behavior)
+- Tests error (test code has bugs)
+- No tests written
+
+**WORKLOG Entry for RED Checkpoint:**
+```
+## RED CHECKPOINT: Phase X.RED
+- Tests written: 8 test cases in src/__tests__/feature.test.ts
+- Execution: All 8 tests FAILED as expected
+- Failure reason: Missing implementation (FunctionNotFoundError)
+- Ready for implementation: YES
+```
 
 **Quality gates** (ALL required):
-1. ✅ **Tests written and initially failing** (red) - Validates tests are legitimate
-2. ✅ **Tests passing after implementation** (green) - Confirms functionality works
+1. ✅ **RED checkpoint passed** - Tests written, executed, and FAILED as expected
+2. ✅ **GREEN checkpoint passed** - Tests now PASS after implementation
 3. ✅ **Code review score ≥90** - Ensures maintainability and quality
 4. ✅ **Code review WORKLOG entry** - code-reviewer writes detailed review entry (see worklog-format.md)
 5. ✅ **Coding Standards** - Implementation follows coding-standards.md conventions
