@@ -58,12 +58,12 @@ While in `0.x.y`, we use:
 - `0.0.x` for **bug fixes** (patch releases)
 
 **Example version progression:**
-- `0.1.0` - Initial setup and core structure (TASK-001)
-- `0.2.0` - Database integration (TASK-002)
-- `0.3.0` - Third-party service integration (TASK-003)
-- `0.4.0` - Authentication system (TASK-004)
-- `0.4.1` - Security patch (BUG-001)
-- `0.5.0` - Next major feature (TASK-005)
+- `0.1.0` - Initial setup and core structure (001)
+- `0.2.0` - Database integration (002)
+- `0.3.0` - Third-party service integration (003)
+- `0.4.0` - Authentication system (004)
+- `0.4.1` - Security patch (005)
+- `0.5.0` - Next major feature (006)
 
 **Breaking changes in 0.x.y:**
 - Allowed (users expect instability)

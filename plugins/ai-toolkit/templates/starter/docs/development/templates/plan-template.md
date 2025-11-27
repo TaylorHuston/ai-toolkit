@@ -19,7 +19,7 @@ sections:
     prompt: "How this task relates to previous similar work"
     required: false
     format: structured-list
-    hint: "Reference similar completed tasks. Compare complexity (simpler/more complex due to X). List patterns to reuse (TASK-### WORKLOG). Note key differences. Example: 'Simpler than TASK-003 (no child relationships)', 'Similar to TASK-003 Pattern (single foreign key)', 'Agent will leverage TASK-003 WORKLOG for patterns'."
+    hint: "Reference similar completed tasks. Compare complexity (simpler/more complex due to X). List patterns to reuse (### WORKLOG). Note key differences. Example: 'Simpler than 003 (no child relationships)', 'Similar to 003 Pattern (single foreign key)', 'Agent will leverage 003 WORKLOG for patterns'."
   - name: Domain/Business Context
     prompt: "Domain-specific considerations and business rules"
     required: false

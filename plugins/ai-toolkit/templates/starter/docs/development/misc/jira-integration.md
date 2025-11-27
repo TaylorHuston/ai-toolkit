@@ -65,12 +65,12 @@ pm/
 │   ├── SPEC-001-user-auth.md
 │   └── SPEC-002-payment.md
 └── issues/
-    ├── TASK-001-registration/
-    │   ├── TASK.md
+    ├── 001-registration/
+    │   ├── TASK.md           # Type from file
     │   ├── PLAN.md
     │   └── WORKLOG.md
-    └── BUG-001-login-timeout/
-        ├── BUG.md
+    └── 002-login-timeout/
+        ├── BUG.md            # Type from file
         ├── PLAN.md
         └── WORKLOG.md
 ```
@@ -83,7 +83,7 @@ pm/
 
 **Issues:** Hybrid approach
 - **Jira issues:** PROJ-101, PROJ-102 (team-facing, synced with Jira)
-- **Local exploration:** TASK-###, BUG-### (AI-driven, can be promoted later)
+- **Local exploration:** 001, 002 (AI-driven, type from file, can be promoted later)
 
 **Local directories:**
 ```
@@ -94,8 +94,8 @@ pm/
     │   ├── PLAN.md          # AI-managed (local only)
     │   ├── WORKLOG.md       # AI-managed (local only)
     │   └── (no TASK.md - Jira is source of truth)
-    └── TASK-001-spike/      # Local exploration issue
-        ├── TASK.md
+    └── 001-spike/           # Local exploration issue
+        ├── SPIKE.md         # Type from file
         ├── PLAN.md
         └── WORKLOG.md
 ```
@@ -257,7 +257,7 @@ User: "High"
 
 ## Promotion Workflow (Local → Jira)
 
-**Command:** `/promote TASK-001`
+**Command:** `/jira-promote 001`
 
 **Use Case:** Local exploration validated, ready for team visibility
 
@@ -266,8 +266,8 @@ User: "High"
 ### Step 1: Read Local Issue
 
 ```
-pm/issues/TASK-001-spike-oauth/
-├── TASK.md      # Read description, acceptance criteria
+pm/issues/001-spike-oauth/
+├── TASK.md      # Read description, acceptance criteria (type from file)
 ├── PLAN.md      # Migrate to new location
 └── WORKLOG.md   # Migrate to new location
 ```
@@ -300,7 +300,7 @@ User: "Backend"
 
 ```
 # Before
-pm/issues/TASK-001-spike-oauth/
+pm/issues/001-spike-oauth/
 ├── TASK.md
 ├── PLAN.md
 └── WORKLOG.md
@@ -318,7 +318,7 @@ pm/issues/PROJ-123-spike-oauth/
 **Command automatically detects and updates:**
 ```
 # Before
-feature/TASK-001
+feature/001
 
 # After
 feature/PROJ-123
@@ -326,26 +326,26 @@ feature/PROJ-123
 
 **Git operations:**
 ```bash
-git branch -m feature/TASK-001 feature/PROJ-123
-git push origin --delete feature/TASK-001  # Delete old remote branch
-git push -u origin feature/PROJ-123        # Push renamed branch
+git branch -m feature/001 feature/PROJ-123
+git push origin --delete feature/001  # Delete old remote branch
+git push -u origin feature/PROJ-123   # Push renamed branch
 ```
 
 ### Step 7: Confirm to User
 
 ```
-✓ Promoted TASK-001 to PROJ-123
+✓ Promoted 001 to PROJ-123
 🔗 https://your-company.atlassian.net/browse/PROJ-123
 
 Migrated:
 - PLAN.md (updated references)
 - WORKLOG.md (updated references)
-- Git branch: feature/TASK-001 → feature/PROJ-123
+- Git branch: feature/001 → feature/PROJ-123
 
 Next: /implement PROJ-123
 ```
 
-**Optional Cleanup:** User can delete `pm/issues/TASK-001-spike-oauth/` directory if desired.
+**Optional Cleanup:** User can delete `pm/issues/001-spike-oauth/` directory if desired.
 
 ---
 

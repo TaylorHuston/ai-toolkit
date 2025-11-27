@@ -159,9 +159,9 @@ jira_epic_key: null  # Optional: Jira epic key if synced
 - [ ] Documentation complete
 
 ## Tasks
-- [ ] TASK-001: User Registration
-- [ ] TASK-002: Login Flow
-- [ ] TASK-003: Password Reset
+- [ ] 001: User Registration
+- [ ] 002: Login Flow
+- [ ] 003: Password Reset
 ```
 
 ### Task File Format

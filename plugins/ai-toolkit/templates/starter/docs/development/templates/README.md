@@ -19,23 +19,23 @@ This directory contains 4 templates:
 
 ### Template Discovery
 
-Commands use convention-based template lookup:
+Commands use convention-based template lookup based on which file exists in the issue directory:
 
 ```
-TASK-001 → looks for templates/task.md
-BUG-003  → looks for templates/bug.md
-SPIKE-007 → looks for templates/spike.md (custom template you can create)
+pm/issues/001-name/TASK.md  → uses templates/task.md
+pm/issues/002-name/BUG.md   → uses templates/bug.md
+pm/issues/003-name/SPIKE.md → uses templates/spike.md
 ```
 
-The issue prefix (lowercased) determines which template to use.
+The file type (TASK.md, BUG.md, SPIKE.md) determines which template to use.
 
 ### PLAN.md Template
 
 The **plan.md** template is special - it's used by the `/plan` command to create separate PLAN.md files:
 
 ```
-/plan TASK-001 → creates pm/issues/TASK-001-*/PLAN.md
-/plan BUG-003  → creates pm/issues/BUG-003-*/PLAN.md
+/plan 001 → creates pm/issues/001-*/PLAN.md
+/plan 002 → creates pm/issues/002-*/PLAN.md
 ```
 
 **Why separate PLAN.md?**
@@ -232,8 +232,8 @@ Once template exists, create issues with that type:
 
 ```bash
 # Commands will automatically find templates/spike.md
-/spec    # Add SPIKE-001 to spec task list
-/plan SPIKE-001    # Will use spike template for structure
+/issue "should we use GraphQL?"    # Creates spike with SPIKE.md
+/plan 003                          # Uses spike template based on SPIKE.md
 ```
 
 ## Template Examples
@@ -393,14 +393,13 @@ sections:
 
 ### Naming Conventions
 
-- **Use clear prefixes** - SPIKE, RFC, DEBT, EXPERIMENT, etc.
 - **Keep templates lowercase** - File names should be `spike.md` not `SPIKE.md`
-- **Match prefix to template** - SPIKE-001 uses `templates/spike.md`
+- **Match file type to template** - `pm/issues/003-name/SPIKE.md` uses `templates/spike.md`
 
 ## Troubleshooting
 
 **Command doesn't find my template:**
-- Verify file name matches issue prefix (lowercased): `SPIKE-001` → `templates/spike.md`
+- Verify template file name matches issue file type (lowercased): `SPIKE.md` → `templates/spike.md`
 - Check template is in correct directory: `pm/templates/`
 - Ensure template has valid YAML frontmatter
 

@@ -97,7 +97,7 @@ Multiple quality gates ensure high standards:
 ### Phase Execution
 
 ```bash
-/implement TASK-001 1
+/implement 001 1
 # → Executes phase 1, reviews, tests
 # → Waits for your instructions to proceed to the next phase
 ```
@@ -107,7 +107,7 @@ Multiple quality gates ensure high standards:
 With `--full` flag, `/implement` can execute all phases autonomously:
 
 ```bash
-/implement --full TASK-001
+/implement --full 001
 # → Executes phase 1, reviews, tests
 # → If passes, automatically starts phase 2
 # → Continues until all phases complete or failure
@@ -124,9 +124,9 @@ main (production)         # Live environment - ONLY from develop
   ↑
   └─ develop (staging)    # Pre-production - from feature branches
        ↑
-       ├─ feature/TASK-001  (your work)
-       ├─ feature/TASK-002
-       └─ bugfix/BUG-001
+       ├─ feature/001  (your work - task)
+       ├─ feature/002
+       └─ bugfix/003
 ```
 
 **CRITICAL RULES:**
@@ -138,8 +138,8 @@ main (production)         # Live environment - ONLY from develop
 
 **Work branches are created automatically:**
 ```bash
-/implement TASK-001 1
-# → Creates feature/TASK-001 if needed
+/implement 001 1
+# → Creates feature/001 if needed
 # → Switches to the branch
 # → Executes the phase
 ```
@@ -169,7 +169,7 @@ main (production)         # Live environment - ONLY from develop
 
 **Clean up after merge:**
 ```bash
-/branch delete feature/TASK-001
+/branch delete feature/001
 # → Verifies fully merged
 # → Deletes local and remote
 ```
@@ -179,9 +179,9 @@ main (production)         # Live environment - ONLY from develop
 Branch-aware commits automatically include issue references:
 
 ```bash
-# On feature/TASK-001
+# On feature/001
 /commit "add user authentication"
-# → Generates: feat(TASK-001): add user authentication
+# → Generates: feat(001): add user authentication
 ```
 
 ### Workflow Configuration
@@ -407,9 +407,9 @@ Understanding the distinction between **slash commands** and **agents** helps yo
 **Examples:**
 ```bash
 /spec                      # Creates pm/specs/SPEC-###-name.md
-/plan TASK-001             # Creates pm/issues/TASK-001-*/PLAN.md
+/plan 001                  # Creates pm/issues/001-*/PLAN.md
 /adr                       # Creates docs/project/adrs/ADR-###.md
-/implement TASK-001 1.1    # Executes phase, updates WORKLOG.md
+/implement 001 1.1         # Executes phase, updates WORKLOG.md
 ```
 
 Commands orchestrate agents and enforce project structure.

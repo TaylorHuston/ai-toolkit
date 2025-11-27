@@ -17,8 +17,8 @@ cd my-project
 # 3. Start developing
 /project-brief
 /spec SPEC-001
-/plan TASK-001
-/implement TASK-001 1.1
+/plan 001
+/implement 001 1.1
 ```
 
 ## What You Get
@@ -26,7 +26,7 @@ cd my-project
 - **26 Workflow Commands** - Complete `/project-brief` → `/spec` → `/issue` → `/plan` → `/implement` → `/complete` cycle + utilities
 - **21 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
 - **3 Bundled MCP Servers** - Auto-configured tools (context7, sequential-thinking, playwright)
-- **Starter Template** - 52 files for organized project initialization
+- **Starter Template** - 50 files for organized project initialization
 - **File-Based State** - Session continuity via SPEC.md, TASK.md, WORKLOG.md
 - **Technology Agnostic** - Works with any tech stack
 
@@ -135,8 +135,8 @@ my-project/
 ```bash
 /project-brief                     # Define project vision (interactive)
 /spec SPEC-001                     # Create feature spec with acceptance criteria
-/plan TASK-001                     # Add implementation plan to task
-/implement TASK-001 1.1            # Execute specific phase with agents
+/plan 001                          # Add implementation plan to task
+/implement 001 1.1                 # Execute specific phase with agents
 ```
 
 ## All Commands (26 Total)

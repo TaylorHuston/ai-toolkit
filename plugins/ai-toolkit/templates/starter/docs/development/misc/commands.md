@@ -67,8 +67,8 @@ Commands use different parameter paradigms because **different workflows need di
 
 **Example**:
 ```bash
-/plan TASK-001              # Plan section for TASK-001 (clear, unambiguous)
-/implement TASK-001 1.2     # Execute phase 1.2 of TASK-001 (specific action)
+/plan 001                   # Plan section for 001 (clear, unambiguous)
+/implement 001 1.2          # Execute phase 1.2 of 001 (specific action)
 ```
 
 ### 3️⃣ Optional Arguments
@@ -95,7 +95,7 @@ Commands use different parameter paradigms because **different workflows need di
 
 **Example**:
 ```bash
-/branch create TASK-001     # Create work branch
+/branch create 001          # Create work branch
 /branch merge develop       # Merge to staging with validation
 /branch status              # Show branch status
 ```
@@ -183,30 +183,30 @@ Commands use different parameter paradigms because **different workflows need di
 
 ### 📋 **/plan** - Implementation Planning
 
-- _Purpose_: Create PLAN.md with phase-based breakdown (auto-detects issue type)
-- _Usage_: `/plan TASK-### | /plan BUG-### | /plan SPIKE-###`
+- _Purpose_: Create PLAN.md with phase-based breakdown (auto-detects issue type from file)
+- _Usage_: `/plan ###` (detects type from TASK.md, BUG.md, or SPIKE.md in directory)
 - _Workflow Phase_: **2. Planning** - TDD phases for TASK, reproduction-first for BUG, exploration plans for SPIKE
 - _Output_: PLAN.md for TASK/BUG, PLAN-1.md + PLAN-2.md etc. for SPIKE
 
 ### ⚡ **/implement** - Automated Phase Execution
 
-- _Purpose_: Execute implementation phases with test-first enforcement (auto-detects issue type)
-- _Usage_: `/implement TASK-### PHASE | /implement BUG-### PHASE | /implement SPIKE-### | /implement --next`
+- _Purpose_: Execute implementation phases with test-first enforcement (auto-detects issue type from file)
+- _Usage_: `/implement ### PHASE | /implement --next | /implement --full`
 - _Workflow Phase_: **3. Execution** - TDD for TASK/BUG, exploration on spike branches for SPIKE
-- _Examples_: `/implement TASK-001 1.1`, `/implement SPIKE-001` (asks which plan, creates spike branch)
+- _Examples_: `/implement 001 1.1`, `/implement 003` (spike - asks which plan, creates spike branch)
 
 ### 🤝 **/advise** - Collaborative Phase Guidance
 
 - _Purpose_: Get implementation guidance for a phase without automated code generation (user writes code)
-- _Usage_: `/advise TASK-### PHASE | /advise BUG-### PHASE | /advise --next`
+- _Usage_: `/advise ### PHASE | /advise --next`
 - _Workflow Phase_: **3. Execution (Collaborative)** - AI guides, user codes
-- _Examples_: `/advise TASK-001 1.2`, `/advise --next`
+- _Examples_: `/advise 001 1.2`, `/advise --next`
 - _Hybrid_: Mix `/implement` (AI codes) and `/advise` (user codes) per phase
 
 ### ✅ **/complete** - Finish Work Items
 
 - _Purpose_: Complete any issue type per its workflow's completion requirements
-- _Usage_: `/complete TASK-### | /complete BUG-### | /complete SPIKE-###`
+- _Usage_: `/complete ###` (detects type from TASK.md, BUG.md, or SPIKE.md)
 - _Workflow Phase_: **4. Completion** - Validates requirements, marks done
 - _SPIKE special_: Pulls WORKLOGs from spike branches, generates SPIKE-SUMMARY.md, commits to develop
 

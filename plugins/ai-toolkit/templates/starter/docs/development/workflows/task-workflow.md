@@ -121,6 +121,7 @@ See `worklog-format.md` for all entry formats and examples.
 
 - ✅ All phases complete (PLAN.md checkboxes)
 - ✅ Tests passing
+- ✅ Linters passing
 - ✅ Code review ≥ 90 on final phase
 - ✅ Acceptance criteria met (TASK.md)
 - ✅ WORKLOG updated

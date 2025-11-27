@@ -29,10 +29,10 @@
 /adr
 
 # 4. Plan implementation
-/plan TASK-001
+/plan 001
 
 # 5. Execute tasks
-/implement TASK-001 1.1
+/implement 001 1.1
 ```
 
 ### Keeping Templates Updated
@@ -68,7 +68,7 @@ When the AI Toolkit plugin is updated with improvements to guidelines, workflows
 
 ### Initial Structure (After /toolkit-init)
 
-The starter template provides **51 files** organized for clarity:
+The starter template provides **50 files** organized for clarity:
 
 ```
 your-project/
@@ -196,18 +196,18 @@ your-project/
 │   │   ├── EPIC-002-data-management.md
 │   │   └── EPIC-003-admin-dashboard.md
 │   │
-│   └── issues/                    # Created by /spec and /plan
-│       ├── TASK-001-user-registration/
-│       │   ├── TASK.md            # Task definition with plan
+│   └── issues/                    # Created by /issue and /plan
+│       ├── 001-user-registration/
+│       │   ├── TASK.md            # Type from file (task)
 │       │   ├── WORKLOG.md         # Work history (auto-created by /implement)
 │       │   └── RESEARCH.md        # Technical deep dives (optional)
 │       │
-│       ├── TASK-002-login-flow/
-│       │   ├── TASK.md
+│       ├── 002-login-flow/
+│       │   ├── TASK.md            # Type from file (task)
 │       │   └── WORKLOG.md
 │       │
-│       └── BUG-001-session-timeout/
-│           ├── BUG.md             # Bug report with fix plan
+│       └── 003-session-timeout/
+│           ├── BUG.md             # Type from file (bug)
 │           ├── WORKLOG.md         # Fix history
 │           └── RESEARCH.md        # Root cause analysis
 │
@@ -219,7 +219,7 @@ your-project/
 
 ## Available Commands
 
-The AI Toolkit provides **25 commands** for structured development:
+The AI Toolkit provides **26 commands** for structured development:
 
 ### Setup & Strategy
 - `/toolkit-init` - Initialize project structure (you've already run this!)

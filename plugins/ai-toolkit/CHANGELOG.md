@@ -84,9 +84,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Fixed agent-template.md (`development-loop` → `task-workflow`)
   - 16 agents updated with correct workflow and convention paths
 
-- **Template count** - 51 → 52 files (added bug-workflow.md)
+- **Template count** - 51 → 50 files (added bug-workflow.md + task-workflow.md, removed development-loop.md + troubleshooting.md + worklog-examples.md)
 - **Guideline count** - 35 → 33 files (added bug-workflow.md, removed worklog-examples.md, removed troubleshooting.md)
-- **Workflow count** - 11 → 9 files (added bug-workflow.md, removed worklog-examples.md, removed troubleshooting.md)
+- **Workflow count** - 11 → 9 files (added bug-workflow.md + task-workflow.md, removed development-loop.md + worklog-examples.md + troubleshooting.md)
 
 ### Removed
 

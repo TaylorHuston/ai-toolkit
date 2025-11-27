@@ -15,11 +15,11 @@ AI agents are specialized experts that automatically activate based on your work
 
 ### How Agents Work
 
-**Automatic Activation**: When you use commands like `/implement` or `/adr`, the appropriate agents activate based on the task. For example, `/implement TASK-001 1.1` might activate the frontend-specialist and test-engineer agents.
+**Automatic Activation**: When you use commands like `/implement` or `/adr`, the appropriate agents activate based on the task. For example, `/implement 001 1.1` might activate the frontend-specialist and test-engineer agents.
 
 **Direct Invocation**: You can also invoke specific agents directly when you need specialized guidance: "Use the security-auditor agent to review this authentication flow."
 
-**Agent Coordination**: Commands orchestrate agents, and agents communicate through WORKLOG.md entries. The `/implement` command selects specialists based on phase domain, invokes them with context, and manages the quality feedback loop. Each agent reads WORKLOG.md before starting work to understand what's been accomplished, then writes a WORKLOG.md entry after completing their phase. For example, during `/implement TASK-001 1.2`, the backend-specialist reads WORKLOG.md to see what the database-specialist accomplished in phase 1.1, implements the current phase, then documents their work for the next phase/agent.
+**Agent Coordination**: Commands orchestrate agents, and agents communicate through WORKLOG.md entries. The `/implement` command selects specialists based on phase domain, invokes them with context, and manages the quality feedback loop. Each agent reads WORKLOG.md before starting work to understand what's been accomplished, then writes a WORKLOG.md entry after completing their phase. For example, during `/implement 001 1.2`, the backend-specialist reads WORKLOG.md to see what the database-specialist accomplished in phase 1.1, implements the current phase, then documents their work for the next phase/agent.
 
 **Coordination metadata** in agent files (`hands_off_to`, `receives_from`, `parallel_with`) is **documentation only** - it helps humans understand typical agent relationships but is not read programmatically. Commands make orchestration decisions based on task requirements.
 

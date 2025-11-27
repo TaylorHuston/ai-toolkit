@@ -142,7 +142,7 @@ Auth middleware: src/server/middleware/auth.ts
 
 Commands read guidelines before executing:
 
-**`/implement TASK-001 1.1`**
+**`/implement 001 1.1`**
 1. Reads `conventions/testing-standards.md` → knows to use Vitest
 2. Reads `conventions/coding-standards.md` → knows file naming conventions
 3. Reads `conventions/api-guidelines.md` → knows API patterns (if building API)

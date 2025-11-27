@@ -205,6 +205,8 @@ See `worklog-format.md` for all entry formats and examples.
 - ✅ Reproduction test passes (with fix)
 - ✅ No regressions
 - ✅ Root cause documented in WORKLOG
+- ✅ All tests still pass
+- ✅ All linters still pass
 - ✅ CHANGELOG updated
 
 **Post-completion:** BUG.md status → `done`, ready for `/branch merge develop`

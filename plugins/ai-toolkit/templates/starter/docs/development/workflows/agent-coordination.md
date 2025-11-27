@@ -174,7 +174,7 @@ Documentation required?
 **Example: `/implement` orchestrating a backend phase**
 
 ```
-User: /implement TASK-001 1.2
+User: /implement 001 1.2
 
 /implement command:
 1. Reads PLAN.md → Phase 1.2: "Implement login endpoint"

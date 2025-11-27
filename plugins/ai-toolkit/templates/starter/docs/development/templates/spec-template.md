@@ -48,7 +48,7 @@ sections:
     prompt: "What tasks make up this feature?"
     required: true
     format: checklist
-    hint: "Bulleted checkbox list with global IDs in creation order: [ ] TASK-001, [ ] BUG-003, etc. SCOPING CRITICAL: Each task should be a deployable change (merged to main as complete unit). Break feature into 2-8 independently deployable tasks, not implementation steps. Example: 'User login with JWT' (deployable), NOT 'Create user model' (too small, not deployable alone)."
+    hint: "Bulleted checkbox list with numeric IDs in creation order: [ ] 001, [ ] 002, etc. SCOPING CRITICAL: Each task should be a deployable change (merged to main as complete unit). Break feature into 2-8 independently deployable tasks, not implementation steps. Example: 'User login with JWT' (deployable), NOT 'Create user model' (too small, not deployable alone)."
 ---
 
 # SPEC-{id}: {name}

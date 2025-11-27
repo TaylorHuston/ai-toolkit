@@ -10,7 +10,7 @@ This is very much an alpha/experiment at the moment. Look at the commit history 
 This marketplace contains:
 
 - **AI Toolkit Plugin** - Complete workflow system with 26 commands, 21 specialized agents, and intelligent automation
-- **Starter Template** - 51 essential files for clean project initialization via `/toolkit-init`
+- **Starter Template** - 50 essential files for clean project initialization via `/toolkit-init`
 - **Development Guidelines** - 34 customizable files organized in 4 directories (conventions, workflows, templates, misc)
 
 ## Quick Start
@@ -34,7 +34,7 @@ cd your-project
 
 The `/toolkit-init` command scaffolds your project with:
 - Customized CLAUDE.md (your tech stack and links)
-- Structured template (51 files: docs/, pm/, development guidelines, templates)
+- Structured template (50 files: docs/, pm/, development guidelines, templates)
 - GETTING-STARTED.md guide
 - Documentation framework (AI creates content as you work)
 - Interactive setup with smart conflict resolution
@@ -109,10 +109,9 @@ The AI Toolkit plugin provides a complete development workflow system with **26 
 - `/adr` - Make technical architecture decisions with Quick Mode (5-10 min) or Deep Mode (20+ min)
 
 **Phase 2: Planning**
-- `/spike` - Time-boxed technical exploration to answer "Can we?" or "Which approach?" questions
-  - Creates SPIKE.md with questions to answer
-  - Generates multiple exploration plans (PLAN-1.md, PLAN-2.md) for comparing approaches
-  - Produces SPIKE-SUMMARY.md with findings and recommendation
+- `/issue` - Create tasks, bugs, or spikes with AI-assisted type detection
+  - Detects type from description: "fix broken login" → BUG, "should we use GraphQL?" → SPIKE
+  - Creates `pm/issues/###-name/` with appropriate file (TASK.md, BUG.md, or SPIKE.md)
 - `/plan` - Break down tasks into test-first implementation phases with deep analysis and research
   - Uses deep thinking, Context7 library docs, and web research for best practices
   - Takes 3-5 minutes for thorough planning with mandatory context review
@@ -122,6 +121,10 @@ The AI Toolkit plugin provides a complete development workflow system with **26 
   - Supports `--next` flag to auto-detect and execute the next uncompleted phase
 - `/advise` - Get implementation guidance without automated code generation (collaborative mode)
   - User implements manually following structured advice from AI agents
+- `/complete` - Unified issue completion with workflow-specific validation
+  - TASK: phases complete, tests passing, review ≥90, acceptance criteria met
+  - BUG: reproduction test exists, fix works, no regressions
+  - SPIKE: pulls WORKLOGs, generates SPIKE-SUMMARY.md
 
 ### 🔍 Quality & Validation
 
@@ -187,17 +190,17 @@ _Note: This approach works best for individuals and small teams. For larger team
 → Creates pm/specs/SPEC-001-user-auth.md
 
 # 2. Create tasks (during /spec or separately)
-→ Creates pm/issues/TASK-001-login-form/
-→ Creates pm/issues/TASK-002-password-reset/
+→ Creates pm/issues/001-login-form/
+→ Creates pm/issues/002-password-reset/
 
 # 3. Plan implementation
-/plan TASK-001
-→ Creates TASK-001/PLAN.md with phases
+/plan 001
+→ Creates 001/PLAN.md with phases
 
 # 4. Execute work
-/implement TASK-001 1.1
-→ Creates branch: feature/TASK-001
-→ Updates TASK-001/WORKLOG.md
+/implement 001 1.1
+→ Creates branch: feature/001
+→ Updates 001/WORKLOG.md
 
 # 5. Track progress
 /project-status
@@ -212,14 +215,14 @@ pm/
 │   └── SPEC-001-user-auth.md       # Feature spec with tasks list
 │
 └── issues/
-    ├── TASK-001-login-form/
-    │   ├── TASK.md                  # Requirements & acceptance criteria
+    ├── 001-login-form/
+    │   ├── TASK.md                  # Requirements & acceptance criteria (type from file)
     │   ├── PLAN.md                  # AI implementation phases
     │   ├── WORKLOG.md               # Implementation history
     │   └── RESEARCH.md              # Technical decisions (optional)
     │
-    └── BUG-001-session-timeout/
-        ├── BUG.md
+    └── 002-session-timeout/
+        ├── BUG.md                   # Bug report (type from file)
         ├── PLAN.md
         └── WORKLOG.md
 ```
@@ -250,7 +253,7 @@ See `docs/development/templates/README.md` for customization guide.
 
 Bidirectional sync with Atlassian Jira:
 - Import Jira issues: `/jira-import PROJ-123`
-- Create Jira issues from local work: `/jira-promote TASK-001`
+- Create Jira issues from local work: `/jira-promote 001`
 - Add AI-suggested comments: `/jira-comment PROJ-123`
 - Create Jira epics from local specs: `/jira-epic --spec SPEC-001`
 
@@ -309,10 +312,10 @@ ai-toolkit/
     └── ai-toolkit/                # AI Toolkit plugin
         ├── .claude-plugin/
         │   └── plugin.json
-        ├── commands/              # 25 slash commands (see /help for list)
+        ├── commands/              # 26 slash commands (see /help for list)
         ├── agents/                # 21 specialized agents
         ├── templates/             # Bundled project templates
-        │   └── starter/           # 51 template files
+        │   └── starter/           # 50 template files
         ├── docs/                  # Plugin documentation (minimal)
         └── README.md
 ```
