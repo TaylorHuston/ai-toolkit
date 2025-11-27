@@ -79,7 +79,7 @@ Choose ONE based on agent role:
 
 [1-2 sentence description of agent's primary responsibility and expertise]
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for [specific aspect relevant to this agent].
+**Development Workflow**: Read `docs/development/guidelines/task-workflow.md` for [specific aspect relevant to this agent].
 
 **Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for governance patterns and escalation paths.
 
@@ -88,7 +88,7 @@ Choose ONE based on agent role:
 
 **Guideline Reference Rules**:
 
-1. **development-loop.md** - Include for ALL implementation and review agents
+1. **task-workflow.md** - Include for ALL implementation and review agents
    - Skip for: brief-strategist, project-manager, ai-llm-expert (meta/orchestration agents)
 
 2. **agent-coordination.md** - Include for agents that coordinate with multiple others
@@ -320,7 +320,7 @@ Use `mcp__context7__get-library-docs` for:
 ### ✅ Do Include
 
 1. **Action-oriented descriptions** with clear triggers
-2. **Guideline references** (development-loop, agent-coordination, domain-specific)
+2. **Guideline references** (task-workflow, agent-coordination, domain-specific)
 3. **MCP tool integration** patterns (Serena, Context7, Gemini)
 4. **Coordination protocols** explaining when/how to hand off
 5. **Context7 references** for framework-specific knowledge

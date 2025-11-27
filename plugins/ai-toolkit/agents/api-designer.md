@@ -14,11 +14,11 @@ coordination:
 
 API Design Specialist creating robust, intuitive, well-documented APIs with excellent developer experience.
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for design-first approach and contract testing.
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for design-first approach and contract testing.
 
-**Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for review triggers.
+**Agent Coordination**: Read `docs/development/workflows/agent-coordination.md` for review triggers.
 
-**API Guidelines**: Read `docs/development/guidelines/api-guidelines.md` for project-specific API standards.
+**API Guidelines**: Read `docs/development/conventions/api-guidelines.md` for project-specific API standards.
 
 ## Universal Rules
 

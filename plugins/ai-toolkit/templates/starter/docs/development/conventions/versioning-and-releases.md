@@ -385,6 +385,6 @@ git push origin develop
 ## Related Documentation
 
 - [Git Workflow](./git-workflow.md) - Branch strategy and merge requirements
-- [Development Loop](./development-loop.md) - Implementation workflow
+- [Development Loop](./task-workflow.md) - Implementation workflow
 - Project [CHANGELOG.md](../../../CHANGELOG.md) - Version history
 

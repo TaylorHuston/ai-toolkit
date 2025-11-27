@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-Comprehensive AI-assisted development workflow system for Claude Code with 25 commands, 21 specialized agents, and intelligent state management.
+Comprehensive AI-assisted development workflow system for Claude Code with 26 commands, 21 specialized agents, and intelligent state management.
 
 ## Quick Start
 
@@ -23,10 +23,10 @@ cd my-project
 
 ## What You Get
 
-- **25 Workflow Commands** - Complete `/project-brief` → `/spec` → `/spike` → `/plan` → `/implement` cycle + utilities
+- **26 Workflow Commands** - Complete `/project-brief` → `/spec` → `/issue` → `/plan` → `/implement` → `/complete` cycle + utilities
 - **21 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
 - **3 Bundled MCP Servers** - Auto-configured tools (context7, sequential-thinking, playwright)
-- **Starter Template** - 51 files for organized project initialization
+- **Starter Template** - 52 files for organized project initialization
 - **File-Based State** - Session continuity via SPEC.md, TASK.md, WORKLOG.md
 - **Technology Agnostic** - Works with any tech stack
 
@@ -55,7 +55,7 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 **Used For**:
 - **All specialist agents**: frontend, backend, database, devops, api, performance, ui-ux, data, migration, refactoring
 - **Code-focused agents**: code-architect, test-engineer, code-reviewer, technical-writer, context-analyzer
-- **Execution commands**: /implement, /spike, /plan, /quality, /branch, /commit, /docs, /project-status, /toolkit-init, /worklog, /changelog, /release, /troubleshoot, /sanity-check, /refresh, /jira-comment, /jira-promote, /jira-import, /ui-design, /sync-progress
+- **Execution commands**: /implement, /complete, /issue, /plan, /quality, /branch, /commit, /docs, /project-status, /toolkit-init, /worklog, /changelog, /release, /troubleshoot, /sanity-check, /refresh, /jira-comment, /jira-promote, /jira-import, /ui-design, /sync-progress
 
 **Why**: Sonnet 4.5 excels at coding, code generation, documentation, and autonomous operation. Its superior performance at lower cost makes it ideal for hands-on development work.
 
@@ -139,11 +139,11 @@ my-project/
 /implement TASK-001 1.1            # Execute specific phase with agents
 ```
 
-## All Commands (25 Total)
+## All Commands (26 Total)
 
 **Setup & Strategy**: `/toolkit-init`, `/project-brief`
 **Spec & Epic Management**: `/spec`, `/jira-epic`, `/jira-import`
-**Workflow**: `/adr`, `/spike`, `/plan`, `/implement`, `/advise`
+**Workflow**: `/adr`, `/issue`, `/plan`, `/implement`, `/advise`, `/complete`
 **Quality**: `/quality`, `/troubleshoot`, `/sanity-check`
 **Development**: `/branch`, `/commit`, `/worklog`, `/sync-progress`
 **Documentation & Status**: `/docs`, `/project-status`, `/changelog`, `/release`

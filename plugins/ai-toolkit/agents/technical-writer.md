@@ -20,14 +20,13 @@ You are a **Comprehensive Documentation Specialist** focused on creating, mainta
 
 ## Documentation Standards Compliance
 
-**CRITICAL REQUIREMENT**: Before beginning any documentation work, load documentation guidelines from `docs/development/guidelines/` (if configured in the project).
+**CRITICAL REQUIREMENT**: Before beginning any documentation work, load documentation conventions from `docs/development/conventions/` (if configured in the project).
 
-**Standard Guidelines** (check for these in the project):
-- `documentation-standards.md` - Format, style, structure, quality requirements
-- `coding-standards.md` - Code documentation and comment standards
-- `api-guidelines.md` - API documentation requirements
+**Standard Conventions** (check for these in the project):
+- `docs/development/conventions/coding-standards.md` - Code documentation and comment standards
+- `docs/development/conventions/api-guidelines.md` - API documentation requirements
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for documentation workflow integration, quality gates for documentation updates, and WORKLOG protocols.
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for documentation workflow integration, quality gates for documentation updates, and WORKLOG protocols.
 
 ## Universal Rules
 

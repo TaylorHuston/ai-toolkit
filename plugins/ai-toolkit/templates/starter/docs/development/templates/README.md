@@ -421,4 +421,4 @@ sections:
 
 **For workflow and process guidance**:
 - `docs/development/guidelines/pm-guide.md` - Agile plan updates, living documents, review cycles
-- `docs/development/guidelines/development-loop.md` - Review-and-adapt process, quality gates
+- `docs/development/guidelines/task-workflow.md` - Review-and-adapt process, quality gates

@@ -23,19 +23,25 @@ For workflow details (spec creation, task creation, plan execution), see **pm-wo
 - Structure defined in templates/spec-template.md template
 - Format: YAML frontmatter + Description + Acceptance Scenarios + Definition of Done + Tasks
 
-**Tasks** (`pm/issues/TASK-###-name/TASK.md`):
+**Tasks** (`pm/issues/###-name/TASK.md`):
 - Implementation work for features or enhancements
-- Created by `/spec` command or standalone
+- Created by `/issue` or `/spec` command
 - Structure defined in templates/task-template.md template
 - Format: YAML frontmatter + Description + Acceptance Criteria + Technical Notes
 
-**Bugs** (`pm/issues/BUG-###-name/BUG.md`):
+**Bugs** (`pm/issues/###-name/BUG.md`):
 - Defect tracking and fixes
-- Created by `/spec` command or standalone
+- Created by `/issue` or `/spec` command
 - Structure defined in templates/bug-template.md template
 - Format: YAML frontmatter + Description + Reproduction Steps + Environment
 
-**Plans** (`pm/issues/TASK-###-name/PLAN.md`):
+**Spikes** (`pm/issues/###-name/SPIKE.md`):
+- Time-boxed exploration and research
+- Created by `/issue` command
+- Structure defined in templates/spike-template.md template
+- Format: YAML frontmatter + Questions + Time Box + Approaches
+
+**Plans** (`pm/issues/###-name/PLAN.md`):
 - AI-managed implementation breakdown for tasks/bugs
 - Created by `/plan` command
 - Structure defined in templates/plan-template.md template
@@ -53,20 +59,30 @@ pm/
 ├── specs/
 │   └── SPEC-###-kebab-name.md          # Feature specs
 ├── issues/
-│   ├── TASK-###-kebab-name/
-│   │   ├── TASK.md                     # What to build
+│   ├── ###-kebab-name/                 # Numeric ID (type from file)
+│   │   ├── TASK.md                     # ← Type = task
 │   │   ├── PLAN.md                     # How to build (AI-managed)
 │   │   └── WORKLOG.md                  # What happened (AI-managed)
-│   └── BUG-###-kebab-name/
-│       ├── BUG.md                      # Bug description
-│       ├── PLAN.md                     # Fix approach
-│       └── WORKLOG.md                  # Fix history
+│   ├── ###-kebab-name/
+│   │   ├── BUG.md                      # ← Type = bug
+│   │   ├── PLAN.md                     # Fix approach
+│   │   └── WORKLOG.md                  # Fix history
+│   ├── ###-kebab-name/
+│   │   ├── SPIKE.md                    # ← Type = spike
+│   │   ├── PLAN-1.md                   # Exploration plan 1
+│   │   ├── PLAN-2.md                   # Exploration plan 2
+│   │   └── WORKLOG-1.md                # Per-plan worklogs
+│   └── PROJ-###-kebab-name/            # External Jira issues
+│       └── TASK.md                     # Jira issue local copy
 └── templates/
     ├── spec.md                         # Spec template
     ├── task.md                         # Task template
     ├── bug.md                          # Bug template
+    ├── spike.md                        # Spike template
     └── plan.md                         # Plan template
 ```
+
+**Type Detection:** Commands detect issue type by which file exists (TASK.md, BUG.md, or SPIKE.md), not from the ID.
 
 ---
 
@@ -76,18 +92,19 @@ pm/
 - Good: `user-authentication-system`, `fix-login-timeout`
 - Bad: `UserAuthenticationSystem`, `fix_login_timeout`
 
-**Numbering:** Sequential global per type
-- SPEC-001, SPEC-002, SPEC-003 (feature specs)
-- TASK-001, TASK-002, TASK-003 (tasks, across all specs)
-- BUG-001, BUG-002, BUG-003 (bugs, across all specs)
+**Numbering:**
+- **Specs:** Sequential counter: SPEC-001, SPEC-002, SPEC-003
+- **Issues:** Single numeric counter for ALL issue types: 001, 002, 003
+  - Type determined by which file exists (TASK.md, BUG.md, SPIKE.md)
+  - External issues (Jira): PROJ-123, PROJ-124 work seamlessly
 
 Numbers are never reused, even if items are deleted. Gaps in sequence are normal.
 
-**Number Assignment Algorithm (per issue type):**
-1. Scan `pm/specs/` or `pm/issues/` directory
-2. Parse all `[TYPE]-###-*` filenames/directories
-3. Find highest number (e.g., TASK-004 or SPEC-003)
-4. Increment by 1 (next: TASK-005 or SPEC-004)
+**Number Assignment Algorithm:**
+1. For specs: Scan `pm/specs/` for `SPEC-###-*` files
+2. For issues: Scan `pm/issues/` for `###-*` directories
+3. Find highest number
+4. Increment by 1
 5. Assign to new item
 
 **Important:** Numbers continue sequence, they don't fill gaps.
@@ -98,12 +115,12 @@ Existing: SPEC-001, SPEC-002, SPEC-004 (SPEC-003 was deleted)
 Next: SPEC-005 (continues sequence, doesn't fill gap)
 
 Existing issues:
-- TASK-001 (spec: SPEC-001)
-- TASK-002 (spec: SPEC-001)
-- TASK-003 (spec: SPEC-002)
+- 001-user-auth/TASK.md      (task linked to SPEC-001)
+- 002-login-crash/BUG.md     (bug linked to SPEC-001)
+- 003-graphql-vs-rest/SPIKE.md (standalone spike)
 
-Creating task for SPEC-003:
-Next: TASK-004 (continues global sequence, not per-spec)
+Creating new issue:
+Next: 004 (continues global sequence)
 ```
 
 ---
@@ -151,7 +168,7 @@ jira_epic_key: null  # Optional: Jira epic key if synced
 
 ```markdown
 ---
-issue_number: TASK-001
+issue_number: 001
 type: task
 spec: SPEC-001       # Links task to spec (optional)
 status: todo
@@ -159,7 +176,7 @@ created: 2025-01-15
 jira_issue_key: null # Optional: Jira issue key if synced
 ---
 
-# TASK-001: User Registration
+# 001: User Registration
 
 ## Description
 [Detailed task description]
@@ -177,7 +194,7 @@ jira_issue_key: null # Optional: Jira issue key if synced
 
 ```markdown
 ---
-issue_number: BUG-001
+issue_number: 002
 type: bug
 spec: null          # Optional: parent spec if grouped
 status: todo
@@ -186,7 +203,7 @@ created: 2025-01-15
 jira_issue_key: null
 ---
 
-# BUG-001: Session Timeout Not Working
+# 002: Session Timeout Not Working
 
 ## Description
 [Bug description]
@@ -208,7 +225,7 @@ jira_issue_key: null
 
 ```markdown
 ---
-issue_id: TASK-001
+issue_id: 001
 plan_type: task
 created: 2025-01-15
 last_updated: 2025-01-15
@@ -216,7 +233,7 @@ complexity: 13
 status: in_progress
 ---
 
-# Implementation Plan: TASK-001
+# Implementation Plan: 001 User Registration
 
 ## Overview
 [Brief summary of implementation approach]
@@ -292,7 +309,7 @@ status: in_progress
 
 **Workflow Guides:**
 - `pm-workflows.md` - Spec creation, task creation, plan execution
-- `development-loop.md` - Implementation workflow and quality gates
+- `task-workflow.md` - Implementation workflow and quality gates
 - `worklog-format.md` - WORKLOG entry formats
 - `git-workflow.md` - Branch naming aligned with issue IDs
 

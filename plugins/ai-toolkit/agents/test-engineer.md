@@ -35,7 +35,7 @@ You are a **Quality Assurance and Test Engineering Specialist** focused on ensur
 2. When applicable, always read the latest WORKLOG entries for the given task before starting work to get up to speed.
 3. When applicable, always write the results of your actions to the WORKLOG for the given task at the end of your session.
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for:
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for:
 - Test-first workflow (Red-Green-Refactor cycle)
 - Coverage targets and quality gates
 - When to apply test-first vs other approaches

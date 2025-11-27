@@ -1,520 +1,272 @@
 ---
-last_updated: "2025-11-18"
-description: "WORKLOG entry format definitions for standard workflow, troubleshooting, and investigation contexts"
+last_updated: "2025-11-26"
+description: "WORKLOG entry formats for implementation, troubleshooting, and investigation"
 
 # === Worklog Configuration ===
 worklog_ordering: "reverse_chronological"    # Newest entries at TOP
 entry_philosophy: "context_rich_handoffs"    # Provide all context next agent needs
-entry_length: "information_complete"         # 10-20 lines average, focus on findings/gotchas
+entry_length: "information_complete"         # 10-20 lines average
 ---
 
-# WORKLOG Format Guidelines
+# WORKLOG Format
 
-**Purpose**: Provide complete context for the next agent to continue work effectively
+**Purpose**: Provide complete context for the next agent to continue work effectively.
 
-**Philosophy**: Context-rich handoffs. Each entry should contain ALL information the next agent needs - nothing more, nothing less. Focus heavily on key findings, gotchas, and lessons learned.
+**Philosophy**: Context-rich handoffs. Each entry contains ALL information the next agent needs.
 
-**Entry Length**: Average 10-20 lines per entry. Brief entries miss critical context; overly long entries become noise. The test: "Can the next agent continue without re-reading code or re-discovering issues?"
+**Entry Length**: 10-20 lines average. Test: "Can the next agent continue without re-reading code?"
 
-**Entry Ordering**: **CRITICAL** - Always maintain **reverse chronological order** (newest entries at the TOP).
+**Entry Ordering**: **CRITICAL** - Newest entries at TOP (reverse chronological).
+
+---
 
 ## Quick Reference
 
 **Three Format Types**:
-1. **Standard Format** - For implementation work, agent handoffs, phase completion
-2. **Troubleshooting Format** - For debug loops with hypothesis tracking
-3. **Investigation Format** - For research findings, external knowledge gathering
+1. **Standard** - Implementation work, handoffs, phase completion, reviews
+2. **Troubleshooting** - Debug loops with hypothesis tracking
+3. **Investigation** - Research findings, external knowledge
 
 **When to write**:
-- ✅ Completing work and handing off to another agent
-- ✅ Receiving work back with changes needed
+- ✅ Completing work and handing off
 - ✅ Completing a phase or subtask
-- ✅ **MANDATORY: After every code review** (code-reviewer writes separate entry)
-- ✅ **MANDATORY: After every security review** (security-auditor writes separate entry)
+- ✅ **MANDATORY**: After every code/security review (reviewer writes own entry)
 - ✅ Each troubleshooting loop iteration
-- ✅ Completing external research (context-analyzer)
-- ❌ Don't write "STARTED" entries (waste - just do the work)
-
-**CRITICAL - Review Agent Entries**:
-- `code-reviewer` MUST write its own WORKLOG entry after reviewing each phase
-- `security-auditor` MUST write its own WORKLOG entry after security reviews
-- Implementation agents should NOT write review results in their entries - reviewers document their own findings
-- Review entries provide detailed feedback, scores, and context for future work
-
-**Key principle**: Newest entries at TOP, information-complete (10-20 lines), emphasize findings and gotchas
+- ✅ Completing external research
+- ❌ Don't write "STARTED" entries
 
 ---
 
-## Format Selection Decision Tree
+## Phase Commits Section
 
-**What are you documenting?**
+**Location**: Top of WORKLOG.md (above all entries)
 
-```
-├─ Completed work being passed to another agent
-│  └─ Use: Standard HANDOFF entry
-│
-├─ Completed phase/task (no more handoffs)
-│  └─ Use: Standard COMPLETE entry
-│
-├─ Code review results
-│  ├─ Approved (score >= 90)? → Use: Standard REVIEW APPROVED entry
-│  └─ Issues found (score < 90)? → Use: Standard REVIEW REQUIRES CHANGES entry
-│
-├─ Security review results
-│  ├─ No vulnerabilities? → Use: Standard REVIEW APPROVED entry
-│  └─ Vulnerabilities found? → Use: Standard REVIEW REQUIRES CHANGES entry
-│
-├─ Review cycle resulted in plan changes
-│  └─ Use: Standard PLAN CHANGES entry
-│
-├─ Debugging/troubleshooting work
-│  ├─ Hypothesis succeeded? → Use: Troubleshooting Loop N - Success entry
-│  └─ Hypothesis failed? → Use: Troubleshooting Loop N - Failed entry
-│
-└─ External research findings
-   ├─ Found solutions? → Use: Investigation Complete entry
-   └─ No clear solution? → Use: Investigation Incomplete entry
-```
-
-**See worklog-examples.md for concrete examples of each entry type.**
-
----
-
-## Phase Commits Summary Section
-
-**Purpose**: Provide quick rollback map for each completed phase
-
-**Location**: At the **top** of WORKLOG.md (above all entries)
-
-**Format**:
 ```markdown
 ## Phase Commits
 
 - Phase 1.1: `abc123d` - Database schema setup
-- Phase 1.2: `def456e` - JWT authentication implementation
+- Phase 1.2: `def456e` - JWT authentication
 - Phase 2.1: `ghi789j` - Frontend login form
-- Phase 2.2: `klm012n` - Integration tests
-
----
 ```
 
-**Workflow (MANDATORY after every phase commit)**:
-1. Complete phase → Write WORKLOG entry → Commit phase changes
+**Workflow** (mandatory after every phase commit):
+1. Complete phase → Write entry → Commit
 2. Get commit ID: `git rev-parse --short HEAD`
-3. Update "Phase Commits" section in WORKLOG.md: `- Phase X.Y: \`commit-id\` - Brief description`
-4. Commit the reference: `git add WORKLOG.md && git commit --amend --no-edit` (amend) or make separate docs commit
-
-**Why mandatory**: Provides instant rollback map for each phase - critical for debugging and reverting specific changes
-
-**Benefit**: Know exactly which commit to revert if a phase needs rollback
+3. Update Phase Commits section
+4. Amend or separate commit for WORKLOG update
 
 ---
 
-## Standard WORKLOG Format
+## Standard Format
 
-**Use for**: Implementation work (`/implement`), agent handoffs, phase completion, general development, code reviews, security reviews
+**Use for**: Implementation (`/implement`), handoffs, phase completion, reviews
 
-### Entry Types
+**Timestamp**: Always run `date '+%Y-%m-%d %H:%M'` - never estimate.
 
-#### HANDOFF Entry (passing work to another agent)
+### Handoff Entry
 
 ```markdown
 ## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] → [NEXT: next-agent]
 
-**Completed**: [What was accomplished in this phase - 2-3 lines]
+**Completed**: [What was accomplished - 2-3 lines]
 
-**Implementation approach**:
-- [Key decision 1 and rationale]
-- [Key decision 2 and rationale]
-- [Pattern/library used and why]
+**Key decisions**:
+- [Decision 1 and rationale]
+- [Decision 2 and rationale]
 
-**Key findings**:
-- [Discovery 1 that affects future work]
-- [Discovery 2 that changes understanding]
-- [Unexpected behavior observed]
+**Gotchas**:
+- [Issue]: [How it manifested] → [Solution]
 
-**Gotchas encountered**:
-- [Issue 1]: [How it manifested] → [Solution/workaround]
-- [Issue 2]: [Root cause discovered] → [Fix applied]
+**Files**: [key/files/changed.js]
 
-**Testing status**:
-- [Test results summary]
-- [Edge cases validated]
-- [Known limitations]
-
-**Files modified**: [key/files/changed.js, other/important.ts]
-
-**Next agent context**: [Specific information next-agent needs to continue]
-
-→ Passing to {next-agent} for {specific-reason}
+→ Passing to {next-agent} for {reason}
 ```
 
-#### COMPLETE Entry (phase fully done, no more handoffs)
+**Example**:
+```markdown
+## 2025-01-15 14:30 - [AUTHOR: backend-specialist] → [NEXT: code-reviewer]
+
+**Completed**: JWT auth endpoint with bcrypt (12 rounds) and Redis token storage.
+
+**Key decisions**:
+- Used Redis for token storage (horizontal scaling)
+- 15min access / 7d refresh token expiry
+
+**Gotchas**:
+- Redis connection pooling required - single connection bottleneck
+
+**Files**: src/auth/login.ts, src/middleware/jwt.ts, tests/auth.test.ts
+
+→ Passing to code-reviewer for security validation
+```
+
+### Complete Entry
 
 ```markdown
 ## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] (Phase X.Y COMPLETE)
 
-**Phase objective**: [What this phase was meant to accomplish]
+**Phase objective**: [What this phase accomplished]
 
-**Implementation summary**:
-- [Approach taken and why]
-- [Key architectural decisions]
-- [Libraries/patterns used]
-
-**Key findings**:
-- [Discovery 1 that affects future phases]
-- [Discovery 2 about system behavior]
-- [Performance/security insights]
-
-**Gotchas for future phases**:
-- [Issue 1]: [Context] → [How we solved it / How to avoid]
-- [Issue 2]: [Root cause] → [Lesson learned]
-
-**Test coverage**:
-- Unit: [X/Y tests, coverage %]
-- Integration: [test scenarios covered]
-- Edge cases validated: [list]
+**Implementation**: [Approach and key decisions]
 
 **Quality gates**:
-- ✅ Tests passing (all X tests green)
+- ✅ Tests passing (X/X)
 - ✅ Code review score: [score/100]
-- ✅ Coverage target met: [%]
-- ✅ PLAN.md checkboxes updated
+- ✅ PLAN.md updated
 
-**Files modified**: [key/files/changed.js, tests/added.test.ts]
-
-**Notes for future work**: [Anything next phases should know]
+**Files**: [key/files/changed.js]
 ```
 
-#### REVIEW APPROVED Entry (code/security review passed)
+### Review Entry
 
 ```markdown
-## YYYY-MM-DD HH:MM - [AUTHOR: code-reviewer|security-auditor] (Review Approved)
+## YYYY-MM-DD HH:MM - [AUTHOR: code-reviewer] (Review Approved|Requires Changes)
 
-**Reviewed**: [Phase X.Y / Feature name / Specific implementation]
-**Scope**: [Quality/Security/Performance/Architecture - what was examined]
-**Score**: [92/100] ✅ Approved
-**Verdict**: Clean approval [or: Approved with minor notes]
+**Reviewed**: [Phase/feature]
+**Score**: [92/100] ✅ Approved | ⚠️ Requires Changes
 
-**Strengths observed**:
-- [Positive pattern 1 - why it's good]
-- [Positive pattern 2 - impact on codebase]
-- [Well-handled edge case or design decision]
+**Strengths**: [What works well]
 
-**Code quality highlights**:
-- [Test coverage aspect - specific number]
-- [Error handling approach - why effective]
-- [Performance consideration - measurement]
+**Issues** (if any):
+- [Critical]: [Problem] @ file.ts:123 → [Fix needed]
+- [Major]: [Problem] → [Recommendation]
 
-**Minor observations** (non-blocking):
-- [Suggestion 1 for future consideration]
-- [Pattern that could be improved later]
-- [Documentation enhancement opportunity]
+**Files**: [reviewed files]
 
-**Files reviewed**: [src/file1.ts, src/file2.ts, tests/file.test.ts]
-
-**Recommendation**: Approved for merge. [Additional context if relevant]
-```
-
-#### REVIEW REQUIRES CHANGES Entry (issues found, passing back)
-
-```markdown
-## YYYY-MM-DD HH:MM - [AUTHOR: code-reviewer|security-auditor] → [NEXT: implementation-agent]
-
-**Reviewed**: [Phase X.Y / Feature name / Specific implementation]
-**Scope**: [Quality/Security/Performance/Architecture]
-**Score**: [78/100] ⚠️ Requires Changes
-**Verdict**: Issues must be addressed before merge
-
-**Critical issues** (blocking):
-1. [Issue description and impact] @ file.ts:123
-   - **Problem**: [What's wrong and why it's critical]
-   - **Fix needed**: [Specific action required]
-   - **Context**: [Why this matters / What breaks without fix]
-
-2. [Security/correctness issue] @ file.ts:456
-   - **Problem**: [Vulnerability or bug description]
-   - **Fix needed**: [Remediation approach]
-   - **Reference**: [OWASP category / pattern to use]
-
-**Major issues** (should fix):
-- [Issue with significant impact] @ file.ts:789
-  - **Problem**: [What's suboptimal]
-  - **Recommendation**: [Better approach]
-  - **Benefit**: [Why this improves the code]
-
-**Minor suggestions** (optional):
-- [Enhancement opportunity]
-- [Documentation clarification]
-
-**What works well**:
-- [Positive aspect to preserve]
-- [Good pattern used]
-
-**Files reviewed**: [src/file1.ts (5 issues), src/file2.ts (2 issues)]
-
-**Estimated fix time**: [15 minutes / 1 hour / etc.]
-
-→ Passing back to {agent-name} for fixes. Focus on critical issues first.
-```
-
-#### PLAN CHANGES Entry (documenting adaptations after reviews)
-
-```markdown
-## YYYY-MM-DD HH:MM - Review Cycle: Plan Updated
-
-[Review type] completed on [Phase X] implementation.
-
-**Key Findings**:
-- [Finding 1 that requires action]
-- [Finding 2 that requires action]
-- [Finding 3 if applicable]
-
-**Decisions**:
-- [What changed in TASK.md and why]
-- [What changed in PLAN.md and why]
-- [What was deferred/descoped and why]
-
-**Files Updated**: TASK.md, PLAN.md
-**Full report**: [link if needed]
-```
-
-### Required Elements
-
-- **Timestamp**: Always run `date '+%Y-%m-%d %H:%M'` - never estimate
-- **Agent identifier**: Name of the agent (or @username for humans via `/worklog`)
-- **Arrow notation**: Use `→` for handoffs to show work flow
-- **Completed/Objective**: What was accomplished or reviewed (context setter)
-- **Implementation approach**: Key decisions and rationale (helps next agent understand choices)
-- **Key findings**: Discoveries that affect future work (critical context)
-- **Gotchas encountered**: Issues hit and solutions found (prevent re-discovery)
-- **Testing/Quality status**: Results and coverage (confidence level)
-- **Files modified**: Key files changed (helps locate implementation)
-- **Next agent context**: Specific info handoff recipient needs (direct handoff)
-
-**Information density test**: Can the next agent continue effectively without:
-- Re-reading the code to understand what was done?
-- Re-discovering the same issues you encountered?
-- Asking clarifying questions about your decisions?
-
-If any answer is "no", add more context to the entry.
-
----
-
-## Troubleshooting WORKLOG Format
-
-**Use for**: Debug loops (`/troubleshoot`), hypothesis testing, issue investigation
-
-**Key difference**: Structured format tracks hypothesis → findings → result
-
-### Troubleshooting Entry Template
-
-```markdown
-## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] (Troubleshooting Loop N)
-
-Hypothesis: [Theory based on research - brief]
-Debug findings: [Key insights from debug logs]
-Implementation: [What was changed - files and approach]
-Research: [Docs/examples referenced]
-Result: ✅ Fixed / ❌ Not fixed - [evidence]
-
-Files: src/file.ts (added debug statements)
-Tests: X/X passing
-Manual verification: [User confirmed / Awaiting confirmation]
-
-→ [If not fixed: Next research direction]
-```
-
-### Troubleshooting Format Variants
-
-#### If Hypothesis FAILED
-
-```markdown
-## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] (Loop N - Failed)
-
-Hypothesis: [Theory that didn't work]
-Debug findings: [What logs revealed that disproved hypothesis]
-Implementation: [What was tried]
-Result: ❌ Not fixed - [why it failed, what was learned]
-Rollback: ✅ Changes reverted
-
-Files: (all changes reverted)
-Next: [Alternative approach based on debug findings]
-```
-
-#### If Hypothesis SUCCEEDED
-
-```markdown
-## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] (Loop N - Success)
-
-Hypothesis: [Theory that worked]
-Debug findings: [Key logs that confirmed fix]
-Implementation: [Final changes made]
-Research: [Docs that led to solution]
-Result: ✅ Fixed - [test results and user confirmation]
-
-Files: src/component.ts, tests/component.test.ts
-Tests: 245/245 passing
-Manual verification: User confirmed working
-Debug cleanup: [Kept as comments / Removed / Converted to logger]
+→ [If requires changes: Passing back to {agent} for fixes]
 ```
 
 ---
 
-## Investigation Results WORKLOG Format
+## Troubleshooting Format
 
-**Use for**: External research (`context-analyzer`), documentation lookup, resource discovery, knowledge gathering
+**Use for**: Debug loops (`/troubleshoot`), hypothesis testing
 
-**Key difference**: Focuses on research findings and resource curation, not code changes or hypothesis testing
-
-### Investigation Entry Template
+### Loop Entry
 
 ```markdown
-## YYYY-MM-DD HH:MM - [AUTHOR: context-analyzer] (Investigation Complete)
+## YYYY-MM-DD HH:MM - [AUTHOR: agent-name] (Loop N - Success|Failed)
 
-Query: [What was being researched]
-Sources: [Number] resources analyzed ([docs/blogs/SO/GitHub breakdown])
-Key findings: [2-3 sentence summary of discoveries]
+**Hypothesis**: [Theory based on research]
+**Debug findings**: [What logs revealed]
+**Implementation**: [What was changed]
+**Result**: ✅ Fixed | ❌ Not fixed - [evidence]
 
-Top solutions:
-1. [Solution name] - [Brief description and use case]
-2. [Solution name] - [Brief description and use case]
-3. [Solution name] - [Brief description and use case]
-
-Curated resources:
-- [Resource title] - [url] - [Why valuable]
-- [Resource title] - [url] - [Why valuable]
-
-💡 Suggested for CLAUDE.md:
-- [Resource] → [Category] - [Why add to project resources]
-
-→ Passing findings to {agent-name} for implementation
+**Files**: [files modified]
+**Tests**: X/X passing
+[If failed: **Rollback**: ✅ Changes reverted]
+[If failed: **Next**: Alternative approach]
 ```
 
-### Investigation Format Variants
-
-#### When No Clear Solution Found
-
+**Example (Success)**:
 ```markdown
-## YYYY-MM-DD HH:MM - [AUTHOR: context-analyzer] (Investigation Incomplete)
+## 2025-01-16 16:15 - [AUTHOR: backend-specialist] (Loop 2 - Success)
 
-Query: [What was being researched]
-Sources: [Number] resources analyzed
-Key findings: No definitive solution found. [What was learned]
+**Hypothesis**: Using wrong auth API (should use getAuthUserId helper)
+**Debug findings**: Logs confirmed getUserIdentity returns null, getAuthUserId works
+**Implementation**: Replaced ctx.auth.getUserIdentity() with getAuthUserId(ctx)
+**Result**: ✅ Fixed - Login works, profile displays correctly
 
-Partial findings:
-- [Finding 1 with uncertainty noted]
-- [Finding 2 with caveats]
-
-Resources checked:
-- Official docs - [What was missing]
-- Community sources - [What was found but not conclusive]
-
-Recommendation: [Suggest alternative approach, ask domain expert, try different search terms]
-
-→ Passing to {agent-name} with findings (no implementation recommended yet)
+**Files**: convex/users.ts
+**Tests**: 245/245 passing
+**Manual verification**: User confirmed working
 ```
 
-### Required Elements (Investigation Format)
+**Example (Failed)**:
+```markdown
+## 2025-01-16 15:30 - [AUTHOR: backend-specialist] (Loop 1 - Failed)
 
-- **Timestamp**: Always run `date '+%Y-%m-%d %H:%M'` - never estimate
-- **Query**: What was being researched (the request from calling agent)
-- **Sources**: Count and breakdown (docs/blogs/SO/GitHub)
-- **Key findings**: High-level summary (2-3 sentences max)
-- **Top solutions**: Ranked approaches with use cases
-- **Curated resources**: Best resources found (2-5 links with context)
-- **Suggested resources**: Exceptional finds worth adding to CLAUDE.md (0-3 max)
-- **Handoff note**: Which agent receives findings and for what purpose
+**Hypothesis**: Query runs before auth completes
+**Debug findings**: isLoading=false before query, but userId still null
+**Implementation**: Added isLoading gate to skip query during auth
+**Result**: ❌ Not fixed - User still sees "Not signed in"
+**Rollback**: ✅ Changes reverted
+
+**Next**: Research getAuthUserId() vs getUserIdentity() API difference
+```
 
 ---
 
-## WORKLOG Best Practices
+## Investigation Format
 
-**Apply to all formats (standard, troubleshooting, investigation, reviews)**:
+**Use for**: External research (`context-analyzer`), documentation lookup
 
-1. **Information completeness over brevity**: 10-20 lines average. Include all context next agent needs. Brief entries save time writing but cost time during handoffs.
+### Investigation Entry
 
-2. **Emphasize findings and gotchas**: These are gold for future work. Spend 40-60% of entry on:
-   - What you discovered that wasn't obvious
-   - Issues you hit and how you solved them
-   - Behavior that surprised you
-   - Patterns that worked/didn't work
+```markdown
+## YYYY-MM-DD HH:MM - [AUTHOR: context-analyzer] (Investigation Complete|Incomplete)
 
-3. **Document WHY, not just WHAT**:
-   - Good: "Used bcrypt with cost 12 (not 10) because auth testing showed 10 was too fast for our security requirements"
-   - Bad: "Added password hashing"
+**Query**: [What was researched]
+**Sources**: [N] resources ([breakdown])
+**Key findings**: [2-3 sentence summary]
 
-4. **Capture attempted alternatives**:
-   - "Tried X approach but switched to Y because [specific reason]" prevents re-attempting failed approaches
+**Top solutions**:
+1. [Solution] - [Brief description]
+2. [Solution] - [Brief description]
 
-5. **Quantify when possible**:
-   - "Test coverage: 94% (127/135 lines)"
-   - "Performance improved 40% (200ms → 120ms)"
-   - "Code review score: 92/100"
+**Curated resources**:
+- [Title] - [url] - [Why valuable]
 
-6. **File:line references for issues**: Always include specific locations for problems
-   - "SQL injection risk @ src/auth.ts:45 in login query"
-   - "Memory leak @ src/cache.ts:123 when clearing expired entries"
+→ Passing findings to {agent} for implementation
+```
 
-7. **Reference decisions**: For architecture decisions, use `/adr` command to create ADR
+**Example**:
+```markdown
+## 2025-01-16 14:45 - [AUTHOR: context-analyzer] (Investigation Complete)
 
-8. **Write for the future**: Developers reading weeks/months later need full context
+**Query**: PostgreSQL JSONB aggregation performance issues
+**Sources**: 12 resources (Context7: 1, blogs: 4, SO: 5, GitHub: 2)
+**Key findings**: jsonb_agg loads entire result into memory. Three proven solutions with trade-offs.
 
-9. **Newest first**: Always add new entries at the TOP of WORKLOG.md (reverse chronological)
+**Top solutions**:
+1. Chunked aggregation - Best for large datasets, requires query restructure
+2. array_agg + json_build_object - Better memory profile
+3. Increase work_mem - Quick fix, doesn't scale
 
-10. **Be honest about failures**: Failed attempts with lessons learned are more valuable than success stories without context
+**Curated resources**:
+- "PostgreSQL JSONB Deep Dive" - https://example.com/pg-jsonb - Benchmarks all approaches
 
-11. **Review specificity**: Review entries need extra detail - include reasoning, not just findings
+→ Passing findings to backend-specialist for implementation decision
+```
 
-**Quality check**: Before writing entry, ask: "If I read only this entry tomorrow, could I continue the work effectively?" If no, add more detail.
+---
 
-### When to Mix Formats
+## Best Practices
 
-**Use MULTIPLE formats in same WORKLOG** when work involves research + troubleshooting + implementation.
-
-See worklog-examples.md for multi-format workflow examples.
+1. **Information complete**: Include all context next agent needs
+2. **Emphasize gotchas**: 40-60% of entry on discoveries, issues, surprises
+3. **Document WHY**: "Used bcrypt with cost 12 because..." not just "Added hashing"
+4. **Quantify**: "94% coverage (127/135 lines)" not "good coverage"
+5. **File:line references**: "SQL injection @ auth.ts:45" for issues
+6. **Newest first**: Always add entries at TOP
+7. **Be honest about failures**: Failed attempts with lessons are valuable
 
 ---
 
 ## Integration with Commands
 
-### Commands Using Standard Format
+**Standard Format**:
+- `/implement` - Handoff and complete entries
+- `/worklog` - Manual entries (@username)
+- `code-reviewer`, `security-auditor` - Review entries
 
-- **`/implement`**: HANDOFF and COMPLETE entries for phase work
-- **`/worklog`**: Manual entries by humans with @username
-- **All agents**: Handoff entries during multi-agent workflows
-- **`/quality`**: Review entries with quality scores
-- **`code-reviewer`**: REVIEW APPROVED and REVIEW REQUIRES CHANGES entries
-- **`security-auditor`**: REVIEW APPROVED and REVIEW REQUIRES CHANGES entries with OWASP classifications
+**Troubleshooting Format**:
+- `/troubleshoot` - Loop entries
+- During `/implement` when debugging
 
-### Commands Using Troubleshooting Format
+**Investigation Format**:
+- `context-analyzer` - Research entries
+- During `/troubleshoot` research phase
 
-- **`/troubleshoot`**: Structured hypothesis/result entries
-- **During `/implement`**: When hitting issues requiring debug loop
-
-### Commands Using Investigation Format
-
-- **`context-analyzer`**: Research findings and resource curation entries
-- **During `/troubleshoot`**: Research phase before hypothesis formation
-- **Implementation agents**: When requesting external knowledge
-
-### Commands Reading WORKLOG
-
-- **`/implement --next`**: Reads WORKLOG to understand previous work
-- **`/sanity-check`**: Reviews WORKLOG for drift detection
-- **`/plan`**: May reference WORKLOG for context
-- **All agents**: Read WORKLOG before continuing work
+**Commands Reading WORKLOG**:
+- `/implement` - Understands previous work
+- `/sanity-check` - Detects drift
+- All agents - Read before continuing
 
 ---
 
 ## Related Documentation
 
-**For concrete examples**: See `worklog-examples.md` for all entry type examples
-
-**For troubleshooting methodology**: See `troubleshooting.md` for complete 5-step debug loop and debug logging best practices
-
-**For workflow context**: See `development-loop.md` for agent handoff patterns and quality gates
-
-**For file structure**: See `pm-workflows.md` for TASK.md, BUG.md, and PLAN.md formats
-
-**For complex decisions**: Use `/adr` command to create Architecture Decision Records for significant technical decisions
+- `bug-workflow.md` - 5-step debugging loop
+- `task-workflow.md` - TDD implementation workflow
+- `pm-file-formats.md` - TASK.md, BUG.md, PLAN.md formats

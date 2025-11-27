@@ -6,6 +6,118 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- **`/issue` command** - Unified issue creation with AI-assisted type detection
+  - Creates TASK, BUG, or SPIKE from natural language description
+  - Keywords: "fix, broken, crash" → BUG, "should we, which, compare" → SPIKE, default → TASK
+  - Optional spec linkage for feature work
+  - Creates `pm/issues/{TYPE}-###-name/` with appropriate issue file
+
+- **`/complete` command** - Unified issue completion per workflow requirements
+  - Validates completion checklist from each workflow's Completion section
+  - TASK: phases complete, tests passing, review ≥90, acceptance criteria met
+  - BUG: reproduction test exists, fix works, no regressions, root cause documented
+  - SPIKE: pulls WORKLOGs from spike branches, generates SPIKE-SUMMARY.md, commits to develop
+
+- **`bug-workflow.md`** - New workflow for bug fixes (reproduction-first approach)
+  - Phase 1: Reproduce (write failing test proving bug exists)
+  - Phase 2: Fix (implement fix, test passes, no regressions)
+  - Phase 3: Harden (optional edge cases)
+  - Root cause documentation required
+
+### Changed
+
+- **Workflow file renamed** - `development-loop.md` → `task-workflow.md`
+  - Clearer naming alongside `bug-workflow.md` and `spike-workflow.md`
+  - Added Completion section for `/complete` validation
+  - All references updated across 40+ files
+
+- **`/plan` command** - Automatic issue type detection
+  - No longer requires `--spike` flag
+  - Reads issue file to determine type (TASK.md, BUG.md, SPIKE.md)
+  - Generates appropriate plan structure per workflow
+  - SPIKE: Conversationally asks how many approaches to explore
+
+- **`/implement` command** - Automatic issue type detection
+  - No longer requires `--spike` or `--plan N` flags
+  - Reads issue file to determine type and behavior
+  - SPIKE: Asks which plan, creates `spike/SPIKE-###/plan-N` branch
+  - SPIKE branches never merge (code is exploratory)
+
+- **`spike-workflow.md`** - Branch-per-approach model
+  - Each exploration plan gets its own branch: `spike/SPIKE-###/plan-N`
+  - Commits allowed on spike branches (real exploration)
+  - WORKLOG-N.md tracked on spike branch
+  - `/complete` pulls WORKLOGs to develop, generates summary
+
+- **`/troubleshoot` command** - Now dual-purpose with description argument
+  - During TASK: `/troubleshoot "description"` uses 5-step loop, documents in current WORKLOG
+  - For BUG: `/troubleshoot BUG-###` equivalent to `/implement BUG-###`
+  - References bug-workflow.md for 5-step debugging loop
+  - Argument hint updated: `[BUG-### | TASK-### | "description"]`
+
+- **WORKLOG documentation consolidated** - Reduced from 954 to 272 lines (72% reduction)
+  - Merged `worklog-examples.md` into `worklog-format.md`
+  - Single source of truth with template + one example per format
+  - Workflow files reference format file instead of duplicating examples
+  - Added BASH timestamp instruction: `date '+%Y-%m-%d %H:%M'`
+
+- **All documentation references updated** - Fixed outdated paths across all files
+  - Commands, agents, starter templates now reference correct file paths
+  - Changed `docs/development/guidelines/` → `docs/development/workflows/` and `docs/development/conventions/`
+  - Updated CLAUDE.md, README.md, GETTING-STARTED.md, docs/development/README.md
+  - Fixed agent-template.md (`development-loop` → `task-workflow`)
+  - 16 agents updated with correct workflow and convention paths
+
+- **Template count** - 51 → 52 files (added bug-workflow.md)
+- **Guideline count** - 35 → 33 files (added bug-workflow.md, removed worklog-examples.md, removed troubleshooting.md)
+- **Workflow count** - 11 → 9 files (added bug-workflow.md, removed worklog-examples.md, removed troubleshooting.md)
+
+### Removed
+
+- **`worklog-examples.md`** - Consolidated into `worklog-format.md`
+  - All examples now in single file with consistent structure
+  - Reduces maintenance burden (one file vs two)
+
+- **`troubleshooting.md`** - Content merged into `bug-workflow.md`
+  - 5-step debugging loop now part of bug-workflow.md
+  - `/troubleshoot` command references bug-workflow.md
+  - Dual-purpose: works during TASK implementation or as `/implement BUG-###`
+
+- **`/spike` command** - Replaced by `/issue` with type detection
+  - Creating spikes: Use `/issue "should we use GraphQL or REST?"`
+  - Completing spikes: Use `/complete SPIKE-###`
+
+- **`development-loop.md` streamlined** - Reduced from 590 to 202 lines (66% reduction)
+  - Removed duplicate "Test-First Strategy" section (covered by TDD Loop)
+  - Removed verbose philosophy explanations (kept decision table + rule)
+  - Removed sections that only referenced other files (Quality Gates, Planning and Implementation)
+  - Removed "General Development Loop Knowledge" fluff section
+  - Condensed Agent Coordination to pattern-only (moved detailed example to agent-coordination.md)
+  - Reorganized into clear sections: Workflow Selection, TDD Loop, Code Review, Quality Gates, Plan Adaptation, Agent Orchestration, Work Documentation, Command Integration
+
+- **`agent-coordination.md` streamlined** - Reduced from 544 to 239 lines (56% reduction)
+  - Added "Agent Handoff in Practice" section (moved from development-loop.md)
+  - Removed repetition between YAML config and prose explanations
+  - Removed 4 redundant "What This Means for Domain Specialists" sections
+  - Condensed Context-Analyzer section from 80+ lines to 20 lines
+  - Removed Customization section (YAML config is self-explanatory)
+  - Kept: Governance Rules, Escalation Paths, Decision Trees, Collaboration Patterns
+
+- **`pm-workflows.md` streamlined** - Reduced from 998 to 274 lines (73% reduction)
+  - Removed 500+ line "Plan Execution Methodology" section (duplicated development-loop.md)
+  - Removed verbose inline examples throughout
+  - Condensed Content Decision Matrix explanations
+  - Delegated TDD details to development-loop.md
+  - Delegated complexity scoring to quality-gates.md
+  - Kept: File purposes, scoping principles, workflow summaries, common patterns
+
+- **`spike-workflow.md` streamlined** - Reduced from 879 to 321 lines (63% reduction)
+  - Removed 385 lines of full template examples (reference templates/ instead)
+  - Condensed command integration examples
+  - Kept essential: workflow steps, file structures, best practices, pitfalls
+
 ## [0.39.0] - 2025-11-26
 
 ### Changed

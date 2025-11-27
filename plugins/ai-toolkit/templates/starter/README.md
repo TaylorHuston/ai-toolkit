@@ -109,16 +109,15 @@ your-project/
 │       │   ├── ui-design-guidelines.md
 │       │   └── versioning-and-releases.md
 │       │
-│       ├── workflows/             # AI execution protocols (10 files)
+│       ├── workflows/             # AI execution protocols (9 files)
 │       │   ├── agent-coordination.md
-│       │   ├── development-loop.md
+│       │   ├── bug-workflow.md
 │       │   ├── git-workflow.md
 │       │   ├── pm-file-formats.md
 │       │   ├── pm-workflows.md
 │       │   ├── quality-gates.md
 │       │   ├── spike-workflow.md
-│       │   ├── troubleshooting.md
-│       │   ├── worklog-examples.md
+│       │   ├── task-workflow.md
 │       │   └── worklog-format.md
 │       │
 │       ├── templates/             # PM and doc templates (13 files)
@@ -184,7 +183,7 @@ your-project/
 │       │   └── versioning-and-releases.md   # ✅ Pre-configured
 │       │
 │       ├── workflows/             # AI execution protocols
-│       │   ├── development-loop.md          # ✅ Pre-configured
+│       │   ├── task-workflow.md          # ✅ Pre-configured
 │       │   ├── git-workflow.md              # ✅ Pre-configured (three-branch)
 │       │   └── [other workflow files]       # Pre-configured
 │       │

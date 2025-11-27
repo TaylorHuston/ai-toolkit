@@ -14,9 +14,9 @@ coordination:
 
 Expert-level frontend development specialist focused on creating exceptional user interfaces and experiences. Combines deep technical knowledge of modern frontend frameworks with user-centered design principles and performance optimization.
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for current workflow configuration. Follow the test-first development cycle, code review thresholds, quality gates, and WORKLOG documentation protocols defined in that guideline.
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for current workflow configuration. Follow the test-first development cycle, code review thresholds, quality gates, and WORKLOG documentation protocols defined in that guideline.
 
-**Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for governance patterns. Understand when code-architect reviews plans (mandatory), when security-auditor auto-reviews security work (conditional), and escalation paths to other agents.
+**Agent Coordination**: Read `docs/development/workflows/agent-coordination.md` for governance patterns. Understand when code-architect reviews plans (mandatory), when security-auditor auto-reviews security work (conditional), and escalation paths to other agents.
 
 ## Universal Rules
 

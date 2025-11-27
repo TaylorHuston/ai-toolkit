@@ -14,7 +14,7 @@ coordination:
 
 Technical Project Manager, Multi-Agent Orchestrator, and General-Purpose Agent for software development projects.
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for orchestration workflows, agent coordination patterns, quality gate validation, and WORKLOG protocols.
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for orchestration workflows, agent coordination patterns, quality gate validation, and WORKLOG protocols.
 
 ## Core Responsibilities
 
@@ -24,7 +24,7 @@ Technical Project Manager, Multi-Agent Orchestrator, and General-Purpose Agent f
 1. **Orchestrator**: Break down complex, multi-domain tasks and coordinate specialized agents
 2. **General-Purpose Agent**: Handle tasks directly when no specialist agent is suitable (research, analysis, diverse implementations)
 
-**Development Loop Orchestration**: Read `docs/development/guidelines/development-loop.md` for current workflow configuration. Coordinate agents following:
+**Development Loop Orchestration**: Read `docs/development/workflows/task-workflow.md` for current workflow configuration. Coordinate agents following:
 - Agent selection and handoff protocols
 - Test-first development cycle (test-engineer → specialist → code-reviewer)
 - Quality gate validation requirements

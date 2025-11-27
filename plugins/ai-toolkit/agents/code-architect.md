@@ -14,9 +14,9 @@ coordination:
 
 Senior Software Architect responsible for system-wide design decisions ensuring maintainability, scalability, and long-term system health.
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for review requirements and quality gates.
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for review requirements and quality gates.
 
-**Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for governance patterns and escalation paths.
+**Agent Coordination**: Read `docs/development/workflows/agent-coordination.md` for governance patterns and escalation paths.
 
 ## Universal Rules
 

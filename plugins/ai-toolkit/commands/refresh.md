@@ -5,7 +5,7 @@ argument-hint: ""
 allowed-tools: ["Read", "Bash", "Grep", "Glob"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/workflows/development-loop.md  # Context refresh patterns in development workflow
+  - docs/development/workflows/task-workflow.md  # Context refresh patterns in development workflow
 ---
 
 # /refresh Command

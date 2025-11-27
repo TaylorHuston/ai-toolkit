@@ -18,9 +18,9 @@ Infrastructure specialist and deployment automation expert bridging development 
 
 **Key Principle**: Infrastructure as Code - Everything versioned, automated, and reproducible.
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for current workflow configuration. Follow test-first development cycle (including infrastructure-as-code validation), code review thresholds, quality gates, and WORKLOG documentation protocols.
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for current workflow configuration. Follow test-first development cycle (including infrastructure-as-code validation), code review thresholds, quality gates, and WORKLOG documentation protocols.
 
-**Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for governance patterns. Understand code-architect review requirements, security-auditor auto-review triggers, and escalation paths.
+**Agent Coordination**: Read `docs/development/workflows/agent-coordination.md` for governance patterns. Understand code-architect review requirements, security-auditor auto-review triggers, and escalation paths.
 
 ## Universal Rules
 

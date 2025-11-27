@@ -1,11 +1,11 @@
 ---
 last_updated: "2025-11-26"
-description: "Catalog of 25 Claude Code slash commands for the development workflow"
+description: "Catalog of 26 Claude Code slash commands for the development workflow"
 ---
 
 # Claude Code Command Reference
 
-Catalog of 25 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
+Catalog of 26 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
 
 ## How Commands Work Together
 
@@ -33,7 +33,7 @@ Each command guides you through its workflow:
 
 You don't have to follow a strict sequence:
 - Jump straight to `/adr` for technical decisions
-- Use `/spike` to explore technical approaches before planning
+- Use `/issue` to create tasks, bugs, or spikes
 - Run `/quality` whenever you want a comprehensive review
 - Invoke `/docs` to generate or validate documentation
 
@@ -173,27 +173,27 @@ Commands use different parameter paradigms because **different workflows need di
 - _Usage_: `/adr [--epic EPIC-###] | [--foundation] | [--infrastructure] | [--deep] | [--question "text"]`
 - _Workflow Phase_: **1. Architecture** - Technical decisions, ADRs, Fast Track vs comprehensive analysis
 
-### 🔬 **/spike** - Technical Exploration
+### 📝 **/issue** - Create Work Items
 
-- _Purpose_: Time-boxed exploration to answer "Can we?" or "Which approach?" questions before implementation
-- _Usage_: `/spike "question" | /spike --complete SPIKE-###`
-- _Workflow Phase_: **2. Exploration** - Answer technical feasibility questions, compare alternatives
-- _Output_: Creates `pm/issues/SPIKE-###/` with multiple PLAN-N.md files and SPIKE-SUMMARY.md with recommendation
-- _Examples_: `/spike "GraphQL vs REST?"`, `/spike --complete SPIKE-001`
+- _Purpose_: Create TASK, BUG, or SPIKE issues from natural language description
+- _Usage_: `/issue "description"`
+- _Workflow Phase_: **1. Issue Creation** - AI detects type, creates appropriate issue file
+- _Output_: Creates `pm/issues/{TYPE}-###-name/` with TASK.md, BUG.md, or SPIKE.md
+- _Examples_: `/issue "add user login"` → TASK, `/issue "fix Safari crash"` → BUG, `/issue "GraphQL vs REST?"` → SPIKE
 
-### 📋 **/plan** - Task Implementation Planning
+### 📋 **/plan** - Implementation Planning
 
-- _Purpose_: Create PLAN.md file with phase-based breakdown for individual tasks and bugs
-- _Usage_: `/plan TASK-### | /plan BUG-###`
-- _Workflow Phase_: **2. Planning** - Phase-based task breakdown, agent coordination, test-first patterns
-- _Output_: Creates `pm/issues/TASK-###-*/PLAN.md` (keeps TASK.md clean for PM tool sync)
+- _Purpose_: Create PLAN.md with phase-based breakdown (auto-detects issue type)
+- _Usage_: `/plan TASK-### | /plan BUG-### | /plan SPIKE-###`
+- _Workflow Phase_: **2. Planning** - TDD phases for TASK, reproduction-first for BUG, exploration plans for SPIKE
+- _Output_: PLAN.md for TASK/BUG, PLAN-1.md + PLAN-2.md etc. for SPIKE
 
 ### ⚡ **/implement** - Automated Phase Execution
 
-- _Purpose_: Execute specific implementation phases from task plans with test-first enforcement (AI writes code)
-- _Usage_: `/implement TASK-### PHASE | /implement BUG-### PHASE | /implement --next`
-- _Workflow Phase_: **3. Execution (Automated)** - AI writes code, tests, commits
-- _Examples_: `/implement TASK-001 1.1`, `/implement BUG-003 2.2`, `/implement --next`
+- _Purpose_: Execute implementation phases with test-first enforcement (auto-detects issue type)
+- _Usage_: `/implement TASK-### PHASE | /implement BUG-### PHASE | /implement SPIKE-### | /implement --next`
+- _Workflow Phase_: **3. Execution** - TDD for TASK/BUG, exploration on spike branches for SPIKE
+- _Examples_: `/implement TASK-001 1.1`, `/implement SPIKE-001` (asks which plan, creates spike branch)
 
 ### 🤝 **/advise** - Collaborative Phase Guidance
 
@@ -202,6 +202,13 @@ Commands use different parameter paradigms because **different workflows need di
 - _Workflow Phase_: **3. Execution (Collaborative)** - AI guides, user codes
 - _Examples_: `/advise TASK-001 1.2`, `/advise --next`
 - _Hybrid_: Mix `/implement` (AI codes) and `/advise` (user codes) per phase
+
+### ✅ **/complete** - Finish Work Items
+
+- _Purpose_: Complete any issue type per its workflow's completion requirements
+- _Usage_: `/complete TASK-### | /complete BUG-### | /complete SPIKE-###`
+- _Workflow Phase_: **4. Completion** - Validates requirements, marks done
+- _SPIKE special_: Pulls WORKLOGs from spike branches, generates SPIKE-SUMMARY.md, commits to develop
 
 ## 🔧 Supporting Commands
 
@@ -246,10 +253,11 @@ Commands use different parameter paradigms because **different workflows need di
 | `/project-brief` | Interactive project vision | `[--force] [--review]` |
 | `/spec` | Feature specification management | `[--update SPEC-###] [--epic PROJ-###]` |
 | `/adr` | Technical architecture | Various flags for modes |
-| `/spike` | Technical exploration | `"question"` or `--complete SPIKE-###` |
-| `/plan` | Task implementation planning | `TASK-###` or `BUG-###` |
-| `/implement` | Automated phase execution | `TASK-### PHASE` or `--next` |
+| `/issue` | Create work items | `"description"` (AI detects type) |
+| `/plan` | Implementation planning | `TASK-###`, `BUG-###`, or `SPIKE-###` |
+| `/implement` | Automated phase execution | `TASK-### PHASE`, `SPIKE-###`, or `--next` |
 | `/advise` | Collaborative phase guidance | `TASK-### PHASE` or `--next` |
+| `/complete` | Finish work items | `TASK-###`, `BUG-###`, or `SPIKE-###` |
 | `/quality` | Quality assessment | `[--focus AREA]` |
 | `/troubleshoot` | Systematic debugging | `[BUG-XXX \| TASK-XXX]` |
 | `/sanity-check` | Mid-work validation | No arguments (deep reflection) |

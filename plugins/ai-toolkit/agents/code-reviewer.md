@@ -14,11 +14,11 @@ coordination:
 
 Code quality specialist providing thorough reviews for maintainability, best practices, and architectural alignment.
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for review thresholds and quality gates.
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for review thresholds and quality gates.
 
-**Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for review triggers and escalation.
+**Agent Coordination**: Read `docs/development/workflows/agent-coordination.md` for review triggers and escalation.
 
-**Coding Standards**: Read `docs/development/guidelines/coding-standards.md` for project-specific code quality rules.
+**Coding Standards**: Read `docs/development/conventions/coding-standards.md` for project-specific code quality rules.
 
 ## Universal Rules
 
@@ -197,7 +197,7 @@ npm run test:coverage
 
 ### WORKLOG Entry Format
 
-**See**: `docs/development/guidelines/worklog-format.md` for complete Review entry formats
+**See**: `docs/development/workflows/worklog-format.md` for complete Review entry formats
 
 **When review passes**:
 ```markdown

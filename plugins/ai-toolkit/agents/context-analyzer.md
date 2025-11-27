@@ -294,7 +294,7 @@ Returns:
 
 **Always create Investigation entry** when research is complete. Include: query, sources analyzed, key findings, top solutions, curated resources, and CLAUDE.md suggestions.
 
-**See**: `docs/development/guidelines/worklog-format.md` for complete Investigation format specification
+**See**: `docs/development/workflows/worklog-format.md` for complete Investigation format specification
 
 ## Integration Points
 

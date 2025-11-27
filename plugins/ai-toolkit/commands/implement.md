@@ -1,272 +1,245 @@
 ---
 tags: ["workflow", "development", "execution"]
 description: "Execute specific implementation phases from task plans with test-first enforcement"
-argument-hint: "TASK-### PHASE | TASK-### --next | --next | TASK-### --full | --full"
+argument-hint: "### PHASE | ### --next | --next | ### --full | --full"
 allowed-tools: ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob", "TodoWrite", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/workflows/pm-workflows.md  # Phase execution protocol, test-first loop, progress tracking
-  - docs/development/workflows/worklog-format.md  # WORKLOG entry formats
-  - docs/development/workflows/development-loop.md  # Quality gates and enforcement
-  - docs/development/workflows/git-workflow.md  # Branch creation and verification
-  - docs/development/workflows/agent-coordination.md  # Agent handoff patterns
+  - docs/development/workflows/pm-workflows.md       # Phase execution protocol
+  - docs/development/workflows/task-workflow.md      # TDD phases, quality gates
+  - docs/development/workflows/bug-workflow.md       # Reproduction-first phases
+  - docs/development/workflows/spike-workflow.md     # Spike exploration with branches
+  - docs/development/workflows/worklog-format.md     # WORKLOG entry formats
+  - docs/development/workflows/git-workflow.md       # Branch creation and verification
+  - docs/development/workflows/agent-coordination.md # Agent handoff patterns
 ---
 
 # /implement Command
 
-**WHAT**: Execute implementation phases with mandatory test-first loop enforcement and intelligent agent coordination.
+**WHAT**: Execute implementation phases with test-first enforcement and agent coordination.
 
-**WHY**: Structured execution with strict quality gates ensures robust code, prevents regressions, and maintains clean git history.
-
-**HOW**: See pm-guide.md for phase execution protocol and test-first loop. See development-loop.md for quality gates. See agent-coordination.md for handoff patterns.
+**HOW**: Detects issue type, follows its workflow, enforces quality gates.
 
 ## Usage
 
 ```bash
-/implement TASK-001 1.1    # Execute specific phase
-/implement BUG-003 2.2     # Execute bug fix phase
-/implement PROJ-123 1.1    # Execute Jira issue phase
-/implement TASK-001 --next # Auto-find next uncompleted phase
-/implement --next          # Auto-detect task + next phase
-/implement TASK-001 --full # Execute all remaining phases
-/implement --full          # Auto-detect task + execute all
-
-# Spike exploration (no commits)
-/implement --spike SPIKE-001 --plan 1  # Execute spike exploration plan 1
-/implement --spike SPIKE-001 --next    # Auto-find next spike plan
+/implement 001 1.1         # Execute specific phase (detects type from file)
+/implement 003 2.2         # Execute bug fix phase
+/implement 005             # Spike: asks which plan, creates spike branch
+/implement 001 --next      # Auto-find next uncompleted phase
+/implement --next          # Auto-detect issue + next phase
+/implement 001 --full      # Execute all remaining phases
+/implement PROJ-123 --next # Jira issue
 ```
+
+## Issue Type Detection
+
+**Reads issue file to determine type and workflow:**
+
+```bash
+# In pm/issues/###-name/ directory:
+if [ -f "TASK.md" ]; then type="task"    # TDD phases
+elif [ -f "BUG.md" ]; then type="bug"    # Reproduction-first
+elif [ -f "SPIKE.md" ]; then type="spike" # Exploration plans
+fi
+```
+
+| Issue File | Workflow | Branch Pattern |
+|------------|----------|----------------|
+| TASK.md | TDD (RED/GREEN/REFACTOR) | `feature/###` |
+| BUG.md | Reproduction-first | `bugfix/###` |
+| SPIKE.md | Exploration (per plan) | `spike/###/plan-N` |
 
 ## Execution Flow
 
-**Before you start**: Read pm-guide.md, worklog-format.md, development-loop.md, git-workflow.md for complete workflow rules.
+### 1. Parse & Validate
 
-### High-Level Steps
+- Parse issue ID and phase (or auto-detect)
+- Locate issue directory: `pm/issues/{ID}-*/`
+- Read issue file (TASK.md/BUG.md/SPIKE.md)
+- Read PLAN.md (or PLAN-N.md for spikes)
+- Create WORKLOG.md if missing (with Phase Commits header)
 
-1. **Parse & Validate**
-   - Parse issue ID and phase number (or auto-detect)
-   - Locate issue directory: `pm/issues/{ISSUE-ID}-*/`
-   - Read TASK.md/BUG.md, PLAN.md
-   - Create WORKLOG.md if doesn't exist (with Phase Commits section header)
-   - Read WORKLOG.md for context
+### 2. Type-Specific Handling
 
-2. **Branch Management**
-   - Check current branch
-   - Create feature/bugfix branch if needed per git-workflow.md
-   - Non-blocking warnings if branch mismatch
+**For TASK/BUG:**
+- Create feature/bugfix branch if needed
+- Execute phase with TDD checkpoints
+- Follow quality gates per workflow
 
-3. **Spawn Domain Agent**
-   - Select agent based on phase type (frontend/backend/database/etc.)
-   - Provide strategic objective from PLAN.md (WHAT to build)
-   - Agent decides HOW based on WORKLOG context and current codebase
-   - **Mandatory**: Agent follows test-first loop from pm-guide.md
+**For SPIKE (see below):**
+- Ask which plan to explore
+- Create spike branch
+- Execute without quality gates
 
-4. **Enforce TDD Checkpoints** (for phases with testable behavior)
-   - **RED checkpoint**: Tests run and FAIL before implementation begins
-     - If tests PASS: BLOCK - not testing new behavior
-     - If tests ERROR: BLOCK - fix test bugs first
-     - Document in WORKLOG: "RED: X tests failing - [reason]"
-   - **GREEN checkpoint**: Tests PASS after implementation
-   - **REFACTOR loop**: Code review → if < 90, iterate → review ≥ 90 to exit
-   - All quality gates from quality-gates.md must pass
+### 3. Agent Coordination
 
-5. **Track Progress**
-   - Write WORKLOG.md entry per worklog-format.md
-   - Commit changes per git-workflow.md
-   - Update WORKLOG.md Phase Commits section with commit hash (for rollback tracking)
-   - Update PLAN.md checkbox
+Select agent based on phase domain:
+- `frontend-specialist`, `backend-specialist`, `database-specialist`
+- `test-engineer` for RED phases
+- `code-reviewer` for REFACTOR phases
 
-**See pm-guide.md "Phase Execution Protocol" for complete step-by-step details.**
+### 4. TDD Checkpoints (TASK/BUG)
 
-### Spike Exploration (--spike flag)
+- **RED**: Tests FAIL before implementation
+- **GREEN**: Tests PASS after implementation
+- **REFACTOR**: Review ≥90 to complete
 
-**When to use:** `/implement --spike SPIKE-001 --plan 1` for exploring technical approaches without committing code.
+### 5. Track Progress
 
-**Behavior differences with --spike flag:**
+- Write WORKLOG entry
+- Update Phase Commits section
+- Check off PLAN.md checkbox
+- Commit changes
 
-1. **NO Git Commits**
-   - All code changes tracked in WORKLOG-N.md only
-   - Phase Commits section tracks prototype commits locally
-   - No branch creation/switching
-   - Reminder displayed: "⚠️ SPIKE EXPLORATION - Code will NOT be committed"
+---
 
-2. **Prototype Directory**
-   - Code goes in `pm/issues/SPIKE-###/prototype/` directory
-   - Organized by approach (e.g., `prototype/graphql/`, `prototype/rest/`)
-   - All code is exploratory - may be discarded after spike
+## SPIKE Implementation
 
-3. **WORKLOG Tracking**
-   - Uses WORKLOG-N.md (numbered by plan: WORKLOG-1.md, WORKLOG-2.md)
-   - Tracks discoveries, not deliverables
-   - Documents setup time, surprises, questions surfaced
-   - Performance data and complexity observations
+**When issue type is SPIKE, behavior changes significantly.**
 
-4. **Quality Gates**
-   - Test-first loop NOT enforced (exploration code)
-   - Code review NOT required (throwaway prototypes)
-   - Focus on answering questions, not production quality
+### Step 1: Select Plan
 
-5. **PLAN.md Reminder**
-   - SPIKE PLAN-N.md files include reminder at top:
-   ```markdown
-   > **⚠️ SPIKE EXPLORATION**
-   > This is exploratory work. Code will NOT be committed to production.
-   > Use `/implement --spike SPIKE-001 --plan 1` to execute.
-   ```
+```
+Which plan do you want to explore?
 
-**Example workflow:**
-```bash
-/implement --spike SPIKE-001 --plan 1  # Explore GraphQL approach
-# ... prototype GraphQL server, document findings in WORKLOG-1.md
-/implement --spike SPIKE-001 --plan 2  # Explore REST approach
-# ... prototype REST server, document findings in WORKLOG-2.md
-/spike --complete SPIKE-001            # Generate SPIKE-SUMMARY.md
+Available plans:
+  1. PLAN-1.md: GraphQL with Apollo Server
+  2. PLAN-2.md: REST with Express
+
+Enter plan number: _
 ```
 
-**See:** spike-workflow.md for complete spike exploration workflows and templates.
+### Step 2: Create Spike Branch
+
+```bash
+# From current branch (usually develop)
+git checkout -b spike/005/plan-1
+```
+
+### Step 3: Execute Exploration
+
+**Differences from TASK/BUG:**
+
+| Aspect | TASK/BUG | SPIKE |
+|--------|----------|-------|
+| TDD checkpoints | Required | Not enforced |
+| Code review | Required (≥90) | Not required |
+| Commits | To feature branch | To spike branch |
+| WORKLOG | WORKLOG.md | WORKLOG-N.md |
+| Branch merge | Yes (to develop) | Never |
+
+### Step 4: Track Findings
+
+- Update WORKLOG-N.md on spike branch
+- Document discoveries, surprises, benchmarks
+- Track time spent vs time box
+
+### Example SPIKE Flow
+
+```
+User: /implement 005
+
+AI: Issue 005 (spike): "GraphQL vs REST for our API?"
+
+    Which plan do you want to explore?
+    1. PLAN-1.md: GraphQL with Apollo Server
+    2. PLAN-2.md: REST with Express
+
+User: 1
+
+AI: Creating branch spike/005/plan-1...
+
+    > ⚠️ SPIKE EXPLORATION
+    > Code will be committed to spike branch, not merged to main.
+    > Track discoveries in WORKLOG-1.md.
+
+    Executing PLAN-1.md Phase 1: Setup
+    → Installing Apollo Server...
+    → Creating basic schema...
+    → Updating WORKLOG-1.md
+
+    ✓ Phase 1 complete (1.5 hours spent, 6.5 remaining)
+
+    Continue to Phase 2? (yes/no/stop)
+```
+
+---
 
 ## Task-Specific Scripts
 
-**When you need temporary scripts during implementation:**
+**Temporary scripts go in task directory:**
 
-**Use task directory** (`pm/issues/TASK-###-name/scripts/`):
-- ✅ One-off database migration scripts
-- ✅ Test data generation scripts
-- ✅ Debug/investigation scripts
-- ✅ Setup scripts specific to this task
-- ✅ Temporary automation for this feature
-
-**Use root scripts directory** (`scripts/` at project root):
-- ✅ Universal utilities used across multiple tasks
-- ✅ Build/deployment scripts
-- ✅ Database seeding for all environments
-- ✅ CI/CD helper scripts
-- ✅ Scripts that will be maintained long-term
-
-**Why task-specific scripts?**
-- Easy cleanup after task completion
-- Clear context (script tied to specific task)
-- No root directory clutter
-- Easy to find debugging scripts later
-
-**Example structure:**
 ```
-pm/issues/TASK-001-user-auth/
+pm/issues/001-user-auth/
 ├── TASK.md
 ├── PLAN.md
 ├── WORKLOG.md
 └── scripts/
-    ├── generate-test-users.sh      # Create test data
-    ├── migrate-passwords.js        # One-time migration
-    └── debug-jwt-validation.js     # Debug script
+    ├── generate-test-users.sh
+    ├── migrate-passwords.js
+    └── debug-jwt-validation.js
 ```
+
+**Why:** Easy cleanup, clear context, no root clutter.
+
+**Root `scripts/`:** Only for universal utilities used across tasks.
+
+---
 
 ## Modes
 
-**Specific phase**: `/implement TASK-001 1.1`
-- Execute single phase
-- User specifies exact phase number
+| Mode | Command | Behavior |
+|------|---------|----------|
+| Specific | `/implement 001 1.1` | Execute single phase |
+| Next | `/implement 001 --next` | Find first uncompleted |
+| Full | `/implement 001 --full` | Execute all remaining |
+| Auto | `/implement --next` | Auto-detect issue + next |
 
-**Next phase**: `/implement TASK-001 --next` or `/implement --next`
-- Find first uncompleted phase from PLAN.md
-- Show phase to user, ask confirmation
-- Execute single phase
+---
 
-**Full execution**: `/implement TASK-001 --full` or `/implement --full`
-- Execute all remaining phases sequentially
-- Follow test-first loop for each phase
-- Stop on: error, user input needed, or all complete
-- Per-phase: tests → code → review → commit → next
-
-## Example
+## Example (TASK)
 
 ```
-User: /implement TASK-001 --next
+User: /implement 001 --next
 
-AI: Next uncompleted phase: 1.RED - Write failing tests for user login
+AI: Next: 1.RED - Write failing tests for user login
     Proceed? (yes/no)
 
 User: yes
 
 AI: Spawning test-engineer...
-    Phase 1.RED: Write failing tests for user login
     → Tests written (8 test cases)
     → Running tests...
-    → [RED CHECKPOINT] 8 tests FAILED as expected ✓
+    → [RED CHECKPOINT] 8 tests FAILED ✓
     ✓ Phase 1.RED complete
 
-    Next: /implement TASK-001 --next
-
----
-
-User: /implement TASK-001 --next
-
-AI: Next uncompleted phase: 1.GREEN - Implement user login
-    Proceed? (yes/no)
-
-User: yes
-
-AI: Spawning backend-specialist...
-    Phase 1.GREEN: Implement user login
-    → Implementation complete
-    → Running tests...
-    → [GREEN CHECKPOINT] 8/8 tests PASS ✓
-    ✓ Phase 1.GREEN complete
-
-    Next: /implement TASK-001 --next
-
----
-
-User: /implement TASK-001 --next
-
-AI: Next uncompleted phase: 1.REFACTOR - Clean up user login
-    Proceed? (yes/no)
-
-User: yes
-
-AI: Spawning backend-specialist...
-    Phase 1.REFACTOR: Clean up user login
-    → Refactoring...
-    → Tests still passing (8/8) ✓
-    → Code review: 85/100 (needs error handling improvement)
-    → Addressing feedback...
-    → Tests still passing (8/8) ✓
-    → Code review: 92/100 ✓
-    → [EXIT GATE] Review ≥90, committing...
-    ✓ Phase 1.REFACTOR complete
-
-    Next: /implement TASK-001 --next (Phase 2.RED)
+    Next: /implement 001 --next
 ```
 
-## Agent Coordination
-
-**Primary**: Domain specialists (backend-specialist, frontend-specialist, database-specialist, etc.)
-**Supporting**: test-engineer (test-first approach), code-reviewer (quality validation)
-**Conditional**: security-auditor (auto-invoked for security-relevant phases)
-
-**Coordination method**: WORKLOG.md handoff entries per worklog-format.md
-
-See agent-coordination.md for complete handoff patterns and agent selection criteria.
+---
 
 ## Error Handling
 
-- **Issue not found**: Check `pm/issues/{ID}-*/` directory exists
-- **PLAN.md missing**: Run `/plan {ID}` first to create plan
-- **WORKLOG.md missing**: Auto-created with Phase Commits section header on first execution
-- **Phase not found**: Verify phase number exists in PLAN.md
-- **Phase already complete**: Use `--next` to find next uncompleted phase
-- **Quality gate failure**: Agent iterates until all gates pass
+| Error | Resolution |
+|-------|------------|
+| Issue not found | Check `pm/issues/{ID}-*/` exists |
+| PLAN.md missing | Run `/plan {ID}` first |
+| Unknown type | Verify TASK.md/BUG.md/SPIKE.md exists |
+| Spike no plans | Run `/plan ###` to create plans |
+| Phase complete | Use `--next` for next phase |
 
 ## Integration
 
-**Workflow position**:
 ```
-/plan TASK-### → /implement TASK-### 1.1 → /implement TASK-### 1.2 → ... → /commit
+/issue → /plan ### → /implement ### → /complete ### → /branch merge
 ```
 
-**Progress tracking**: Updates PLAN.md checkboxes and WORKLOG.md entries per pm-guide.md
-
-**Branch management**: Creates/verifies branch per git-workflow.md (non-blocking)
-
-**Jira integration**: When using PROJ-### format, auto-fetches from Jira via MCP (requires CLAUDE.md jira.enabled: true)
-
-See pm-guide.md for complete workflow integration details.
+**SPIKE flow:**
+```
+/issue → /plan ### → /implement ### → /complete ###
+                         ↓
+               (creates spike branch)
+                         ↓
+               (never merges to develop)
+```

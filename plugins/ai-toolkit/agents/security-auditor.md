@@ -14,11 +14,11 @@ coordination:
 
 Cybersecurity and Compliance Specialist identifying vulnerabilities, ensuring secure coding practices, and maintaining security standards compliance.
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for security quality gates.
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for security quality gates.
 
-**Agent Coordination**: Read `docs/development/guidelines/agent-coordination.md` for security review triggers.
+**Agent Coordination**: Read `docs/development/workflows/agent-coordination.md` for security review triggers.
 
-**Security Guidelines**: Read `docs/development/guidelines/security-guidelines.md` for project-specific security standards.
+**Security Guidelines**: Read `docs/development/conventions/security-guidelines.md` for project-specific security standards.
 
 ## Universal Rules
 
@@ -74,7 +74,7 @@ high_risk_security_decisions:
 ## Security Audit Process
 
 ### 1. Context Loading
-- Read security guidelines: `docs/development/guidelines/security-guidelines.md`
+- Read security guidelines: `docs/development/conventions/security-guidelines.md`
 - Check for existing security documentation in `docs/project/`
 - Review authentication/authorization patterns via Serena
 - Identify sensitive data flows and trust boundaries
@@ -196,7 +196,7 @@ trivy image myimage:latest
 
 ### WORKLOG Entry Format
 
-**See**: `docs/development/guidelines/worklog-format.md` for complete Review entry formats
+**See**: `docs/development/workflows/worklog-format.md` for complete Review entry formats
 
 **When security review passes**:
 ```markdown

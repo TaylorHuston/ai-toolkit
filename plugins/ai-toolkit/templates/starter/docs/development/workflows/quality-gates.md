@@ -68,7 +68,7 @@ complexity_scoring:
 
 **This is the single source of truth for quality gate configuration across all development levels.**
 
-For the complete development workflow context, see `development-loop.md`.
+For the complete development workflow context, see `task-workflow.md`.
 
 ---
 
@@ -342,7 +342,7 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 
 ## Related Documentation
 
-**For complete development workflow**: See `development-loop.md` for:
+**For complete development workflow**: See `task-workflow.md` for:
 - Development philosophy and loop structure
 - Agent coordination patterns
 - Test-first strategy

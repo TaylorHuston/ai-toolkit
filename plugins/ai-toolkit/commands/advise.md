@@ -7,7 +7,7 @@ model: claude-sonnet-4-5
 references_guidelines:
   - docs/development/workflows/pm-workflows.md  # Phase structure, quality gates, completion protocol
   - docs/development/workflows/worklog-format.md  # ADVICE entry format
-  - docs/development/workflows/development-loop.md  # Quality gates, collaborative mode
+  - docs/development/workflows/task-workflow.md  # Quality gates, collaborative mode
   - docs/development/workflows/agent-coordination.md  # Advisory mode agent coordination
 ---
 
@@ -17,7 +17,7 @@ references_guidelines:
 
 **WHY**: Collaborative mode enables hands-on learning, full control over implementation, and balance between automation and manual coding.
 
-**HOW**: See pm-guide.md for phase requirements and completion protocol. See development-loop.md for collaborative implementation mode. See agent-coordination.md for advisory mode patterns.
+**HOW**: See pm-guide.md for phase requirements and completion protocol. See task-workflow.md for collaborative implementation mode. See agent-coordination.md for advisory mode patterns.
 
 ## Usage
 
@@ -29,7 +29,7 @@ references_guidelines:
 
 ## Execution Flow
 
-**Before you start**: Read pm-guide.md for phase requirements and completion protocol. Read development-loop.md for collaborative implementation mode. Read agent-coordination.md for advisory mode patterns.
+**Before you start**: Read pm-guide.md for phase requirements and completion protocol. Read task-workflow.md for collaborative implementation mode. Read agent-coordination.md for advisory mode patterns.
 
 ### High-Level Steps
 
@@ -68,7 +68,7 @@ references_guidelines:
    - User marks phase complete in PLAN.md
    - Same quality gates apply as /implement
 
-**See development-loop.md "Collaborative Implementation Mode" for complete workflow and examples.**
+**See task-workflow.md "Collaborative Implementation Mode" for complete workflow and examples.**
 
 ## Mode Comparison
 
@@ -77,4 +77,4 @@ references_guidelines:
 
 **Hybrid approach** (recommended): `/implement` for boilerplate → `/advise` for complex logic → `/implement` for tests
 
-See development-loop.md for complete workflow patterns and examples.
+See task-workflow.md for complete workflow patterns and examples.

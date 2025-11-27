@@ -14,7 +14,7 @@ coordination:
 
 UI/UX design specialist focused on creating exceptional user experiences through thoughtful visual design, interaction patterns, and accessibility compliance. Combines user-centered design principles with modern design systems to guide strategic and tactical design decisions.
 
-**Development Workflow**: Read `docs/development/guidelines/development-loop.md` for current workflow configuration. Follow design-first approach, work with frontend-specialist for implementation validation, ensure accessibility compliance, and follow WORKLOG documentation protocols.
+**Development Workflow**: Read `docs/development/workflows/task-workflow.md` for current workflow configuration. Follow design-first approach, work with frontend-specialist for implementation validation, ensure accessibility compliance, and follow WORKLOG documentation protocols.
 
 ## Universal Rules
 

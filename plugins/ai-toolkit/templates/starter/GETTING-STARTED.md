@@ -46,7 +46,7 @@ The AI Toolkit provides **25+ commands** that follow workflows in your `docs/dev
 
 ## Default Implementation Loop
 
-The `/implement` command follows a strict **test-first** workflow defined in `docs/development/workflows/development-loop.md`:
+The `/implement` command follows a strict **test-first** workflow defined in `docs/development/workflows/task-workflow.md`:
 
 ### Phase Structure
 
@@ -83,7 +83,7 @@ Each phase follows this mandatory loop:
    - Documents decisions and discoveries
    - Tracks progress
 
-**This loop is enforced for every phase** - you can customize it in `docs/development/workflows/development-loop.md`.
+**This loop is enforced for every phase** - you can customize it in `docs/development/workflows/task-workflow.md`.
 
 ### Quality Gates
 
@@ -224,16 +224,16 @@ Your project includes **16 customizable guideline files** organized in 4 directo
 - `ui-design-guidelines.md` - Design tokens and UI patterns
 - `versioning-and-releases.md` - Semantic versioning, releases, CHANGELOG
 
-**Workflows** (`docs/development/workflows/` - 10 files):
+**Workflows** (`docs/development/workflows/` - 9 files):
 - `agent-coordination.md` - How specialized agents work together
-- `development-loop.md` - AI-assisted workflow and quality gates
+- `bug-workflow.md` - Bug fix workflow (reproduction-first + 5-step debugging)
 - `git-workflow.md` - Branching, commits, PRs, releases
 - `pm-file-formats.md` - SPEC.md, TASK.md, PLAN.md formats
 - `pm-workflows.md` - Planning and implementation workflows
 - `quality-gates.md` - Quality standards and gates
 - `spike-workflow.md` - Time-boxed technical exploration workflow
-- `troubleshooting.md` - Debugging workflows
-- `worklog-examples.md`, `worklog-format.md` - WORKLOG.md structure
+- `task-workflow.md` - Task implementation workflow (TDD)
+- `worklog-format.md` - WORKLOG entry formats and examples
 
 **Templates** (`docs/development/templates/` - 13 files): PM and documentation templates
 

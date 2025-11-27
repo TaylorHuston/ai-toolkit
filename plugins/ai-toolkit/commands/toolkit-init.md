@@ -6,7 +6,7 @@ allowed-tools: ["Read", "Write", "Edit", "Bash", "Glob", "AskUserQuestion"]
 model: claude-sonnet-4-5
 references_guidelines:
   - docs/development/workflows/pm-workflows.md  # PM structure and directory organization
-  - docs/development/workflows/development-loop.md  # Development workflow structure
+  - docs/development/workflows/task-workflow.md  # Development workflow structure
 ---
 
 # /toolkit-init

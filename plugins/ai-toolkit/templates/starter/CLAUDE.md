@@ -99,14 +99,14 @@ When Jira integration is enabled, epics can be created and managed in Jira throu
 
 **When Jira is DISABLED (default):**
 - Feature Specs: `pm/specs/SPEC-001-name.md` (local files)
-- Issues: `pm/issues/TASK-001/`, `pm/issues/BUG-001/` (local directories)
+- Issues: `pm/issues/001-name/`, `pm/issues/002-name/` (local directories with TASK.md, BUG.md, or SPIKE.md)
 - Fully local, works offline
 
 **When Jira is ENABLED:**
 - Epics: Only in Jira (PROJ-100, PROJ-200) - no local spec files
 - Issues:
   - Jira issues: `PROJ-123`, `PROJ-124` (fetched from Jira on-demand)
-  - Local exploration: `TASK-001`, `BUG-001` (for quick spikes, can be promoted to Jira)
+  - Local exploration: `001`, `002`, `003` (for quick spikes, can be promoted to Jira)
 - Local storage: Only `PLAN.md`, `WORKLOG.md`, `RESEARCH.md` (no TASK.md for Jira issues)
 
 ### Commands
@@ -126,9 +126,9 @@ When Jira integration is enabled, epics can be created and managed in Jira throu
 
 **Exploration Workflow:**
 ```bash
-/plan TASK-001             # Quick local spike
-/implement TASK-001 1.1    # Prototype
-/jira-promote TASK-001     # Promote to Jira when validated
+/plan 001                  # Quick local spike
+/implement 001 1.1         # Prototype
+/jira-promote 001          # Promote to Jira when validated
 ```
 
 ### What Syncs
@@ -167,12 +167,12 @@ This project uses the AI Toolkit plugin for structured development with three-br
 /adr                  # Create ADRs for technical decisions
 
 # 4. Plan implementation
-/plan TASK-001              # Add implementation details to tasks
+/plan 001                   # Add implementation details to tasks
 
 # 5. Build features
-/implement TASK-001 1.1     # Execute specific phase (creates feature/TASK-001 branch)
-/implement TASK-001 1.2     # Continue implementation
-/commit                     # Branch-aware commit (includes TASK-001 reference)
+/implement 001 1.1          # Execute specific phase (creates feature/001 branch)
+/implement 001 1.2          # Continue implementation
+/commit                     # Branch-aware commit (includes 001 reference)
 
 # 6. Quality gates and merge
 /quality                    # Comprehensive quality assessment
@@ -184,7 +184,7 @@ This project uses the AI Toolkit plugin for structured development with three-br
 /branch merge main          # Merge to production (validates staging health)
 
 # 8. Clean up
-/branch delete feature/TASK-001  # Delete work branch after merge
+/branch delete feature/001       # Delete work branch after merge
 ```
 
 ### Git Workflow (Three-Branch Model)
@@ -199,8 +199,8 @@ main (production)         # Live environment - ONLY from develop
   ↑
   └─ develop (staging)    # Pre-production - ONLY from feature branches
        ↑
-       ├─ feature/TASK-001  (your work)
-       └─ bugfix/BUG-003    (your work)
+       ├─ feature/001       (your work - task)
+       └─ bugfix/002        (your work - bug)
 ```
 
 **Merge Gates:**
@@ -246,7 +246,7 @@ See `docs/development/workflows/git-workflow.md` for complete workflow rules and
 
 ## Development Guidelines
 
-Your project includes **34 customizable guideline files** organized in 4 directories:
+Your project includes **33 customizable guideline files** organized in 4 directories:
 
 **Conventions** (`docs/development/conventions/` - 7 files):
 - `api-guidelines.md` - API patterns and structure
@@ -257,17 +257,16 @@ Your project includes **34 customizable guideline files** organized in 4 directo
 - `ui-design-guidelines.md` - Design tokens and UI patterns
 - `versioning-and-releases.md` - Semantic versioning, releases, CHANGELOG
 
-**Workflows** (`docs/development/workflows/` - 10 files):
+**Workflows** (`docs/development/workflows/` - 9 files):
 - `agent-coordination.md` - How specialized agents work together
-- `development-loop.md` - AI-assisted development workflow and quality gates
+- `bug-workflow.md` - Bug fix workflow (reproduction-first + 5-step debugging)
 - `git-workflow.md` - Branching and commits
 - `pm-file-formats.md` - SPEC.md, TASK.md, PLAN.md formats
 - `pm-workflows.md` - Planning and implementation workflows
 - `quality-gates.md` - Quality standards and gates
 - `spike-workflow.md` - Time-boxed technical exploration workflow
-- `troubleshooting.md` - Debugging workflows
-- `worklog-examples.md` - WORKLOG.md examples
-- `worklog-format.md` - WORKLOG.md structure
+- `task-workflow.md` - Task implementation workflow (TDD)
+- `worklog-format.md` - WORKLOG entry formats and examples
 
 **Templates** (`docs/development/templates/` - 13 files): PM and documentation templates
 

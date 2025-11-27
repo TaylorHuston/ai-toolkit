@@ -5,7 +5,7 @@ argument-hint: ""
 allowed-tools: ["Read", "Grep", "Glob", "Bash", "mcp__plugin_ai-toolkit_sequential-thinking__sequentialthinking"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/workflows/development-loop.md  # Work standards, quality gates, agent coordination
+  - docs/development/workflows/task-workflow.md  # Work standards, quality gates, agent coordination
 ---
 
 # /sanity-check Command
@@ -35,7 +35,7 @@ references_guidelines:
 - What have we done? (WORKLOG.md, completed phases)
 - Current approach? (technical solution, assumptions)
 - Architecture alignment? (ADRs, architecture-overview.md)
-- Standards alignment? (development-loop.md, test-first, quality gates)
+- Standards alignment? (task-workflow.md, test-first, quality gates)
 - Concerns? (what feels wrong, risks, drift)
 - **Decision**: Green (continue), Yellow (adjust), Red (course correct)
 
@@ -49,7 +49,7 @@ Read: WORKLOG.md
 
 # Standards and architecture
 Read: CLAUDE.md
-Read: docs/development/workflows/development-loop.md
+Read: docs/development/workflows/task-workflow.md
 Read: docs/project/architecture-overview.md
 Read: docs/project/design-overview.md
 
@@ -63,7 +63,7 @@ Skip missing files gracefully.
 
 **Compare reflection to reality:**
 - **Plan**: Following PLAN.md phases? Deviations?
-- **Standards**: Test-first? Quality gates per development-loop.md?
+- **Standards**: Test-first? Quality gates per task-workflow.md?
 - **Architecture**: ADR consistency? Approved patterns?
 - **Design**: Design system usage? Accessibility?
 

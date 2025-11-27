@@ -20,7 +20,7 @@ Each guideline has 3 parts:
 ---
 testing_framework: "vitest"
 test_location: "tests/"
-# Coverage target configured in development-loop.md
+# Coverage target configured in task-workflow.md
 ---
 ```
 
@@ -51,17 +51,16 @@ For general testing best practices, Claude has extensive knowledge...
 6. **ui-design-guidelines.md** - Design tokens, breakpoints, accessibility
 7. **versioning-and-releases.md** - Semantic versioning, releases, CHANGELOG
 
-**Workflows** (`workflows/` - 10 files):
+**Workflows** (`workflows/` - 9 files):
 - **agent-coordination.md** - How specialized agents work together
-- **development-loop.md** - AI-assisted workflow and quality gates
+- **bug-workflow.md** - Bug fix workflow (reproduction-first + 5-step debugging)
 - **git-workflow.md** - Branching, commits, PRs, releases
 - **pm-file-formats.md** - SPEC.md, TASK.md, PLAN.md formats
 - **pm-workflows.md** - Planning and implementation workflows
 - **quality-gates.md** - Quality standards and gates
 - **spike-workflow.md** - Time-boxed technical exploration workflow
-- **troubleshooting.md** - Debugging workflows
-- **worklog-examples.md** - WORKLOG.md examples
-- **worklog-format.md** - WORKLOG.md structure
+- **task-workflow.md** - Task implementation workflow (TDD)
+- **worklog-format.md** - WORKLOG entry formats and examples
 
 **Templates** (`templates/` - 13 files): PM and documentation templates used by commands
 

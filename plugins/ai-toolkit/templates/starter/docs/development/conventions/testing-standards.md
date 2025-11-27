@@ -8,7 +8,7 @@ e2e_framework: "TBD"          # playwright, cypress, etc.
 test_location: "TBD"          # tests/, src/**/*.test.ts, etc.
 test_priority: "TBD"          # unit-first, integration-first, e2e-first
 run_command: "npm test"
-# Note: Coverage target is configured in development-loop.md (test_coverage_target)
+# Note: Coverage target is configured in task-workflow.md (test_coverage_target)
 ---
 
 # Testing Standards
@@ -19,7 +19,7 @@ run_command: "npm test"
 
 This guideline defines our testing approach, frameworks, and conventions. Update as you make testing decisions.
 
-**Coverage Target**: See `development-loop.md` for coverage target configuration (default: 95%).
+**Coverage Target**: See `task-workflow.md` for coverage target configuration (default: 95%).
 
 ## Our Testing Philosophy
 
@@ -125,12 +125,12 @@ Update these commands based on your actual test scripts.
 
 ## Quality Gates
 
-**Test-related quality gates** are defined in `development-loop.md`:
-- **Coverage target**: Configured in development-loop.md frontmatter (default: 95%)
+**Test-related quality gates** are defined in `task-workflow.md`:
+- **Coverage target**: Configured in task-workflow.md frontmatter (default: 95%)
 - **Test passage**: All tests must pass before phase completion
 - **Test types**: Unit, integration, and E2E requirements per phase
 
-See `development-loop.md` for complete quality gate configuration.
+See `task-workflow.md` for complete quality gate configuration.
 
 ## Examples
 
