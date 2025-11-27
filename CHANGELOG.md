@@ -6,16 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.40.0] - 2025-11-26
+
 ### Added
 
 - **`/issue` command** - Unified issue creation with AI-assisted type detection
   - Creates TASK, BUG, or SPIKE from natural language description
   - Keywords: "fix, broken, crash" → BUG, "should we, which, compare" → SPIKE, default → TASK
   - Optional spec linkage for feature work
-  - Creates `pm/issues/{TYPE}-###-name/` with appropriate issue file
+  - Creates `pm/issues/###-name/` with appropriate issue file (`TASK.md`, `BUG.md`, or `SPIKE.md`)
+  - Single numeric counter for all issue types (001, 002, 003...)
 
 - **`/complete` command** - Unified issue completion per workflow requirements
-  - Validates completion checklist from each workflow's Completion section
+  - Usage: `/complete ###` (detects type from which file exists)
   - TASK: phases complete, tests passing, review ≥90, acceptance criteria met
   - BUG: reproduction test exists, fix works, no regressions, root cause documented
   - SPIKE: pulls WORKLOGs from spike branches, generates SPIKE-SUMMARY.md, commits to develop
@@ -27,6 +30,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Root cause documentation required
 
 ### Changed
+
+- **Issue ID standardization** - BREAKING: Unified numeric IDs for all issue types
+  - **Before**: Type-prefixed IDs (`TASK-001`, `BUG-002`, `SPIKE-003`)
+  - **After**: Single numeric counter (`001`, `002`, `003`) with type from file
+  - Type detection: Commands check which file exists (`TASK.md`, `BUG.md`, `SPIKE.md`)
+  - External compatibility: Jira issues (`PROJ-123`) work seamlessly alongside numeric IDs
+  - Branch naming: `feature/001`, `bugfix/002`, `spike/003/plan-1`
+  - Updated: All commands (`/issue`, `/plan`, `/implement`, `/complete`, `/troubleshoot`)
+  - Updated: All workflows (`task-workflow.md`, `bug-workflow.md`, `spike-workflow.md`, `git-workflow.md`)
+  - Updated: PM docs (`pm-workflows.md`, `pm-file-formats.md`, `pm/README.md`)
+  - Updated: Starter templates (`CLAUDE.md`)
 
 - **Workflow file renamed** - `development-loop.md` → `task-workflow.md`
   - Clearer naming alongside `bug-workflow.md` and `spike-workflow.md`
@@ -53,9 +67,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - **`/troubleshoot` command** - Now dual-purpose with description argument
   - During TASK: `/troubleshoot "description"` uses 5-step loop, documents in current WORKLOG
-  - For BUG: `/troubleshoot BUG-###` equivalent to `/implement BUG-###`
+  - For BUG: `/troubleshoot ###` equivalent to `/implement ###` (detects bug from BUG.md)
   - References bug-workflow.md for 5-step debugging loop
-  - Argument hint updated: `[BUG-### | TASK-### | "description"]`
+  - Argument hint updated: `[### | "description"]`
 
 - **WORKLOG documentation consolidated** - Reduced from 954 to 272 lines (72% reduction)
   - Merged `worklog-examples.md` into `worklog-format.md`
@@ -87,7 +101,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - **`/spike` command** - Replaced by `/issue` with type detection
   - Creating spikes: Use `/issue "should we use GraphQL or REST?"`
-  - Completing spikes: Use `/complete SPIKE-###`
+  - Completing spikes: Use `/complete ###` (detects spike type from SPIKE.md)
 
 - **`development-loop.md` streamlined** - Reduced from 590 to 202 lines (66% reduction)
   - Removed duplicate "Test-First Strategy" section (covered by TDD Loop)
