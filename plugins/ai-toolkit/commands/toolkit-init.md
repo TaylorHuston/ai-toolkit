@@ -11,7 +11,7 @@ references_guidelines:
 
 # /toolkit-init
 
-**WHAT**: Initialize project with complete ai-toolkit structure (54 files) or intelligently sync updates after plugin upgrades.
+**WHAT**: Initialize project with complete ai-toolkit structure (53 files) or intelligently sync updates after plugin upgrades.
 
 **WHY**: 30-second setup for new projects; preserve customizations while benefiting from template improvements in existing projects.
 
@@ -54,7 +54,7 @@ if not exists: ERROR "Template directory not found"
 
 **No other questions**. Tech stack, links, infrastructure = filled in later.
 
-### 3. Copy Template Files (51 Files)
+### 3. Copy Template Files (50 Files)
 
 **Copy all template files**:
 ```bash
@@ -68,7 +68,7 @@ cp -r "$TEMPLATE_DIR"/* .
 cp "$TEMPLATE_DIR"/.gitignore .
 ```
 
-**CRITICAL**: Must copy ALL 51 template files including:
+**CRITICAL**: Must copy ALL 50 template files including:
 - `.gitkeep` files (preserve empty dirs in pm/specs/, pm/issues/, pm/notes/)
 - `.gitignore` (hidden file)
 - All nested subdirectories
@@ -102,7 +102,7 @@ CURRENT_DATE=$(date '+%Y-%m-%d')
 ### 6. Verification
 
 ```bash
-# Count files (should be 54: 51 template + 3 generated)
+# Count files (should be 53: 50 template + 3 generated)
 find . -type f | grep -v ".git" | wc -l
 
 # Verify critical directories exist
@@ -118,11 +118,11 @@ find . -type f | grep -v ".git" | wc -l
 ### 7. Success Output
 
 ```
-✓ Created 54 files
+✓ Created 53 files
 
 Structure:
 ├── pm/ (4 files)
-├── docs/development/ (34 files: conventions, workflows, templates, misc)
+├── docs/development/ (33 files: conventions, workflows, templates, misc)
 ├── docs/project/ (6 files: READMEs + generated docs)
 └── root (10 files: CLAUDE.md, README.md, etc.)
 
@@ -253,7 +253,7 @@ sed -i "s/Last Updated\*\*: .*/Last Updated**: $(date '+%Y-%m-%d')/" CLAUDE.md
 
 ## Notes
 
-- **54 files total**: 51 template files + 3 generated from templates
+- **53 files total**: 50 template files + 3 generated from templates
 - **2 questions only**: App name + description
 - **Smart merge**: Preserves user customizations while adding new content
 - **Dry run**: Use `--dry-run` to preview all changes safely

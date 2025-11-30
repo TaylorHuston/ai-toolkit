@@ -31,15 +31,15 @@ your-project/
 
 3. **`/spec`** - Create a Spec Document (the heart of the workflow). A Spec is a concrete plan for a body of related work - similar in scope to an Epic in Agile or a PRD. Written for easy parsing by Claude Code with clear requirements, acceptance criteria, and definition of done. Unlike ADRs, Specs are living documents that adapt as you discover hiccups and make adjustments during implementation.
 
-4. **`/spike "question"`** (Optional) - If technical approach is uncertain, create a time-boxed exploration to compare alternatives ("GraphQL vs REST?", "Which library performs better?"). Spikes produce findings and recommendations, not production code. Skip if approach is clear.
+4. **`/issue "description"`** (Optional) - Create work items (TASK, BUG, or SPIKE) from natural language. AI detects type from keywords: "fix, broken" → BUG, "should we, compare" → SPIKE, default → TASK.
 
-5. **`/plan TASK-###`** - Create a thorough implementation plan with all steps needed to complete the task. In the default configuration, this breaks work into discrete Phases (each a logical commit with strict TDD workflow), but you can customize to your specifications.
+5. **`/plan ###`** - Create a thorough implementation plan with all steps needed to complete the task. Auto-detects issue type and creates appropriate plan structure. In the default configuration, this breaks work into discrete Phases (each a logical commit with strict TDD workflow), but you can customize to your specifications.
 
-6. **`/implement TASK-### PHASE`** - Start implementing. Execute a single phase or let Claude complete the entire task end-to-end. Quality gates and workflows make autonomous execution both possible and safe, but you're always in control.
+6. **`/implement ### PHASE`** - Start implementing. Execute a single phase or let Claude complete the entire task end-to-end. Quality gates and workflows make autonomous execution both possible and safe, but you're always in control.
 
 ## Commands, Workflows and Conventions
 
-The AI Toolkit provides **25+ commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
+The AI Toolkit provides **26 commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
 
 **Why file-based configuration?** Commands are intentionally minimal - they read your project's guideline files to adapt behavior. Baseline versions come with the toolkit, but keeping them as files in your repo means you can customize them to fit your team's specific workflow and conventions.
 
@@ -201,8 +201,8 @@ Each command is conversational and guides you through its workflow:
 - `/project-brief` asks questions to fill in your vision
 - `/spec` helps structure features with acceptance criteria
 - `/adr` explores options and creates ADRs
-- `/spike` compares technical approaches through exploration (when uncertain)
-- `/plan` breaks work into testable phases
+- `/issue` creates work items (TASK, BUG, SPIKE) from natural language
+- `/plan` breaks work into testable phases (auto-detects issue type)
 - `/implement` executes with domain-specific agents
 
 ### Structure Emerges
@@ -213,7 +213,7 @@ As you work, the AI creates documentation automatically:
 - **Test plans** integrated throughout
 
 ### Guidelines Adapt
-Your project includes **16 customizable guideline files** organized in 4 directories:
+Your project includes **33 customizable guideline files** organized in 4 directories:
 
 **Conventions** (`docs/development/conventions/` - 7 files):
 - `api-guidelines.md` - API patterns and structure
@@ -304,7 +304,7 @@ After updating the AI Toolkit plugin:
 
 ## Command Reference
 
-**25 commands organized by workflow stage:**
+**26 commands organized by workflow stage:**
 
 ### Setup & Strategy
 | Command | Purpose |
@@ -323,15 +323,16 @@ After updating the AI Toolkit plugin:
 | Command | Purpose |
 |---------|---------|
 | `/adr` | Make architecture decisions and create ADRs |
-| `/plan TASK-###` | Break down implementation into phases |
-| `/implement TASK-### PHASE` | Execute specific phases with agents |
-| `/advise TASK-### PHASE` | Get implementation guidance without code generation |
+| `/issue "description"` | Create work items (TASK, BUG, SPIKE) from natural language |
+| `/plan ###` | Break down implementation into phases (auto-detects type) |
+| `/implement ### PHASE` | Execute specific phases with agents |
+| `/advise ### PHASE` | Get implementation guidance without code generation |
+| `/complete ###` | Complete any issue type per its workflow requirements |
 
 ### Quality & Security
 | Command | Purpose |
 |---------|---------|
-| `/quality` | Multi-dimensional quality assessment, a good best practice is to run this once a Task is complete before you merge |
-| `/security-audit` | OWASP-compliant security assessment |
+| `/quality` | Multi-dimensional quality assessment (includes security via security-auditor agent) |
 | `/troubleshoot` | Structured 5-step troubleshooting workflow |
 | `/sanity-check` | Mid-work validation and alignment check, run if you feel like Claude has hit a wall and/or is going down the wrong path |
 

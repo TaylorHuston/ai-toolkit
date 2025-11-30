@@ -5,7 +5,7 @@ description: "PM workflows for spec creation, task planning, and implementation 
 
 # PM Workflows
 
-**Referenced by:** `/spec`, `/spike`, `/plan`, `/implement`, `/advise`
+**Referenced by:** `/spec`, `/issue`, `/plan`, `/implement`, `/advise`, `/complete`
 
 ## File Purposes
 
@@ -13,7 +13,7 @@ description: "PM workflows for spec creation, task planning, and implementation 
 |------|---------|----------|------------|
 | SPEC.md | WHAT feature (user perspective) | Description, BDD scenarios, definition of done | `/spec`, `/jira-epic` |
 | TASK.md | WHAT work item (PM perspective) | Description, acceptance criteria, tech notes | `/spec` task creation |
-| SPIKE.md | WHAT questions to answer | Questions, time box, approaches | `/spike` |
+| SPIKE.md | WHAT questions to answer | Questions, time box, approaches | `/issue` (type detection) |
 | PLAN.md | HOW to implement | Phases, steps, scenario coverage | `/plan` |
 
 **Key distinctions:**
