@@ -3,19 +3,16 @@
 A lightweight, fully customizable framework to enable Spec Driven Development with Claude Code.
 
 ## IMPORTANT
+
 This is very much an alpha/experiment at the moment. Look at the commit history to see that for yourself. Right now it's a lot of throwing lots of things at the wall, seeing what works, seeing what doesn't, and frequently changing things as I use it in more "real world" scenarios.
 
 ## What's Included
-
-This marketplace contains:
 
 - **AI Toolkit Plugin** - Complete workflow system with 26 commands, 21 specialized agents, and intelligent automation
 - **Starter Template** - 50 essential files for clean project initialization via `/toolkit-init`
 - **Development Guidelines** - 34 customizable files organized in 4 directories (conventions, workflows, templates, misc)
 
 ## Quick Start
-
-### Install and Initialize
 
 ```bash
 # 1. Add this marketplace
@@ -39,36 +36,9 @@ The `/toolkit-init` command scaffolds your project with:
 - Documentation framework (AI creates content as you work)
 - Interactive setup with smart conflict resolution
 
-### Keeping Templates Updated
+Run `/toolkit-init --dry-run` after plugin updates to preview template changes. See `GETTING-STARTED.md` in your initialized project for detailed update workflows.
 
-After plugin updates, sync your project with the latest templates:
-
-```bash
-# Preview changes without modifying files
-/toolkit-init --dry-run
-
-# Update templates while preserving your customizations
-/toolkit-init
-
-# Complete reset (overwrites all customizations - use carefully)
-/toolkit-init --force
-```
-
-**What gets updated:**
-- New guideline files in `docs/development/`
-- Improved workflow templates
-- Bug fixes to templates
-- New PM templates
-
-**What's preserved:**
-- Your customized guidelines
-- Your project-specific docs (ADRs, design assets)
-- All PM files (specs, tasks, bugs, plans, worklogs)
-- CLAUDE.md and README.md customizations
-
-**Best practice:** Run `/toolkit-init --dry-run` after plugin updates to see what's new.
-
-### Intended Workflow
+## Intended Workflow
 
 1. **`/project-brief`** - Create your Project Brief through an interactive session. This is the high-level, relatively non-technical overview of your project: the problem you're solving, your target audience, core features. Think "One Pager" or "Elevator Pitch" - the guiding direction for everything else.
 
@@ -76,19 +46,26 @@ After plugin updates, sync your project with the latest templates:
 
 3. **`/spec`** - Create a Spec Document (the heart of the workflow). A Spec is a concrete plan for a body of related work - similar in scope to an Epic in Agile or a PRD. Written for easy parsing by Claude Code with clear requirements, acceptance criteria, and definition of done. Unlike ADRs, Specs are living documents that adapt as you discover hiccups and make adjustments during implementation.
 
-4. **`/plan TASK-###`** - Create a thorough implementation plan with all steps needed to complete the task. In the default configuration, this breaks work into discrete Phases (each a logical commit with strict TDD workflow), but you can customize to your specifications.
+4. **`/plan ###`** - Create a thorough implementation plan with all steps needed to complete the task. In the default configuration, this breaks work into discrete Phases (each a logical commit with strict TDD workflow), but you can customize to your specifications. Works for Tasks, Bugs and Spikes.
 
-5. **`/implement TASK-### PHASE`** - Start implementing. Execute a single phase or let Claude complete the entire task end-to-end. Quality gates and workflows make autonomous execution both possible and safe, but you're always in control.
+5. **`/implement ### PHASE`** - Start implementing. Execute a single phase or let Claude complete the entire task end-to-end. Quality gates and workflows make autonomous execution both possible and safe, but you're always in control.
 
-> **Next Steps**: For technical architecture details, see [Core 3-Phase Workflow](#-core-3-phase-workflow). For file-based project management, see [Local Project Management](#local-project-management).
+## Core Commands
 
-## Customizable Commands and Workflows
+| Command | Purpose |
+|---------|---------|
+| `/project-brief` | Create/update project vision through interactive Q&A |
+| `/spec` | Create feature specs with acceptance criteria |
+| `/adr` | Make architecture decisions (Quick Mode or Deep Mode) |
+| `/plan ###` | Break down tasks into test-first implementation phases |
+| `/implement ### PHASE` | Execute phases with specialized agents and quality gates |
+| `/quality` | Multi-dimensional quality assessment before merge |
 
-The AI Toolkit provides **26 commands** that follow workflows in your `docs/development/workflows/` directory and respect conventions in `docs/development/conventions/`.
+**Full reference**: See `docs/development/misc/commands.md` after running `/toolkit-init`.
 
 **Why file-based configuration?** Commands are intentionally minimal - they read your project's guideline files to adapt behavior. Baseline versions come with the toolkit, but keeping them as files in your repo means you can customize them to fit your team's specific workflow and conventions.
 
-**Full command reference**: See `docs/development/misc/commands.md` in your project after running `/toolkit-init`. 
+**Full command reference**: See `docs/development/misc/commands.md` in your project after running `/toolkit-init`.
 
 ## AI Toolkit Plugin
 
@@ -163,23 +140,17 @@ The AI Toolkit plugin provides a complete development workflow system with **26 
 
 Domain experts that auto-activate based on task context:
 
-- **Strategy & Planning**: brief-strategist, code-architect, project-manager, context-analyzer
-- **Cloud Platforms**: aws-expert, azure-expert, gcp-expert
+- **Strategy**: brief-strategist, code-architect, project-manager, context-analyzer
+- **Cloud**: aws-expert, azure-expert, gcp-expert
 - **Design**: ui-ux-designer, api-designer
 - **Implementation**: frontend-specialist, backend-specialist, database-specialist
 - **Quality**: test-engineer, code-reviewer, security-auditor, performance-optimizer
-- **Operations**: devops-engineer, technical-writer
-- **Maintenance**: refactoring-specialist, migration-specialist
-- **AI Expertise**: ai-llm-expert
+- **Operations**: devops-engineer, technical-writer, refactoring-specialist, migration-specialist
+- **AI**: ai-llm-expert
 
-Each agent has specialized tools, domain knowledge, and triggers for automatic invocation based on task requirements.
+## Local Project Management
 
-### Local Project Management
-
-The AI Toolkit provides a complete file-based project management system for teams working entirely locally (no external PM tool required).
-
-> **How does this fit in?** This section shows the file-based implementation of the [Intended Workflow](#intended-workflow) - where specs, tasks, and plans are stored as local files in your repository.
-
+File-based project management - no external tools required.
 _Note: This approach works best for individuals and small teams. For larger teams, consider Jira or some other dedicated project management tool. More integrations planned._
 
 #### Quick Start
@@ -209,6 +180,7 @@ _Note: This approach works best for individuals and small teams. For larger team
 
 #### File Structure
 
+
 ```
 pm/
 ├── specs/
@@ -218,8 +190,7 @@ pm/
     ├── 001-login-form/
     │   ├── TASK.md                  # Requirements & acceptance criteria (type from file)
     │   ├── PLAN.md                  # AI implementation phases
-    │   ├── WORKLOG.md               # Implementation history
-    │   └── RESEARCH.md              # Technical decisions (optional)
+    │   └── WORKLOG.md               # Implementation history
     │
     └── 002-session-timeout/
         ├── BUG.md                   # Bug report (type from file)
@@ -227,18 +198,9 @@ pm/
         └── WORKLOG.md
 ```
 
-#### Benefits
+**Benefits**: Fully local, version controlled, AI-optimized file structure, customizable templates, no vendor lock-in.
 
-- **Fully local** - Works offline, no external dependencies
-- **Version controlled** - All planning in git with your code
-- **AI-optimized** - Files structured for AI context understanding
-- **Flexible** - Customize templates in `docs/development/templates/`
-- **Portable** - Self-contained, no vendor lock-in
-
-#### Cons
-
-- **No syncing** - No real way to sync task creation and progress across teams outside of just committing the the repo, which could lead to weird merge conflicts
-- **May not scale** - Unsure how well this system will hold up when you have hundreds or even thousands of tasks, may need to implement some kind of an archival process
+**Cons**: No real-time team sync (commits only), may not scale to thousands of tasks without archiving.
 
 #### Customization
 
@@ -326,11 +288,6 @@ ai-toolkit/
 - Git (for version control commands)
 - Bash (for script execution)
 
-Optional but recommended:
-
-- Node.js (for JavaScript/TypeScript projects)
-- Python 3.7+ (for Python projects)
-
 ## Contributing
 
 Contributions welcome! Please see `CONTRIBUTING.md` for guidelines.
@@ -341,7 +298,6 @@ MIT License - see `LICENSE` for details.
 
 ## Support
 
-- **Documentation**: Full docs in `plugins/ai-toolkit/README.md` and `starter-template/docs/`
 - **Issues**: Report bugs and request features via GitHub Issues
 - **Discussions**: Share feedback and ask questions in GitHub Discussions
 
@@ -349,6 +305,7 @@ MIT License - see `LICENSE` for details.
 
 Other projects that are also roughly trying to solve the same thing and I find interesting
 
-- [[Taskmaster AI]](https://github.com/eyaltoledano/claude-task-master)
-- [[GItHub Spec Kit]](https://github.com/github/spec-kit)
-- [[Tessl]](https://tessl.io)
+- [Taskmaster AI](https://github.com/eyaltoledano/claude-task-master)
+- [GitHub Spec Kit](https://github.com/github/spec-kit)
+- [Tessl](https://tessl.io)
+- [ClaudeKit](https://claudekit.cc)

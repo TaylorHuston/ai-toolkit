@@ -65,14 +65,14 @@ cd /path/to/test-project
 - Test with `/toolkit-init` in a clean project
 - Verify all 4 guideline directories work correctly:
   - `conventions/` (7 files)
-  - `workflows/` (10 files)
+  - `workflows/` (9 files)
   - `templates/` (13 files)
   - `misc/` (4 files)
 
 ### 3. Quality Standards
 
 - **Documentation**: Keep all README files synchronized
-- **Counts**: Verify command count (25), agent count (21), template file count (51) are accurate
+- **Counts**: Verify command count (26), agent count (21), template file count (50) are accurate
 - **Paths**: All file path references must be correct
 - **CHANGELOG**: Update for all user-facing changes
 
@@ -259,10 +259,10 @@ ai-toolkit/
         │   └── plugin.json        # Plugin metadata, version
         ├── CHANGELOG.md           # Synced from root
         ├── README.md              # Plugin documentation
-        ├── commands/              # 25 command files
+        ├── commands/              # 26 command files
         ├── agents/                # 21 agent files
         └── templates/
-            └── starter/           # 51 template files
+            └── starter/           # 50 template files
                 ├── CLAUDE.md
                 ├── GETTING-STARTED.md
                 ├── README.md
@@ -272,7 +272,7 @@ ai-toolkit/
                 │   ├── project/
                 │   └── development/
                 │       ├── conventions/    # 7 files
-                │       ├── workflows/      # 10 files
+                │       ├── workflows/      # 9 files
                 │       ├── templates/      # 13 files
                 │       └── misc/           # 4 files
                 └── pm/

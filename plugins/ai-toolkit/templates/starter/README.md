@@ -149,9 +149,9 @@ your-project/
         └── .gitkeep
 ```
 
-**51 files breakdown:**
+**50 files breakdown:**
 - **5 core files**: CLAUDE.md, README.md, GETTING-STARTED.md, CHANGELOG.md, .gitignore
-- **46 structure files**: 17 guidelines (7 conventions + 10 workflows), 13 templates, 4 misc docs, 10 README files, 2 .gitkeep placeholders
+- **45 structure files**: 16 guidelines (7 conventions + 9 workflows), 13 templates, 4 misc docs, 10 README files, 2 .gitkeep placeholders
 
 ### Active Project Structure (After Development)
 
@@ -232,14 +232,14 @@ The AI Toolkit provides **26 commands** for structured development:
 
 ### Planning & Implementation
 - `/adr` - Make architecture decisions and create ADRs
-- `/spike` - Time-boxed technical exploration for "Can we?" or "Which approach?" questions
-- `/plan TASK-###` - Add implementation plan to tasks/bugs
-- `/implement TASK-### PHASE` - Execute specific phases with specialized agents
-- `/advise TASK-### PHASE` - Get implementation guidance without code generation
+- `/issue` - Create work items (TASK, BUG, or SPIKE) from natural language description
+- `/plan ###` - Add implementation plan to tasks/bugs/spikes (auto-detects type)
+- `/implement ### PHASE` - Execute specific phases with specialized agents
+- `/advise ### PHASE` - Get implementation guidance without code generation
+- `/complete ###` - Complete any issue type per its workflow requirements
 
 ### Quality & Security
-- `/quality` - Multi-dimensional quality analysis
-- `/security-audit` - OWASP-compliant security assessment
+- `/quality` - Multi-dimensional quality analysis (includes security via security-auditor agent)
 - `/troubleshoot` - Structured 5-step troubleshooting workflow
 - `/sanity-check` - Mid-work validation and alignment check
 

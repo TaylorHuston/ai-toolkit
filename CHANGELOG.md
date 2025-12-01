@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.40.1] - 2025-11-30
+
+### Changed
+
+- **Root README.md** - Condensed from 352 to 124 lines (65% reduction)
+  - Removed duplicate content (command listings, redundant Quick Start)
+  - Removed sections better suited for other docs (Repository Structure → CONTRIBUTING.md, Local Development → CONTRIBUTING.md)
+  - Replaced 57-line full command listing with focused 6-command table
+  - Condensed "Keeping Templates Updated" section to 1 sentence with link
+  - Removed "Documentation" section (users discover docs naturally)
+  - Retained core value: Intended Workflow, file structure, benefits/cons, agents overview
+
+### Fixed
+
+- **Documentation accuracy** - Corrected counts and references across all documentation files
+  - CLAUDE.md: Updated version to 0.40.1, command count 25 → 26, template count 51 → 50
+  - marketplace.json: Command count 25 → 26
+  - README.md: Guideline count 34 → 33, removed obsolete `/spike` command references
+  - CONTRIBUTING.md: Updated all file counts and workflow counts
+  - toolkit-init.md: File counts 54 → 53, 51 → 50 throughout
+  - Starter template files: Updated counts, replaced `/spike` with `/issue`, removed `/security-audit`
+  - GETTING-STARTED.md: Command count 25+ → 26, guideline count 16 → 33
+  - pm-workflows.md: Updated command references
+
 ## [0.40.0] - 2025-11-26
 
 ### Added
