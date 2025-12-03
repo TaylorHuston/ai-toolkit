@@ -1,15 +1,16 @@
 :root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --bg: #0f0f0f;
-    --bg-card: #1a1a1a;
-    --text: #e5e5e5;
-    --text-muted: #a3a3a3;
-    --border: #2a2a2a;
+    /* Dark theme from taylorhuston.github.io */
+    --primary: hsl(26, 77%, 52%);       /* Orange accent */
+    --primary-dark: hsl(26, 77%, 42%);  /* Darker orange */
+    --bg: #171c28;                       /* Dark slate */
+    --bg-card: #1e2433;                  /* Slightly lighter slate */
+    --text: #a2aabc;                     /* Muted bluish-gray */
+    --text-muted: #7a8294;               /* Darker muted text */
+    --border: rgba(224, 118, 40, 0.15);  /* Semi-transparent orange */
     --green: #22c55e;
     --blue: #3b82f6;
     --purple: #a855f7;
-    --orange: #f97316;
+    --orange: hsl(26, 77%, 52%);
     --red: #ef4444;
     --cyan: #06b6d4;
     --pink: #ec4899;
@@ -81,7 +82,7 @@ nav {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 24px;
-    background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+    background: linear-gradient(135deg, #d0d6e3 0%, var(--primary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -164,6 +165,7 @@ nav {
 .page-header h1 {
     font-size: 2.5rem;
     margin-bottom: 16px;
+    color: #d0d6e3;
 }
 
 .page-header p {
@@ -181,6 +183,7 @@ nav {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 60px;
+    color: #d0d6e3;
 }
 
 .feature-grid {
@@ -199,6 +202,7 @@ nav {
 .feature-card h3 {
     font-size: 1.25rem;
     margin-bottom: 12px;
+    color: #d0d6e3;
 }
 
 .feature-card p {
@@ -216,6 +220,7 @@ nav {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 60px;
+    color: #d0d6e3;
 }
 
 .code-block {
@@ -252,6 +257,7 @@ nav {
 .install h2 {
     font-size: 2rem;
     margin-bottom: 16px;
+    color: #d0d6e3;
 }
 
 .install p {
@@ -279,12 +285,13 @@ nav {
     margin-bottom: 32px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
+    color: #d0d6e3;
 }
 
 .content-section h3 {
     font-size: 1.25rem;
     margin: 32px 0 16px;
-    color: var(--text);
+    color: #d0d6e3;
 }
 
 /* Agent/Command Cards - List Layout */
@@ -322,6 +329,7 @@ nav {
     margin: 0;
     font-size: 1rem;
     font-weight: 600;
+    color: #d0d6e3;
 }
 
 .card-badge {
@@ -442,6 +450,7 @@ nav {
 .info-box h4 {
     margin-bottom: 12px;
     font-size: 1rem;
+    color: #d0d6e3;
 }
 
 .info-box ul {
