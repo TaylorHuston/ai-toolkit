@@ -20,6 +20,8 @@ references_guidelines:
 
 **HOW**: Detects issue type, follows its workflow, enforces quality gates.
 
+**MANDATORY**: You MUST create/update WORKLOG.md for EVERY phase. Read `docs/development/workflows/worklog-format.md` for entry format. No phase is complete without a WORKLOG entry documenting what was done, decisions made, and gotchas encountered.
+
 ## Usage
 
 ```bash
@@ -85,12 +87,18 @@ Select agent based on phase domain:
 - **GREEN**: Tests PASS after implementation
 - **REFACTOR**: Review ≥90 to complete
 
-### 5. Track Progress
+### 5. Track Progress (MANDATORY for every phase)
 
-- Write WORKLOG entry
-- Update Phase Commits section
-- Check off PLAN.md checkbox
-- Commit changes
+1. **Create WORKLOG.md** if it doesn't exist (with Phase Commits header)
+2. **Write WORKLOG entry** following `docs/development/workflows/worklog-format.md`:
+   - Use Standard Format for implementation work
+   - Include: Completed, Key decisions, Gotchas, Files
+   - Run `date '+%Y-%m-%d %H:%M'` for timestamp
+3. **Update Phase Commits section** with commit hash
+4. **Check off PLAN.md checkbox**
+5. **Commit changes**
+
+⚠️ A phase is NOT complete until WORKLOG.md is updated.
 
 ---
 
@@ -193,8 +201,14 @@ pm/issues/001-user-auth/
 |------|---------|----------|
 | Specific | `/implement 001 1.1` | Execute single phase |
 | Next | `/implement 001 --next` | Find first uncompleted |
-| Full | `/implement 001 --full` | Execute all remaining |
+| Full | `/implement 001 --full` | Execute all remaining phases |
 | Auto | `/implement --next` | Auto-detect issue + next |
+
+**`--full` mode requirements:**
+- WORKLOG.md entry after EACH phase (not just at the end)
+- Quality gates enforced for each phase
+- Phase Commits updated after each commit
+- Stops if any phase fails quality gates
 
 ---
 

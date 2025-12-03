@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.40.4] - 2025-12-03
+
+### Fixed
+
+- **`/implement` command WORKLOG compliance** - Made WORKLOG.md creation mandatory for every phase
+  - Added MANDATORY instruction at top of command
+  - Expanded "Track Progress" section with explicit steps
+  - `--full` mode now explicitly requires WORKLOG entry after EACH phase
+  - References `worklog-format.md` for entry format
+
 ## [0.40.3] - 2025-12-03
 
 ### Fixed
