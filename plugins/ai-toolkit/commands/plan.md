@@ -18,6 +18,8 @@ references_guidelines:
 
 **HOW**: Detects issue type from file (TASK.md/BUG.md/SPIKE.md) and generates appropriate plan structure.
 
+**IMPORTANT**: ALWAYS read `docs/development/templates/plan-template.md` BEFORE generating any plan. The template defines the expected sections (Overview, Comparative Context, Domain Context, Phases, Scenario Coverage, Complexity Analysis). If you believe a section should be skipped or modified for this specific task, ask the user first before deviating from the template.
+
 ## Usage
 
 ```bash
@@ -48,9 +50,13 @@ fi
 
 ### For Task/Bug
 
-1. **Load**: Read TASK.md/BUG.md, parent SPEC (if exists), similar WORKLOGs
+1. **Load Context**:
+   - Read `docs/development/templates/plan-template.md` for plan structure (MANDATORY)
+   - Read TASK.md/BUG.md for requirements
+   - Read parent SPEC (if exists) for acceptance scenarios
+   - Read similar WORKLOGs for patterns
 2. **Analyze**: Sequential thinking, research via Context7/web search
-3. **Generate**: Phase breakdown per workflow guidelines
+3. **Generate**: Phase breakdown following plan-template.md structure
    - **Task**: TDD phases (X.RED/X.GREEN/X.REFACTOR) per task-workflow.md
    - **Bug**: Reproduction → Fix → Harden phases per bug-workflow.md
 4. **Review**: code-architect (always), security-auditor (if security-relevant)
@@ -58,7 +64,9 @@ fi
 
 ### For Spike (Exploration)
 
-1. **Load**: Read SPIKE.md (questions, success criteria)
+1. **Load Context**:
+   - Read `docs/development/templates/plan-template.md` for plan structure (MANDATORY)
+   - Read SPIKE.md (questions, success criteria)
 2. **Ask**: "How many approaches do you want to explore?" → N
 3. **Gather**: For each approach:
    - "Describe approach N?" → User describes

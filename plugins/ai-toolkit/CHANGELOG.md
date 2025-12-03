@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.40.3] - 2025-12-03
+
+### Fixed
+
+- **`/plan` command template compliance** - Added explicit instruction to read plan-template.md before generating plans
+  - Template defines expected sections (Overview, Comparative Context, Domain Context, Phases, Scenario Coverage, Complexity Analysis)
+  - AI can deviate from template with user approval
+
 ## [0.40.2] - 2025-12-03
 
 ### Fixed
