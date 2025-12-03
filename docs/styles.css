@@ -2,10 +2,10 @@
     /* Dark theme from taylorhuston.github.io */
     --primary: hsl(26, 77%, 52%);       /* Orange accent */
     --primary-dark: hsl(26, 77%, 42%);  /* Darker orange */
-    --bg: #171c28;                       /* Dark slate */
-    --bg-card: #1e2433;                  /* Slightly lighter slate */
-    --text: #a2aabc;                     /* Muted bluish-gray */
-    --text-muted: #7a8294;               /* Darker muted text */
+    --bg: rgb(18, 22, 32);               /* Dark slate */
+    --bg-card: rgb(28, 33, 46);          /* Slightly lighter slate */
+    --text: rgb(193, 201, 219);          /* Bluish-gray */
+    --text-muted: rgb(140, 148, 166);    /* Darker muted text */
     --border: rgba(224, 118, 40, 0.15);  /* Semi-transparent orange */
     --green: #22c55e;
     --blue: #3b82f6;
