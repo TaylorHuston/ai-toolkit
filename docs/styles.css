@@ -1,12 +1,12 @@
 :root {
-    /* Dark theme from taylorhuston.github.io */
-    --primary: #f97316;                  /* Orange accent */
-    --primary-dark: #ea580c;             /* Darker orange */
-    --bg: #030712;                       /* Very dark slate */
-    --bg-card: #0a0f1a;                  /* Slightly lighter */
-    --text: #f1f5f9;                     /* Light gray */
-    --text-muted: #94a3b8;               /* Muted text */
-    --border: rgba(249, 115, 22, 0.15);  /* Semi-transparent orange */
+    /* Dark theme - Tailwind Zinc palette */
+    --primary: #f97316;                  /* Orange 500 accent */
+    --primary-dark: #ea580c;             /* Orange 600 */
+    --bg: #09090b;                       /* Zinc 950 */
+    --bg-card: #18181b;                  /* Zinc 900 */
+    --text: #fafafa;                     /* Zinc 50 */
+    --text-muted: #a1a1aa;               /* Zinc 400 */
+    --border: #27272a;                   /* Zinc 800 */
     --green: #22c55e;
     --blue: #3b82f6;
     --purple: #a855f7;
