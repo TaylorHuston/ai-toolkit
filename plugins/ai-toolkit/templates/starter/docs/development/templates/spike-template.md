@@ -37,7 +37,7 @@ sections:
     hint: "SPEC-### ID if this spike informs a feature spec"
 ---
 
-# SPIKE-{id}: {title}
+# {id}: {title}
 
 ## Questions to Answer
 
@@ -63,5 +63,5 @@ sections:
 
 ---
 
-**Exploration Plans**: Run `/plan --spike SPIKE-{id}` to create exploration plans for each approach.
+**Exploration Plans**: Run `/plan {id}` to create exploration plans for each approach.
 **See**: `docs/development/workflows/spike-workflow.md` for complete spike methodology.

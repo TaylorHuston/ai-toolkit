@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.40.2] - 2025-12-03
+
+### Fixed
+
+- **Starter templates ID format** - Updated all templates to use numeric IDs per v0.40.0 convention
+  - Fixed 62 references across 8 template files still using old `TASK-###`, `BUG-###`, `SPIKE-###` format
+  - Templates now correctly use `###` for issues and `SPEC-###` for specs
+  - Affected files: commands.md, jira-integration.md, task-template.md, bug-template.md, spike-template.md, plan-template.md, note-template.md, README.md (templates)
+
 ## [0.40.1] - 2025-11-30
 
 ### Changed

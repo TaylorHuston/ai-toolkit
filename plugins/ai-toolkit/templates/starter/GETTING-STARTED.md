@@ -407,7 +407,7 @@ Understanding the distinction between **slash commands** and **agents** helps yo
 
 **Examples:**
 ```bash
-/spec                      # Creates pm/specs/SPEC-###-name.md
+/spec                      # Creates pm/specs/SPEC-###-name/SPEC.md
 /plan 001                  # Creates pm/issues/001-*/PLAN.md
 /adr                       # Creates docs/project/adrs/ADR-###.md
 /implement 001 1.1         # Executes phase, updates WORKLOG.md

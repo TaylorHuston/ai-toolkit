@@ -32,7 +32,7 @@ sections:
     hint: "OS, browser, version, configuration, etc."
 ---
 
-# BUG-{id}: {name}
+# {id}: {name}
 
 ## Description
 {description}
@@ -53,4 +53,4 @@ sections:
 
 ---
 
-**Fix Plan**: Run `/plan BUG-{id}` to create PLAN.md with root cause analysis and fix approach.
+**Fix Plan**: Run `/plan {id}` to create PLAN.md with root cause analysis and fix approach.

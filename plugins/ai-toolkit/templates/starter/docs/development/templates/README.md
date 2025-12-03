@@ -78,7 +78,7 @@ sections:
 Shows the expected file format:
 
 ```markdown
-# TASK-{id}: {name}
+# {id}: {name}
 
 ## Description
 {description}
@@ -166,13 +166,13 @@ Shows the expected file format:
 Add new template to `templates/` directory:
 
 ```bash
-# For SPIKE-### issues
+# For spike issues (creates SPIKE.md)
 templates/spike.md
 
-# For RFC-### issues
+# For RFC issues (creates RFC.md)
 templates/rfc.md
 
-# For DEBT-### issues
+# For tech debt issues (creates DEBT.md)
 templates/debt.md
 ```
 
@@ -208,7 +208,7 @@ sections:
     hint: "Fill in at spike conclusion"
 ---
 
-# SPIKE-{id}: {name}
+# {id}: {name}
 
 ## Research Question
 {research_question}

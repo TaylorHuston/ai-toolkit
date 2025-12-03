@@ -12,7 +12,7 @@ Template for quick notes captured during implementation.
 ```yaml
 ---
 type: [bug|perf|idea|tech-debt|research]
-context: [TASK-### phase X.Y | general]
+context: [### phase X.Y | general]
 impact: [critical|high|medium|low]
 created: YYYY-MM-DD HH:MM:SS
 ---

@@ -16,8 +16,8 @@ The AI Toolkit provides a flexible workflow that adapts to your needs:
 1. **Brief/One Pager**: `/project-brief` - Define what you're building and why
 2. **Planning**: `/spec` - Create feature specifications with acceptance criteria
 3. **Architecture**: `/adr` - Make technical decisions and create ADRs
-4. **Tasks**: `/plan TASK-###` - Break down implementation into phases
-5. **Build**: `/implement TASK-### PHASE` (automated) or `/advise TASK-### PHASE` (collaborative)
+4. **Tasks**: `/plan ###` - Break down implementation into phases
+5. **Build**: `/implement ### PHASE` (automated) or `/advise ### PHASE` (collaborative)
 6. **Quality**: `/quality`, `/troubleshoot` - Ensure excellence
 
 ### Commands Are Conversational
@@ -61,7 +61,7 @@ Commands use different parameter paradigms because **different workflows need di
 
 **When**: Operating on specific artifacts with clear, predictable inputs
 
-**Commands**: `/plan TASK-###`, `/implement TASK-### PHASE`
+**Commands**: `/plan ###`, `/implement ### PHASE`
 
 **Why**: These commands perform precise operations on identified entities. Required parameters prevent ambiguity and enable validation.
 
@@ -161,7 +161,7 @@ Commands use different parameter paradigms because **different workflows need di
 - _Purpose_: Create new specs or update existing ones through natural language conversation
 - _Usage_: `/spec | /spec --update SPEC-### | /spec --epic PROJ-###`
 - _Features_: Context-aware (create or update), conversational interface, automatic task creation
-- _Structure_: `pm/specs/SPEC-###-name.md` (spec file), `pm/issues/TASK-###-name/` or `BUG-###-name/` (task directories)
+- _Structure_: `pm/specs/SPEC-###-name.md` (spec file), `pm/issues/###-name/` (issue directories with TASK.md, BUG.md, or SPIKE.md)
 
 ## 🌟 Core Workflow Commands
 
@@ -254,12 +254,12 @@ Commands use different parameter paradigms because **different workflows need di
 | `/spec` | Feature specification management | `[--update SPEC-###] [--epic PROJ-###]` |
 | `/adr` | Technical architecture | Various flags for modes |
 | `/issue` | Create work items | `"description"` (AI detects type) |
-| `/plan` | Implementation planning | `TASK-###`, `BUG-###`, or `SPIKE-###` |
-| `/implement` | Automated phase execution | `TASK-### PHASE`, `SPIKE-###`, or `--next` |
-| `/advise` | Collaborative phase guidance | `TASK-### PHASE` or `--next` |
-| `/complete` | Finish work items | `TASK-###`, `BUG-###`, or `SPIKE-###` |
+| `/plan` | Implementation planning | `###` (detects type from file) |
+| `/implement` | Automated phase execution | `### PHASE` or `--next` |
+| `/advise` | Collaborative phase guidance | `### PHASE` or `--next` |
+| `/complete` | Finish work items | `###` (detects type from file) |
 | `/quality` | Quality assessment | `[--focus AREA]` |
-| `/troubleshoot` | Systematic debugging | `[BUG-XXX \| TASK-XXX]` |
+| `/troubleshoot` | Systematic debugging | `[### \| "description"]` |
 | `/sanity-check` | Mid-work validation | No arguments (deep reflection) |
 | `/branch` | Branch operations | `create \| merge \| delete \| switch \| status` |
 | `/commit` | Branch-aware git commits | Natural language instructions |
@@ -267,7 +267,7 @@ Commands use different parameter paradigms because **different workflows need di
 | `/sync-progress` | Sync plan with git changes | No arguments (analyzes diff) |
 | `/refresh` | Refresh AI context | No arguments (silent) |
 | `/jira-import` | Import Jira issue | `PROJ-###` |
-| `/jira-promote` | Promote local to Jira | `TASK-### \| BUG-###` |
+| `/jira-promote` | Promote local to Jira | `###` |
 | `/jira-comment` | Add Jira comment | `PROJ-###` |
 | `/jira-epic` | Create Jira epic | `[PROJ-### \| --spec SPEC-###]` |
 | `/project-status` | Project dashboard | `[--ai-format] [--detailed]` |

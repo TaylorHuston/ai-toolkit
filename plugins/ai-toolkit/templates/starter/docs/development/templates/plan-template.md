@@ -174,6 +174,6 @@ No shortcuts. Tests → Code → Review → Commit → Next.
 - Phase 2: ~{count} tests ({test_types})
 - Phase 3: ~{count} tests ({test_types})
 
-**Comparison**: Similar to TASK-{similar_task_id} ({similar_test_count} tests) but [simpler/more complex] due to {reason}
+**Comparison**: Similar to {similar_task_id} ({similar_test_count} tests) but [simpler/more complex] due to {reason}
 
 **Recommendation**: {decomposition_recommendation}

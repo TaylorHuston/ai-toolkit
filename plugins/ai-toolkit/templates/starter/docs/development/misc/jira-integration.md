@@ -55,7 +55,7 @@ Commands MUST read `CLAUDE.md` and look for the "## Jira Integration" section be
 ### Local Mode (Default - Jira Disabled)
 
 **Specs:** `pm/specs/SPEC-###-name.md` files
-**Issues:** `pm/issues/TASK-###/`, `BUG-###/` directories
+**Issues:** `pm/issues/###-name/` directories (type from TASK.md, BUG.md, or SPIKE.md)
 **Workflow:** Fully offline, file-based, no external dependencies
 
 **File structure:**

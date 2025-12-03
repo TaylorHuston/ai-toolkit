@@ -22,7 +22,7 @@ sections:
     hint: "Architecture decisions, technology choices, gotchas, references to ADRs, etc."
 ---
 
-# TASK-{id}: {name}
+# {id}: {name}
 
 ## Description
 {description}
@@ -37,4 +37,4 @@ sections:
 
 ---
 
-**Implementation**: Run `/plan TASK-{id}` to create PLAN.md with phase-based breakdown.
+**Implementation**: Run `/plan {id}` to create PLAN.md with phase-based breakdown.
