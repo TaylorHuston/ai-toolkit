@@ -51,7 +51,7 @@ Read: WORKLOG.md
 Read: CLAUDE.md
 Read: docs/development/workflows/task-workflow.md
 Read: docs/project/architecture-overview.md
-Read: docs/project/design-overview.md
+Read: docs/development/conventions/ui-design-guidelines.md
 
 # Recent history
 Bash: git log -5 --format="%h - %s"

@@ -1,13 +1,71 @@
 ---
-last_updated: "2025-11-02"
-description: "Configuration for /ui-design command - design tokens, breakpoints, accessibility requirements"
+last_updated: "2025-12-03"
+description: "Design system configuration and approved design tracking for /ui-design command"
 ---
 
 # UI Design Guidelines
 
-Configuration and standards for HTML mockup generation via `/ui-design` command.
+Single source of truth for design tokens, approved designs, and UI standards.
 
-**Philosophy**: "Orchestrate, don't prescribe" - This guideline provides customizable configuration. Teams adjust tokens/requirements here, `/ui-design` command applies them.
+**Philosophy**: "Orchestrate, don't prescribe" - Teams customize tokens/requirements here, `/ui-design` command applies them. Approved designs are tracked for consistency.
+
+---
+
+## Design Principles
+
+1. **Mobile-first responsive** - All designs start at 320px
+2. **WCAG AA accessibility** - Minimum contrast 4.5:1, keyboard navigation
+3. **Progressive disclosure** - Complex features revealed progressively
+4. **Consistency** - Reusable patterns across the application
+
+---
+
+## Approved Designs
+
+Track approved screen and component designs here. Reference mockup files in `docs/project/ui-designs/`.
+
+### Screens
+
+*(Add approved screen designs as they're created)*
+
+```yaml
+# Example entries:
+# - name: "Login Screen"
+#   file: "login-screen-v2b.html"
+#   approved: "2025-11-02"
+#   notes: "Split-screen layout, OAuth below email/password, 24px spacing"
+#
+# - name: "Dashboard"
+#   file: "dashboard-v2.html"
+#   approved: "2025-11-01"
+#   notes: "Card-based 3-column grid, collapses to single column on mobile"
+```
+
+### Components
+
+*(Add approved component designs as they're created)*
+
+```yaml
+# Example entries:
+# - name: "Buttons"
+#   file: "components/buttons-v2.html"
+#   approved: "2025-10-28"
+#
+# - name: "Forms"
+#   file: "components/forms-v1.html"
+#   approved: "2025-10-28"
+```
+
+### Superseded Designs
+
+*(Designs explored but not approved - kept for reference)*
+
+```yaml
+# Example entries:
+# - file: "login-screen-v1a.html"
+#   superseded_by: "login-screen-v2b.html"
+#   reason: "Centered minimal layout replaced by split-screen"
+```
 
 ---
 
@@ -44,7 +102,7 @@ colors:
   secondary: "#8b5cf6"      # Purple - secondary actions
   accent: "#f59e0b"         # Amber - highlights, notifications
 
-  # Neutral palette (example pattern - define full scale in design-overview.md)
+  # Neutral palette
   gray-100: "#f3f4f6"
   gray-300: "#d1d5db"
   gray-500: "#6b7280"
@@ -425,6 +483,5 @@ Design tokens are formatted for compatibility across tech stacks:
 
 ---
 
-**Last updated:** 2025-11-03
-**Version:** 1.1.0
-**Next review:** As needed when design system evolves
+**Maintained by:** Teams using `/ui-design` command
+**Update frequency:** After each design approval or token change

@@ -85,7 +85,6 @@ your-project/
 │   ├── project/                   # Project-specific docs (created by AI as you work)
 │   │   ├── README.md              # Project docs guide
 │   │   ├── architecture-overview.md    # High-level architecture (from template)
-│   │   ├── design-overview.md          # Design system and UI patterns (from template)
 │   │   ├── writing-style.md            # Documentation writing standards (from template)
 │   │   ├── adrs/                  # Architecture Decision Records
 │   │   │   ├── README.md          # ADR guide
@@ -120,13 +119,12 @@ your-project/
 │       │   ├── task-workflow.md
 │       │   └── worklog-format.md
 │       │
-│       ├── templates/             # PM and doc templates (13 files)
+│       ├── templates/             # PM and doc templates (12 files)
 │       │   ├── README.md
 │       │   ├── adr-template.md
 │       │   ├── architecture-overview-template.md
 │       │   ├── bug-template.md
 │       │   ├── data-model-template.md
-│       │   ├── design-overview-template.md
 │       │   ├── note-template.md
 │       │   ├── plan-template.md
 │       │   ├── project-brief-template.md
@@ -151,7 +149,7 @@ your-project/
 
 **50 files breakdown:**
 - **5 core files**: CLAUDE.md, README.md, GETTING-STARTED.md, CHANGELOG.md, .gitignore
-- **45 structure files**: 16 guidelines (7 conventions + 9 workflows), 13 templates, 4 misc docs, 10 README files, 2 .gitkeep placeholders
+- **45 structure files**: 16 guidelines (7 conventions + 9 workflows), 12 templates, 4 misc docs, 10 README files, 2 .gitkeep placeholders
 
 ### Active Project Structure (After Development)
 

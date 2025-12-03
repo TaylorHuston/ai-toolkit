@@ -34,7 +34,7 @@ HTML mockups showcasing reusable UI component patterns:
   - Stat card (number + label + trend indicator)
   - Feature card (icon + title + description)
 
-See `../design-overview.md` for full component catalog and currently approved versions.
+See `docs/development/conventions/ui-design-guidelines.md` for full component catalog and currently approved versions.
 
 ## How to Use
 
@@ -118,7 +118,7 @@ Extract approved patterns to production code (React components, Vue components, 
 
 ### 5. Document
 
-Component gets referenced in `design-overview.md` under Components section.
+Component gets referenced in `ui-design-guidelines.md` under Approved Designs section.
 
 ## Component vs. Screen Designs
 
@@ -151,13 +151,13 @@ As your component library grows:
 
 **Emerging** (0-5 components):
 - Creating components as needed
-- Documenting patterns in design-overview.md
+- Documenting patterns in ui-design-guidelines.md
 - No formal component library yet
 
 **Established** (5-15 components):
 - Core components defined (buttons, forms, cards, nav)
 - Patterns reused across screens
-- design-overview.md has substantial Components section
+- ui-design-guidelines.md has substantial Approved Designs section
 
 **Mature** (15+ components):
 - Comprehensive component catalog
@@ -187,7 +187,7 @@ HTML component mockups work well for small teams doing design-in-code. As you sc
 | Create component | `/ui-design "component description"` |
 | View component | `open components/{name}.html` |
 | List components | `/ui-design list` (shows all designs) |
-| Find approved | Check `design-overview.md` Components section |
+| Find approved | Check `ui-design-guidelines.md` Approved Designs section |
 
 ---
 

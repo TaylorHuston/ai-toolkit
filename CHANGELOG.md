@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Removed
+
+- **`design-overview-template.md`** - Merged into `ui-design-guidelines.md`
+  - `ui-design-guidelines.md` is now the single source of truth for:
+    - Design tokens (colors, typography, spacing)
+    - Approved designs tracking
+    - Accessibility requirements
+    - Component and layout patterns
+  - Template count reduced from 51 to 50 files
+  - All references updated across commands, workflows, and documentation
+
 ## [0.41.0] - 2025-12-03
 
 ### Added

@@ -20,7 +20,7 @@ You are working on the AI Toolkit plugin repository for Claude Code. This CLAUDE
   - `plugins/ai-toolkit/.claude-plugin/plugin.json` - Plugin metadata
   - `plugins/ai-toolkit/commands/` - 27 command files (.md)
   - `plugins/ai-toolkit/agents/` - 21 agent files (.md)
-  - `plugins/ai-toolkit/templates/starter/` - Project templates (51 files)
+  - `plugins/ai-toolkit/templates/starter/` - Project templates (50 files)
   - `plugins/ai-toolkit/docs/` - Plugin documentation (minimal, most moved to starter template)
 
 ## Core Development Principles

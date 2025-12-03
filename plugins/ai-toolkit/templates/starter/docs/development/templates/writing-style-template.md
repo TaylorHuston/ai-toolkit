@@ -421,8 +421,7 @@ For strategic content decisions (voice definition, messaging architecture):
 
 ## Related Documentation
 
-- Design overview: `docs/project/design-overview.md` (approved designs and patterns)
-- UI design guidelines: `docs/development/conventions/ui-design-guidelines.md` (design tokens and standards)
+- UI design guidelines: `docs/development/conventions/ui-design-guidelines.md` (design tokens, approved designs, and standards)
 - API guidelines: `docs/development/conventions/api-guidelines.md` (technical writing)
 - ADRs: `docs/project/adrs/` (architectural decisions)
 

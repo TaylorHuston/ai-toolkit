@@ -75,12 +75,11 @@ cp "$TEMPLATE_DIR"/.gitignore .
 
 ### 4. Generate Project Docs from Templates
 
-**Create 3 project-specific files from templates**:
+**Create 2 project-specific files from templates**:
 
 | Generated File | Source Template | Customization |
 |----------------|-----------------|---------------|
 | `docs/project/architecture-overview.md` | `docs/development/templates/architecture-overview-template.md` | Copy as-is |
-| `docs/project/design-overview.md` | `docs/development/templates/design-overview-template.md` | Copy as-is |
 | `docs/project/writing-style.md` | `docs/development/templates/writing-style-template.md` | Copy as-is |
 
 These provide starter structure for project-specific documentation that users fill in as the project develops.
@@ -102,7 +101,7 @@ CURRENT_DATE=$(date '+%Y-%m-%d')
 ### 6. Verification
 
 ```bash
-# Count files (should be 53: 50 template + 3 generated)
+# Count files (should be 52: 50 template + 2 generated)
 find . -type f | grep -v ".git" | wc -l
 
 # Verify critical directories exist
@@ -118,17 +117,16 @@ find . -type f | grep -v ".git" | wc -l
 ### 7. Success Output
 
 ```
-✓ Created 53 files
+✓ Created 52 files
 
 Structure:
 ├── pm/ (4 files)
-├── docs/development/ (33 files: conventions, workflows, templates, misc)
+├── docs/development/ (32 files: conventions, workflows, templates, misc)
 ├── docs/project/ (6 files: READMEs + generated docs)
 └── root (10 files: CLAUDE.md, README.md, etc.)
 
 Generated from templates:
 ├── docs/project/architecture-overview.md
-├── docs/project/design-overview.md
 └── docs/project/writing-style.md
 
 Next steps:
@@ -197,7 +195,7 @@ Choose (1-5): _
 
 ### 4. Handle Generated Project Docs
 
-**For docs/project/ files (architecture-overview.md, design-overview.md, writing-style.md)**:
+**For docs/project/ files (architecture-overview.md, writing-style.md)**:
 - If file exists and is customized → Keep (these are user content)
 - If file is missing → Offer to generate from template
 - If template changed significantly → Notify user (don't auto-update)
@@ -253,7 +251,7 @@ sed -i "s/Last Updated\*\*: .*/Last Updated**: $(date '+%Y-%m-%d')/" CLAUDE.md
 
 ## Notes
 
-- **53 files total**: 50 template files + 3 generated from templates
+- **52 files total**: 50 template files + 2 generated from templates
 - **2 questions only**: App name + description
 - **Smart merge**: Preserves user customizations while adding new content
 - **Dry run**: Use `--dry-run` to preview all changes safely

@@ -5,8 +5,7 @@ aliases: ["mockup", "prototype"]
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "Task"]
 model: claude-sonnet-4-5
 references_guidelines:
-  - docs/development/conventions/ui-design-guidelines.md  # Design tokens, breakpoints, accessibility
-  - docs/project/design-overview.md  # Synthesis of approved designs (created by /toolkit-init)
+  - docs/development/conventions/ui-design-guidelines.md  # Design tokens, approved designs, accessibility
 ---
 
 # /ui-design
@@ -43,8 +42,7 @@ references_guidelines:
 ### 2. Load Context
 
 ```bash
-Read: docs/development/conventions/ui-design-guidelines.md  # Tokens, breakpoints, a11y
-Read: docs/project/ui-designs/design-overview.md           # Existing patterns
+Read: docs/development/conventions/ui-design-guidelines.md  # Tokens, approved designs, a11y
 Glob: docs/project/ui-designs/{name}-v*.html               # Determine next version
 ```
 
@@ -84,8 +82,8 @@ Glob: docs/project/ui-designs/{name}-v*.html               # Determine next vers
 
 ```bash
 # Update HTML metadata: Status: APPROVED
-# Update design-overview.md: Add to Approved Designs section
-# Extract patterns: Colors, spacing, components → design-overview
+# Update ui-design-guidelines.md: Add to Approved Designs section
+# Extract patterns: Colors, spacing, components → ui-design-guidelines.md
 # Mark superseded: Note v1{a,b,c} replaced by v2b
 ```
 
@@ -93,10 +91,9 @@ Glob: docs/project/ui-designs/{name}-v*.html               # Determine next vers
 
 ```
 docs/project/ui-designs/
-  ├── design-overview.md          # Approved designs + patterns
   ├── login-screen-v1a.html       # Parallel variants
   ├── login-screen-v1b.html       # (user chose this)
-  ├── login-screen-v2b.html       # ← APPROVED
+  ├── login-screen-v2b.html       # ← APPROVED (tracked in ui-design-guidelines.md)
   ├── dashboard-v1-shadcn.html    # Tech-specific
   └── components/buttons-v1.html  # Reusable patterns
 ```

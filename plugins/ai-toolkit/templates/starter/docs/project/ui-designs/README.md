@@ -8,17 +8,17 @@ This directory contains HTML mockups generated via the `/ui-design` command:
 
 - **Screen designs** - Full page/screen mockups (login, dashboard, onboarding, etc.)
 - **Component designs** - Reusable component patterns (`components/` directory)
-- **design-overview.md** - Synthesis document tracking approved designs and extracted patterns
+
+Approved designs are tracked in `docs/development/conventions/ui-design-guidelines.md`.
 
 ## File Organization
 
 **Flat structure:**
 ```
 ui-designs/
-  ├── design-overview.md              # Synthesis (tracks approved versions)
   ├── login-screen-v1a.html           # Parallel variants
   ├── login-screen-v1b.html
-  ├── login-screen-v2b.html           # ← Approved (noted in design-overview.md)
+  ├── login-screen-v2b.html           # ← Approved (noted in ui-design-guidelines.md)
   ├── dashboard-v1.html
   ├── dashboard-v2.html               # ← Approved
   └── components/                     # Reusable patterns
@@ -74,7 +74,7 @@ Changes: OAuth moved below form, medium spacing
 
 Status: APPROVED
 Approved: 2025-11-02 16:00
-Tracked in: design-overview.md
+Tracked in: ui-design-guidelines.md
 -->
 ```
 
@@ -103,7 +103,7 @@ Generates v2{a,b,c} with different spacing.
 User: approve v2b
 ```
 
-Command updates `design-overview.md` with approved design.
+Command updates `ui-design-guidelines.md` with approved design.
 
 ### 4. Reference in Tasks
 
@@ -126,14 +126,14 @@ Frontend developer/frontend-specialist:
 
 ## Finding Approved Designs
 
-**Check design-overview.md** - Single source of truth for "which version is final"
+**Check ui-design-guidelines.md** - Single source of truth for "which version is final"
 
 ```bash
 /ui-design list
 # Shows all designs with approval status
 ```
 
-Or search design-overview.md for "APPROVED".
+Or check the "Approved Designs" section in `docs/development/conventions/ui-design-guidelines.md`.
 
 ## Components
 
@@ -180,7 +180,7 @@ Teams customize this guideline to match their brand/requirements.
 
 ## Superseded Designs
 
-Designs explored but not approved are kept for reference (documented in design-overview.md).
+Designs explored but not approved are kept for reference (documented in ui-design-guidelines.md).
 
 **Why keep them?**
 - Document "roads not taken"

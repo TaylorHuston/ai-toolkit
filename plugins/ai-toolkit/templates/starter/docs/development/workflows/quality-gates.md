@@ -282,7 +282,7 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 3. **WORKLOG complete**: All work documented
 4. **No regressions**: Existing tests still pass
 5. **Branch up-to-date**: Merged latest from develop
-6. **Project documentation synchronized**: architecture-overview.md, design-overview.md, README.md, CLAUDE.md, and guidelines reflect task changes (see Documentation Synchronization Checklist below)
+6. **Project documentation synchronized**: architecture-overview.md, ui-design-guidelines.md, README.md, CLAUDE.md, and guidelines reflect task changes (see Documentation Synchronization Checklist below)
 
 **Enforcement**: The `/branch merge develop` command (see `git-workflow.md`) enforces these gates:
 - Runs full test suite before merge
@@ -311,11 +311,11 @@ See `agent-coordination.md` "Security Governance" section for complete detection
 - [ ] Integration patterns updated if new integrations added
 - [ ] ADRs referenced if significant architectural decisions made
 
-#### design-overview.md
-- [ ] New UI components documented
+#### ui-design-guidelines.md
+- [ ] Approved designs section updated with new screens/components
 - [ ] Design tokens updated if colors/typography/spacing changed
-- [ ] Design patterns updated if new patterns established
-- [ ] Screenshots/mockups updated if UI changed significantly
+- [ ] Component patterns updated if new patterns established
+- [ ] Superseded designs noted if replacing previous versions
 
 #### Root README.md
 - [ ] Features list reflects new capabilities

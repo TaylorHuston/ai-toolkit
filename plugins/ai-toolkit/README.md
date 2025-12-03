@@ -26,7 +26,7 @@ cd my-project
 - **27 Workflow Commands** - Complete `/project-brief` → `/spec` → `/issue` → `/plan` → `/implement` → `/complete` cycle + utilities
 - **21 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
 - **3 Bundled MCP Servers** - Auto-configured tools (context7, sequential-thinking, playwright)
-- **Starter Template** - 51 files for organized project initialization
+- **Starter Template** - 50 files for organized project initialization
 - **File-Based State** - Session continuity via SPEC.md, TASK.md, WORKLOG.md
 - **Technology Agnostic** - Works with any tech stack
 

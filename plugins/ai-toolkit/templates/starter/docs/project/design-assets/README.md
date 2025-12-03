@@ -42,35 +42,21 @@ See `ui-designs/README.md` for the full design mockup workflow.
 
 ## Design Documentation
 
-### Design Overview (Required)
-
-The **source of truth** for approved UI designs and extracted patterns:
-```
-docs/project/design-overview.md
-```
-
-Tracks:
-- Approved screen designs (with version references)
-- Approved component patterns
-- Extracted design tokens (colors, typography, spacing)
-- Layout patterns and responsive behavior
-
-**When to update**: After approving designs via `/ui-design`, or when implementing new patterns.
-
 ### UI Design Guidelines (Required)
 
-Configuration for AI-generated mockups:
+The **source of truth** for design tokens, approved designs, and UI standards:
 ```
-docs/development/guidelines/ui-design-guidelines.md
+docs/development/conventions/ui-design-guidelines.md
 ```
 
-Defines:
-- Design tokens (colors, typography, spacing, borders)
-- Responsive breakpoints
-- Accessibility requirements (WCAG AA)
-- Component patterns and layout patterns
+Contains:
+- **Approved Designs**: Approved screen and component designs (with version references)
+- **Design Tokens**: Colors, typography, spacing, borders
+- **Responsive Breakpoints**: Mobile-first approach
+- **Accessibility Requirements**: WCAG AA compliance
+- **Component and Layout Patterns**
 
-**When to update**: When establishing or changing design standards.
+**When to update**: After approving designs via `/ui-design`, when changing design standards, or when implementing new patterns.
 
 ### Writing & Content (Optional)
 
@@ -105,14 +91,13 @@ These decisions are:
 - Documented with context, alternatives, and consequences
 - Used to update `ui-design-guidelines.md` with the chosen approach
 
-**Tactical design changes** (component specs, color values, spacing) should be updated directly in `ui-design-guidelines.md` and `design-overview.md` by AI assistants as they implement UI.
+**Tactical design changes** (component specs, color values, spacing) should be updated directly in `ui-design-guidelines.md` by AI assistants as they implement UI.
 
 ## Documentation Structure
 
 - **`ui-designs/` directory**: AI-generated HTML mockups (via `/ui-design`)
-- **`design-overview.md`**: Approved designs and extracted patterns
 - **`design-assets/` directory**: Static brand assets (this folder)
-- **`ui-design-guidelines.md`**: Design tokens and configuration
+- **`ui-design-guidelines.md`**: Design tokens, approved designs, and configuration
 - **`writing-style.md`**: Content guidelines (optional)
 - **Component library**: Implementation code (in your codebase)
 
