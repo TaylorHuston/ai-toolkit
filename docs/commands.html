@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commands - AI Toolkit</title>
+    <meta name="description" content="27 slash commands for AI-assisted development workflows - from project briefs to production releases.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Claude SDD</a>
+            <div class="nav-links">
+                <a href="agents.html">Agents</a>
+                <a href="commands.html" class="active">Commands</a>
+                <a href="workflows.html">Workflows</a>
+                <a href="https://github.com/TaylorHuston/ai-toolkit">GitHub</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Commands</h1>
+                <p>27 slash commands that guide you through the complete development lifecycle. Each command is conversational and adapts to your project's needs.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>Setup & Strategy</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/toolkit-init</h3>
+                            <span class="card-badge badge-utility">Setup</span>
+                        </div>
+                        <p>Initialize your project with AI Toolkit structure. Creates CLAUDE.md, docs/, pm/ directories, and 51 template files.</p>
+                        <div class="card-meta">
+                            <span>Interactive (2 questions)</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/project-brief</h3>
+                            <span class="card-badge badge-workflow">Strategy</span>
+                        </div>
+                        <p>Create your project vision through interactive Q&A. Defines what you're building, target audience, and success metrics.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/project-brief [--force] [--review]</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Specification & Planning</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/spec</h3>
+                            <span class="card-badge badge-workflow">Planning</span>
+                        </div>
+                        <p>Create feature specifications with acceptance criteria. Living documents that adapt as you discover requirements.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/spec [--update SPEC-###] [--epic PROJ-###]</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/adr</h3>
+                            <span class="card-badge badge-workflow">Architecture</span>
+                        </div>
+                        <p>Create Architecture Decision Records for technical decisions. Quick Mode or Deep Mode for thorough analysis.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/adr ["topic"]</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/issue</h3>
+                            <span class="card-badge badge-workflow">Planning</span>
+                        </div>
+                        <p>Create work items with AI-assisted type detection. Creates TASK, BUG, or SPIKE based on description keywords.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/issue "description"</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/plan</h3>
+                            <span class="card-badge badge-workflow">Planning</span>
+                        </div>
+                        <p>Create PLAN.md with phase-based breakdown. TDD phases for tasks, reproduction-first for bugs, exploration for spikes.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/plan ###</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Implementation</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/implement</h3>
+                            <span class="card-badge badge-workflow">Execution</span>
+                        </div>
+                        <p>Execute implementation phases with TDD enforcement. AI writes code, runs tests, enforces quality gates.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/implement ### PHASE</code> or <code>--next</code> or <code>--full</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/advise</h3>
+                            <span class="card-badge badge-workflow">Execution</span>
+                        </div>
+                        <p>Get implementation guidance without automated code generation. AI guides, you write the code.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/advise ### PHASE</code> or <code>--next</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/complete</h3>
+                            <span class="card-badge badge-workflow">Completion</span>
+                        </div>
+                        <p>Finish work items per workflow requirements. Validates phases complete, tests passing, acceptance criteria met.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/complete ###</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Quality & Debugging</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/quality</h3>
+                            <span class="card-badge badge-quality">Quality</span>
+                        </div>
+                        <p>Multi-dimensional quality assessment. Security, performance, testing, code quality, and documentation analysis.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/quality [--focus AREA]</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/troubleshoot</h3>
+                            <span class="card-badge badge-quality">Debugging</span>
+                        </div>
+                        <p>Systematic debugging with 5-step loop. Research first, one hypothesis at a time, validate before claiming fixed.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/troubleshoot [### | "description"]</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/sanity-check</h3>
+                            <span class="card-badge badge-quality">Validation</span>
+                        </div>
+                        <p>Mid-work validation with deep reflection. Catches drift before it becomes expensive to fix.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/sanity-check</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Research</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/research</h3>
+                            <span class="card-badge badge-utility">Research</span>
+                        </div>
+                        <p>Deep research on topics with persistent documentation. Creates reusable research docs in docs/project/research/.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/research "topic to research"</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Development Support</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/branch</h3>
+                            <span class="card-badge badge-utility">Git</span>
+                        </div>
+                        <p>Unified branch operations with git-workflow enforcement. Create, merge, delete, switch, and status.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/branch create|merge|delete|switch|status</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/commit</h3>
+                            <span class="card-badge badge-utility">Git</span>
+                        </div>
+                        <p>Branch-aware git commits with automatic issue references and conventional commit messages.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/commit [message]</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/worklog</h3>
+                            <span class="card-badge badge-utility">Tracking</span>
+                        </div>
+                        <p>Add timestamped work log entries. Track manual changes and communicate with AI across sessions.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/worklog "your comment"</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/sync-progress</h3>
+                            <span class="card-badge badge-utility">Tracking</span>
+                        </div>
+                        <p>Analyze git changes and update plan to reflect progress. Syncs state after manual changes.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/sync-progress</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/refresh</h3>
+                            <span class="card-badge badge-utility">Context</span>
+                        </div>
+                        <p>Silently refresh AI context by reading project configuration, guidelines, and recent commits.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/refresh</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Jira Integration</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/jira-import</h3>
+                            <span class="card-badge badge-utility">Jira</span>
+                        </div>
+                        <p>Import Jira issue for local work with PLAN.md creation.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/jira-import PROJ-###</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/jira-promote</h3>
+                            <span class="card-badge badge-utility">Jira</span>
+                        </div>
+                        <p>Promote local exploration issue to Jira for team visibility.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/jira-promote ###</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/jira-comment</h3>
+                            <span class="card-badge badge-utility">Jira</span>
+                        </div>
+                        <p>Add AI-suggested comments to external Jira issues based on work context.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/jira-comment PROJ-###</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/jira-epic</h3>
+                            <span class="card-badge badge-utility">Jira</span>
+                        </div>
+                        <p>Create Jira epics through natural language conversation.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/jira-epic [PROJ-### | --spec SPEC-###]</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Documentation & Status</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/docs</h3>
+                            <span class="card-badge badge-utility">Docs</span>
+                        </div>
+                        <p>Unified documentation management. Sync, validate, health check, update, and generate documentation.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/docs --sync|--validate|--health|--update|--generate</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/project-status</h3>
+                            <span class="card-badge badge-utility">Status</span>
+                        </div>
+                        <p>Project status dashboard with intelligent context analysis.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/project-status [--ai-format] [--detailed]</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/ui-design</h3>
+                            <span class="card-badge badge-utility">Design</span>
+                        </div>
+                        <p>Create and iterate on HTML UI mockups with parallel design exploration.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/ui-design</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Versioning & Releases</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/changelog</h3>
+                            <span class="card-badge badge-utility">Release</span>
+                        </div>
+                        <p>Check and update CHANGELOG.md with undocumented changes.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/changelog</code></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>/release</h3>
+                            <span class="card-badge badge-utility">Release</span>
+                        </div>
+                        <p>Release new version following semantic versioning guidelines.</p>
+                        <div class="card-meta">
+                            <span>Usage: <code>/release</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Command Parameter Patterns</h4>
+                    <ul>
+                        <li><strong>No Parameters</strong> - Conversational commands that ask questions: /project-brief, /adr, /toolkit-init</li>
+                        <li><strong>Required Arguments</strong> - Precise operations on specific targets: /plan 001, /implement 001 1.2</li>
+                        <li><strong>Optional Arguments</strong> - Context-aware commands: /spec, /troubleshoot</li>
+                        <li><strong>Subcommands</strong> - Multiple related operations: /branch create|merge|delete|switch</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Made by <a href="https://github.com/TaylorHuston">Taylor Huston</a> · <a href="https://github.com/TaylorHuston/ai-toolkit">GitHub</a> · MIT License</p>
+        </div>
+    </footer>
+</body>
+</html>

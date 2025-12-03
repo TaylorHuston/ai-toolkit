@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflows & Conventions - AI Toolkit</title>
+    <meta name="description" content="Default workflows and conventions for AI-assisted development - TDD phases, git workflow, quality gates, and more.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Claude SDD</a>
+            <div class="nav-links">
+                <a href="agents.html">Agents</a>
+                <a href="commands.html">Commands</a>
+                <a href="workflows.html" class="active">Workflows</a>
+                <a href="https://github.com/TaylorHuston/ai-toolkit">GitHub</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Workflows & Conventions</h1>
+                <p>33 guideline files organized into 4 directories configure how AI agents work. Start with sensible defaults, customize as your project evolves.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>The Core Development Flow</h2>
+
+                <div class="code-block" style="max-width: 100%;">
+                    <pre><span class="comment"># 1. Define your vision</span>
+<span class="command">/project-brief</span>          <span class="comment"># Interactive Q&A creates docs/project-brief.md</span>
+
+<span class="comment"># 2. Create feature specification</span>
+<span class="command">/spec</span>                    <span class="comment"># Creates pm/specs/SPEC-001-feature-name.md</span>
+
+<span class="comment"># 3. Create work items</span>
+<span class="command">/issue "implement login"</span> <span class="comment"># Creates pm/issues/001-implement-login/TASK.md</span>
+
+<span class="comment"># 4. Plan implementation</span>
+<span class="command">/plan 001</span>               <span class="comment"># Creates PLAN.md with TDD phases</span>
+
+<span class="comment"># 5. Execute phases</span>
+<span class="command">/implement 001 --full</span>   <span class="comment"># Runs all phases with quality gates</span>
+
+<span class="comment"># 6. Complete and merge</span>
+<span class="command">/complete 001</span>           <span class="comment"># Validates requirements met</span>
+<span class="command">/branch merge develop</span>   <span class="comment"># Merges to staging branch</span></pre>
+                </div>
+
+                <h2>File Structure</h2>
+
+                <div class="file-tree">
+<span class="folder">pm/</span>
+├── <span class="folder">specs/</span>
+│   └── <span class="file">SPEC-001-user-auth.md</span>       <span class="comment"># Feature spec with acceptance criteria</span>
+│
+└── <span class="folder">issues/</span>
+    ├── <span class="folder">001-login-form/</span>
+    │   ├── <span class="file">TASK.md</span>                  <span class="comment"># Requirements & acceptance criteria</span>
+    │   ├── <span class="file">PLAN.md</span>                  <span class="comment"># AI implementation phases</span>
+    │   └── <span class="file">WORKLOG.md</span>               <span class="comment"># Implementation history</span>
+    │
+    └── <span class="folder">002-session-timeout/</span>
+        ├── <span class="file">BUG.md</span>                   <span class="comment"># Bug report with reproduction steps</span>
+        ├── <span class="file">PLAN.md</span>
+        └── <span class="file">WORKLOG.md</span>
+
+<span class="folder">docs/</span>
+├── <span class="file">project-brief.md</span>                <span class="comment"># Your project vision</span>
+├── <span class="folder">project/</span>
+│   ├── <span class="folder">adrs/</span>                        <span class="comment"># Architecture Decision Records</span>
+│   └── <span class="folder">research/</span>                    <span class="comment"># Persistent research documents</span>
+└── <span class="folder">development/</span>
+    ├── <span class="folder">conventions/</span>                 <span class="comment"># 7 files - Project conventions</span>
+    ├── <span class="folder">workflows/</span>                   <span class="comment"># 9 files - AI execution protocols</span>
+    ├── <span class="folder">templates/</span>                   <span class="comment"># 12 files - PM and doc templates</span>
+    └── <span class="folder">misc/</span>                        <span class="comment"># 5 files - Reference docs</span>
+                </div>
+
+                <h2>Conventions (7 files)</h2>
+                <p style="margin-bottom: 24px;">Project-level standards that define how your codebase should look and behave.</p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>coding-standards.md</h3>
+                        </div>
+                        <p>Language-specific coding conventions, formatting rules, naming patterns</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>testing-strategy.md</h3>
+                        </div>
+                        <p>Test types, coverage requirements, testing patterns</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>documentation-standards.md</h3>
+                        </div>
+                        <p>Documentation requirements, formats, and locations</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>architectural-principles.md</h3>
+                        </div>
+                        <p>Core architectural patterns and constraints</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>security-guidelines.md</h3>
+                        </div>
+                        <p>Security requirements, OWASP compliance, auth patterns</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>ui-design-guidelines.md</h3>
+                        </div>
+                        <p>Design system, component patterns, accessibility</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>versioning-and-releases.md</h3>
+                        </div>
+                        <p>Semantic versioning rules, release process</p>
+                    </div>
+                </div>
+
+                <h2>Workflows (9 files)</h2>
+                <p style="margin-bottom: 24px;">AI execution protocols that define how commands and agents operate.</p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>task-workflow.md</h3>
+                        </div>
+                        <p>TDD phases (RED/GREEN/REFACTOR), quality gates, completion criteria</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>bug-workflow.md</h3>
+                        </div>
+                        <p>Reproduction-first debugging, 5-step loop, fix validation</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>spike-workflow.md</h3>
+                        </div>
+                        <p>Exploration planning, time-boxing, branch handling</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>pm-workflows.md</h3>
+                        </div>
+                        <p>Issue management, spec lifecycle, plan structure</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>git-workflow.md</h3>
+                        </div>
+                        <p>Three-branch model, commit conventions, merge rules</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>agent-coordination.md</h3>
+                        </div>
+                        <p>Agent handoff patterns, orchestration, communication</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>quality-gates.md</h3>
+                        </div>
+                        <p>Review thresholds, test requirements, checkpoint rules</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>worklog-format.md</h3>
+                        </div>
+                        <p>WORKLOG entry formats (Standard, Troubleshooting, Research)</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>troubleshooting.md</h3>
+                        </div>
+                        <p>Debugging strategies, common issues, escalation paths</p>
+                    </div>
+                </div>
+
+                <h2>Templates (12 files)</h2>
+                <p style="margin-bottom: 24px;">File templates for consistent document structure.</p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>spec-template.md</h3>
+                        </div>
+                        <p>Feature specification with acceptance criteria and scenarios</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>task-template.md</h3>
+                        </div>
+                        <p>Task definition with requirements and completion criteria</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>bug-template.md</h3>
+                        </div>
+                        <p>Bug report with reproduction steps and environment info</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>spike-template.md</h3>
+                        </div>
+                        <p>Exploration issue with questions and success criteria</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>plan-template.md</h3>
+                        </div>
+                        <p>Implementation plan with phases and checkpoints</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>adr-template.md</h3>
+                        </div>
+                        <p>Architecture Decision Record with context and consequences</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>research-template.md</h3>
+                        </div>
+                        <p>Persistent research document with findings and resources</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>project-brief-template.md</h3>
+                        </div>
+                        <p>Project vision document structure</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>architecture-overview-template.md</h3>
+                        </div>
+                        <p>System architecture documentation</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>design-overview-template.md</h3>
+                        </div>
+                        <p>Design system and UI patterns documentation</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>note-template.md</h3>
+                        </div>
+                        <p>General notes and documentation</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>epic-template.md</h3>
+                        </div>
+                        <p>Epic definition for Jira integration</p>
+                    </div>
+                </div>
+
+                <h2>Key Workflows Explained</h2>
+
+                <h3>TDD Workflow (Tasks)</h3>
+                <div class="info-box">
+                    <h4>Phase Structure</h4>
+                    <ul>
+                        <li><strong>X.RED</strong> - Write failing tests first. Checkpoint: tests FAIL</li>
+                        <li><strong>X.GREEN</strong> - Implement until tests pass. Checkpoint: tests PASS</li>
+                        <li><strong>X.REFACTOR</strong> - Clean up code. Checkpoint: review score >= 90</li>
+                    </ul>
+                </div>
+
+                <h3>Bug Workflow</h3>
+                <div class="info-box">
+                    <h4>Reproduction-First Approach</h4>
+                    <ul>
+                        <li><strong>Phase 1: Reproduce</strong> - Write a failing test that proves the bug exists</li>
+                        <li><strong>Phase 2: Fix</strong> - Implement fix, test passes, no regressions</li>
+                        <li><strong>Phase 3: Harden</strong> - Add edge case tests (optional)</li>
+                    </ul>
+                </div>
+
+                <h3>Git Workflow</h3>
+                <div class="info-box">
+                    <h4>Three-Branch Model</h4>
+                    <ul>
+                        <li><strong>feature/###</strong> - Work branches for tasks (auto-created by /implement)</li>
+                        <li><strong>develop</strong> - Staging branch, integration testing</li>
+                        <li><strong>main</strong> - Production-ready code only</li>
+                    </ul>
+                </div>
+
+                <h3>Quality Gates</h3>
+                <div class="info-box">
+                    <h4>Enforcement Points</h4>
+                    <ul>
+                        <li><strong>RED checkpoint</strong> - Tests must FAIL before implementation</li>
+                        <li><strong>GREEN checkpoint</strong> - Tests must PASS after implementation</li>
+                        <li><strong>REFACTOR checkpoint</strong> - Code review score must be >= 90</li>
+                        <li><strong>Merge validation</strong> - All phases complete, no failing tests</li>
+                    </ul>
+                </div>
+
+                <h2>Customization</h2>
+
+                <p>All guideline files are in your project at <code>docs/development/</code>. Edit them to match your team's preferences:</p>
+
+                <div class="info-box">
+                    <h4>Common Customizations</h4>
+                    <ul>
+                        <li>Change review score threshold in <code>quality-gates.md</code></li>
+                        <li>Add language-specific rules to <code>coding-standards.md</code></li>
+                        <li>Modify branch naming in <code>git-workflow.md</code></li>
+                        <li>Adjust test coverage requirements in <code>testing-strategy.md</code></li>
+                        <li>Add security requirements to <code>security-guidelines.md</code></li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 32px; color: var(--text-muted);">
+                    After editing guidelines, use <code>/refresh</code> to ensure AI picks up your changes.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Made by <a href="https://github.com/TaylorHuston">Taylor Huston</a> · <a href="https://github.com/TaylorHuston/ai-toolkit">GitHub</a> · MIT License</p>
+        </div>
+    </footer>
+</body>
+</html>
