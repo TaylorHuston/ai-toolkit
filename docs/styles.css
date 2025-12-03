@@ -1,16 +1,16 @@
 :root {
     /* Dark theme from taylorhuston.github.io */
-    --primary: hsl(26, 77%, 52%);       /* Orange accent */
-    --primary-dark: hsl(26, 77%, 42%);  /* Darker orange */
-    --bg: rgb(18, 22, 32);               /* Dark slate */
-    --bg-card: rgb(28, 33, 46);          /* Slightly lighter slate */
-    --text: rgb(193, 201, 219);          /* Bluish-gray */
-    --text-muted: rgb(140, 148, 166);    /* Darker muted text */
-    --border: rgba(224, 118, 40, 0.15);  /* Semi-transparent orange */
+    --primary: #f97316;                  /* Orange accent */
+    --primary-dark: #ea580c;             /* Darker orange */
+    --bg: #030712;                       /* Very dark slate */
+    --bg-card: #0a0f1a;                  /* Slightly lighter */
+    --text: #f1f5f9;                     /* Light gray */
+    --text-muted: #94a3b8;               /* Muted text */
+    --border: rgba(249, 115, 22, 0.15);  /* Semi-transparent orange */
     --green: #22c55e;
     --blue: #3b82f6;
     --purple: #a855f7;
-    --orange: hsl(26, 77%, 52%);
+    --orange: #f97316;
     --red: #ef4444;
     --cyan: #06b6d4;
     --pink: #ec4899;
