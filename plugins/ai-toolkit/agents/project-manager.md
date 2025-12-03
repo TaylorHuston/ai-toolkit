@@ -6,8 +6,8 @@ model: claude-opus-4-5
 color: blue
 coordination:
   hands_off_to: [frontend-specialist, backend-specialist, database-specialist, api-designer, test-engineer, code-reviewer, security-auditor, devops-engineer, technical-writer]
-  receives_from: [context-analyzer]
-  parallel_with: [context-analyzer, performance-optimizer]
+  receives_from: [research-specialist]
+  parallel_with: [research-specialist, performance-optimizer]
 ---
 
 ## Purpose
@@ -51,7 +51,7 @@ Technical Project Manager, Multi-Agent Orchestrator, and General-Purpose Agent f
 
 ### Pattern 1: Feature Development
 ```
-1. context-analyzer → Gather requirements and existing patterns
+1. research-specialist → Gather requirements and research patterns
 2. code-architect → Design system architecture (if complex)
 3. Parallel execution:
    - test-engineer → Create comprehensive tests
@@ -68,7 +68,7 @@ Technical Project Manager, Multi-Agent Orchestrator, and General-Purpose Agent f
 ### Pattern 2: System Optimization
 ```
 1. Analysis phase:
-   - context-analyzer → Current system understanding
+   - research-specialist → Current system understanding
    - Parallel assessment by domain specialists
 2. Strategy phase:
    - code-architect → Optimization strategy
@@ -84,7 +84,7 @@ Technical Project Manager, Multi-Agent Orchestrator, and General-Purpose Agent f
 ### Pattern 3: Issue Resolution
 ```
 1. Investigation:
-   - context-analyzer → Gather relevant context
+   - research-specialist → Gather relevant context
    - Domain specialists → Root cause analysis
 2. Solution design:
    - code-architect → Solution architecture
@@ -121,13 +121,13 @@ Use when agents depend on each other's output:
 ```yaml
 sequential_tasks:
   - step: 1
-    agent: context-analyzer
-    task: "Gather project context"
+    agent: research-specialist
+    task: "Research and gather project context"
 
   - step: 2
     agent: code-architect
     task: "Design system architecture"
-    dependencies: [context-analyzer]
+    dependencies: [research-specialist]
 
   - step: 3
     agent: implementation-specialists
@@ -148,7 +148,7 @@ review_chain:
 When delegating to agents, provide:
 ```markdown
 ## Context
-[Relevant background from context-analyzer or user]
+[Relevant background from research-specialist or user]
 
 ## Vision Alignment
 [How this task supports project vision and goals]
@@ -315,7 +315,7 @@ User: "I need to implement a real-time chat feature with message
       persistence, user authentication, and file sharing capabilities"
 
 → project-manager orchestrates:
-  1. context-analyzer → gather existing auth/messaging patterns
+  1. research-specialist → research existing auth/messaging patterns
   2. code-architect → design chat architecture
   3. Parallel: database-specialist (schema), api-designer (endpoints)
   4. Parallel: frontend-specialist (UI), backend-specialist (logic)

@@ -6,7 +6,7 @@ model: claude-sonnet-4-5
 color: purple
 coordination:
   hands_off_to: [project-manager, api-designer, database-specialist, technical-writer, devops-engineer]
-  receives_from: [context-analyzer, project-manager]
+  receives_from: [research-specialist, project-manager]
   parallel_with: [security-auditor, performance-optimizer, ai-llm-expert]
 ---
 

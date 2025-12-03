@@ -6,7 +6,7 @@ model: claude-opus-4-5
 color: green
 coordination:
   hands_off_to: [technical-writer, code-architect, project-manager]
-  receives_from: [project-manager, context-analyzer]
+  receives_from: [project-manager, research-specialist]
   parallel_with: [code-architect, technical-writer]
 ---
 

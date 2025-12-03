@@ -54,10 +54,10 @@ AI agents are specialized experts that automatically activate based on your work
   - _Best For_: Complex project coordination, multi-phase implementations, team coordination
   - _Model_: opus | _Color_: blue | _Auto-Invoked_: Multi-domain tasks
 
-- **[context-analyzer](../agents/context-analyzer.md)** - Project context analysis and investigation
-  - _Capabilities_: Root cause analysis, systematic investigation, evidence-based reasoning
-  - _Best For_: Bug investigation, system analysis, problem diagnosis
-  - _Model_: sonnet | _Color_: yellow | _Auto-Invoked_: Investigation tasks
+- **[research-specialist](../agents/research-specialist.md)** - Deep research and knowledge distillation
+  - _Capabilities_: External research, documentation analysis, signal extraction from 30+ sources
+  - _Best For_: Learning new tech, finding best practices, creating persistent research docs
+  - _Model_: sonnet | _Color_: green | _Auto-Invoked_: When agents need external knowledge
 
 - **[ai-llm-expert](../agents/ai-llm-expert.md)** - AI/LLM architecture, implementation, and optimization
   - _Capabilities_: LLM architecture design, prompt engineering, context management, AI integration patterns
@@ -171,7 +171,7 @@ AI agents are specialized experts that automatically activate based on your work
 These agents activate automatically based on context and task requirements:
 
 1. **project-manager** - Complex/multi-domain tasks requiring coordination
-2. **context-analyzer** - Investigation and root cause analysis tasks
+2. **research-specialist** - When agents need external knowledge
 3. **frontend-specialist** - UI/UX development and component work
 4. **backend-specialist** - Server-side implementation and business logic
 5. **database-specialist** - All database-related operations
@@ -220,7 +220,7 @@ These are invoked for specific domains or specialized work:
 - **api-designer** - API architecture and service design
 - **test-engineer** - Comprehensive testing strategies
 - **code-reviewer** - Quality analysis and best practices
-- **context-analyzer** - Systematic investigation and analysis
+- **research-specialist** - External research and knowledge distillation
 - **devops-engineer** - Infrastructure automation and deployment
 - **performance-optimizer** - Performance analysis and optimization
 - **refactoring-specialist** - Code improvement and technical debt reduction
@@ -246,7 +246,7 @@ These are invoked for specific domains or specialized work:
 #### **Specialized Agents** (As-needed basis)
 
 1. **project-manager** - Complex multi-domain coordination
-2. **context-analyzer** - Investigation and troubleshooting
+2. **research-specialist** - External research and knowledge distillation
 3. **ui-ux-designer** - Design decisions, mockups, and design systems
 4. **api-designer** - API architecture and design
 5. **test-engineer** - Test strategy and comprehensive testing
@@ -279,7 +279,7 @@ task_type_mapping:
     api_bugs: [api-designer, backend-specialist]
     performance_bugs: [performance-optimizer]
     security_bugs: [security-auditor]
-    investigation_needed: [context-analyzer]
+    investigation_needed: [research-specialist]
 
   code_quality:
     post_implementation: [code-reviewer]
@@ -318,7 +318,7 @@ task_type_mapping:
 - **Strategy**: brief-strategist, project-manager (product brief + strategic planning)
 - **Design**: ui-ux-designer (design decisions, mockups, design systems)
 - **Architecture**: code-architect, ui-ux-designer, devops-engineer, database-specialist, api-designer, security-auditor (tech stack + design system + feature architecture)
-- **Planning**: project-manager, context-analyzer
+- **Planning**: project-manager, research-specialist
 - **Development**: frontend-specialist, backend-specialist, database-specialist
 - **Quality Assurance**: code-reviewer, test-engineer, security-auditor
 - **Deployment**: devops-engineer
@@ -550,7 +550,7 @@ performance_metrics:
 | Model | Agents | Justification |
 |-------|--------|---------------|
 | **Opus 4.5** | project-manager, security-auditor, brief-strategist, ai-llm-expert, aws-expert, azure-expert, gcp-expert | Extended reasoning, strategic orchestration, safety-critical decisions, cloud architecture, meta-reasoning |
-| **Sonnet 4.5** | code-architect, technical-writer, context-analyzer, ui-ux-designer, frontend-specialist, backend-specialist, database-specialist, api-designer, test-engineer, code-reviewer, devops-engineer, performance-optimizer, refactoring-specialist, migration-specialist | Best coding model (77.2% SWE-bench), superior documentation, cost-effective execution |
+| **Sonnet 4.5** | code-architect, technical-writer, research-specialist, ui-ux-designer, frontend-specialist, backend-specialist, database-specialist, api-designer, test-engineer, code-reviewer, devops-engineer, performance-optimizer, refactoring-specialist, migration-specialist | Best coding model (77.2% SWE-bench), superior documentation, cost-effective execution |
 
 ## Best Practices for Agent Management
 

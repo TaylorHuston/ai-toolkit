@@ -8,8 +8,8 @@ This is very much an alpha/experiment at the moment. Look at the commit history 
 
 ## What's Included
 
-- **AI Toolkit Plugin** - Complete workflow system with 26 commands, 21 specialized agents, and intelligent automation
-- **Starter Template** - 50 essential files for clean project initialization via `/toolkit-init`
+- **AI Toolkit Plugin** - Complete workflow system with 27 commands, 21 specialized agents, and intelligent automation
+- **Starter Template** - 51 essential files for clean project initialization via `/toolkit-init`
 - **Development Guidelines** - 33 customizable files organized in 4 directories (conventions, workflows, templates, misc)
 
 ## Quick Start
@@ -60,7 +60,7 @@ Run `/toolkit-init --dry-run` after plugin updates to preview template changes. 
 
 Domain experts that auto-activate based on task context:
 
-- **Strategy**: brief-strategist, code-architect, project-manager, context-analyzer
+- **Strategy**: brief-strategist, code-architect, project-manager, research-specialist
 - **Cloud**: aws-expert, azure-expert, gcp-expert
 - **Design**: ui-ux-designer, api-designer
 - **Implementation**: frontend-specialist, backend-specialist, database-specialist

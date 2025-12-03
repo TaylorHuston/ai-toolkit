@@ -1,11 +1,11 @@
 ---
-last_updated: "2025-11-26"
-description: "Catalog of 26 Claude Code slash commands for the development workflow"
+last_updated: "2025-12-03"
+description: "Catalog of 27 Claude Code slash commands for the development workflow"
 ---
 
 # Claude Code Command Reference
 
-Catalog of 26 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, and support commands.
+Catalog of 27 Claude Code slash commands centered around the **3-phase development workflow** plus setup, quality, research, and support commands.
 
 ## How Commands Work Together
 
@@ -218,6 +218,10 @@ Commands use different parameter paradigms because **different workflows need di
 - **[/troubleshoot](../commands/troubleshoot.md)** - Systematic debugging with research-first approach, hypothesis testing, and rollback safety
 - **[/sanity-check](../commands/sanity-check.md)** - Mid-work validation with deep reflection to catch drift before it becomes expensive
 
+### **Research**
+
+- **[/research](../commands/research.md)** - Deep research on topics with persistent documentation in `docs/project/research/`
+
 ### **Development Support**
 
 - **[/branch](../commands/branch.md)** - Unified branch operations (create, merge, delete, switch, status) with git-workflow enforcement
@@ -275,6 +279,7 @@ Commands use different parameter paradigms because **different workflows need di
 | `/changelog` | CHANGELOG maintenance | No arguments (interactive) |
 | `/release` | Version releases | No arguments (reads conventions) |
 | `/ui-design` | UI mockup creation | No arguments (interactive) |
+| `/research` | Deep research with persistent docs | `"topic to research"` |
 
 ## Command Creation Best Practices
 

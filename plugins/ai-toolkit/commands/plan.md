@@ -55,12 +55,17 @@ fi
    - Read TASK.md/BUG.md for requirements
    - Read parent SPEC (if exists) for acceptance scenarios
    - Read similar WORKLOGs for patterns
-2. **Analyze**: Sequential thinking, research via Context7/web search
-3. **Generate**: Phase breakdown following plan-template.md structure
+2. **Research** (auto-invoke research-specialist when needed):
+   - **External research needed**: Unfamiliar technology, framework patterns, best practices
+   - **Check first**: `docs/project/research/` for existing research docs
+   - **If none exist**: Spawn research-specialist to research and optionally create persistent doc
+   - Research-specialist returns distilled findings, not raw research
+3. **Analyze**: Sequential thinking, synthesize research findings
+4. **Generate**: Phase breakdown following plan-template.md structure
    - **Task**: TDD phases (X.RED/X.GREEN/X.REFACTOR) per task-workflow.md
    - **Bug**: Reproduction → Fix → Harden phases per bug-workflow.md
-4. **Review**: code-architect (always), security-auditor (if security-relevant)
-5. **Present**: Phases, scenario coverage, complexity score, research summary
+5. **Review**: code-architect (always), security-auditor (if security-relevant)
+6. **Present**: Phases, scenario coverage, complexity score, research summary
 
 ### For Spike (Exploration)
 

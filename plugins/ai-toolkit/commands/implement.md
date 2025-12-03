@@ -80,6 +80,11 @@ Select agent based on phase domain:
 - `frontend-specialist`, `backend-specialist`, `database-specialist`
 - `test-engineer` for RED phases
 - `code-reviewer` for REFACTOR phases
+- `research-specialist` when agents need external knowledge:
+  - Unfamiliar API/library patterns
+  - Framework best practices
+  - Error resolution requiring documentation lookup
+  - **Check first**: `docs/project/research/` for existing docs
 
 ### 4. TDD Checkpoints (TASK/BUG)
 

@@ -382,7 +382,7 @@ The AI Toolkit includes **21 specialized agents** that automatically activate ba
 | **performance-optimizer** | Performance | Performance bottlenecks, optimization |
 | **devops-engineer** | Infrastructure | Deployment, CI/CD, containerization |
 | **technical-writer** | Documentation | Documentation creation and sync |
-| **context-analyzer** | Investigation | Bug diagnosis, research, analysis |
+| **research-specialist** | Research | External research, knowledge distillation |
 | **refactoring-specialist** | Code cleanup | Technical debt reduction |
 | **migration-specialist** | Upgrades | Framework migrations, dependency updates |
 | **ai-llm-expert** | AI/ML | AI architecture, LLM integration |

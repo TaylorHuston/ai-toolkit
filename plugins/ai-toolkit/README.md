@@ -23,10 +23,10 @@ cd my-project
 
 ## What You Get
 
-- **26 Workflow Commands** - Complete `/project-brief` → `/spec` → `/issue` → `/plan` → `/implement` → `/complete` cycle + utilities
+- **27 Workflow Commands** - Complete `/project-brief` → `/spec` → `/issue` → `/plan` → `/implement` → `/complete` cycle + utilities
 - **21 Specialized Agents** - Domain experts (frontend, backend, security, testing, etc.)
 - **3 Bundled MCP Servers** - Auto-configured tools (context7, sequential-thinking, playwright)
-- **Starter Template** - 50 files for organized project initialization
+- **Starter Template** - 51 files for organized project initialization
 - **File-Based State** - Session continuity via SPEC.md, TASK.md, WORKLOG.md
 - **Technology Agnostic** - Works with any tech stack
 
@@ -54,7 +54,7 @@ The AI Toolkit uses different Claude models strategically based on task requirem
 
 **Used For**:
 - **All specialist agents**: frontend, backend, database, devops, api, performance, ui-ux, data, migration, refactoring
-- **Code-focused agents**: code-architect, test-engineer, code-reviewer, technical-writer, context-analyzer
+- **Code-focused agents**: code-architect, test-engineer, code-reviewer, technical-writer, research-specialist
 - **Execution commands**: /implement, /complete, /issue, /plan, /quality, /branch, /commit, /docs, /project-status, /toolkit-init, /worklog, /changelog, /release, /troubleshoot, /sanity-check, /refresh, /jira-comment, /jira-promote, /jira-import, /ui-design, /sync-progress
 
 **Why**: Sonnet 4.5 excels at coding, code generation, documentation, and autonomous operation. Its superior performance at lower cost makes it ideal for hands-on development work.
@@ -139,7 +139,7 @@ my-project/
 /implement 001 1.1                 # Execute specific phase with agents
 ```
 
-## All Commands (26 Total)
+## All Commands (27 Total)
 
 **Setup & Strategy**: `/toolkit-init`, `/project-brief`
 **Spec & Epic Management**: `/spec`, `/jira-epic`, `/jira-import`
@@ -147,6 +147,7 @@ my-project/
 **Quality**: `/quality`, `/troubleshoot`, `/sanity-check`
 **Development**: `/branch`, `/commit`, `/worklog`, `/sync-progress`
 **Documentation & Status**: `/docs`, `/project-status`, `/changelog`, `/release`
+**Research**: `/research` (deep research with persistent docs)
 **Utilities**: `/refresh`, `/ui-design`, `/jira-comment`, `/jira-promote`
 
 See `/docs/development/misc/commands.md` in your project after `/toolkit-init` for complete command reference.

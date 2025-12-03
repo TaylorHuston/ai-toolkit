@@ -187,46 +187,95 @@ entry_length: "information_complete"         # 10-20 lines average
 
 ---
 
-## Investigation Format
+## Research Format
 
-**Use for**: External research (`context-analyzer`), documentation lookup
+**Use for**: External research (`research-specialist`), documentation lookup, `/research` command
 
-### Investigation Entry
+### Research Entry (Inline)
+
+For quick research during `/plan`, `/implement`, `/troubleshoot`:
 
 ```markdown
-## YYYY-MM-DD HH:MM - [AUTHOR: context-analyzer] (Investigation Complete|Incomplete)
+## YYYY-MM-DD HH:MM - [AUTHOR: research-specialist] (Research Complete)
+
+**Query**: [What was researched]
+**Sources**: [N] resources ([breakdown: Context7: X, blogs: Y, SO: Z, GitHub: W])
+**Output**: Inline summary
+
+**Key findings**: [2-3 sentence summary]
+
+**Top resources** (the ones that actually matter):
+1. **[Title]** - [url] - [Why this one matters]
+2. **[Title]** - [url] - [Why this one matters]
+3. **[Title]** - [url] - [Why this one matters]
+
+**Gotchas identified**: [Key warnings for implementation]
+
+→ Passing to {agent} for implementation
+```
+
+### Research Entry (Persistent Document)
+
+When creating a persistent research document via `/research`:
+
+```markdown
+## YYYY-MM-DD HH:MM - [AUTHOR: research-specialist] (Research Document Created)
 
 **Query**: [What was researched]
 **Sources**: [N] resources ([breakdown])
+**Output**: docs/project/research/{filename}.md
+
 **Key findings**: [2-3 sentence summary]
 
-**Top solutions**:
-1. [Solution] - [Brief description]
-2. [Solution] - [Brief description]
+**Document covers**:
+- [Topic area 1]
+- [Topic area 2]
+- [Topic area 3]
 
-**Curated resources**:
-- [Title] - [url] - [Why valuable]
+**Top resources included**: [N] must-read, [N] additional
 
-→ Passing findings to {agent} for implementation
+→ Document saved for future reference by /plan, /implement, /troubleshoot
 ```
 
-**Example**:
+**Example (Inline)**:
 ```markdown
-## 2025-01-16 14:45 - [AUTHOR: context-analyzer] (Investigation Complete)
+## 2025-01-16 14:45 - [AUTHOR: research-specialist] (Research Complete)
 
 **Query**: PostgreSQL JSONB aggregation performance issues
-**Sources**: 12 resources (Context7: 1, blogs: 4, SO: 5, GitHub: 2)
-**Key findings**: jsonb_agg loads entire result into memory. Three proven solutions with trade-offs.
+**Sources**: 28 resources (Context7: 2, blogs: 12, SO: 10, GitHub: 4)
+**Output**: Inline summary
 
-**Top solutions**:
-1. Chunked aggregation - Best for large datasets, requires query restructure
-2. array_agg + json_build_object - Better memory profile
-3. Increase work_mem - Quick fix, doesn't scale
+**Key findings**: jsonb_agg loads entire result into memory. Three proven solutions with different trade-offs depending on dataset size.
 
-**Curated resources**:
-- "PostgreSQL JSONB Deep Dive" - https://example.com/pg-jsonb - Benchmarks all approaches
+**Top resources** (the ones that actually matter):
+1. **"PostgreSQL JSONB Deep Dive"** - https://example.com/pg-jsonb - Has actual benchmarks comparing all approaches
+2. **"SO: jsonb_agg memory"** - https://stackoverflow.com/q/123 - Accepted answer with production-tested solution
+3. **"PG Wiki: JSON Performance"** - https://wiki.postgresql.org/json - Official guidance on memory settings
 
-→ Passing findings to backend-specialist for implementation decision
+**Gotchas identified**: work_mem setting affects all operations, not just JSON; chunked approach requires cursor management
+
+→ Passing to backend-specialist for implementation decision
+```
+
+**Example (Persistent)**:
+```markdown
+## 2025-01-16 15:30 - [AUTHOR: research-specialist] (Research Document Created)
+
+**Query**: Convex CLI capabilities
+**Sources**: 35 resources (Context7: 5, official docs: 15, GitHub: 10, community: 5)
+**Output**: docs/project/research/convex-cli-capabilities.md
+
+**Key findings**: Convex CLI covers project init, deployment, function management, data ops, and env management. Key workflow is `npx convex dev` for local, `npx convex deploy` for prod.
+
+**Document covers**:
+- All CLI commands with flags
+- Common workflows (dev, deploy, data migration)
+- Environment management patterns
+- Gotchas (deployment order, function naming)
+
+**Top resources included**: 4 must-read, 6 additional
+
+→ Document saved for future reference by /plan, /implement, /troubleshoot
 ```
 
 ---
@@ -254,9 +303,10 @@ entry_length: "information_complete"         # 10-20 lines average
 - `/troubleshoot` - Loop entries
 - During `/implement` when debugging
 
-**Investigation Format**:
-- `context-analyzer` - Research entries
-- During `/troubleshoot` research phase
+**Research Format**:
+- `research-specialist` - Research entries (inline and persistent)
+- `/research` command - Persistent document creation
+- During `/plan`, `/implement`, `/troubleshoot` research phases
 
 **Commands Reading WORKLOG**:
 - `/implement` - Understands previous work

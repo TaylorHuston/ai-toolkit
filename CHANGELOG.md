@@ -6,6 +6,47 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.41.0] - 2025-12-03
+
+### Added
+
+- **`/research` command** - Deep research on topics with persistent documentation
+  - Creates `docs/project/research/{topic-slug}.md` for reusable knowledge
+  - Auto-spawns research-specialist agent for extensive external research
+  - "Read 30 sources, return the 3 that matter" philosophy
+  - Includes decision matrices, must-read resources, gotchas, code examples
+
+- **`research-specialist` agent** - Renamed and enhanced from context-analyzer
+  - Auto-invoked when agents need external knowledge (planning, implementing, troubleshooting)
+  - Creates persistent research documents in `docs/project/research/`
+  - Distills extensive research into actionable findings
+  - Two modes: inline research (returns summary to caller) and persistent docs (creates file)
+
+- **Research entry format in WORKLOG** - New format for research activities
+  - Inline format: Sources Consulted, Key Findings, Must-Read Resources
+  - Persistent format: References research doc location
+
+- **`research-template.md`** - Template for persistent research documents
+  - Sections: Overview, Key Findings, Detailed Findings, Must-Read Resources, Gotchas, Code Examples, Decision Matrix
+
+### Changed
+
+- **`/plan` command** - Auto-invokes research-specialist for external research needs
+  - Checks `docs/project/research/` for existing research before spawning agent
+  - Research step added between context loading and analysis
+
+- **`/implement` command** - Auto-invokes research-specialist during implementation
+  - For unfamiliar API/library patterns, framework best practices, error resolution
+  - Checks existing research docs first
+
+- **`/troubleshoot` command** - Auto-invokes research-specialist in Research step
+  - For unfamiliar errors, patterns, or technologies
+  - Spawns agent instead of guessing
+
+### Removed
+
+- **`context-analyzer` agent** - Renamed to `research-specialist` with expanded capabilities
+
 ## [0.40.4] - 2025-12-03
 
 ### Fixed

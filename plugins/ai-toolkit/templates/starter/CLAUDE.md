@@ -27,7 +27,7 @@ Welcome to your AI-assisted project! This file provides essential context to Cla
 
 ## Resources
 
-**Curated links for AI research and reference** - Add high-quality resources discovered during development that you want to reference frequently. The context-analyzer agent will prioritize these when researching related topics.
+**Curated links for AI research and reference** - Add high-quality resources discovered during development that you want to reference frequently. The research-specialist agent will prioritize these when researching related topics.
 
 ### Documentation
 - [Official docs URL] - [Brief description of what makes this valuable]
@@ -57,7 +57,7 @@ Welcome to your AI-assisted project! This file provides essential context to Cla
 - Add resources as you discover them during development
 - Include WHY each resource is valuable (helps AI know when to use it)
 - Remove outdated links or mark them as deprecated
-- context-analyzer will check these first before broad web searches
+- research-specialist will check these first before broad web searches
 - Organize by category for easy scanning
 
 **Example Entry:**

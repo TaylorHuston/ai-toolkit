@@ -43,7 +43,7 @@ Choose ONE based on agent role:
 **Read-only agents** (reviewers, analyzers):
 - `Read, Grep, Glob, Bash, TodoWrite`
 - Add Serena for semantic analysis
-- Example: code-reviewer, security-auditor, context-analyzer
+- Example: code-reviewer, security-auditor, research-specialist
 
 **Implementation agents** (builders):
 - `Read, Write, Edit, MultiEdit, Bash, Grep, Glob, TodoWrite`
@@ -60,7 +60,7 @@ Choose ONE based on agent role:
 
 - **claude-sonnet-4-5** (default): Most agents
 - **claude-opus-4-5**: Critical decision-making (security-auditor, brief-strategist, project-manager, ai-llm-expert, aws-expert, azure-expert, gcp-expert)
-- **claude-3-5-haiku-latest**: Fast analysis (context-analyzer)
+- **claude-3-5-haiku-latest**: Fast analysis (lightweight tasks)
 
 ### Coordination Block Guidelines
 

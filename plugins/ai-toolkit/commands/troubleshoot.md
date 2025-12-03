@@ -65,7 +65,11 @@ Research → Hypothesize → Implement → Test → Document
 
 ### Quick Reference
 
-1. **Research** - Context7 → docs → ask user (don't guess)
+1. **Research** (auto-invoke research-specialist for external knowledge):
+   - **Check first**: `docs/project/research/` for existing research docs
+   - **Context7** for framework/library docs
+   - **Spawn research-specialist** for unfamiliar errors, patterns, or technologies
+   - Don't guess - research first
 2. **Hypothesize** - ONE theory with debug plan
 3. **Implement** - Fix + liberal debug logging
 4. **Test** - Run tests, verify logs, confirm fix

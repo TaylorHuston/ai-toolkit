@@ -6,7 +6,7 @@ model: claude-opus-4-5
 color: purple
 coordination:
   hands_off_to: [project-manager, technical-writer]
-  receives_from: [context-analyzer]
+  receives_from: [research-specialist]
   parallel_with: []
 ---
 
